@@ -1,0 +1,4 @@
+		
+		// ******************** HEROES ********************
+		"npc_dota_hero_ember_spirit"		"Rean"
+		"npc_dota_hero_windrunner"			"Alisa"

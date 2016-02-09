@@ -1,0 +1,5 @@
+Modifiers
+
+~ Physical Attack Up (modifier_str) : Physical damage increased.
+~ CP (modifier_cp_tracker_cp) : Amount of CP available for crafts.
+~ Burned (modifier_burn) : On fire, taking 3% of max HP each second.

@@ -1,0 +1,8 @@
+General
+ 
+[-] Combat Links (combat_link) : Members of Class VII automatically form Combat Links with nearby classmates, allowing them to perform powerful techniques to support each other.\n\nPhysical attacks made while linked have a chance to Unbalance, enabling a unique follow-up attack from the linked partner.
+ 
+Link Range (link_radius) : 500
+%Base Unbalance Chance (unbalance_chance) : 20%
+Followup Attack Window (unbalance_duration) : 3
+Note0 (note0) : Links will break if Class VII members move more than 550 distance away from each other.

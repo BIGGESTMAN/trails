@@ -1,0 +1,61 @@
+	"npc_dota_hero_alisa"
+	{
+		"AbilityLayout" 		"5"
+		"override_hero"			"npc_dota_hero_windrunner"
+		"SoundSet"				"0"
+		"Ability1"				"flamberge"
+		"Ability2"				"blessed_arrow"
+		"Ability3"				"molten_rain"
+		"Ability4"				"judgment_arrow"
+		"Ability5"				"heavenly_gift"
+		"Ability6"				"attribute_bonus"
+		"Ability7"				"combat_link"
+		"Ability8"				"cp_tracker"
+		"Ability9"				""
+		"Ability10"				""
+		"Ability11"				""
+		"Ability12"				""
+		"Ability13"				""
+		"Ability14"				""
+		"Ability15"				""
+		"Ability16"				""
+
+		"ArmorPhysical"				"0"									// Physical protection.
+		"MagicalResistance"			"25"								// Magical protection (percentage).
+
+		"AttackCapabilities"		"DOTA_UNIT_CAP_RANGED_ATTACK"
+		"AttackDamageMin"			"28"										// Damage range min.
+		"AttackDamageMax"			"28"										// Damage range max.
+
+		"AttributePrimary"			"DOTA_ATTRIBUTE_INTELLECT"
+		"AttributeBaseStrength"		"18"										// Base strength
+		"AttributeStrengthGain"		"2"										// Strength bonus per level.
+		"AttributeBaseAgility"		"15"										// Base agility
+		"AttributeAgilityGain"		"1.2"										// Agility bonus per level.
+		"AttributeBaseIntelligence"	"25"										// Base intelligence
+		"AttributeIntelligenceGain"	"2.7"										// Intelligence bonus per level.
+
+		//"BountyXP"					"0"										// Experience earn.
+		//"BountyGoldMin"				"0"										// Gold earned min.
+		//"BountyGoldMax"				"0"										// Gold earned max.
+
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"				"295"									// Speed.
+		"MovementTurnRate"			"0.6"									// Turning rate.
+
+		"StatusHealth"				"150"									// Base health.
+		"StatusHealthRegen"			"0"										// Health regeneration rate.
+		"StatusMana"				"0"										// Base mana.
+		"StatusManaRegen"			"0"										// Mana regeneration rate.
+
+		"VisionDaytimeRange"		"1800"									// Range of vision during day light.
+		"VisionNighttimeRange"		"800"									// Range of vision at night time.
+
+		"AttackDamageType"			"DAMAGE_TYPE_ArmorPhysical"				// Type of damage dealt. 
+		"AttackRate"				"1.7"									// Speed of attack.
+		"AttackAnimationPoint"		"0.4"									// Normalized time in animation cycle to attack.
+		"AttackRange"				"600"									// Range within a target can be attacked.
+		"AttackAcquisitionRange"	"900"									// Range within a target can be acquired.
+		//"ProjectileModel"			"particles/econ/items/leshrac/leshrac_tormented_staff/leshrac_base_attack_tormented.vpcf"							// Particle system model for projectile.
+		//"ProjectileSpeed"			"1300"									// Speed of projectile.
+	}

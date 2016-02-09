@@ -1,0 +1,63 @@
+	"npc_dota_hero_rean"
+	{
+		"AbilityLayout" 		"5"
+		"override_hero"			"npc_dota_hero_ember_spirit"
+		"SoundSet"				"0"
+		"Ability1"				"autumn_leaf_cutter"
+		"Ability2"				"motivate"
+		"Ability3"				"arc_slash"
+		"Ability4"				"azure_flame_slash"
+		"Ability5"				"gale"
+		"Ability6"				"attribute_bonus"
+		"Ability7"				"combat_link"
+		"Ability8"				"cp_tracker"
+		"Ability9"				""
+		"Ability10"				""
+		"Ability11"				""
+		"Ability12"				""
+		"Ability13"				""
+		"Ability14"				""
+		"Ability15"				""
+		"Ability16"				""
+
+		"ArmorPhysical"				"-1"									// Physical protection.
+		"MagicalResistance"			"25"								// Magical protection (percentage).
+
+		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"
+		"AttackDamageMin"			"36"										// Damage range min.
+		"AttackDamageMax"			"36"										// Damage range max.
+
+		"AttributePrimary"			"DOTA_ATTRIBUTE_AGILITY"
+		"AttributeBaseStrength"		"21"										// Base strength
+		"AttributeStrengthGain"		"2.3"										// Strength bonus per level.
+		"AttributeBaseAgility"		"22"										// Base agility
+		"AttributeAgilityGain"		"2.5"										// Agility bonus per level.
+		"AttributeBaseIntelligence"	"15"										// Base intelligence
+		"AttributeIntelligenceGain"	"2"										// Intelligence bonus per level.
+
+		//"BountyXP"					"0"										// Experience earn.
+		//"BountyGoldMin"				"0"										// Gold earned min.
+		//"BountyGoldMax"				"0"										// Gold earned max.
+
+		//"BoundsHullName"			"DOTA_HULL_SIZE_HERO"
+		//"RingRadius"				"70"
+
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"				"335"									// Speed.
+		"MovementTurnRate"			".65"									// Turning rate.
+
+		"StatusHealth"				"150"									// Base health.
+		"StatusHealthRegen"			"0"										// Health regeneration rate.
+		"StatusMana"				"0"										// Base mana.
+		"StatusManaRegen"			"0"										// Mana regeneration rate.
+
+		"VisionNighttimeRange"		"800"									// Range of vision at night time.
+
+		"AttackDamageType"			"DAMAGE_TYPE_ArmorPhysical"				// Type of damage dealt. 
+		"AttackRate"				"1.7"									// Speed of attack.
+		"AttackAnimationPoint"		"0.33"									// Normalized time in animation cycle to attack.
+		"AttackAcquisitionRange"	"350"									// Range within a target can be acquired.
+		"AttackRange"				"128"									// Range within a target can be attacked.
+		//"ProjectileModel"			"melee_hero"							// Particle system model for projectile.
+		//"ProjectileSpeed"			"900"									// Speed of projectile.
+	}

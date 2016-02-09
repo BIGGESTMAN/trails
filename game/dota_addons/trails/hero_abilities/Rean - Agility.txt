@@ -1,0 +1,24 @@
+Rean - Agility
+ 
+[Q] Autumn Leaf Cutter (autumn_leaf_cutter) : Rean dashes through enemies in target area, dealing physical damage, slowing and interrupting. +10% chance to Unbalance.\n\n<font color='#01DF01'>CP COST: 20</font>
+ 
+Cast Point : 0.2
+%Physical Damage (damage_percent) : 120
+Slow Duration (slow_duration) : 3
+%Slow (slow) : 40
+Radius (radius) : 300
+Note0 (note0) : Can only be cast if there are enemies in the target area.
+ 
+[W] Motivate (motivate) : Rean lets forth an encouraging shout, increasing nearby allies' Physical Attack and granting them CP.\n\n<font color='#01DF01'>CP COST: 30</font>
+
+Radius (radius) : 110/170/230/290
+%Physical Attack Increase (damage_increase_percent) : 25%
+Duration (damage_increase_duration) : 15
+CP (bonus_cp) : 25
+Note0 (note0) : Increases Rean's Physical Attack, but doesn't grant him CP.
+ 
+[E] Arc Slash (arc_slash) : Rean unleashes a shockwave in target direction, dealing physical damage and stunning enemies hit.
+ 
+[R] Azure Flame Slash (azure_flame_slash) : Rean bathes his sword in blue flames, and after a delay slashes target enemy, dealing physical damage to and Burning them and all nearby enemies. For a duration afterwards, Rean's physical attacks Burn enemies.
+ 
+[D] Gale (gale) : Rean rapidly slices through enemies, dealing physical damage and Disarming them before returning to where he was. +20% chance to Unbalance.

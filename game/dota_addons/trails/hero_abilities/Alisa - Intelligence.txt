@@ -1,0 +1,53 @@
+Alisa - Intelligence
+ 
+[Q] Flamberge (flamberge) : Alisa fires a piercing fire arrow at an enemy, interrupting, Burning and dealing magic damage to enemies hit. +20% chance to Unbalance.\n\n<font color='#01DF01'>CP COST: 25</font>
+ 
+Cast Point : 0.2
+%Magical Damage (damage_percent) : 140
+Burn Duration (burn_duration) : 5
+Range (range) : 1000
+ 
+[W] Blessed Arrow (blessed_arrow) : Alisa fires a blessed arrow into the air, healing allies in an area and granting them CP.
+
+Magical Damage : 110/170/230/290
+Distance to Ready (distance_to_ready) : 1050/950/850/750
+Travel Speed (speed) : 1800
+Search Radius (range) : 550
+Lore (lore) : The winds that bring news from distant lands can be honed to deliver sensational violence.
+Note0 (note0) : The gusts will target enemies in the fog of war, but not invisible units if there is no true sight available.
+ 
+[E] Molten Rain (molten_rain) : Alisa rains burning arrows onto enemies, dealing magic damage in a large area.
+ 
+Minimum Bonus Attack Damage (minimum_damage) : 10
+Maximum Bonus Attack Damage (maximum_damage) : 60/130/200/270
+Maximum Damage Distance (max_damage_distance) : 1500
+%Move Speed Bonus (movespeed) : 8/12/16/20%
+Lore (lore) : After leveling his home and the ancient sequoia, the North Wind tore off the traveler's cloak.
+Note0 (note0) : The minimum bonus damage is 10.
+ 
+[R] Judgment Arrow (judgment_arrow) : Alisa annihilates enemies in a line with an arrow of judgment, dealing magic damage and Silencing them. Enemies hit are pulled along with the arrow.
+ 
+Cast Point : 0.1
+Magical Damage (damage) : 100/150/200
+Illusionary Dominance Duration (duration) : 11/14/17
+Cast Range (range) : 1500
+Gust Travel Speed (speed) : 1500
+Gust Radius (radius) : 225
+Mana : 190
+Cooldown : 80/70/60
+Lore (lore) : With a stretch of her wings, Aya is ready to prove that she's the fastest thing alive in Gensokyo.
+ 
+[D] Heavenly Gift (heavenly_gift) : Alisa grants allies in an area Insight, granting them evasion and gradual CP gain.
+ 
+Cooldown Reduction per Physical Damage Instance (cooldown_reduction) : 0.5
+Minimum Cooldown : 0.25
+Travel Speed Increase per Physical Damage Instance (speed_increase) : 300
+Travel Speed (speed) : 2500
+Max Travel Speed : 4000
+Cast Range (range) : 700/850/1000
+Radius (radius) : 225
+Mana : 40
+Cooldown : 3/2.5/2
+Lore (lore) : Unparalleled speed.
+Note0 (note0) : The maximum travel speed is 4000.
+Note1 (note1) : The minimum cooldown is 0.25 seconds.

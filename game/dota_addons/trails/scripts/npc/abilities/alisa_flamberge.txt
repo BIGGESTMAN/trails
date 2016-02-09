@@ -1,0 +1,70 @@
+	"flamberge"
+	{
+		"BaseClass"						"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"MaxLevel"						"1"
+
+		"AbilityTextureName"			"clinkz_searing_arrows"
+		"AbilityCastAnimation"			""
+
+		"precache"
+		{
+			"particle"					"particles/crafts/alisa/flamberge/flamberge.vpcf"
+		}
+
+		"AbilityCastPoint"				"0.2"
+		"AbilityCooldown"				"0"
+		"AbilityManaCost"				"0"
+		"CPCost"						"25"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"radius"				"200"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"damage_percent"		"140"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"bonus_unbalance_chance"	"20"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"travel_speed"			"800"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"range"					"1000"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"burn_duration"			"5"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"crafts/alisa/flamberge"
+				"Function"		"spellCast"
+			}
+		}
+
+		"Modifiers"
+		{
+			
+		}
+	}

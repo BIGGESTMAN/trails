@@ -1,0 +1,109 @@
+	"combat_link"
+	{
+		"BaseClass"						"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"MaxLevel"						"1"
+
+		"AbilityTextureName"			"terrorblade_conjure_image"
+		"AbilityCastAnimation"			"ACT_DOTA_ATTACK"
+
+		"precache"
+		{
+			"particle"					"particles/units/heroes/hero_wisp/wisp_tether.vpcf"
+			"particle"					"particles/units/heroes/hero_brewmaster/brewmaster_drunken_haze_debuff.vpcf"
+		}
+
+		"AbilityCastPoint"				"0"
+		"AbilityCooldown"				"0"
+		"AbilityManaCost"				"0"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"link_radius"			"500"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"link_break_range"		"550"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"unbalance_chance"		"20"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"unbalance_duration"	"3"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"combat_links"
+				"Function"		"followupAttack"
+			}
+		}
+
+		"Modifiers"
+		{
+			"modifier_combat_link_passive"
+			{
+				"Passive"	"1"
+				"IsHidden"	"1"
+
+				"ThinkInterval"  "0.03"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"combat_links"
+						"Function"		"checkForLink"
+					}
+				}
+			}
+
+			"modifier_combat_link_linked"
+			{
+				"OnAttackLanded"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"combat_links"
+						"Function"		"attackLanded"
+					}
+				}
+			}
+
+			"modifier_combat_link_followup_available"
+			{
+				"Duration" "%unbalance_duration"
+
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"combat_links"
+						"Function"		"deactivateActive"
+					}
+				}
+			}
+
+			"modifier_combat_link_unbalanced"
+			{
+				"Duration" "%unbalance_duration"
+
+				"IsDebuff"	"1"
+
+				"EffectName"		"particles/units/heroes/hero_brewmaster/brewmaster_drunken_haze_debuff.vpcf"
+				"EffectAttachType"	"follow_origin"
+			}
+		}
+	}

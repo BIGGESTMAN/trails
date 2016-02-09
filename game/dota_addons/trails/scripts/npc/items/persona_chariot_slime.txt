@@ -1,0 +1,42 @@
+	"item_slime"
+	{
+		"ID"							"2001"
+		"BaseClass"						"item_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"Model"							"models/props_gameplay/red_box.vmdl" 
+		"Effect"						"particles/generic_gameplay/dropped_item.vpcf"
+
+		"AbilityTextureName"			"item_slime"
+		"AbilityCastAnimation"			"ACT_DOTA_DISABLED"
+		"ItemAliases"					"slime"
+		
+		"AbilityCooldown"				"6"
+		"AbilityCastPoint"				"0.5"
+		"AbilityManaCost"				"0"
+		"ItemCost"						"400"
+		"ItemDroppable"					"0"
+		"ItemSellable"					"0"
+
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+
+		"ItemShareability"				"ITEM_NOT_SHAREABLE"
+		
+		"MaxUpgradeLevel"				"1"
+		"ItemBaseLevel"					"1"
+		
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"		"powerup_04"
+				"Target"			"CASTER"
+			}
+				
+			"RunScript"
+			{
+				"ScriptFile"	"personas.lua"
+				"Function"		"Activate"
+				"persona"		"slime"
+			}
+		}
+	}

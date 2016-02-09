@@ -1,0 +1,25 @@
+		"game_mode_15"				"Trails"
+		"addon_game_name"			"Trails"
+		
+		"barebones_instructions_title"					"Trails of Cold Dota"
+		"barebones_instructions_body"					"<font color='#00BFFF'>Welcome to Barebones!</font>\nYou can edit this message in game/dota_addons/barebones/resource/addon_english.txt"
+
+		// ******************** UNITS ********************
+		"npc_dummy_unit"                                                                  "Dummy Unit"
+		"npc_dummy_blank"                                                                 "Dummy Blank"
+		"npc_precache_everything"                                                         "Precache Everything"
+
+		// ******************** ITEM MODIFIERS ********************
+		"DOTA_Tooltip_modifier_item_shield"                                               "Item Shield"
+		"DOTA_Tooltip_modifier_item_shield_Description"                                   ""
+
+		// ******************** ITEMS ********************
+		"DOTA_Tooltip_ability_item_example_item"										"Shield Blaster"
+		"DOTA_Tooltip_ability_item_example_item_Description"							"Gives the caster a 50% damage reduction for 4 seconds while firing a projectile that deals damage 125 PURE damage to any enemy it hits."
+		"DOTA_Tooltip_ability_item_example_item_Lore"								""
+		"DOTA_Tooltip_ability_item_example_item_duration"							"DURATION:"
+		"DOTA_Tooltip_ability_item_example_item_damage_reduction"							"DAMAGE REDUCTION:"
+		"DOTA_Tooltip_ability_item_example_item_radius"							"PROJECTILE RADIUS:"
+		"DOTA_Tooltip_ability_item_example_item_speed"							"PROJECTILE SPEED:"
+		"DOTA_Tooltip_ability_item_example_item_distance"							"DISTANCE:"
+		"DOTA_Tooltip_ability_item_example_item_damage"							"DAMAGE:"
