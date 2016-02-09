@@ -1,0 +1,76 @@
+Quartz
+ 
+[F] Fire Bolt (fire_bolt) : Launches a blazing orb of fire at an enemy, dealing fire damage.\n\nFire damage has a chance to Burn victims, dealing damage over time based on the target's maximum HP.\n\n<font color='#01DF01'>DELAY: 0.5</font>
+ 
+%Fire Damage (damage_percent) : 200
+Range (tooltip_cast_range) : 800
+Burn Chance (burn_chance) : 20
+Burn Duration (burn_duration) : 5
+Mana Cost: 20
+ 
+[F] Heatwave (heatwave) : Covers the earth's surface with intense heat, dealing fire damage to enemies in a small area.\n\nFire damage has a chance to Burn victims, dealing damage over time based on the target's maximum HP.\n\n<font color='#01DF01'>DELAY: 1.5</font>
+ 
+%Fire Damage (damage_percent) : 250
+Range (tooltip_cast_range) : 800
+Burn Chance (burn_chance) : 20
+Burn Duration (burn_duration) : 6
+Mana Cost: 0
+ 
+[F] Flame Tongue (flame_tongue) : Causes flames to erupt from the ground and skewer enemies in an area, dealing fire damage.\n\nFire damage has a chance to Burn victims, dealing damage over time based on the target's maximum HP.\n\n<font color='#01DF01'>DELAY: 2.0</font>
+ 
+%Fire Damage (damage_percent) : 300
+Range (tooltip_cast_range) : 800
+Burn Chance (burn_chance) : 20
+Burn Duration (burn_duration) : 7
+Mana Cost: 0
+ 
+[F] Volcanic Rain (volcanic_rain) : Causes incandescent volcanic bombs to rain from the sky, dealing fire damage in a large area.\n\nFire damage has a chance to Burn victims, dealing damage over time based on the target's maximum HP.\n\n<font color='#01DF01'>DELAY: 2.5</font>
+ 
+%Fire Damage (damage_percent) : 350
+Range (tooltip_cast_range) : 800
+Burn Chance (burn_chance) : 20
+Burn Duration (burn_duration) : 8
+Mana Cost: 0
+ 
+[F] Flare Bomb (flare_bomb) : Summons two flames which collide in a great explosion, dealing fire damage in a huge area.\n\nFire damage has a chance to Burn victims, dealing damage over time based on the target's maximum HP.\n\n<font color='#01DF01'>DELAY: 3.0</font>
+ 
+%Fire Damage (damage_percent) : 400
+Range (tooltip_cast_range) : 800
+Burn Chance (burn_chance) : 20
+Burn Duration (burn_duration) : 9
+Mana Cost: 0
+ 
+[F] Purgatorial Flame (purgatorial_flame) : Summons the flames of Gehenna to reduce enemies to ash, dealing fire damage and Burning in a small area.\n\n<font color='#01DF01'>DELAY: 3.5</font>
+ 
+%Fire Damage (damage_percent) : 550
+Range (tooltip_cast_range) : 800
+Burn Duration (burn_duration) : 12
+Mana Cost: 0
+ 
+[F] Forte (forte) : Increases an ally's Physical Attack with the power of fire.\n\n<font color='#01DF01'>DELAY: 1.5</font>
+
+%Physical Attack Increase (damage_increase_percent) : 25%
+Duration (damage_increase_duration) : 10
+Range (tooltip_cast_range) : 800
+Mana Cost: 30
+ 
+[F] La Forte (la_forte) : Increases Physical Attack of allies in target area with the power of fire.\n\n<font color='#01DF01'>DELAY: 2.5</font>
+
+%Physical Attack Increase (damage_increase_percent) : 25%
+Duration (damage_increase_duration) : 10
+Range (tooltip_cast_range) : 800
+Radius (radius) : 300
+Mana Cost: 60
+ 
+[F] Impassion (impassion) : Raises an ally's spirit, granting them Passion.\n\nPassion grants gradual CP regeneration.\n\n<font color='#01DF01'>DELAY: 2.0</font>
+
+CP Per Second : (cp_regen) : 5
+Duration (duration) : 10
+Range (tooltip_cast_range) : 800
+Mana Cost: 40
+ 
+[F] Heat Up (heat_up) : Cleanses an ally with fire's spirit, curing negative statuses and granting CP.\n\n<font color='#01DF01'>DELAY: 3.0</font>
+
+CP (bonus_cp) : 35
+Range (tooltip_cast_range) : 800
+Mana Cost: 50

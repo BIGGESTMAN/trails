@@ -37,7 +37,7 @@ Mana : 190
 Cooldown : 80/70/60
 Lore (lore) : With a stretch of her wings, Aya is ready to prove that she's the fastest thing alive in Gensokyo.
  
-[D] Heavenly Gift (heavenly_gift) : Alisa grants allies in an area Insight, granting them evasion and gradual CP gain.
+[D] Heavenly Gift (heavenly_gift) : Alisa grants allies in an area Insight and Passion.\n\nInsight allows evasion of physical attacks. Passion grants gradual CP regeneration.
  
 Cooldown Reduction per Physical Damage Instance (cooldown_reduction) : 0.5
 Minimum Cooldown : 0.25
