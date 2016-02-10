@@ -9,17 +9,17 @@
 		"npc_dummy_blank"                                                                 "Dummy Blank"
 		"npc_precache_everything"                                                         "Precache Everything"
 
-		// ******************** ITEM MODIFIERS ********************
-		"DOTA_Tooltip_modifier_item_shield"                                               "Item Shield"
-		"DOTA_Tooltip_modifier_item_shield_Description"                                   ""
+		"DOTA_Shop_Category_0"		"FIRE"
+		"DOTA_Shop_Category_1"		"EARTH"
+		"DOTA_Shop_Category_2"		"WATER"
+		"DOTA_Shop_Category_3"		"WIND"
 
-		// ******************** ITEMS ********************
-		"DOTA_Tooltip_ability_item_example_item"										"Shield Blaster"
-		"DOTA_Tooltip_ability_item_example_item_Description"							"Gives the caster a 50% damage reduction for 4 seconds while firing a projectile that deals damage 125 PURE damage to any enemy it hits."
-		"DOTA_Tooltip_ability_item_example_item_Lore"								""
-		"DOTA_Tooltip_ability_item_example_item_duration"							"DURATION:"
-		"DOTA_Tooltip_ability_item_example_item_damage_reduction"							"DAMAGE REDUCTION:"
-		"DOTA_Tooltip_ability_item_example_item_radius"							"PROJECTILE RADIUS:"
-		"DOTA_Tooltip_ability_item_example_item_speed"							"PROJECTILE SPEED:"
-		"DOTA_Tooltip_ability_item_example_item_distance"							"DISTANCE:"
-		"DOTA_Tooltip_ability_item_example_item_damage"							"DAMAGE:"
+		"DOTA_Shop_Category_4"		"TIME"
+		"DOTA_Shop_Category_5"		"SPACE"
+		"DOTA_Shop_Category_6"		"MIRAGE"
+		"DOTA_Shop_Category_7"		"I DON'T KNOW"
+		"DOTA_Shop_Category_8"		"WHAT TO PUT"
+		"DOTA_Shop_Category_9"		"HERE"
+
+		"DOTA_Shop_Category_Basics"				"BASIC ELEMENTS"
+		"DOTA_Shop_Category_Upgrades"			"HIGHER ELEMENTS"

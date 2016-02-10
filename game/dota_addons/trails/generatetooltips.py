@@ -2,6 +2,7 @@ import os
 
 ability_prefix = "\"DOTA_Tooltip_Ability_"
 modifier_prefix = "\"DOTA_Tooltip_"
+item_prefix = "item_"
 directoryname = "hero_abilities"
 filenames = os.listdir(directoryname)
 
@@ -20,7 +21,8 @@ for fname in filenames:
 
 			if line[0] == '[':
 				ability = {}
-				truncated_line = line[len('[x] '):]
+				bracket_info, truncated_line = line[1:].split("] ")
+				ability['is_quartz'] = len(bracket_info) > 1
 				# print(truncated_line)
 				ability['name'], rest_of_line = truncated_line.split(' (')
 				ability['internal_name'], ability['desc'] = rest_of_line.split(") : ")
@@ -43,12 +45,11 @@ for fname in filenames:
 
 			# print(line)
 
-			# Special case for aghs descriptions, woo good code
-			if (ability and "Scepter - " in line):
-				ability['effects'].append((line[len("Scepter - "):], "Aghanim_Description"))
+			if ("Delay" in line):
+				nil, ability['delay'] = line.split(': ')
 				continue
 			
-			if (not ability) or ("(" not in line) or ("(Scepter" in line):
+			if (not ability) or ("(" not in line):
 				continue
 
 			special = any((special_value in line) for special_value in special_values)
@@ -67,13 +68,22 @@ for fname in filenames:
 with open('resource/tooltips/generated_tooltips.txt', mode='w', encoding='utf-8') as outfile:
 	outfile.write("\n")
 	for ability in abilities:
+		current_ability_prefix = ability_prefix
+		if ability['is_quartz']:
+			current_ability_prefix = current_ability_prefix + item_prefix
+
 		name = ability['internal_name'].replace(" ", "_")
-		outfile.write('\t\t{}{}" "{}"\n'.format(ability_prefix, name, ability['name']))
-		outfile.write('\t\t{}{}_Description" "{}"\n'.format(ability_prefix, name, ability['desc']))
+		outfile.write('\t\t{}{}" "{}"\n'.format(current_ability_prefix, name, ability['name']))
+
+		delay_string = ""
+		if ability['is_quartz']:
+			delay_string = r"\n\n<font color='#0040FF'>DELAY: {}</font>".format(ability['delay'])
+		outfile.write('\t\t{}{}_Description" "{}{}"\n'.format(current_ability_prefix, name, ability['desc'], delay_string))
+
 		for effect, key in ability['effects']:
 			# print(key)
 			# print(effect)
-			outfile.write('\t\t{}{}_{}" "{}"\n'.format(ability_prefix, name, key, effect))
+			outfile.write('\t\t{}{}_{}" "{}"\n'.format(current_ability_prefix, name, key, effect))
 		outfile.write("\n")
 	for modifier in modifiers:
 		name = modifier['internal_name'].replace(" ", "_")
