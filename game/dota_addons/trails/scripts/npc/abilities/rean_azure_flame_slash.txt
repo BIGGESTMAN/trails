@@ -1,0 +1,99 @@
+	"azure_flame_slash"
+	{
+		"BaseClass"						"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+		"MaxLevel"						"1"
+
+		"AbilityTextureName"			"rean_azure_flame_slash"
+		"AbilityCastAnimation"			""
+
+		"precache"
+		{
+			"particle"					"particles/crafts/rean/azure_flame_slash/slash.vpcf"
+		}
+
+		"AbilityCastPoint"				"0"
+		"AbilityCooldown"				"0"
+		"AbilityManaCost"				"0"
+		"AbilityCastRange"				"150"
+		"AbilityChannelTime"			"1.5"
+		"AOERadius"						"250"
+		"CPCost"						"0"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"radius"				"250"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"damage_percent"		"250"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"break_range"			"400"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"duration"				"10"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"burn_duration"			"5"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"crafts/rean/azure_flame_slash"
+				"Function"		"spellCast"
+			}
+		}
+
+		"OnChannelFinish"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"crafts/rean/azure_flame_slash"
+				"Function"		"channelFinish"
+			}
+		}
+
+		"Modifiers"
+		{
+			"modifier_azure_flame_slash_casting"
+			{
+				"States"
+				{
+					"MODIFIER_STATE_COMMAND_RESTRICTED"		"MODIFIER_STATE_VALUE_ENABLED"
+				}
+
+				"ThinkInterval"  "0.03"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"crafts/rean/azure_flame_slash"
+						"Function"		"updateFacing"
+					}
+				}
+			}
+
+			"modifier_azure_flame_slash_sword_inflamed"
+			{
+				"Duration"	"%duration"
+			}
+		}
+	}

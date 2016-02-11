@@ -70,7 +70,7 @@ end
 function setCraftActivatedStatus(unit)
 	for i=0,unit:GetAbilityCount() - 1 do
 		local ability = unit:GetAbilityByIndex(i)
-		if ability then ability:SetActivated(ability:GetName() ~= "combat_link" and unit:FindModifierByName("modifier_cp_tracker_cp"):GetStackCount() >= getCPCost(ability)) else break end
+		if ability and ability:GetName() ~= "combat_link" then ability:SetActivated(unit:FindModifierByName("modifier_cp_tracker_cp"):GetStackCount() >= getCPCost(ability)) else break end
 	end
 end
 

@@ -14,6 +14,11 @@ function Filters:DamageFilter(event)
 	if damage_type == DAMAGE_TYPE_PHYSICAL and attacker:HasModifier(STAT_STR) then
 		event.damage = event.damage * (1 + (attacker:FindModifierByName(STAT_STR):GetStackCount() / 100))
 	end
+	if damage_type == DAMAGE_TYPE_PHYSICAL and attacker:HasModifier("modifier_azure_flame_slash_sword_inflamed") then
+		local ability = attacker:FindAbilityByName("azure_flame_slash")
+		local burn_duration = ability:GetSpecialValueFor("burn_duration")
+		target:AddNewModifier(attacker, ability, "modifier_burn", {duration = burn_duration})
+	end
 	return true
 end
 

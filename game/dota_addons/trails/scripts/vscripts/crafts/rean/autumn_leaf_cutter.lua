@@ -11,8 +11,6 @@ function spellCast(keys)
 	local dash_speed = ability:GetSpecialValueFor("dash_speed")
 	local radius = ability:GetSpecialValueFor("radius")
 
-	modifyCP(caster, getCPCost(ability) * -1)
-
 	local team = caster:GetTeamNumber()
 	local origin = target
 	local iTeam = DOTA_UNIT_TARGET_TEAM_ENEMY
@@ -22,6 +20,7 @@ function spellCast(keys)
 	local targets = FindUnitsInRadius(team, origin, nil, radius, iTeam, iType, iFlag, iOrder, false)
 
 	if #targets > 0 then
+		modifyCP(caster, getCPCost(ability) * -1)
 		dash(caster, (target - caster:GetAbsOrigin()):Normalized(), dash_speed, (target - caster:GetAbsOrigin()):Length2D(), false, secondaryDash)
 	else
 		Notifications:Bottom(keys.caster:GetPlayerOwner(), {text="Target Area Must Contain Enemies", duration=1, style={color="red"}})
