@@ -1,0 +1,43 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/custom_game/hero_select.css" />
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+	</styles>
+	<scripts>
+		<include src="s2r://panorama/scripts/custom_game/hero_select.vjs_c" />
+	</scripts>
+	<Panel hittest="true" class="HeroSelect"> 
+		<DOTAScenePanel id="Background" camera="shot_cameraA" map="backgrounds/dashboard_parallax_test"/>
+
+		<!--
+		<Panel class="DOTAReturnToDashboardOverlay">		
+			<Button class="DOTAShowDashboardButton" />
+		</Panel>
+		-->
+
+		<Label id="Header" text="#HeroSelect_Header" />
+
+		<Panel id="HeroFigureContainer"></Panel>
+
+		<Panel id="HeroListContainer" />
+
+		<Panel id="HeroInfoContainer">
+			<Panel class="Inner">
+				<Label id="HeroName" text="" />
+				<Label id="HeroDescription" text="" />
+<!-- 
+				<Label class="Header" text="#HeroSelect_Passive"/>
+				<Panel class="HeroAbilityContainer" id="HeroPassiveAbilityContainer" /> -->
+				<Label class="Header" text="#HeroSelect_Abilities"/>
+				<Panel class="HeroAbilityContainer" id="HeroAbilityContainer" />
+				<Label class="Header" text="#HeroSelect_Scraft"/>
+				<Panel class="HeroAbilityContainer" id="HeroScraftAbilityContainer" />
+			</Panel>
+		</Panel>
+
+		<Button id="PickButton" class="ButtonBevel" onactivate="OnPickButtonClicked()">
+			<Label text="#HeroSelect_PickButton" id="PickButtonLabel" />
+		</Button>
+		<Label id="PickLoading" text="#HeroSelect_Loading" />
+	</Panel>
+</root>

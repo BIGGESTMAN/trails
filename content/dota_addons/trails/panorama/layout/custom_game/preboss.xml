@@ -1,0 +1,24 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/custom_game/preboss.vcss_c" />
+		<include src="s2r://panorama/styles/custom_game/shared.vcss_c" />
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+	</styles>
+	<scripts>
+		<include src="s2r://panorama/scripts/custom_game/preboss.vjs_c" />
+	</scripts>
+	<Panel hittest="false" class="PreBossWindow BossrushGenericWindow"> 
+		<Label hittest="false" id="Header" text="#preboss_info_header" />
+		<Label hittest="false" id="Text" html="true" text="#preboss_info_text" />
+
+		<!-- <Label hittest="false" class="SubHeader" text="#preboss_nextboss_header" /> -->
+
+		<Label hittest="false" class="SubHeader" text="#preboss_tips_header" />
+		<Label hittest="false" id="TipsText" html="true" text="#preboss_tips_text" />
+
+		<Button hittest="true" id="ReadyButton" class="ButtonBevel" onactivate="OnPreBossReadyClicked()">
+			<Label text="#readyup" />
+		</Button>
+		<Label hittest="false" id="ReadyText" html="false" text="#you_are_ready" />
+	</Panel>
+</root>

@@ -1,0 +1,16 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/custom_game/image_loader.vcss_c" />
+	</styles>
+	<scripts>
+	</scripts>
+	<Panel>
+		<Panel id="image_loader">
+			<Image src="file://{images}/heroes/npc_dota_hero_ember_spirit.png" />
+			<Image src="file://{images}/heroes/npc_dota_hero_windrunner.png" />
+			<Image src="file://{images}/spellicons/rean_autumn_leaf_cutter.png" />
+			<Image src="file://{images}/spellicons/rean_azure_flame_slash.png" />
+			<Image src="file://{images}/spellicons/rean_gale.png" />
+		</Panel>
+	</Panel>
+</root>

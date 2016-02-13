@@ -4,6 +4,7 @@ require "projectile_list"
 require "filters"
 require "combat_links"
 require "game_functions"
+require "custom_hero_select"
 
 imported_model_characters = {}
 
@@ -150,6 +151,8 @@ function GameMode:InitGameMode()
 	self.nDireKills = 0
 
 	self.bSeenWaitForPlayers = false
+	
+	CustomHeroSelect:Initialize()
 
 	-- Commands can be registered for debugging purposes or as functions that can be called by the custom Scaleform UI
 	--Convars:RegisterCommand( "command_example", Dynamic_Wrap(dotacraft, 'ExampleConsoleCommand'), "A console command example", 0 )
@@ -289,10 +292,6 @@ end
   The hero parameter is the hero entity that just spawned in.
 ]]
 
-LinkLuaModifier("modifier_amaterasu_heal_tracker", "heroes/hero_keine/modifier_amaterasu_heal_tracker.lua", LUA_MODIFIER_MOTION_NONE )
-LinkLuaModifier("modifier_total_purification_damage_tracker", "heroes/hero_keine/modifier_total_purification_damage_tracker.lua", LUA_MODIFIER_MOTION_NONE )
-LinkLuaModifier("modifier_emperor_location_tracker", "heroes/hero_keine/modifier_emperor_location_tracker.lua", LUA_MODIFIER_MOTION_NONE )
-
 function GameMode:OnHeroInGame(hero)
 	print("[BAREBONES] Hero spawned in game for first time -- " .. hero:GetUnitName())
 
@@ -303,10 +302,8 @@ function GameMode:OnHeroInGame(hero)
 	-- Store this hero handle in this table.
 	table.insert(self.vPlayers, hero)
 
-	-- This line for example will set the starting gold of every hero to 500 unreliable gold
 	hero:SetGold(625, false)
 
-	-- These lines will create an item and add it to the player, effectively ensuring they start with the item
 	Timers:CreateTimer(0.03, function() -- Give illusions a frame to acquire the illusion modifier
 		if not hero:IsIllusion() then
 			if STARTING_ITEMS then
@@ -330,6 +327,11 @@ function GameMode:OnHeroInGame(hero)
 		hero:FindAbilityByName("combat_link"):SetActivated(false)
 		hero:FindAbilityByName("cp_tracker"):SetLevel(1)
 		modifyCP(hero, 0)
+	end
+
+	-- Custom hero select trigger
+	if CustomHeroSelect:IsPlaceholderHero(hero) then
+		CustomHeroSelect:OnHeroInGame(hero)
 	end
 end
 
@@ -438,7 +440,7 @@ end
 function GameMode:OnEntityHurt(keys)
 	--print("[BAREBONES] Entity Hurt")
 	--DeepPrintTable(keys)
-	local entCause = EntIndexToHScript(keys.entindex_attacker)
+	if keys.entindex_attacker then local entCause = EntIndexToHScript(keys.entindex_attacker) end
 	local entVictim = EntIndexToHScript(keys.entindex_killed)
 end
 

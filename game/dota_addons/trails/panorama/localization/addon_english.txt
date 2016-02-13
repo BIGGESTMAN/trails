@@ -16,5 +16,65 @@
 	"DOTA_Custom7"    								"Olive Snake"
 	"DOTA_Custom8"    								"Purple Horse"
 	
-	"addonname"										"Barebones"
+	"addonname"										"Trails of Cold Dota"
+
+	"announce_defeat"								"DEFEATED"
+	"announce_victory"								"VICTORY"
+	"announce_prepare_respawn"						"Reviving - try again!"
+
+	"damagemeter_header"							"DAMAGE DEALT"
+	
+	"preboss_info_header"							"PREPARE FOR COMBAT"
+	"preboss_info_text"								"<p>Prepare for your next encounter by purchasing food and quartz and discussing tactics with your teammates.</p><p>When you are ready to proceed, press the 'Ready' button below.</p>"
+
+	"preboss_tips_header"							"DUDE"
+	"preboss_tips_text"								"<ul><li>Look at how fancy this shit is</li></ul>"
+
+	"preboss_nextboss_header"						"NEXT ENEMY"
+
+	"close"											"Close"
+	"readyup"										"Ready"
+	"you_are_ready"									"Waiting for other players to ready up..."
+
+	"quest_time_bossteleport"						"Encounter begins"
+	"quest_time_reviving"							"Reviving"
+
+	"victory_lbl_time"								"Time Taken"
+	"victory_lbl_consumables"						"Consumables Used"
+	"victory_lbl_deaths"							"Deaths"
+	"victory_lbl_rating"							"Rank"
+	"victory_lbl_cash"								"Gold Reward"
+
+
+
+
+	"HeroSelect_Header"								"Select Your Hero"
+	"HeroSelect_PickButton"							"Pick {s:name}"
+
+	"HeroSelect_Passive"							"ARCUS Ability"
+	"HeroSelect_Abilities"							"Crafts"
+	"HeroSelect_Scraft"								"S-Craft"
+	"HeroSelect_Loading"							"Loading..."
+
+	"npc_dota_hero_ember_spirit_Lore"				"The leader of Class VII. As a beginner in the Eight Leaves One Blade school of swordfighting, Rean uses powerful physical attacks to disrupt and elude enemies."
+	"npc_dota_hero_windrunner_Lore"					"The heir to the Empire's largest industrial group, Alisa's technical knowledge and skill with the bow allow her to support her allies and devastate her enemies with wide-area magic effects."
+
+
+
+
+
+	
+	"quest_counter"									"({d:count}/{d:max})"
+	"quest_timer"									"{s:title} in {d:time}..."
+	"quest_boss"									"A strong enemy has appeared! Take it down!"
+	"quest_postboss_cleanup"						"Defeat remaining invaders!"
+
+	"quest_megaboss_begin"							"The portal is open! Enter when you are ready..."
+
+
+	"wave_complete"									"Wave Complete"
+
+	"wave_kobolds"									"Round 1: Woodland Critters"
+	"wave_ogres"									"Round 2: Ogres & Trolls"
+	"wave_unknown"									"Round ?: ???"
 }

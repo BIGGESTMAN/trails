@@ -7,20 +7,22 @@ if not Filters then
 end
 
 function Filters:DamageFilter(event)
-	local attacker = EntIndexToHScript(event.entindex_attacker_const)
+	if event.entindex_attacker_const then local attacker = EntIndexToHScript(event.entindex_attacker_const) end
 	local target = EntIndexToHScript(event.entindex_victim_const)
 	local damage_type = event.damagetype_const
 	local damage = event.damage
-	if damage_type == DAMAGE_TYPE_PHYSICAL and attacker:HasModifier(STAT_STR) then
-		event.damage = event.damage * (1 + (attacker:FindModifierByName(STAT_STR):GetStackCount() / 100))
-	end
-	if damage_type == DAMAGE_TYPE_PHYSICAL and attacker:HasModifier(STAT_STR_DOWN) then
-		event.damage = event.damage * (1 - (attacker:FindModifierByName(STAT_STR_DOWN):GetStackCount() / 100))
-	end
-	if damage_type == DAMAGE_TYPE_PHYSICAL and attacker:HasModifier("modifier_azure_flame_slash_sword_inflamed") then
-		local ability = attacker:FindAbilityByName("azure_flame_slash")
-		local burn_duration = ability:GetSpecialValueFor("burn_duration")
-		target:AddNewModifier(attacker, ability, "modifier_burn", {duration = burn_duration})
+	if attacker then
+		if damage_type == DAMAGE_TYPE_PHYSICAL and attacker:HasModifier(STAT_STR) then
+			event.damage = event.damage * (1 + (attacker:FindModifierByName(STAT_STR):GetStackCount() / 100))
+		end
+		if damage_type == DAMAGE_TYPE_PHYSICAL and attacker:HasModifier(STAT_STR_DOWN) then
+			event.damage = event.damage * (1 - (attacker:FindModifierByName(STAT_STR_DOWN):GetStackCount() / 100))
+		end
+		if damage_type == DAMAGE_TYPE_PHYSICAL and attacker:HasModifier("modifier_azure_flame_slash_sword_inflamed") then
+			local ability = attacker:FindAbilityByName("azure_flame_slash")
+			local burn_duration = ability:GetSpecialValueFor("burn_duration")
+			target:AddNewModifier(attacker, ability, "modifier_burn", {duration = burn_duration})
+		end
 	end
 	return true
 end

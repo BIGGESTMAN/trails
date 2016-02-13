@@ -1,0 +1,205 @@
+.HeroSelect {
+	width: 100%;
+	height: 100%;
+	background-color: #303030;
+}
+
+#HeroListContainer {
+	margin-left: 30px;
+	width: 500px;
+	horizontal-align: left;
+	vertical-align: center;
+	flow-children: down;
+}
+
+#HeroListContainer .HeroSelectCard {
+	horizontal-align: center;
+}
+
+.HeroSelect #PickButton {
+	horizontal-align: center;
+	vertical-align: bottom;
+	margin-bottom: 50px;
+	width: 500px;
+	height: 80px;
+}
+.HeroSelect #PickButton Label {
+	font-size: 30px;
+}
+
+#PickLoading {
+	opacity: 0;
+	horizontal-align: center;
+	vertical-align: bottom;
+	margin-bottom: 60px;
+	font-size: 40px;
+	text-transform: uppercase;
+	text-shadow: 0px 0px 12px 4.0;
+}
+
+.HeroSelect #Header {
+	horizontal-align: center;
+	text-transform: uppercase;
+	font-size: 64px;
+	margin-top: 40px;
+	text-shadow: 0px 0px 24px 8.0;
+}
+
+.HeroSelect #HeroFigureContainer {
+	width: 800px;
+	height: 800px;
+	horizontal-align: center;
+	vertical-align: center;
+	opacity-mask: url("s2r://panorama/images/masks/softedge_box_png.vtex");
+}
+
+.HeroSelect #HeroFigureContainer Panel {
+	width: 100%;
+	height: 100%;
+	horizontal-align: center;
+	vertical-align: center;
+}
+
+.HeroSelect #Background {
+	width: 100%;
+	height: 100%;
+}
+
+.HeroSelect #HeroInfoContainer {
+	width: 500px;
+	height: 100%;
+	padding: 30px;
+	margin-right: 0;
+	horizontal-align: right;
+	background-color: #000000a8;
+}
+
+#HeroInfoContainer .Inner {
+	width: 100%;
+	height: 100%;
+	vertical-align: top;
+	flow-children: down;
+}
+
+#HeroName {
+	font-size: 40px;
+	font-family: Goudy Trajan;
+	color: #f0f0f0;
+	margin-bottom: 30px;
+	text-shadow: 0px 0px 24px 4.0;
+}
+
+#HeroDescription {
+	font-size: 20px;
+	margin-bottom: 30px;
+}
+
+#HeroInfoContainer .Header {
+	color: #a0a0a0	;
+	border-bottom: 1px solid #a0a0a0;
+	text-transform: uppercase;
+	font-size: 28px;
+	margin-bottom: 16px;
+	width: 100%;
+}
+
+#HeroInfoContainer .HeroAbilityContainer {
+	margin-bottom: 10px;
+	height: fit-children;
+	flow-children: down;
+}
+
+.HeroSelectSkill {
+	margin-bottom: 10px;
+	flow-children: right;
+}
+.HeroSelectSkill .AbilityIconContainer {
+}
+.HeroSelectSkill DOTAAbilityImage {
+	width: 64px;
+	height: 64px;
+	margin-top: 5px;
+	box-shadow: fill #000000 -3px -3px 6px 6px;
+}
+
+.HeroSelectSkill #AbilityIcon {
+	width: 64px;
+}
+.HeroSelectSkill #AbilityInfo {
+	flow-children: down;
+	margin-left: 10px;
+	height: fit-children;
+}
+
+.HeroSelectSkill #AbilityName {
+	font-family: Goudy Trajan;
+	font-size: 24px;
+	color: #e0e0e0;
+	text-shadow: 0px 0px 4px 1.0;
+	margin-bottom: 4px;
+}
+.HeroSelectSkill #AbilityDescription {
+	font-size: 16px;
+	text-overflow: clip;
+}
+
+.HeroSelectCard {
+	padding: 5px;
+	margin: 5px;
+
+	background-color: gradient(linear, 0% 0%, 0% 100%, from(#303030), to(#181818));
+	border: 1px solid #101010;
+	border-radius: 4px;	
+	box-shadow: fill #000000 -3px -3px 12px 8px;
+
+	flow-children: right;
+
+	transition-property: box-shadow;
+    transition-duration: 0.1s;
+}
+
+.HeroSelectCard:hover {
+	box-shadow: fill #e0d080 -1px -1px 4px 3px;
+}
+
+.HeroSelectCard.Disabled {
+	wash-color: #666;
+}
+.HeroSelectCard.Disabled:hover {
+	box-shadow: fill #000000 -3px -3px 12px 8px;
+}
+
+.HeroSelectCard.Selected {
+	box-shadow: fill #80d0e0 -3px -3px 12px 8px;
+}
+.HeroSelectCard.Selected:hover {
+	box-shadow: fill #80d0e0 -3px -3px 12px 8px;
+}
+
+.HeroSelectCard #Portrait {
+	width: 180px;
+	height: 100px;
+	background-size: 180px 100px;
+	background-repeat: no-repeat;
+	border: 1px solid #101010;
+	vertical-align: center;
+	horizontal-align: center;
+	box-shadow: #000000 -1px -1px 4px 3px;
+}
+
+.HeroSelectCard #Name {
+	font-size: 14px;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	padding: 6px 0px;
+	vertical-align: bottom;
+	width: 100%;
+	text-align: center;
+	background-color: #000000f0;
+}
+
+.HeroSelectCard #Skills {
+	flow-children: down;
+	margin-left: 10px;
+	box-shadow: #000000 -1px -1px 4px 3px;
+}

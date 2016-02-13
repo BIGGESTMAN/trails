@@ -28,6 +28,9 @@ for fname in filenames:
 				ability['internal_name'], ability['desc'] = rest_of_line.split(") : ")
 
 				ability['effects'] = []
+				if ability['desc'][:len("S-Craft")] == "S-Craft":
+					nil, description_string = ability['desc'].split(": ")
+					ability['desc'] = "<font color='#FE9A2E'>S-Craft</font>: {}".format(description_string)
 				abilities.append(ability)
 				continue
 

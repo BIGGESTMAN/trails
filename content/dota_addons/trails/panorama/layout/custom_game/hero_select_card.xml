@@ -1,0 +1,14 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/custom_game/hero_select.vcss_c" />
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+	</styles>
+	<scripts>
+		<include src="s2r://panorama/scripts/custom_game/hero_select_card.vjs_c" />
+	</scripts>
+	<Button hittest="true" class="HeroSelectCard" onactivate="OnHeroCardClicked()">
+		<Panel id="Portrait" background-image="url('file://{resources}/images/heroes/npc_dota_hero_ember_spirit.png')">
+			<Label id="Name" class="" />
+		</Panel>
+	</Button>
+</root>

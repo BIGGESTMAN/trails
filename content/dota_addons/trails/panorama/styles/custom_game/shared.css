@@ -1,0 +1,9 @@
+.BossrushGenericWindow {
+	background-color: gradient( linear, 0% 0%, 0% 100%, from( #32393e ), to( #151515 ) );
+	box-shadow: #000000df -4px -4px 2px 8px;
+	border-top: 1px solid #ffffff10;
+	border-left: 1px solid #ffffff06;
+	border-right: 1px solid #ffffff06;
+	border-bottom: 1px solid #101010;
+	padding: 15px;
+}

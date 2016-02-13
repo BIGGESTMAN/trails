@@ -38,7 +38,7 @@ Enhanced Wind Duration (unbalanced_wind_duration) : 8
 %Enhanced Movespeed (unbalanced_bonus_movespeed) : 15
 Enhanced Attackspeed (unbalanced_bonus_attackspeed) : 40
 
-[D] Gale (gale) : Rean rapidly slices through enemies, dealing physical damage and Disarming them before returning to where he was. +20 to Unbalance.\n\n<font color='#01DF01'>CP COST: 50</font>
+[D] Gale (gale) : Rean rapidly slices through enemies, dealing physical damage and Disarming them before returning to his starting location. +20 to Unbalance.\n\n<font color='#01DF01'>CP COST: 50</font>
 Enhanced : Slices through each enemy twice, with the second slash dealing reduced damage but heavily slowing. Always attacks the targeted enemy last, leaving Rean next to them afterwards.
 
 Radius (radius) : 400
@@ -46,12 +46,12 @@ Radius (radius) : 400
 Dash Speed : 2000
 Disarm Duration (disarm_duration) : 5
 Cast Range : 400
-Enhanced Secondary Damage (unbalanced_damage_percent) : 75
+%Enhanced Secondary Damage (unbalanced_damage_percent) : 75
 %Enhanced Slow (unbalanced_slow) : 80
 Enhanced Slow Duration (unbalanced_slow_duration) : 3
 Note0 (note0) : Enhanced Gale's movespeed slow decays over the duration.
 
-[R] Azure Flame Slash (azure_flame_slash) : <font color='#FE9A2E'>S-Craft</font>: Rean bathes his sword in blue flames, and after a delay slashes target enemy, dealing physical damage to and Burning them and all nearby enemies. For a duration afterwards, Rean's attacks and crafts Burn enemies.
+[R] Azure Flame Slash (azure_flame_slash) : S-Craft: Rean bathes his sword in blue flames, and after a delay slashes target enemy, dealing physical damage to and Burning them and all nearby enemies. For a duration afterwards, Rean's attacks and crafts Burn enemies.
 200 CP Bonus : Deals more damage, and +75 to Unbalance, applied after Unbalance state is consumed on primary target.
 
 Radius (radius) : 250
