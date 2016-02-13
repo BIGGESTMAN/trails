@@ -77,6 +77,12 @@
 			m_nOpEndCapState = 1
 			m_nControlPointNumber = 1
 		},
+		{
+			_class = "C_OP_MovementPlaceOnGround"
+			m_flOffset = 100.000000
+			m_flMaxTraceLength = 1024.000000
+			m_bIncludeWater = true
+		},
 	]
 	m_Initializers =
 	[

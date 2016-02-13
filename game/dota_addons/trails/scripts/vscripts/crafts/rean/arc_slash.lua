@@ -16,7 +16,7 @@ function spellCast(keys)
 	local stun_duration = ability:GetSpecialValueFor("stun_duration")
 	local impactFunction = nil
 
-	if caster:HasModifier("modifier_combat_link_followup_available") and target and target:HasModifier("modifier_combat_link_unbalanced") then
+	if validEnhancedCraft(caster, target) then
 		caster:RemoveModifierByName("modifier_combat_link_followup_available")
 		target:RemoveModifierByName("modifier_combat_link_unbalanced")
 

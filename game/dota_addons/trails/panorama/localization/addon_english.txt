@@ -5,8 +5,8 @@
 	"Neutrals"        								"Neutral Team"
 	"NoTeam"          								"No Team"
 
-	"DOTA_GoodGuys"   								"Jeff's Jellies"
-	"DOTA_BadGuys"    								"Moon's Monkeys"
+	"DOTA_GoodGuys"   								"Liberl"
+	"DOTA_BadGuys"    								"Erebonia"
 	"DOTA_Custom1"    								"Pink Dragon"
 	"DOTA_Custom2"    								"Orange Dog"
 	"DOTA_Custom3"    								"Blue Rooster"

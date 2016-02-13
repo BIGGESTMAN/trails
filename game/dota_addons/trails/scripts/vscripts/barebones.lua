@@ -210,6 +210,7 @@ end
 -- This function is called as the first player loads and sets up the GameMode parameters
 function GameMode:CaptureGameMode()
 	if mode == nil then
+		print(mode)
 		-- Set GameMode parameters
 		mode = GameRules:GetGameModeEntity()
 		mode:SetRecommendedItemsDisabled( RECOMMENDED_BUILDS_DISABLED )
@@ -281,8 +282,6 @@ end
 ]]
 function GameMode:OnFirstPlayerLoaded()
 	print("[BAREBONES] First Player has loaded")
-
-	CP_Fountain:Initialize()
 end
 
 --[[
@@ -291,6 +290,8 @@ end
 ]]
 function GameMode:OnAllPlayersLoaded()
 	print("[BAREBONES] All Players have loaded into the game")
+
+	CP_Fountain:Initialize()
 end
 
 --[[

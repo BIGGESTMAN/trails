@@ -45,7 +45,7 @@
 	</script>
 
 	<Panel>
-	<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/bossrush_boss_lifebar.xml" />
+	<!-- <CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/bossrush_boss_lifebar.xml" /> -->
 <!-- 		<CustomUIElement type="HudTopBar" layoutfile="file://{resources}/layout/custom_game/announcer_large.xml" />
 		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/tutorial.xml" />
 		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/quest.xml" />

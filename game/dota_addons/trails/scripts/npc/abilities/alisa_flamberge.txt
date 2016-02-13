@@ -1,7 +1,7 @@
 	"flamberge"
 	{
 		"BaseClass"						"ability_datadriven"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT_TARGET | DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
@@ -13,9 +13,10 @@
 		"precache"
 		{
 			"particle"					"particles/crafts/alisa/flamberge/flamberge.vpcf"
+			"particle"					"particles/crafts/alisa/flamberge/fire_field.vpcf"
 		}
 
-		"AbilityCastPoint"				"0.2"
+		"AbilityCastPoint"				"0.3"
 		"AbilityCooldown"				"0"
 		"AbilityManaCost"				"0"
 		"CPCost"						"25"
@@ -35,12 +36,12 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"bonus_unbalance_chance"	"20"
+				"bonus_unbalance"		"20"
 			}
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"travel_speed"			"800"
+				"travel_speed"			"700"
 			}
 			"01"
 			{
@@ -52,6 +53,41 @@
 				"var_type"				"FIELD_INTEGER"
 				"burn_duration"			"5"
 			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"unbalanced_travel_speed"	"1300"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"unbalanced_damage_percent"	"200"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"unbalanced_explosion_radius"	"200"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"unbalanced_field_damage_percent"	"40"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"unbalanced_field_duration"			"5"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"unbalanced_field_damage_interval"	"0.25"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"silence_linger_duration"	"0.25"
+			}
 		}
 
 		"OnSpellStart"
@@ -60,11 +96,25 @@
 			{
 				"ScriptFile"	"crafts/alisa/flamberge"
 				"Function"		"spellCast"
+				"Target"		"POINT"
 			}
 		}
 
 		"Modifiers"
 		{
-			
+			"modifier_flamberge_silence"
+			{
+				"IsDebuff"		"1"
+
+				"Duration"		"%silence_linger_duration"
+
+				"States"
+				{
+					"MODIFIER_STATE_SILENCED"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+
+				"EffectName"		"particles/generic_gameplay/generic_silence.vpcf"
+				"EffectAttachType"	"follow_overhead"
+			}
 		}
 	}

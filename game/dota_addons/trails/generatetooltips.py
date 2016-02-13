@@ -23,7 +23,7 @@ for fname in filenames:
 				ability = {}
 				bracket_info, truncated_line = line[1:].split("] ")
 				ability['is_quartz'] = len(bracket_info) > 1
-				# print(truncated_line)
+				print(truncated_line)
 				ability['name'], rest_of_line = truncated_line.split(' (')
 				ability['internal_name'], ability['desc'] = rest_of_line.split(") : ")
 

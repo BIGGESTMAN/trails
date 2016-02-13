@@ -1,3 +1,4 @@
+require "game_functions"
 require "libraries/util"
 
 LinkLuaModifier("modifier_gale_slow", "crafts/rean/modifier_gale_slow.lua", LUA_MODIFIER_MOTION_NONE)
@@ -18,7 +19,7 @@ function spellCast(keys)
 	local iFlag = DOTA_UNIT_TARGET_FLAG_NONE
 	local iOrder = FIND_ANY_ORDER
 	caster.gale_targets = FindUnitsInRadius(team, origin, nil, radius, iTeam, iType, iFlag, iOrder, false)
-	if caster:HasModifier("modifier_combat_link_followup_available") and target and target:HasModifier("modifier_combat_link_unbalanced") then
+	if validEnhancedCraft(caster, target) then
 		caster:RemoveModifierByName("modifier_combat_link_followup_available")
 		target:RemoveModifierByName("modifier_combat_link_unbalanced")
 		caster.gale_secondary_targets = copyOfTable(caster.gale_targets)

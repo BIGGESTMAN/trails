@@ -12,7 +12,7 @@ function spellCast(keys)
 	local dash_speed = ability:GetSpecialValueFor("dash_speed")
 	local radius = ability:GetSpecialValueFor("radius")
 
-	if caster:HasModifier("modifier_combat_link_followup_available") and target and target:HasModifier("modifier_combat_link_unbalanced") then
+	if validEnhancedCraft(caster, target) then
 		caster:RemoveModifierByName("modifier_combat_link_followup_available")
 		target:RemoveModifierByName("modifier_combat_link_unbalanced")
 		caster.unbalanced_autumn_leaf_cutter_target = target

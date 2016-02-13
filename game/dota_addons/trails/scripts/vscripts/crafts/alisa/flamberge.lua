@@ -4,13 +4,26 @@ require "combat_links"
 function spellCast(keys)
 	local caster = keys.caster
 	local ability = keys.ability
-	local target_point = keys.target:GetAbsOrigin()
+	local target_point = keys.target_points[1]
+	local target = keys.target
 
 	local radius = ability:GetSpecialValueFor("radius")
 	local range = ability:GetSpecialValueFor("range")
 	local travel_speed = ability:GetSpecialValueFor("travel_speed")
+	local damage = caster:GetAverageTrueAttackDamage() * ability:GetSpecialValueFor("damage_percent") / 100
+	local impactFunction = nil
 
-	-- modifyCP(caster, getCPCost(ability) * -1)
+	modifyCP(caster, getCPCost(ability) * -1)
+
+	if validEnhancedCraft(caster, target) then
+		caster:RemoveModifierByName("modifier_combat_link_followup_available")
+		target:RemoveModifierByName("modifier_combat_link_unbalanced")
+
+		damage = caster:GetAverageTrueAttackDamage() * ability:GetSpecialValueFor("unbalanced_damage_percent") / 100
+		travel_speed = ability:GetSpecialValueFor("unbalanced_travel_speed")
+		range = (target:GetAbsOrigin() - caster:GetAbsOrigin()):Length2D() 
+		impactFunction = explode
+	end
 
 	collisionRules = {
 		team = caster:GetTeamNumber(),
@@ -21,20 +34,77 @@ function spellCast(keys)
 		iOrder = FIND_ANY_ORDER
 	}
 	local direction = (target_point - caster:GetAbsOrigin()):Normalized()
-	local origin_location = caster:GetAttachmentOrigin(caster:ScriptLookupAttachment("attach_attack1"))
+	local origin_location = caster:GetAbsOrigin()
 
-	ProjectileList:CreateLinearProjectile(caster, origin_location, direction, travel_speed, range, nil, collisionRules, flambergeHit, "particles/crafts/alisa/flamberge/flamberge.vpcf")
+	ProjectileList:CreateLinearProjectile(caster, origin_location, direction, travel_speed, range, impactFunction, collisionRules, flambergeHit, "particles/crafts/alisa/flamberge/flamberge.vpcf", {damage = damage})
 end
 
-function flambergeHit(caster, unit)
+function flambergeHit(caster, unit, other_args)
 	local ability = caster:FindAbilityByName("flamberge")
-	local damage = caster:GetAverageTrueAttackDamage() * ability:GetSpecialValueFor("damage_percent") / 100
+	local damage = other_args.damage
 	local damage_type = ability:GetAbilityDamageType()
-	local bonus_unbalance_chance = ability:GetSpecialValueFor("bonus_unbalance_chance")
+	local bonus_unbalance = ability:GetSpecialValueFor("bonus_unbalance")
 	local duration = ability:GetSpecialValueFor("burn_duration")
 
 	dealDamage(unit, caster, damage, damage_type, ability)
-	increaseUnbalance(caster, unit, bonus_unbalance_chance)
+	increaseUnbalance(caster, unit, bonus_unbalance)
 	unit:AddNewModifier(caster, ability, "modifier_burn", {duration = duration})
 	unit:Interrupt()
+end
+
+function explode(caster, origin_location, direction, speed, range, collisionRules, collisionFunction, other_args, units_hit)
+	local ability = caster:FindAbilityByName("flamberge")
+	local damage = other_args.damage
+	local damage_type = ability:GetAbilityDamageType()
+	local radius = ability:GetSpecialValueFor("unbalanced_explosion_radius")
+	local target_point = origin_location + direction * range
+
+	local team = caster:GetTeamNumber()
+	local iTeam = DOTA_UNIT_TARGET_TEAM_ENEMY
+	local iType = DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC + DOTA_UNIT_TARGET_MECHANICAL
+	local iFlag = DOTA_UNIT_TARGET_FLAG_NONE
+	local iOrder = FIND_ANY_ORDER
+	local targets = FindUnitsInRadius(team, target_point, nil, radius, iTeam, iType, iFlag, iOrder, false)
+	for k,unit in pairs(targets) do
+		if not units_hit[unit] then
+			flambergeHit(caster, unit, other_args)
+		end
+	end
+
+	createFireField(caster, target_point)
+end
+
+function createFireField(caster, location)
+	local ability = caster:FindAbilityByName("flamberge")
+	local damage_interval = ability:GetSpecialValueFor("unbalanced_field_damage_interval")
+	local damage = caster:GetAverageTrueAttackDamage() * ability:GetSpecialValueFor("unbalanced_field_damage_percent") * damage_interval / 100 
+	local damage_type = ability:GetAbilityDamageType()
+	local duration = ability:GetSpecialValueFor("unbalanced_field_duration")
+	local radius = ability:GetSpecialValueFor("unbalanced_explosion_radius")
+	-- DebugDrawCircle(location, Vector(255,0,0), 0.5, radius, true, duration)
+
+	local fire_field_particle = ParticleManager:CreateParticle("particles/crafts/alisa/flamberge/fire_field.vpcf", PATTACH_CUSTOMORIGIN, nil)
+	ParticleManager:SetParticleControl(fire_field_particle, 0, location)
+	ParticleManager:SetParticleControl(fire_field_particle, 1, location)
+
+	local duration_elapsed = 0
+
+	Timers:CreateTimer(damage_interval, function()
+		local team = caster:GetTeamNumber()
+		local iTeam = DOTA_UNIT_TARGET_TEAM_ENEMY
+		local iType = DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC + DOTA_UNIT_TARGET_MECHANICAL
+		local iFlag = DOTA_UNIT_TARGET_FLAG_NONE
+		local iOrder = FIND_ANY_ORDER
+		local targets = FindUnitsInRadius(team, location, nil, radius, iTeam, iType, iFlag, iOrder, false)
+		for k,unit in pairs(targets) do
+			dealDamage(unit, caster, damage, damage_type, ability)
+			ability:ApplyDataDrivenModifier(caster, unit, "modifier_flamberge_silence", {})
+		end
+		duration_elapsed = duration_elapsed + damage_interval
+		if duration_elapsed < duration then
+			return damage_interval
+		else
+			ParticleManager:DestroyParticle(fire_field_particle, false)
+		end
+	end)
 end

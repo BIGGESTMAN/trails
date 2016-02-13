@@ -156,3 +156,7 @@ function getCPCost(ability)
 	end
 	return cost
 end
+
+function validEnhancedCraft(caster, target)
+	return caster:HasModifier("modifier_combat_link_followup_available") and target and target:HasModifier("modifier_combat_link_unbalanced")
+end
