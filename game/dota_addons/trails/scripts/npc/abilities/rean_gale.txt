@@ -13,6 +13,7 @@
 		{
 			"particle"					"particles/units/heroes/hero_bounty_hunter/bounty_hunter_jinda_slow.vpcf"
 			"particle"					"particles/items_fx/force_staff.vpcf"
+			"particle"					"particles/units/heroes/hero_invoker/invoker_deafening_blast_disarm_debuff.vpcf"
 		}
 
 		"AbilityCastPoint"				"0.2"
@@ -107,6 +108,9 @@
 				{
 					"MODIFIER_STATE_DISARMED"	"MODIFIER_STATE_VALUE_ENABLED"
 				}
+
+				"EffectName"		"particles/units/heroes/hero_invoker/invoker_deafening_blast_disarm_debuff.vpcf"
+				"EffectAttachType"	"follow_overhead"
 			}
 		}
 	}

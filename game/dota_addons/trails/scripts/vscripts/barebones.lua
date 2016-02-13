@@ -5,6 +5,7 @@ require "filters"
 require "combat_links"
 require "game_functions"
 require "custom_hero_select"
+require "cp_fountain"
 
 imported_model_characters = {}
 
@@ -29,7 +30,7 @@ MINIMAP_RUNE_ICON_SIZE = 1              -- What icon size should we use for rune
 RUNE_SPAWN_TIME = 120                    -- How long in seconds should we wait between rune spawns?
 CUSTOM_BUYBACK_COST_ENABLED = false      -- Should we use a custom buyback cost setting?
 CUSTOM_BUYBACK_COOLDOWN_ENABLED = false  -- Should we use a custom buyback time?
-BUYBACK_ENABLED = true                 -- Should we allow people to buyback when they die?
+BUYBACK_ENABLED = false                 -- Should we allow people to buyback when they die?
 
 DISABLE_FOG_OF_WAR_ENTIRELY = false      -- Should we disable fog of war entirely for both teams?
 USE_STANDARD_HERO_GOLD_BOUNTY = true    -- Should we give gold for hero kills the same as in Dota, or allow those values to be changed?
@@ -46,7 +47,7 @@ END_GAME_ON_KILLS = false                -- Should the game end after a certain 
 KILLS_TO_END_GAME_FOR_TEAM = 50         -- How many kills for a team should signify an end of game?
 
 USE_CUSTOM_HERO_LEVELS = false           -- Should we allow heroes to have custom levels?
-MAX_LEVEL = 25                          -- What level should we let heroes get to?
+MAX_LEVEL = 1                          -- What level should we let heroes get to?
 
 CHEATY_STUFF = GetMapName() ~= "dota"
 
@@ -274,6 +275,8 @@ end
 ]]
 function GameMode:OnFirstPlayerLoaded()
 	print("[BAREBONES] First Player has loaded")
+
+	CP_Fountain:Initialize()
 end
 
 --[[
