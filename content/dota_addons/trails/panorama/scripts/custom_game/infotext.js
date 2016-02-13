@@ -2,22 +2,22 @@
 
 var seen_tutorials = {}
 
-function OnPreBossStart(msg) {
+function OnInfoTextStart(msg) {
 	$.GetContextPanel().SetHasClass("ReadiedUp", false);
 	$.GetContextPanel().SetHasClass("Visible", true);
 }
 
-function OnPreBossReadyClicked() {
+function OnInfoTextOKClicked() {
 	$.GetContextPanel().SetHasClass("ReadiedUp", true);
-	GameEvents.SendCustomGameEventToServer("preboss_ready", {} )
+	GameEvents.SendCustomGameEventToServer("infotext_ok", {} )
 }
 
-function OnPreBossAllReady() {
+function OnInfoTextRemove() {
 	$.GetContextPanel().SetHasClass("Visible", false);
 }
 
 (function () {
-	GameEvents.Subscribe("preboss_start", OnPreBossStart);
-	GameEvents.Subscribe("preboss_all_ready", OnPreBossAllReady);
+	GameEvents.Subscribe("infotext_start", OnInfoTextStart);
+	GameEvents.Subscribe("infotext_remove_window", OnInfoTextRemove);
 })();
 

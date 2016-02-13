@@ -58,9 +58,9 @@ function CustomHeroSelect:OnHeroSelectPickedEvent(source, data)
 
 	local hero = player:GetAssignedHero()
 	if hero ~= nil and CustomHeroSelect:IsPlaceholderHero(hero) then
-		if not CustomHeroSelect.pickedHeroes[picked_hero_id] then
-			CustomHeroSelect.pickedHeroes[picked_hero_id] = true
-			CustomGameEventManager:Send_ServerToTeam(player:GetTeamNumber(), "heroselect_pick_other", { hero_id = picked_hero_id });
+		-- if not CustomHeroSelect.pickedHeroes[picked_hero_id] then
+		-- 	CustomHeroSelect.pickedHeroes[picked_hero_id] = true
+			-- CustomGameEventManager:Send_ServerToTeam(player:GetTeamNumber(), "heroselect_pick_other", { hero_id = picked_hero_id });
 			CustomGameEventManager:Send_ServerToPlayer(player, "heroselect_pick_confirm", {})
 
 			PrecacheUnitByNameAsync(picked_hero_id, function()
@@ -71,7 +71,7 @@ function CustomHeroSelect:OnHeroSelectPickedEvent(source, data)
 					oldHero:RemoveSelf()
 				end
 			end, player:GetPlayerID())
-		end
+		-- end
 	end
 end
 

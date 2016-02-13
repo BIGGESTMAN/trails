@@ -25,3 +25,6 @@
 		"DOTA_Shop_Category_Upgrades"			"HIGHER ELEMENTS"
 
 		"must_target_unbalanced"	"Must Target An Unbalanced Enemy"
+
+		"Round_Winner_2"	"The Radiant have won the round!"
+		"Round_Winner_3"	"The Dire have won the round!"

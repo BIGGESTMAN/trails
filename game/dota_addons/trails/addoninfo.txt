@@ -1,11 +1,11 @@
 "AddonInfo"
 {
-  "TeamCount" "10"
-  "maps"      "hero_demo_main"
+  "TeamCount" "2"
+  "maps"      "practical_exam"
   "IsPlayable"  "1"
-  "hero_demo_main"
+  "practical_exam"
   {
-          "MaxPlayers"                    "10"
+		  "MaxPlayers"                    "10"
   }
 //  "desert_duo"
 //  {

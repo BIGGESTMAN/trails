@@ -1,4 +1,4 @@
-.PreBossWindow {
+.InfoTextWindow {
 	width: 400px;
 	
 	flow-children: down;
@@ -13,18 +13,18 @@
 	opacity: 0;
 }
 
-.PreBossWindow.Visible {
+.InfoTextWindow.Visible {
 	transform: translate3d(20px, 0px, 0px);
 	opacity: 1;
 }
 
-.PreBossWindow #ReadyButton {
+.InfoTextWindow #ReadyButton {
 	horizontal-align: center;
 	margin: 8px;
 	height: 32px;
 	visibility: visible;
 }
-.PreBossWindow #ReadyText {
+.InfoTextWindow #ReadyText {
 	horizontal-align: center;
 	margin: 8px;
 	height: 32px;
@@ -32,14 +32,14 @@
 	visibility: collapse;
 }
 
-.PreBossWindow.ReadiedUp #ReadyButton {
+.InfoTextWindow.ReadiedUp #OKButton {
 	visibility: collapse;
 }
-.PreBossWindow.ReadiedUp #ReadyText {
+.InfoTextWindow.ReadiedUp #ReadyText {
 	visibility: visible;
 }
 
-.PreBossWindow #Header, .PreBossWindow .SubHeader {
+.InfoTextWindow #Header, .InfoTextWindow .SubHeader {
 	font-family: Goudy Trajan;
 	font-size: 22px;
 	
@@ -55,13 +55,13 @@
 }
 
 
-.PreBossWindow .SubHeader {
+.InfoTextWindow .SubHeader {
 	font-size: 16px;
 	height: 22px;
 	color: #d0d0d0;
 }
 
-.PreBossWindow #Text, .PreBossWindow #TipsText {
+.InfoTextWindow .Text, .InfoTextWindow .TipsText {
 	font-family: Radiance;
 	font-size: 16px;
 	color: #b0b0b0;
@@ -75,6 +75,6 @@
 	text-align: center;
 }
 
-.PreBossWindow #TipsText {
+.InfoTextWindow .TipsText {
 	text-align: left;
 }

@@ -3,20 +3,16 @@
 
 
 var ALL_HEROES = {
-	"GoodGuys": {
-		"npc_dota_hero_ember_spirit": [
-			"autumn_leaf_cutter",
-			"motivate",
-			"arc_slash",
-			"gale",
-			"azure_flame_slash"
-		],
-		"npc_dota_hero_windrunner": [
-			"flamberge"
-		]
-	},
-	"BadGuys": {
-	}
+	"npc_dota_hero_ember_spirit": [
+		"autumn_leaf_cutter",
+		"motivate",
+		"arc_slash",
+		"gale",
+		"azure_flame_slash"
+	],
+	"npc_dota_hero_windrunner": [
+		"flamberge"
+	]
 }
 
 var teamId;
@@ -36,7 +32,7 @@ function OnStart(msg) {
 	teamId = msg.team;
 
 	var firstHero = undefined
-	for (var i in ALL_HEROES[teamId]) {
+	for (var i in ALL_HEROES) {
 		var card = $.CreatePanel("Panel", container, i);
 		card.BLoadLayout("file://{resources}/layout/custom_game/hero_select_card.xml", false, false);
 		card.onHeroCardClicked = OnHeroCardClicked;
@@ -101,7 +97,7 @@ function SelectHero(hero_id) {
 	$("#HeroDescription").text = $.Localize(hero_id + "_Lore");
 	$("#PickButtonLabel").SetDialogVariable("name", $.Localize(hero_id));
 
-	var skills = ALL_HEROES[teamId][hero_id];
+	var skills = ALL_HEROES[hero_id];
 	var skillsContainer = $("#HeroAbilityContainer");
 	// var passiveContainer = $("#HeroPassiveAbilityContainer");
 	var scraftContainer = $("#HeroScraftAbilityContainer");

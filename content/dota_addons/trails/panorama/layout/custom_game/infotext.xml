@@ -1,0 +1,28 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/custom_game/infotext.css" />
+		<include src="s2r://panorama/styles/custom_game/shared.css" />
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+	</styles>
+	<scripts>
+		<include src="s2r://panorama/scripts/custom_game/infotext.js" />
+	</scripts>
+	<Panel hittest="false" class="InfoTextWindow TrailsGenericWindow">
+		<Label hittest="false" id="Header" text="#infotext_header" />
+		<Label hittest="false" class="SubHeader" text="#infotext_subheader_1" />
+		<Label hittest="false" class="Text" html="true" text="#infotext_text_1" />
+
+		<!-- <Label hittest="false" class="SubHeader" text="#preboss_nextboss_header" /> -->
+
+		<Label hittest="false" class="SubHeader" text="#infotext_subheader_2" />
+		<Label hittest="false" class="Text" html="true" text="#infotext_text_2" />
+		<Label hittest="false" class="SubHeader" text="#infotext_subheader_3" />
+		<Label hittest="false" class="Text" html="true" text="#infotext_text_3" />
+
+
+		<Button hittest="true" id="OKButton" class="ButtonBevel" onactivate="OnInfoTextOKClicked()">
+			<Label text="#infotext_ok" />
+		</Button>
+		<Label hittest="false" id="ReadyText" html="false" text="#you_are_ready" />
+	</Panel>
+</root>

@@ -5,7 +5,6 @@ if not CP_Fountain then CP_Fountain = {} end
 function CP_Fountain:Initialize()
 	local cp_fountain = Entities:FindByName(nil, "cp_regener")
 	local fountain_location = cp_fountain:GetAbsOrigin()
-	print(fountain_location)
 
 	local cp_interval = 1
 	local cp_per_second = 5

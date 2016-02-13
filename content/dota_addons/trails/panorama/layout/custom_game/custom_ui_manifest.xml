@@ -45,16 +45,16 @@
 	</script>
 
 	<Panel>
-<!--	<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/bossrush_boss_lifebar.xml" />
-		<CustomUIElement type="HudTopBar" layoutfile="file://{resources}/layout/custom_game/announcer_large.xml" />
+	<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/bossrush_boss_lifebar.xml" />
+<!-- 		<CustomUIElement type="HudTopBar" layoutfile="file://{resources}/layout/custom_game/announcer_large.xml" />
 		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/tutorial.xml" />
 		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/quest.xml" />
-		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/preboss.xml" />
 		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/damagemeter.xml" />
-		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/victory.xml" /> -->
+		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/victory.xml" />  -->
 
+		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/infotext.xml" />
 		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/hero_select.xml" />
-		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/image_loader.xml" />
+		<!-- <CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/image_loader.xml" /> -->
 		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/barebones_notifications.xml" /> 
 		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/barebones_attachments.xml" /> 
 	</Panel>

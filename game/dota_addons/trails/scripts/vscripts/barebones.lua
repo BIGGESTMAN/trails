@@ -10,7 +10,7 @@ require "cp_fountain"
 imported_model_characters = {}
 
 -- GameRules Variables
-ENABLE_HERO_RESPAWN = true              -- Should the heroes automatically respawn on a timer or stay dead until manually respawned
+ENABLE_HERO_RESPAWN = false              -- Should the heroes automatically respawn on a timer or stay dead until manually respawned
 ALLOW_SAME_HERO_SELECTION = true        -- Should we let people select the same hero as each other
 
 HERO_SELECTION_TIME = 1.0              -- How long should we let people select their hero?
@@ -20,7 +20,7 @@ TREE_REGROW_TIME = 60.0                 -- How long should it take individual tr
 
 GOLD_TICK_TIME = 0.6                    -- How long should we wait in seconds between gold ticks?
 
-RECOMMENDED_BUILDS_DISABLED = false     -- Should we disable the recommened builds for heroes (Note: this is not working currently I believe)
+RECOMMENDED_BUILDS_DISABLED = true     -- Should we disable the recommened builds for heroes (Note: this is not working currently I believe)
 CAMERA_DISTANCE_OVERRIDE = 1134.0        -- How far out should we allow the camera to go?  1134 is the default in Dota
 
 MINIMAP_ICON_SIZE = 1                   -- What icon size should we use for our heroes?
@@ -35,7 +35,7 @@ BUYBACK_ENABLED = false                 -- Should we allow people to buyback whe
 DISABLE_FOG_OF_WAR_ENTIRELY = false      -- Should we disable fog of war entirely for both teams?
 USE_STANDARD_HERO_GOLD_BOUNTY = true    -- Should we give gold for hero kills the same as in Dota, or allow those values to be changed?
 
-USE_CUSTOM_TOP_BAR_VALUES = false        -- Should we do customized top bar values or use the default kill count per team?
+USE_CUSTOM_TOP_BAR_VALUES = true        -- Should we do customized top bar values or use the default kill count per team?
 TOP_BAR_VISIBLE = true                  -- Should we display the top bar score/count at all?
 SHOW_KILLS_ON_TOPBAR = true             -- Should we display kills only on the top bar? (No denies, suicides, kills by neutrals)  Requires USE_CUSTOM_TOP_BAR_VALUES
 
@@ -52,13 +52,17 @@ MAX_LEVEL = 1                          -- What level should we let heroes get to
 CHEATY_STUFF = GetMapName() ~= "dota"
 
 MAX_ABILITY_LEVELS = CHEATY_STUFF
-STARTING_ITEMS = CHEATY_STUFF
+STARTING_ITEMS = false
 FREEEEEEEE_MONEY = CHEATY_STUFF
-UNIVERSAL_SHOP_MODE = CHEATY_STUFF             -- Should the main shop contain Secret Shop items as well as regular items
+UNIVERSAL_SHOP_MODE = false             -- Should the main shop contain Secret Shop items as well as regular items
 GOLD_PER_TICK = 99999                 		    -- How much gold should players get per tick?
 USE_CUSTOM_XP_VALUES = CHEATY_STUFF             -- Should we use custom XP values to level up heroes, or the default Dota numbers?
 
 MUSIC = false
+
+ROUNDS_TO_WIN = 5
+ROUND_END_DELAY = 3
+INFOTEXT_FADE_DELAY = 3
 
 
 
@@ -154,6 +158,8 @@ function GameMode:InitGameMode()
 	self.bSeenWaitForPlayers = false
 	
 	CustomHeroSelect:Initialize()
+
+	GameMode:InitializeScore()
 
 	-- Commands can be registered for debugging purposes or as functions that can be called by the custom Scaleform UI
 	--Convars:RegisterCommand( "command_example", Dynamic_Wrap(dotacraft, 'ExampleConsoleCommand'), "A console command example", 0 )
@@ -316,10 +322,10 @@ function GameMode:OnHeroInGame(hero)
 
 			if MAX_ABILITY_LEVELS or true then
 				for i=0,15 do
-				    local ability = hero:GetAbilityByIndex(i)
-				    if ability then 
-				        ability:SetLevel(ability:GetMaxLevel())
-				    end
+					local ability = hero:GetAbilityByIndex(i)
+					if ability then 
+						ability:SetLevel(ability:GetMaxLevel())
+					end
 				end
 			end
 		end
@@ -336,6 +342,17 @@ function GameMode:OnHeroInGame(hero)
 	if CustomHeroSelect:IsPlaceholderHero(hero) then
 		CustomHeroSelect:OnHeroInGame(hero)
 	end
+	
+	CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "infotext_start", {})
+	CustomGameEventManager:RegisterListener("infotext_ok", WrapMemberMethod(self.OnInfoTextOK, self))
+end
+
+function GameMode:OnInfoTextOK(eventSourceIndex, args)
+	local player = EntIndexToHScript(eventSourceIndex)
+	local hero = player:GetAssignedHero()
+	Timers:CreateTimer(INFOTEXT_FADE_DELAY, function()
+		CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "infotext_remove_window", {})
+	end)
 end
 
 --[[
@@ -593,9 +610,9 @@ function GameMode:OnTeamKillCredit(keys)
 	local victimPlayer = PlayerResource:GetPlayer(keys.victim_userid)
 	local numKills = keys.herokills
 	local killerTeamNumber = keys.teamnumber
-	if numKills >= 10 and not CHEATY_STUFF then
-		GameRules:SetGameWinner(killerTeamNumber)
-	end
+	-- if numKills >= 10 and not CHEATY_STUFF then
+	-- 	GameRules:SetGameWinner(killerTeamNumber)
+	-- end
 end
 
 -- An entity died
@@ -612,9 +629,73 @@ function GameMode:OnEntityKilled( keys )
 		killerEntity = EntIndexToHScript( keys.entindex_attacker )
 	end
 
-	if killedUnit:IsHero() then
-		killedUnit:EmitSound("Touhou.Player_Death")
-	end
+	if killedUnit:IsRealHero() then
+		local living_heroes = {}
+		living_heroes[DOTA_TEAM_GOODGUYS] = 0
+		living_heroes[DOTA_TEAM_BADGUYS] = 0
+		for i=0, 9 do
+			local hero = PlayerResource:GetSelectedHeroEntity(i)
+			if hero and hero:IsAlive() then
+				living_heroes[hero:GetTeam()] = living_heroes[hero:GetTeam()] + 1
+			end
+		end
 
-	-- Put code here to handle when an entity gets killed
+
+		if living_heroes[DOTA_TEAM_GOODGUYS] == 0 then
+			GameMode:EndRound(DOTA_TEAM_BADGUYS)
+		elseif living_heroes[DOTA_TEAM_BADGUYS] == 0 then
+			GameMode:EndRound(DOTA_TEAM_GOODGUYS)
+		end
+	end
+end
+
+function GameMode:InitializeScore()
+	self.score = {}
+	self.score[DOTA_TEAM_GOODGUYS] = 0
+	self.score[DOTA_TEAM_BADGUYS] = 0
+	self.current_round = 0
+end
+
+function GameMode:EndRound(winning_team)
+	GameRules:SendCustomMessage("#Round_Winner_"..winning_team, 0, 0)
+	self.score[winning_team] = self.score[winning_team] + 1
+	self.current_round = self.current_round + 1
+	mode:SetTopBarTeamValue(DOTA_TEAM_GOODGUYS, self.score[DOTA_TEAM_GOODGUYS])
+	mode:SetTopBarTeamValue(DOTA_TEAM_BADGUYS, self.score[DOTA_TEAM_BADGUYS])
+
+	Timers:CreateTimer(ROUND_END_DELAY, function()
+		local swapped_spawns = self.current_round % 2 == 1
+		local spawns = {}
+		spawns[DOTA_TEAM_GOODGUYS] = Entities:FindByClassname(nil, "info_player_start_goodguys"):GetAbsOrigin()
+		spawns[DOTA_TEAM_BADGUYS] = Entities:FindByClassname(nil, "info_player_start_badguys"):GetAbsOrigin()
+
+		for i=0, 9 do
+			local hero = PlayerResource:GetSelectedHeroEntity(i)
+			if hero then
+				if swapped_spawns then
+					hero:SetRespawnPosition(spawns[hero:GetOpposingTeamNumber()])
+				else
+					hero:SetRespawnPosition(spawns[hero:GetTeam()])
+				end
+				hero:RespawnHero(false, false, false)
+			end
+		end
+		
+		-- check for game win
+		if self.score[DOTA_TEAM_GOODGUYS] == ROUNDS_TO_WIN then
+			Say(nil, "Radiant Victory!", false)
+			GameRules:SetSafeToLeave( true )
+			GameRules:SetGameWinner( DOTA_TEAM_GOODGUYS )
+			-- Timers:CreateTimer(0.1, function()
+			-- 	CustomGameEventManager:Send_ServerToAllClients( "winner_decided", winnerEventData ) -- Send the winner to Javascript
+			-- end)
+		elseif self.score[DOTA_TEAM_BADGUYS] == ROUNDS_TO_WIN then
+			Say(nil, "Dire Victory!", false)
+			GameRules:SetSafeToLeave( true )
+			GameRules:SetGameWinner( DOTA_TEAM_BADGUYS )
+			-- Timers:CreateTimer(0.1, function()
+			-- 	CustomGameEventManager:Send_ServerToAllClients( "winner_decided", winnerEventData ) -- Send the winner to Javascript
+			-- end)
+		end
+	end)
 end

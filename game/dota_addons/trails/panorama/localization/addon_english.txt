@@ -5,8 +5,8 @@
 	"Neutrals"        								"Neutral Team"
 	"NoTeam"          								"No Team"
 
-	"DOTA_GoodGuys"   								"Teal Tiger"
-	"DOTA_BadGuys"    								"Yellow Monkey"
+	"DOTA_GoodGuys"   								"Jeff's Jellies"
+	"DOTA_BadGuys"    								"Moon's Monkeys"
 	"DOTA_Custom1"    								"Pink Dragon"
 	"DOTA_Custom2"    								"Orange Dog"
 	"DOTA_Custom3"    								"Blue Rooster"
@@ -24,17 +24,19 @@
 
 	"damagemeter_header"							"DAMAGE DEALT"
 	
-	"preboss_info_header"							"PREPARE FOR COMBAT"
-	"preboss_info_text"								"<p>Prepare for your next encounter by purchasing food and quartz and discussing tactics with your teammates.</p><p>When you are ready to proceed, press the 'Ready' button below.</p>"
-
-	"preboss_tips_header"							"DUDE"
-	"preboss_tips_text"								"<ul><li>Look at how fancy this shit is</li></ul>"
+	"infotext_header"								"INFODUMP HO"
+	"infotext_subheader_1"							"Combat Links & Unbalancing"
+	"infotext_text_1"								"<p>Moving close to an allied hero will form a Combat Link with them, allowing you to Unbalance enemies by dealing damage.</p><p>Unbalanced enemies are vulnerable to Enhanced versions of your abilities (crafts), as well as your ultimate (s-craft).</p>"
+	"infotext_subheader_2"							"Crafts, Craft Points & S-Crafts"
+	"infotext_text_2"								"<p>Your hero's abilities cost CP (Craft Points) to use, which is earned by dealing and taking damage.</p><p>Regular crafts can be used at any time provided you have sufficient CP, but S-Crafts require an opponent to be Unbalanced first.</p>"
+	"infotext_subheader_3"							"Other Misc Shit"
+	"infotext_text_3"								"<p>The objective of the game is to kill all enemy heroes each round -- there are no creeps, towers, or shops.</p><p>In the middle of the map, there is a CP fountain -- if your team has uncontested control of it for 5 seconds, it will begin to rapidly grant CP to any allies within.</p><p>The first team to win 5 rounds wins the game.</p>"
 
 	"preboss_nextboss_header"						"NEXT ENEMY"
 
 	"close"											"Close"
-	"readyup"										"Ready"
-	"you_are_ready"									"Waiting for other players to ready up..."
+	"infotext_ok"									"OK cool whatever reading sucks I want to play a video game"
+	"you_are_ready"									"videogames wooooooooo"
 
 	"quest_time_bossteleport"						"Encounter begins"
 	"quest_time_reviving"							"Reviving"
