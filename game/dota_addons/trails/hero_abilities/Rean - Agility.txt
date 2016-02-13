@@ -51,7 +51,7 @@ Enhanced Secondary Damage (unbalanced_damage_percent) : 75
 Enhanced Slow Duration (unbalanced_slow_duration) : 3
 Note0 (note0) : Enhanced Gale's movespeed slow decays over the duration.
 
-[R] Azure Flame Slash (azure_flame_slash) : S-Craft: Rean bathes his sword in blue flames, and after a delay slashes target enemy, dealing physical damage to and Burning them and all nearby enemies. For a duration afterwards, Rean's attacks and crafts Burn enemies.
+[R] Azure Flame Slash (azure_flame_slash) : <font color='#FE9A2E'>S-Craft</font>: Rean bathes his sword in blue flames, and after a delay slashes target enemy, dealing physical damage to and Burning them and all nearby enemies. For a duration afterwards, Rean's attacks and crafts Burn enemies.
 200 CP Bonus : Deals more damage, and +75 to Unbalance, applied after Unbalance state is consumed on primary target.
 
 Radius (radius) : 250

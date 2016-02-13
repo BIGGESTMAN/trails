@@ -37,13 +37,16 @@ for fname in filenames:
 				truncated_line = line[len('~ '):]
 				modifier['name'], rest_of_line = truncated_line.split(' (')
 				modifier['internal_name'], modifier['desc'] = rest_of_line.split(") : ")
-				print(modifier['name'])
-				print(modifier['internal_name'])
-				print(modifier['desc'])
+				# print(modifier['name'])
+				# print(modifier['internal_name'])
+				# print(modifier['desc'])
 				modifiers.append(modifier)
 				continue
 
 			# print(line)
+
+			if (line[:len("Enhanced : ")] == "Enhanced : "):
+				ability['desc'] = ability['desc'] + "\n<font color='#FE9A2E'>{}</font>".format(line)
 
 			if ("Delay" in line):
 				nil, ability['delay'] = line.split(': ')
