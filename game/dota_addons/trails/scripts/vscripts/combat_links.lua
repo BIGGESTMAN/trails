@@ -2,6 +2,8 @@ require "game_functions"
 require "projectile_list"
 require "libraries/notifications"
 
+LinkLuaModifier("modifier_unbalanced_level", "modifier_unbalanced_level.lua", LUA_MODIFIER_MOTION_NONE)
+
 function checkForLink(keys)
 	local caster = keys.caster
 	local ability = keys.ability
@@ -51,63 +53,44 @@ function removeLink(unit)
 end
 
 function attackLanded(keys)
-	attemptUnbalance(keys.caster, keys.target)
+	increaseUnbalance(keys.caster, keys.target)
 end
 
-function attemptUnbalance(caster, target, bonus_chance)
+function increaseUnbalance(caster, target, bonus_increase)
 	local ability = caster:FindAbilityByName("combat_link")
 
-	local unbalance_chance = ability:GetSpecialValueFor("unbalance_chance")
-	bonus_chance = bonus_chance or 0
+	local base_increase = ability:GetSpecialValueFor("base_unbalance_increase")
+	-- local base_increase = 100 -- for testing
+	local unbalance_threshold = ability:GetSpecialValueFor("unbalance_threshold")
+	bonus_increase = bonus_increase or 0
 
-	if caster.combat_linked_to and RandomInt(0, 99) < unbalance_chance + bonus_chance then
-		ability:ApplyDataDrivenModifier(caster, caster.combat_linked_to, "modifier_combat_link_followup_available", {})
-		caster.combat_linked_to:FindAbilityByName("combat_link"):SetActivated(true)
-		ability:ApplyDataDrivenModifier(caster, target, "modifier_combat_link_unbalanced", {})
+	if caster.combat_linked_to then
+		local modifier = target:FindModifierByName("modifier_unbalanced_level")
+		if modifier then -- to make script not crash when hitting creeps ~_~
+			modifier:IncreaseLevel(base_increase + bonus_increase)
+			if modifier:GetStackCount() >= unbalance_threshold then
+				ability:ApplyDataDrivenModifier(caster, caster.combat_linked_to, "modifier_combat_link_followup_available", {})
+				ability:ApplyDataDrivenModifier(caster, target, "modifier_combat_link_unbalanced", {})
+				modifier:SetStackCount(0)
+			end
+		end
 	end
 end
 
-function deactivateActive(keys)
-	keys.target:FindAbilityByName("combat_link"):SetActivated(false)
-end
-
-function followupAttack(keys)
-	if keys.target:HasModifier("modifier_combat_link_unbalanced") then
-		executeFollowupAttack(keys.caster, keys.target)
-		keys.caster:RemoveModifierByName("modifier_combat_link_followup_available")
-	else
-		Notifications:Bottom(keys.caster:GetPlayerOwner(), {text="Must Target An Unbalanced Enemy", duration=1, style={color="red"}})
+function followupAvailable(keys)
+	if getCP(keys.target) >= SCRAFT_MINIMUM_CP then
+		keys.target:GetAbilityByIndex(4):SetActivated(true)
 	end
 end
 
-function executeFollowupAttack(hero, target)
-	local name = hero:GetName()
-	if name == "npc_dota_hero_ember_spirit" then
-		local damage = hero:GetAverageTrueAttackDamage() * 2
-		local damage_type = DAMAGE_TYPE_PHYSICAL
-		local teleport_distance_from_target = 100
+function followupUnavailable(keys)
+	-- Disable s-crafts except as enhanced crafts
+	keys.target:GetAbilityByIndex(4):SetActivated(false)
+end
 
-		dealDamage(target, hero, damage, damage_type, ability)
-		local direction_from_target = (hero:GetAbsOrigin() - target:GetAbsOrigin()):Normalized()
-		FindClearSpaceForUnit(hero, target:GetAbsOrigin() + (direction_from_target * teleport_distance_from_target), true)
+function createUnbalanceModifier(keys)
+	local caster = keys.caster
+	local ability = keys.ability
 
-		local new_facing = (target:GetAbsOrigin() - hero:GetAbsOrigin()):Normalized()
-		new_facing.z = 0
-		hero:SetForwardVector(new_facing)
-	end
-	if name == "npc_dota_hero_windrunner" then
-		local damage = hero:GetAverageTrueAttackDamage() * 2
-		local damage_type = DAMAGE_TYPE_PHYSICAL
-
-		ProjectileList:CreateTrackingProjectile(hero, target, hero:GetProjectileSpeed(), function()
-			dealDamage(target, hero, damage, damage_type, ability)
-			end)
-
-		local new_facing = (target:GetAbsOrigin() - hero:GetAbsOrigin()):Normalized()
-		new_facing.z = 0
-		hero:SetForwardVector(new_facing)
-		EmitSoundOn("Alisa.Followup_Attack", hero)
-		Notifications:Top((hero.combat_linked_to):GetPlayerOwner(), {text="Alisa: ", duration=2, style={color="white", ["font-size"]="26px"}})
-		Notifications:Top((hero.combat_linked_to):GetPlayerOwner(), {text="I've Got You!", style={color="green", ["font-size"]="26px"}, continue = true})
-	end
+	caster:AddNewModifier(caster, ability, "modifier_unbalanced_level", {})
 end

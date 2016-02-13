@@ -22,7 +22,7 @@
 		"AbilityCastRange"				"150"
 		"AbilityChannelTime"			"1.5"
 		"AOERadius"						"250"
-		"CPCost"						"0"
+		"CPCost"						"100"
 
 		"AbilitySpecial"
 		{
@@ -34,7 +34,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"damage_percent"		"250"
+				"damage_percent"		"400"
 			}
 			"01"
 			{
@@ -50,6 +50,16 @@
 			{
 				"var_type"				"FIELD_INTEGER"
 				"burn_duration"			"5"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"max_cp_damage_percent"	"800"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"max_cp_bonus_unbalance"	"75"
 			}
 		}
 

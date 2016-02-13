@@ -1,7 +1,7 @@
 	"arc_slash"
 	{
 		"BaseClass"						"ability_datadriven"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT_TARGET"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT_TARGET | DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
@@ -13,13 +13,14 @@
 		"precache"
 		{
 			"particle"					"particles/crafts/rean/arc_slash/arc_slash.vpcf"
+			"particle"					"particles/crafts/rean/arc_slash/wind_path.vpcf"
 		}
 
 		"AbilityCastPoint"				"0.2"
 		"AbilityCooldown"				"0"
 		"AbilityManaCost"				"0"
 		"AbilityCastRange"				"0"
-		"CPCost"						"0"
+		"CPCost"						"40"
 
 		"AbilitySpecial"
 		{
@@ -31,7 +32,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"damage_percent"		"150"
+				"damage_percent"		"120"
 			}
 			"01"
 			{
@@ -41,12 +42,42 @@
 			"01"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"stun_duration"			"1.5"
+				"stun_duration"			"1.0"
 			}
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
 				"projectile_speed"		"1200"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"unbalanced_damage_percent"	"170"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"unbalanced_stun_duration"	"2.0"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"unbalanced_wind_duration"	"8"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"unbalanced_bonus_movespeed"	"15"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"unbalanced_bonus_attackspeed"	"40"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"unbalanced_buff_linger_time"	"0.25"
 			}
 		}
 
@@ -66,8 +97,6 @@
 			{
 				"IsDebuff"	"1"
 
-				"Duration"	"%stun_duration"
-
 				"States"
 				{
 					"MODIFIER_STATE_STUNNED"		"MODIFIER_STATE_VALUE_ENABLED"
@@ -77,6 +106,17 @@
 				"EffectAttachType"	"follow_overhead"
 
 				"OverrideAnimation"	"ACT_DOTA_DISABLED"
+			}
+
+			"modifier_arc_slash_speedbuff"
+			{
+				"Duration"	"%unbalanced_buff_linger_time"
+
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%unbalanced_bonus_movespeed"
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%unbalanced_bonus_attackspeed"
+				}
 			}
 		}
 	}

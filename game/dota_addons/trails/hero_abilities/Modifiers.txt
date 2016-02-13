@@ -1,5 +1,18 @@
 Modifiers
 
-~ Physical Attack Up (modifier_str) : Physical damage increased.
-~ CP (modifier_cp_tracker_cp) : Amount of CP available for crafts.
-~ Burned (modifier_burn) : On fire, taking 3% of max HP each second.
+~ Physical Attack Up (modifier_str_up) : Physical damage increased.
+~ Physical Attack Down (modifier_str_down) : Physical damage reduced.
+~ CP (modifier_cp_tracker_cp) : Amount of CP available for crafts. Increased by dealing and recieving damage.
+~ Unbalanced Level (modifier_unbalanced_level) : Beginning to become unbalanced -- at 100, will be vulnerable to Enhanced crafts. Rapidly decays if not increased for 8 seconds.
+~ Unbalanced (modifier_combat_link_unbalanced) : Off-balance, and able to be targeted by Enhanced crafts.
+~ Burned (modifier_burn) : On fire, taking 3%% of max HP each second.
+~ Combat Link (modifier_combat_link_linked) : Linked with an ally, enabling unbalancing of enemies and special link techniques.
+~ Enhanced Crafts Ready (modifier_combat_link_followup_available) : An enemy has been knocked off-balance by an ally, rendering them vulnerable to Enhanced crafts.
+~ Autumn Leaf Cutter Slow (modifier_autumn_leaf_cutter_slow) : Movement slowed by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%.
+~ Autumn Leaf Cutter Slow (modifier_autumn_leaf_cutter_unbalanced_slow) : Movement slowed by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%.
+~ Autumn Leaf Cutter Knockback (modifier_autumn_leaf_cutter_knockback) : Sent flying by Enhanced Autumn Leaf Cutter.
+~ Arc Slash Stun (modifier_arc_slash_stun) : Unable to act.
+~ Wind Path Speed (modifier_arc_slash_speedbuff) : Attackspeed increased by %dMODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT% and movespeed increased by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%.
+~ Gale Disarm (modifier_gale_disarm) : Unable to attack.
+~ Enhanced Gale Slow (modifier_gale_slow) : Movement slowed by 80%, decaying over the duration.
+~ Sword Ablaze (modifier_azure_flame_slash_sword_inflamed) : Rean's sword flares with blue flame, and will Burn enemies he deals damage to.

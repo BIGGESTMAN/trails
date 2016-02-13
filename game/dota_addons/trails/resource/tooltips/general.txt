@@ -23,3 +23,5 @@
 
 		"DOTA_Shop_Category_Basics"				"BASIC ELEMENTS"
 		"DOTA_Shop_Category_Upgrades"			"HIGHER ELEMENTS"
+
+		"must_target_unbalanced"	"Must Target An Unbalanced Enemy"

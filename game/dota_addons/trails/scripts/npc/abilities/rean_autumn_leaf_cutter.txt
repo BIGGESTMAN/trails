@@ -1,7 +1,7 @@
 	"autumn_leaf_cutter"
 	{
 		"BaseClass"						"ability_datadriven"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
@@ -38,7 +38,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"bonus_unbalance_chance"	"10"
+				"bonus_unbalance"		"10"
 			}
 			"01"
 			{
@@ -60,6 +60,26 @@
 				"var_type"				"FIELD_INTEGER"
 				"dash_through_range"	"300"
 			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"unbalanced_damage_percent"	"225"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"unbalanced_slow"		"-60"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"unbalanced_knockback_duration"	"0.5"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"unbalanced_knockback_distance"	"350"
+			}
 		}
 
 		"OnSpellStart"
@@ -74,6 +94,17 @@
 
 		"Modifiers"
 		{
+			"modifier_autumn_leaf_cutter_dashing"
+			{
+				"IsHidden"	"1"
+
+				"States"
+				{
+					"MODIFIER_STATE_STUNNED"				"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_NO_UNIT_COLLISION"		"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+
 			"modifier_autumn_leaf_cutter_slow"
 			{
 				"IsDebuff"	"1"
@@ -82,8 +113,35 @@
 
 				"Properties"
 				{
-				    "MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE" "%slow" 
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE" "%slow"
 				}
+			}
+
+			"modifier_autumn_leaf_cutter_unbalanced_slow"
+			{
+				"IsDebuff"	"1"
+
+				"Duration"	"%slow_duration"
+
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE" "%unbalanced_slow"
+				}
+			}
+
+			"modifier_autumn_leaf_cutter_knockback"
+			{
+				"IsDebuff"		"1"
+
+				"Duration"		"%unbalanced_knockback_duration"
+
+				"States"
+				{
+					"MODIFIER_STATE_STUNNED"				"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_NO_UNIT_COLLISION"		"MODIFIER_STATE_VALUE_ENABLED"
+				}
+
+				"OverrideAnimation"     "ACT_DOTA_FLAIL"
 			}
 		}
 	}

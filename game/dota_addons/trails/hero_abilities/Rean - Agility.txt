@@ -1,36 +1,65 @@
 Rean - Agility
 
-[Q] Autumn Leaf Cutter (autumn_leaf_cutter) : Rean dashes through enemies in target area, dealing physical damage, slowing and interrupting. +10% chance to Unbalance.\n\n<font color='#01DF01'>CP COST: 20</font>
+[Q] Autumn Leaf Cutter (autumn_leaf_cutter) : Rean dashes through enemies in target area, dealing physical damage, slowing and interrupting. +10 to Unbalance.\n\n<font color='#01DF01'>CP COST: 20</font>
+Enhanced : Follows targeted enemy, deals more damage and applies a greater slow, and knocks enemies away from the target.
 
 Cast Point : 0.2
-%Physical Damage (damage_percent) : 120
+%Physical Damage (damage_percent) : 150
 Slow Duration (slow_duration) : 3
 %Slow (slow) : 40
 Radius (radius) : 300
+%Enhanced Damage (unbalanced_damage_percent) : 225
+%Enhanced Slow (unbalanced_slow) : 60
+Enhanced Knockback Duration : 0.5
+Enhanced Knockback Distance : 350
 Note0 (note0) : Can only be cast if there are enemies in the target area.
 
 [W] Motivate (motivate) : Rean lets forth an encouraging shout, increasing nearby allies' Physical Attack and granting them CP.\n\n<font color='#01DF01'>CP COST: 30</font>
+Enhanced : Intimidates targeted enemy, decreasing their Physical Attack and CP, and increases allies' Physical Attack and CP by a greater amount.
 
 Radius (radius) : 600
 %Physical Attack Increase (damage_increase_percent) : 25%
 Duration (damage_increase_duration) : 15
 CP (bonus_cp) : 25
+%Enhanced Physical Attack Increase (unbalanced_damage_increase_percent) : 50
+Enhanced CP (unbalanced_bonus_cp) : 50
 Note0 (note0) : Increases Rean's Physical Attack, but doesn't grant him CP.
 
-[E] Arc Slash (arc_slash) : Rean unleashes a shockwave in target direction, dealing physical damage and stunning enemies hit.\n\n<font color='#01DF01'>CP COST: 0</font>
+[E] Arc Slash (arc_slash) : Rean unleashes a shockwave, dealing physical damage and stunning enemies hit.\n\n<font color='#01DF01'>CP COST: 40</font>
+Enhanced : Deals more damage, stuns for longer and leaves a path of wind behind the shockwave, increasing allies' attack and movement speeds while on it.
 
 Radius (radius) : 200
-%Physical Damage (damage_percent) : 150
+%Physical Damage (damage_percent) : 120
 Range (range) : 1000
-Stun Duration (stun_duration) : 1.5
+Stun Duration (stun_duration) : 1.0
+%Enhanced Damage (unbalanced_damage_percent) : 170
+Enhanced Stun Duration (unbalanced_stun_duration) : 2.0
+Enhanced Wind Duration (unbalanced_wind_duration) : 8
+%Enhanced Movespeed (unbalanced_bonus_movespeed) : 15
+Enhanced Attackspeed (unbalanced_bonus_attackspeed) : 40
 
-[R] Azure Flame Slash (azure_flame_slash) : Rean bathes his sword in blue flames, and after a delay slashes target enemy, dealing physical damage to and Burning them and all nearby enemies. For a duration afterwards, Rean's attacks and crafts Burn enemies.
+[D] Gale (gale) : Rean rapidly slices through enemies, dealing physical damage and Disarming them before returning to where he was. +20 to Unbalance.\n\n<font color='#01DF01'>CP COST: 50</font>
+Enhanced : Slices through each enemy twice, with the second slash dealing reduced damage but heavily slowing. Always attacks the targeted enemy last, leaving Rean next to them afterwards.
+
+Radius (radius) : 400
+%Physical Damage (damage_percent) : 200
+Dash Speed : 2000
+Disarm Duration (disarm_duration) : 5
+Cast Range : 400
+Enhanced Secondary Damage (unbalanced_damage_percent) : 75
+%Enhanced Slow (unbalanced_slow) : 80
+Enhanced Slow Duration (unbalanced_slow_duration) : 3
+Note0 (note0) : Enhanced Gale's movespeed slow decays over the duration.
+
+[R] Azure Flame Slash (azure_flame_slash) : S-Craft: Rean bathes his sword in blue flames, and after a delay slashes target enemy, dealing physical damage to and Burning them and all nearby enemies. For a duration afterwards, Rean's attacks and crafts Burn enemies.
+200 CP Bonus : Deals more damage, and +75 to Unbalance, applied after Unbalance state is consumed on primary target.
 
 Radius (radius) : 250
-%Physical Damage (damage_percent) : 250
+%Physical Damage (damage_percent) : 400
 Range : 150
 Delay: 1.5
 Duration (duration) : 10
 Burn Duration (burn_duration) : 5
-
-[D] Gale (gale) : Rean rapidly slices through enemies, dealing physical damage and Disarming them before returning to where he was. +20% chance to Unbalance.
+%200 CP Physical Damage (max_cp_damage_percent) : 800
+200 CP Bonus Unbalance : 75
+Note0 (note0) : Will cancel if the target moves too far away during the delay.

@@ -1,13 +1,13 @@
 	"motivate"
 	{
-		"BaseClass"						"ability_datadriven"
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"crafts/rean/motivate"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_AOE"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"MaxLevel"						"1"
 
 		"AbilityTextureName"			"troll_warlord_battle_trance"
-		"AbilityCastAnimation"			""
 
 		"precache"
 		{
@@ -17,6 +17,7 @@
 		"AbilityCastPoint"				"0.2"
 		"AbilityCooldown"				"0"
 		"AbilityManaCost"				"0"
+		"AbilityCastRange"				"800"
 		"AOERadius"						"600"
 		"CPCost"						"30"
 
@@ -42,19 +43,15 @@
 				"var_type"				"FIELD_INTEGER"
 				"damage_increase_duration"	"15"
 			}
-		}
-
-		"OnSpellStart"
-		{
-			"RunScript"
+			"01"
 			{
-				"ScriptFile"	"crafts/rean/motivate"
-				"Function"		"spellCast"
+				"var_type"				"FIELD_INTEGER"
+				"unbalanced_damage_increase_percent"	"50"
 			}
-		}
-
-		"Modifiers"
-		{
-			
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"unbalanced_bonus_cp"	"50"
+			}
 		}
 	}

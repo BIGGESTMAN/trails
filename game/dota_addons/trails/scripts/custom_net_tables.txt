@@ -2,6 +2,6 @@
 {
   custom_net_tables =
   [
-    "cursor_positions",
+    "gale_slows",
   ]
 }

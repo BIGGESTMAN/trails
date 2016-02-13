@@ -124,7 +124,9 @@ function setupProjectileList()
 		end)
 	end
 
-	function ProjectileList:CreateLinearProjectile(caster, origin_location, direction, speed, range, impactFunction, collisionRules, collisionFunction, particle_name)
+	function ProjectileList:CreateLinearProjectile(caster, origin_location, direction, speed, range, impactFunction, collisionRules, collisionFunction, particle_name, other_args)
+		other_args = other_args or {}
+
 		local update_interval = 1/30
 		speed = speed * update_interval
 		direction.z = 0
@@ -160,14 +162,14 @@ function setupProjectileList()
 						local targets = FindUnitsInRadiusTable(collisionRules)
 						for k,unit in pairs(targets) do
 							if not projectile.units_hit[unit] then
-								collisionFunction(caster, unit)
+								collisionFunction(caster, unit, other_args)
 								projectile.units_hit[unit] = true
 							end
 						end
 					end
 					return update_interval
 				else
-					if impactFunction then impactFunction(caster, origin_location, direction, speed / update_interval, range, collisionRules, collisionFunction) end
+					if impactFunction then impactFunction(caster, origin_location, direction, speed / update_interval, range, collisionRules, collisionFunction, other_args) end
 					projectile:RemoveSelf()
 				end
 			end

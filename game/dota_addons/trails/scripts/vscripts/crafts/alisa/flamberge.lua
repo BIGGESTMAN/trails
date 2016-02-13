@@ -34,7 +34,7 @@ function flambergeHit(caster, unit)
 	local duration = ability:GetSpecialValueFor("burn_duration")
 
 	dealDamage(unit, caster, damage, damage_type, ability)
-	attemptUnbalance(caster, unit, bonus_unbalance_chance)
+	increaseUnbalance(caster, unit, bonus_unbalance_chance)
 	unit:AddNewModifier(caster, ability, "modifier_burn", {duration = duration})
 	unit:Interrupt()
 end

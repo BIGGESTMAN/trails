@@ -6,8 +6,13 @@ function spellCast(keys)
 	local ability = keys.ability
 	local target = keys.target
 
-	ability:ApplyDataDrivenModifier(caster, caster, "modifier_azure_flame_slash_casting", {duration = ability:GetChannelTime()})
-	caster.azure_flame_slash_target = target
+	if caster:HasModifier("modifier_combat_link_followup_available") and target:HasModifier("modifier_combat_link_unbalanced") then
+		ability:ApplyDataDrivenModifier(caster, caster, "modifier_azure_flame_slash_casting", {duration = ability:GetChannelTime()})
+		caster.azure_flame_slash_target = target
+	else
+		Notifications:Bottom(keys.caster:GetPlayerOwner(), {text="Must Target An Unbalanced Enemy", duration=1, style={color="red"}})
+		caster:Interrupt()
+	end
 end
 
 function updateFacing(keys)
@@ -30,18 +35,24 @@ function channelFinish(keys)
 	local caster = keys.caster
 	caster:RemoveModifierByName("modifier_azure_flame_slash_casting")
 	if caster.azure_flame_slash_target then
-		executeSlash(caster, caster.azure_flame_slash_target)
+		local target = caster.azure_flame_slash_target
 		caster.azure_flame_slash_target = nil
+		caster:RemoveModifierByName("modifier_combat_link_followup_available")
+		target:RemoveModifierByName("modifier_combat_link_unbalanced")
+		executeSlash(caster, target, getCP(caster) == MAX_CP)
+		modifyCP(caster, getCP(caster) * -1)
 	end
 end
 
-function executeSlash(caster, target)
+function executeSlash(caster, target, max_cp)
 	local ability = caster:FindAbilityByName("azure_flame_slash")
 
 	local radius = ability:GetSpecialValueFor("radius")
 	local damage = caster:GetAverageTrueAttackDamage() * ability:GetSpecialValueFor("damage_percent") / 100
 	local damage_type = ability:GetAbilityDamageType()
 	local burn_duration = ability:GetSpecialValueFor("burn_duration")
+
+	if max_cp then damage = caster:GetAverageTrueAttackDamage() * ability:GetSpecialValueFor("max_cp_damage_percent") / 100 end
 
 	local team = caster:GetTeamNumber()
 	local origin = target:GetAbsOrigin()
@@ -54,6 +65,7 @@ function executeSlash(caster, target)
 	for k,unit in pairs(targets) do
 		dealDamage(unit, caster, damage, damage_type, ability)
 		unit:AddNewModifier(caster, ability, "modifier_burn", {duration = burn_duration})
+		if max_cp then increaseUnbalance(caster, target, ability:GetSpecialValueFor("max_cp_bonus_unbalance") - caster:FindAbilityByName("combat_link"):GetSpecialValueFor("base_unbalance_increase")) end
 	end
 
 	ability:ApplyDataDrivenModifier(caster, caster, "modifier_azure_flame_slash_sword_inflamed", {})

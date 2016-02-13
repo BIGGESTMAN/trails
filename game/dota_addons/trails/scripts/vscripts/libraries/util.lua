@@ -135,6 +135,10 @@ function GetEnemiesInCone(unit, start_radius, end_radius, end_distance, caster_f
 	return cone_units
 end
 
+function IsValidAlive(unit)
+	return IsValidEntity(unit) and unit:IsAlive()
+end
+
 function randomIndexOfTable(table, excluded_indices)
 	local excluded = excluded_indices or {}
 
@@ -154,6 +158,14 @@ function sizeOfTable(table)
 		size = size + 1
 	end
 	return size
+end
+
+function copyOfTable(table)
+	local new_table = {}
+	for k,v in pairs(table) do
+		new_table[k] = v
+	end
+	return new_table
 end
 
 function getNumberOfModifierInstances(unit, modifier_name)
