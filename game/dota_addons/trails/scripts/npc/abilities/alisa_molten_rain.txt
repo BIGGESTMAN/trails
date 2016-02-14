@@ -1,0 +1,114 @@
+	"molten_rain"
+	{
+		"BaseClass"						"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"MaxLevel"						"1"
+
+		"AbilityTextureName"			"legion_commander_overwhelming_odds"
+		"AbilityCastAnimation"			""
+		"AnimationPlaybackRate" 		"1.5"
+
+		"precache"
+		{
+			"particle"					"particles/crafts/alisa/molten_rain/arrow_linear.vpcf"
+		}
+
+		"AbilityCastPoint"				"0.3"
+		"AbilityCooldown"				"0"
+		"AbilityManaCost"				"0"
+		"AbilityCastRange"				"800"
+		"AOERadius"						"500"
+		"CPCost"						"40"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"radius"				"500"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"arrow_radius"			"150"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"damage_percent"		"100"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"slow"					"-50"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"slow_duration"			"1.5"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"duration"				"4"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"total_arrows"			"20"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"unbalanced_damage_percent"	"150"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"unbalanced_burn_duration"	"3"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"unbalanced_adf_down"	"25"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"unbalanced_adf_down_duration"	"5"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"arrow_impact_delay"		"0.5"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"crafts/alisa/molten_rain"
+				"Function"		"spellCast"
+				"Target"		"POINT"
+			}
+		}
+
+		"Modifiers"
+		{
+			"modifier_molten_rain_slow"
+			{
+				"IsDebuff"		"1"
+
+				"Duration"		"%slow_duration"
+
+				"Properties"
+				{
+				    "MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE" "%slow" 
+				}
+			}
+		}
+	}

@@ -3,6 +3,7 @@ STAT_STR_DOWN = "modifier_str_down"
 STAT_ATS = "modifier_ats" -- Increases magic damage
 STAT_DEF = "modifier_def" -- Decreases phys damage taken
 STAT_ADF = "modifier_adf" -- Decreases magic damage taken
+STAT_ADF_DOWN = "modifier_adf_down" -- Decreases magic damage taken
 STAT_SPD = "modifier_spd" -- Increases AS and lowers CDs?
 STAT_MOV = "modifier_mov" -- Increases MS
 STAT_MAX_INCREASE = 50
@@ -12,6 +13,7 @@ MAX_CP = 200
 
 LinkLuaModifier(STAT_STR, "stat_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier(STAT_STR_DOWN, "stat_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier(STAT_ADF_DOWN, "stat_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 
 LinkLuaModifier("modifier_burn", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 
@@ -109,6 +111,10 @@ function getInverseStat(stat)
 		return STAT_STR_DOWN
 	elseif stat == STAT_STR_DOWN then
 		return STAT_STR
+	elseif stat == STAT_ADF then
+		return STAT_ADF_DOWN
+	elseif stat == STAT_ADF_DOWN then
+		return STAT_ADF
 	end
 end
 

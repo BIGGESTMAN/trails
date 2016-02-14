@@ -2,6 +2,8 @@ Modifiers
 
 ~ Physical Attack Up (modifier_str_up) : Physical damage increased.
 ~ Physical Attack Down (modifier_str_down) : Physical damage reduced.
+~ Magical Defense Up (modifier_adf_down) : Incoming magical damage reduced.
+~ Magical Defense Down (modifier_adf_down) : Incoming magical damage increased.
 ~ CP (modifier_cp_tracker_cp) : Amount of CP available for crafts. Increased by dealing and recieving damage.
 ~ Unbalanced Level (modifier_unbalanced_level) : Beginning to become unbalanced -- at 100, will be vulnerable to Enhanced crafts. Rapidly decays if not increased for 8 seconds.
 ~ Unbalanced (modifier_combat_link_unbalanced) : Off-balance, and able to be targeted by Enhanced crafts.
@@ -19,4 +21,5 @@ Modifiers
 ~ Sword Ablaze (modifier_azure_flame_slash_sword_inflamed) : Rean's sword flares with blue flame, and will Burn enemies he deals damage to.
 
 ~ Flamberge Silence (modifier_flamberge_silence) : Unable to use crafts.
-~ Mischievous Blessing (modifier_blessed_arrow_mischievous_blessing) : Marked by Enhanced Blessed Arrow, enemy attackers will heal and gain bonus CP.
+~ Mischievous Blessing (modifier_blessed_arrow_mischievous_blessing) : Marked by Enhanced Blessed Arrow. Enemy attackers will heal and gain bonus CP.
+~ Molten Rain Slow (modifier_molten_rain_slow) : Movement slowed by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%%.

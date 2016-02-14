@@ -24,6 +24,12 @@ function Filters:DamageFilter(event)
 			target:AddNewModifier(attacker, ability, "modifier_burn", {duration = burn_duration})
 		end
 	end
+	if damage_type == DAMAGE_TYPE_MAGICAL and target:HasModifier(STAT_ADF) then
+		event.damage = event.damage / (1 + (target:FindModifierByName(STAT_ADF):GetStackCount() / 100))
+	end
+	if damage_type == DAMAGE_TYPE_MAGICAL and target:HasModifier(STAT_ADF_DOWN) then
+		event.damage = event.damage / (1 - (target:FindModifierByName(STAT_ADF_DOWN):GetStackCount() / 100))
+	end
 	return true
 end
 

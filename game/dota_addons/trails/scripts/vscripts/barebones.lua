@@ -238,7 +238,6 @@ function GameMode:CaptureGameMode()
 		mode:SetModifyGoldFilter(Dynamic_Wrap(Filters, "ModifyGoldFilter"), self)
 
 		self:OnFirstPlayerLoaded()
-		print("mode: ", mode)
 	end
 end
 

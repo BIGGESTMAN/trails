@@ -29,3 +29,21 @@ end
 function modifier_str_down:IsDebuff()
 	return true
 end
+
+modifier_adf_down = class({})
+
+function modifier_adf_down:GetEffectName()
+	return "particles/items2_fx/veil_of_discord_debuff.vpcf"
+end
+
+function modifier_adf_down:GetEffectAttachType()
+	return PATTACH_ABSORIGIN_FOLLOW
+end
+
+function modifier_adf_down:GetTexture()
+	return "roshan_halloween_apocalypse"
+end
+
+function modifier_adf_down:IsDebuff()
+	return true
+end

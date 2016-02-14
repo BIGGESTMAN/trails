@@ -26,7 +26,7 @@ Enhanced Debuff Duration (unbalanced_mischievous_duration) : 10
 Enhanced Debuff CP (unbalanced_mischievous_bonus_cp) : 5
 Note0 (note0) : Initial healing and CP increase doesn't affect Alisa, although she can trigger Mischievous Blessing.
 
-[E] Molten Rain (molten_rain) : Alisa rains burning arrows onto enemies, dealing magic damage and slowing in a large area.<font color='#01DF01'>CP COST: 40</font>
+[E] Molten Rain (molten_rain) : Alisa rains burning arrows onto enemies, dealing magic damage and slowing in a large area.\n\n<font color='#01DF01'>CP COST: 40</font>
 Enhanced : Deals more damage, Burns enemies hit and reduces enemies' Magic Defense.
 
 Cast Range : 800
@@ -44,7 +44,7 @@ Enhanced Magic Def. Reduction Duration (unbalanced_adf_down_duration) : 5
 Note0 (note0) : Rains 20 total arrows down over 4 seconds.
 Note1 (note1) : Arrow impacts have 150 radius.
 
-[D] Heavenly Gift (heavenly_gift) : Alisa grants allies in an area Insight and Passion.\n\nInsight allows evasion of physical attacks. Passion grants gradual CP regeneration.<font color='#01DF01'>CP COST: 50</font>
+[D] Heavenly Gift (heavenly_gift) : Alisa grants allies in an area Insight and Passion.\n\nInsight allows evasion of physical attacks. Passion grants gradual CP regeneration.\n\n<font color='#01DF01'>CP COST: 50</font>
 Enhanced : Instantly drains the target's CP in order to gradually restore CP of allies around Alisa.
 
 Cast Range : 800

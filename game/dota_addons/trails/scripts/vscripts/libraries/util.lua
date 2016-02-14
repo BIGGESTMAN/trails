@@ -230,3 +230,10 @@ end
 function FindUnitsInRadiusTable(table)
 	return FindUnitsInRadius(table["team"], table["origin"], nil, table["radius"], table["iTeam"], table["iType"], table["iFlag"], table["iOrder"], false)
 end
+
+function randomPointInCircle(origin, radius)
+    t = 2*math.pi*RandomFloat(0,radius)
+    u = RandomFloat(0, radius)+RandomFloat(0, radius)
+    if u > radius then u = radius * 2 - u end
+    return Vector(u*math.cos(t), u*math.sin(t),0) + origin
+end
