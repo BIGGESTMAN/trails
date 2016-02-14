@@ -4,12 +4,17 @@ Modifiers
 ~ Physical Attack Down (modifier_str_down) : Physical damage reduced.
 ~ Magical Defense Up (modifier_adf_down) : Incoming magical damage reduced.
 ~ Magical Defense Down (modifier_adf_down) : Incoming magical damage increased.
-~ CP (modifier_cp_tracker_cp) : Amount of CP available for crafts. Increased by dealing and recieving damage.
-~ Unbalanced Level (modifier_unbalanced_level) : Beginning to become unbalanced -- at 100, will be vulnerable to Enhanced crafts. Rapidly decays if not increased for 8 seconds.
-~ Unbalanced (modifier_combat_link_unbalanced) : Off-balance, and able to be targeted by Enhanced crafts.
+
 ~ Burned (modifier_burn) : On fire, taking 3%% of max HP each second.
+~ Insight (modifier_insight) : Evading physical attacks, up to once per second.
+~ Passion (modifier_passion) : Rapidly gaining CP.
+
+~ CP (modifier_cp_tracker_cp) : Amount of CP available for crafts. Increased by dealing and recieving damage.
+
 ~ Combat Link (modifier_combat_link_linked) : Linked with an ally, enabling unbalancing of enemies and special link techniques.
 ~ Enhanced Crafts Ready (modifier_combat_link_followup_available) : An enemy has been knocked off-balance by an ally, rendering them vulnerable to Enhanced crafts.
+~ Unbalanced Level (modifier_unbalanced_level) : Beginning to become unbalanced -- at 100, will be vulnerable to Enhanced crafts. Rapidly decays if not increased for 8 seconds.
+~ Unbalanced (modifier_combat_link_unbalanced) : Off-balance, and able to be targeted by Enhanced crafts.
 
 ~ Autumn Leaf Cutter Slow (modifier_autumn_leaf_cutter_slow) : Movement slowed by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%.
 ~ Autumn Leaf Cutter Slow (modifier_autumn_leaf_cutter_unbalanced_slow) : Movement slowed by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%.
@@ -23,3 +28,4 @@ Modifiers
 ~ Flamberge Silence (modifier_flamberge_silence) : Unable to use crafts.
 ~ Mischievous Blessing (modifier_blessed_arrow_mischievous_blessing) : Marked by Enhanced Blessed Arrow. Enemy attackers will heal and gain bonus CP.
 ~ Molten Rain Slow (modifier_molten_rain_slow) : Movement slowed by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%%.
+~ Heavenly Passion (modifier_heavenly_gift_cp_restore) : Gradually restoring CP to surrounding allies based on CP stolen from an enemy with Enhanced Heavenly Gift.

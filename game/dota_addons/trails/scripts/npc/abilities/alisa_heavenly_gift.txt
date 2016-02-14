@@ -1,0 +1,103 @@
+	"heavenly_gift"
+	{
+		"BaseClass"						"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"MaxLevel"						"1"
+
+		"AbilityTextureName"			"alisa_heavenly_gift"
+		"AbilityCastAnimation"			""
+		"AnimationPlaybackRate" 		"1.5"
+
+		"precache"
+		{
+			"particle"					"particles/crafts/alisa/blessed_arrow/arrow.vpcf"
+		}
+
+		"AbilityCastPoint"				"0.3"
+		"AbilityCooldown"				"0"
+		"AbilityManaCost"				"0"
+		"AbilityCastRange"				"800"
+		"AOERadius"						"400"
+		"CPCost"						"50"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"radius"				"400"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"buffs_duration"		"5"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"passion_cp_regen"		"10"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"unbalanced_cp_restore_duration"	"8"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"unbalanced_cp_restore_radius"	"350"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"unbalanced_cp_restore_interval"	"0.25"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"arrow_travel_time"		"0.5"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"crafts/alisa/heavenly_gift"
+				"Function"		"spellCast"
+				"Target"		"POINT"
+			}
+		}
+
+		"Modifiers"
+		{
+			"modifier_heavenly_gift_cp_restore"
+			{
+				"Duration"		"%unbalanced_cp_restore_duration"
+
+				"ThinkInterval"  "%unbalanced_cp_restore_interval"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"crafts/alisa/heavenly_gift"
+						"Function"		"restoreCPTick"
+					}
+				}
+
+				"EffectName"		"particles/cp_fountain/cp_fountain.vpcf"
+				"EffectAttachType"	"follow_origin"
+
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"crafts/alisa/heavenly_gift"
+						"Function"		"cpRestoreBuffEnded"
+					}
+				}
+			}
+		}
+	}

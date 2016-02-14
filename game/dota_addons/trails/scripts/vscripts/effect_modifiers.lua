@@ -33,3 +33,62 @@ end
 function modifier_burn:GetTexture()
 	return "ogre_magi_ignite"
 end
+
+modifier_insight = class({})
+
+if IsServer() then
+	function modifier_insight:OnCreated( kv )
+		local ability = self:GetAbility()
+
+		self.evasion_active = true
+		self.evasion_cooldown_time = 1
+	end
+
+	function modifier_insight:StartEvasionCooldown()
+		self.evasion_active = false
+		self:StartIntervalThink(self.evasion_cooldown_time)
+	end
+
+	function modifier_insight:OnIntervalThink()
+		self.evasion_active = true
+		self:StartIntervalThink(-1)
+	end
+end
+
+function modifier_insight:GetEffectName()
+	return "particles/units/heroes/hero_omniknight/omniknight_repel_buff_b.vpcf"
+end
+
+function modifier_insight:GetEffectAttachType()
+	return PATTACH_ABSORIGIN_FOLLOW
+end
+
+function modifier_insight:GetTexture()
+	return "windrunner_windrun"
+end
+
+modifier_passion = class({})
+
+if IsServer() then
+	function modifier_passion:OnCreated( kv )
+		local ability = self:GetAbility()
+
+
+		self.cp_interval = 1/30
+		self.cp_per_second = kv.cp_per_second
+		self.accrued_cp = 0
+		self:StartIntervalThink(self.cp_interval)
+	end
+
+	function modifier_passion:OnIntervalThink()
+		self.accrued_cp = self.accrued_cp + self.cp_per_second * self.cp_interval
+		if self.accrued_cp >= 1 then
+			modifyCP(self:GetParent(), math.floor(self.accrued_cp))
+			self.accrued_cp = self.accrued_cp - math.floor(self.accrued_cp)
+		end
+	end
+end
+
+function modifier_passion:GetTexture()
+	return "lina_light_strike_array"
+end

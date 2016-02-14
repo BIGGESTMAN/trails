@@ -48,16 +48,18 @@ Note1 (note1) : Arrow impacts have 150 radius.
 Enhanced : Instantly drains the target's CP in order to gradually restore CP of allies around Alisa.
 
 Cast Range : 800
-Radius (radius) : 500
+Radius (radius) : 400
 Insight Duration (buffs_duration) : 5
 Passion Duration (buffs_duration) : 5
 Passion CP Per Second (passion_cp_regen) : 10
-Enhanced CP Restore Duration : 8
-Enhanced CP Restore Radius : 350
+Enhanced CP Restore Duration (unbalanced_cp_restore_duration) : 8
+Enhanced CP Restore Radius (unbalanced_cp_restore_radius) : 350
+Note0 (note0) : If in the area of effect, Alisa gains Insight but not Passion.
 
 [R] Judgment Arrow (judgment_arrow) : S-Craft: Alisa annihilates enemies in a line with an arrow of judgment, dealing magic damage and Silencing them. Enemies hit are pulled along with the arrow.
 200 CP Bonus : Deals more damage and stuns all enemies hit at the end of its path.
 
+Cast Time: 1.5
 Radius (radius) : 400
 Projectile Speed : 1000
 %Magical Damage (damage_percent) : 300

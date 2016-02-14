@@ -11,6 +11,10 @@ function Filters:DamageFilter(event)
 	local target = EntIndexToHScript(event.entindex_victim_const)
 	local damage_type = event.damagetype_const
 	local damage = event.damage
+	if target:HasModifier("modifier_insight") and target:FindModifierByName("modifier_insight").evasion_active and damage_type == DAMAGE_TYPE_PHYSICAL then
+		target:FindModifierByName("modifier_insight"):StartEvasionCooldown()
+		return false
+	end
 	if attacker then
 		if damage_type == DAMAGE_TYPE_PHYSICAL and attacker:HasModifier(STAT_STR) then
 			event.damage = event.damage * (1 + (attacker:FindModifierByName(STAT_STR):GetStackCount() / 100))

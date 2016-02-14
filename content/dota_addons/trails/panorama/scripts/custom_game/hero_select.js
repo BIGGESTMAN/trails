@@ -13,7 +13,8 @@ var ALL_HEROES = {
 	"npc_dota_hero_windrunner": [
 		"flamberge",
 		"blessed_arrow",
-		"molten_rain"
+		"molten_rain",
+		"heavenly_gift"
 	]
 }
 

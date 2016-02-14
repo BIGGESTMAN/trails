@@ -66,7 +66,7 @@ function CP_Fountain:Initialize()
 					ParticleManager:SetParticleControl(active_particle, 0, fountain_location)
 				end
 				accrued_cp = accrued_cp + update_interval * cp_per_second
-				if accrued_cp > 1 then
+				if accrued_cp >= 1 then
 					for k,unit in pairs(units[controlled_by]) do
 						modifyCP(unit, math.floor(accrued_cp))
 					end
