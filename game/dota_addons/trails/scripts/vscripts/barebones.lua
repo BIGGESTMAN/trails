@@ -210,7 +210,6 @@ end
 -- This function is called as the first player loads and sets up the GameMode parameters
 function GameMode:CaptureGameMode()
 	if mode == nil then
-		print(mode)
 		-- Set GameMode parameters
 		mode = GameRules:GetGameModeEntity()
 		mode:SetRecommendedItemsDisabled( RECOMMENDED_BUILDS_DISABLED )
@@ -239,6 +238,7 @@ function GameMode:CaptureGameMode()
 		mode:SetModifyGoldFilter(Dynamic_Wrap(Filters, "ModifyGoldFilter"), self)
 
 		self:OnFirstPlayerLoaded()
+		print("mode: ", mode)
 	end
 end
 

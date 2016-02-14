@@ -125,11 +125,14 @@ function setupProjectileList()
 	end
 
 	function ProjectileList:CreateLinearProjectile(caster, origin_location, direction, speed, range, impactFunction, collisionRules, collisionFunction, particle_name, other_args)
+		print("linear projectile created")
 		other_args = other_args or {}
 
 		local update_interval = 1/30
 		speed = speed * update_interval
-		direction.z = 0
+		if not other_args.non_flat then
+			direction.z = 0
+		end
 
 		local projectile = CreateUnitByName("npc_dummy_unit", origin_location, false, caster, caster, caster:GetTeamNumber())
 		projectile:SetAbsOrigin(origin_location)

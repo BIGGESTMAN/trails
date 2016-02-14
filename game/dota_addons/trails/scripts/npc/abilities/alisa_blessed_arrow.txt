@@ -1,0 +1,106 @@
+	"blessed_arrow"
+	{
+		"BaseClass"						"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"MaxLevel"						"1"
+
+		"AbilityTextureName"			"alisa_blessed_arrow"
+		"AbilityCastAnimation"			""
+		"AnimationPlaybackRate" 		"1.5"
+
+		"precache"
+		{
+			"particle"					"particles/units/heroes/hero_bounty_hunter/bounty_hunter_track_shield.vpcf"
+			"particle"					"particles/crafts/alisa/blessed_arrow/arrow.vpcf"
+		}
+
+		"AbilityCastPoint"				"0.3"
+		"AbilityCooldown"				"0"
+		"AbilityManaCost"				"0"
+		"AbilityCastRange"				"800"
+		"AOERadius"						"500"
+		"CPCost"						"40"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"radius"				"500"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"healing_percent"		"200"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"bonus_cp"				"40"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"unbalanced_healing_percent"	"300"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"unbalanced_bonus_cp"	"70"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"unbalanced_mischievous_duration"	"10"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"unbalanced_mischievous_healing_percent"	"40"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"unbalanced_mischievous_bonus_cp"	"5"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"arrow_travel_time"		"0.5"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"crafts/alisa/blessed_arrow"
+				"Function"		"spellCast"
+				"Target"		"POINT"
+			}
+		}
+
+		"Modifiers"
+		{
+			"modifier_blessed_arrow_mischievous_blessing"
+			{
+				"IsDebuff"		"1"
+
+				"Duration"		"%unbalanced_mischievous_duration"
+
+				"EffectName"		"particles/units/heroes/hero_bounty_hunter/bounty_hunter_track_shield.vpcf"
+				"EffectAttachType"	"follow_overhead"
+
+				"OnAttacked"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"crafts/alisa/blessed_arrow"
+						"Function"		"mischievousBlessingAttacked"
+					}
+				}
+			}
+		}
+	}

@@ -136,6 +136,7 @@ function setCraftActivatedStatus(unit)
 	for i=0,unit:GetAbilityCount() - 1 do
 		local ability = unit:GetAbilityByIndex(i)
 		if ability and not ability:IsHidden() then
+			-- ability:SetActivated(true)
 			ability:SetActivated(getCP(unit) >= getCPCost(ability))
 			-- Disable s-crafts except as enhanced crafts (aka against unbalanced)
 			if ability:GetAbilityType() == 1 and not unit:HasModifier("modifier_combat_link_followup_available") then

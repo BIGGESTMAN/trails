@@ -19,3 +19,4 @@ Modifiers
 ~ Sword Ablaze (modifier_azure_flame_slash_sword_inflamed) : Rean's sword flares with blue flame, and will Burn enemies he deals damage to.
 
 ~ Flamberge Silence (modifier_flamberge_silence) : Unable to use crafts.
+~ Mischievous Blessing (modifier_blessed_arrow_mischievous_blessing) : Marked by Enhanced Blessed Arrow, enemy attackers will heal and gain bonus CP.

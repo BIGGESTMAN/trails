@@ -11,7 +11,8 @@ var ALL_HEROES = {
 		"azure_flame_slash"
 	],
 	"npc_dota_hero_windrunner": [
-		"flamberge"
+		"flamberge",
+		"blessed_arrow"
 	]
 }
 

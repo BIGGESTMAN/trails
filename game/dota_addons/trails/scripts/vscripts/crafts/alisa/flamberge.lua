@@ -1,5 +1,6 @@
 require "projectile_list"
 require "combat_links"
+require "game_functions"
 
 function spellCast(keys)
 	local caster = keys.caster
