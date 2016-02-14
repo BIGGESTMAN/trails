@@ -55,7 +55,9 @@
 
 	"HeroSelect_Passive"							"ARCUS Ability"
 	"HeroSelect_Abilities"							"Crafts"
+	"HeroSelect_Crafts_Tooltip"						"A hero's basic abilities, which cost Craft Points to cast. Have no cooldown and are all learned at level 1."
 	"HeroSelect_Scraft"								"S-Craft"
+	"HeroSelect_Scraft_Tooltip"						"A hero's ultimate craft, only usable with the help of a combat-linked ally."
 	"HeroSelect_Loading"							"Loading..."
 
 	"npc_dota_hero_ember_spirit_Lore"				"The leader of Class VII. As a beginner in the Eight Leaves One Blade school of swordfighting, Rean uses powerful physical attacks to disrupt and elude enemies."

@@ -133,6 +133,19 @@ function SelectHero(hero_id) {
 	$("#PickButton").enabled = (pickedHeroes[hero_id] != true);
 }
 
+function CraftsShowTooltip() {
+	$("#CraftsTooltip").SetHasClass("Visible", true);
+}
+function CraftsHideTooltip() {
+	$("#CraftsTooltip").SetHasClass("Visible", false);
+}
+function ScraftShowTooltip() {
+	$("#ScraftTooltip").SetHasClass("Visible", true);
+}
+function ScraftHideTooltip() {
+	$("#ScraftTooltip").SetHasClass("Visible", false);
+}
+
 (function () {
 	GameEvents.Subscribe("heroselect_start", OnStart);
 	GameEvents.Subscribe("heroselect_pick_other", OnOtherPicked);

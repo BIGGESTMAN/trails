@@ -94,19 +94,49 @@
 	margin-bottom: 30px;
 }
 
-#HeroInfoContainer .Header {
-	color: #a0a0a0	;
-	border-bottom: 1px solid #a0a0a0;
-	text-transform: uppercase;
-	font-size: 28px;
-	margin-bottom: 16px;
-	width: 100%;
-}
-
 #HeroInfoContainer .HeroAbilityContainer {
 	margin-bottom: 10px;
 	height: fit-children;
 	flow-children: down;
+}
+
+#HeroInfoContainer .HeaderContainer {
+	border-bottom: 1px solid #a0a0a0;
+	flow-children: right;
+	margin-bottom: 16px;
+}
+
+#HeroInfoContainer .Header {
+	color: #a0a0a0	;
+	/*border-bottom: 1px solid #a0a0a0;*/
+	text-transform: uppercase;
+	font-size: 28px;
+	/*margin-bottom: 16px;*/
+	width: 25%;
+}
+
+#HeroInfoContainer .Tooltip {
+	font-size: 14px;
+	transition-property: opacity, transform;
+    transition-duration: 0.25s;
+	opacity: 0;
+	background-color: gradient( linear, 0% 0%, 0% 100%, from( #32393e40 ), to( #15151540 ) );
+	box-shadow: #0000004f -4px -4px 2px 8px;
+	border-top: 1px solid #ffffff10;
+	border-left: 1px solid #ffffff06;
+	border-right: 1px solid #ffffff06;
+	border-bottom: 1px solid #101010;
+	padding: 4px;
+	/*margin-bottom: 16px;*/
+	margin-right: 23px;
+	height: 46px;
+	transform: translate3d(0px, 10px, 0px);
+}
+
+#HeroInfoContainer .Tooltip.Visible {
+	color: #f0f0f0;
+	transform: translate3d(0px, 0px, 0px);
+	opacity: 1;
 }
 
 .HeroSelectSkill {

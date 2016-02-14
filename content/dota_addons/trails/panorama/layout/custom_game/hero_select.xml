@@ -4,7 +4,7 @@
 		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
 	</styles>
 	<scripts>
-		<include src="s2r://panorama/scripts/custom_game/hero_select.vjs_c" />
+		<include src="s2r://panorama/scripts/custom_game/hero_select.js" />
 	</scripts>
 	<Panel hittest="true" class="HeroSelect"> 
 		<DOTAScenePanel id="Background" camera="shot_cameraA" map="backgrounds/dashboard_parallax_test"/>
@@ -28,10 +28,16 @@
 <!-- 
 				<Label class="Header" text="#HeroSelect_Passive"/>
 				<Panel class="HeroAbilityContainer" id="HeroPassiveAbilityContainer" /> -->
-				<Label class="Header" text="#HeroSelect_Abilities"/>
-				<Panel class="HeroAbilityContainer" id="HeroAbilityContainer" />
-				<Label class="Header" text="#HeroSelect_Scraft"/>
-				<Panel class="HeroAbilityContainer" id="HeroScraftAbilityContainer" />
+				<Panel class="HeaderContainer">
+					<Label id="CraftsHeader" class="Header" text="#HeroSelect_Abilities"/>
+					<Label id="CraftsTooltip" class="Tooltip" text="#HeroSelect_Crafts_Tooltip"/>
+				</Panel>
+				<Panel class="HeroAbilityContainer" id="HeroAbilityContainer" onmouseover="CraftsShowTooltip()" onmouseout="CraftsHideTooltip()"/>
+				<Panel class="HeaderContainer">
+					<Label id="ScraftHeader" class="Header" text="#HeroSelect_Scraft"/>
+					<Label id="ScraftTooltip" class="Tooltip" text="#HeroSelect_Scraft_Tooltip"/>
+				</Panel>
+				<Panel class="HeroAbilityContainer" id="HeroScraftAbilityContainer" onmouseover="ScraftShowTooltip()" onmouseout="ScraftHideTooltip()"/>
 			</Panel>
 		</Panel>
 
