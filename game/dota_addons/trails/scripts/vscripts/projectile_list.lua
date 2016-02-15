@@ -165,7 +165,7 @@ function setupProjectileList()
 						local targets = FindUnitsInRadiusTable(collisionRules)
 						for k,unit in pairs(targets) do
 							if not projectile.units_hit[unit] then
-								collisionFunction(caster, unit, other_args)
+								collisionFunction(caster, unit, other_args, projectile)
 								projectile.units_hit[unit] = true
 							end
 						end

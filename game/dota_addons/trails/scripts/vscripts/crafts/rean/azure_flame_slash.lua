@@ -6,7 +6,7 @@ function spellCast(keys)
 	local ability = keys.ability
 	local target = keys.target
 
-	if caster:HasModifier("modifier_combat_link_followup_available") and target:HasModifier("modifier_combat_link_unbalanced") then
+	if validEnhancedCraft(caster, target) then
 		ability:ApplyDataDrivenModifier(caster, caster, "modifier_azure_flame_slash_casting", {duration = ability:GetChannelTime()})
 		caster.azure_flame_slash_target = target
 	else

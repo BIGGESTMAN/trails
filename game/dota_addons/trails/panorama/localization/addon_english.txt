@@ -60,9 +60,10 @@
 	"HeroSelect_Scraft_Tooltip"						"A hero's ultimate craft, only usable with the help of a combat-linked ally."
 	"HeroSelect_Loading"							"Loading..."
 
-	"npc_dota_hero_ember_spirit_Lore"				"The leader of Class VII. As a beginner in the Eight Leaves One Blade school of swordfighting, Rean uses powerful physical attacks to disrupt and elude enemies."
-	"npc_dota_hero_windrunner_Lore"					"The heir to the Empire's largest industrial group, Alisa's technical knowledge and skill with the bow allow her to support her allies and devastate her enemies with wide-area magic effects."
-
+	//"npc_dota_hero_ember_spirit_Lore"				"The leader of Class VII. As a beginner in the Eight Leaves One Blade school of swordfighting, Rean uses powerful physical attacks to disrupt and elude enemies."
+	"npc_dota_hero_ember_spirit_Lore"				"Rean is a nimble, aggressive swordfighter who uses powerful physical attacks to disrupt and elude enemies."
+	//"npc_dota_hero_windrunner_Lore"					"The heir to the Empire's largest industrial group, Alisa's technical knowledge and skill with the bow allow her to support her allies and devastate her enemies with wide-area magic effects."
+	"npc_dota_hero_windrunner_Lore"					"Alisa's technical knowledge and skill with the bow allow her to support her allies and devastate her enemies with wide-area magic effects."
 
 
 

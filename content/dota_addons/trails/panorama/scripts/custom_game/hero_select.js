@@ -14,7 +14,8 @@ var ALL_HEROES = {
 		"flamberge",
 		"blessed_arrow",
 		"molten_rain",
-		"heavenly_gift"
+		"heavenly_gift",
+		"judgment_arrow"
 	]
 }
 

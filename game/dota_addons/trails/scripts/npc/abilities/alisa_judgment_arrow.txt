@@ -1,0 +1,153 @@
+	"judgment_arrow"
+	{
+		"BaseClass"						"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+		"MaxLevel"						"1"
+
+		"AbilityTextureName"			"phoenix_sun_ray"
+		"AbilityCastAnimation"			""
+
+		"precache"
+		{
+			
+		}
+
+		"AbilityCastPoint"				"0"
+		"AbilityCooldown"				"0"
+		"AbilityManaCost"				"0"
+		"AbilityChannelTime"			"1.5"
+		"CPCost"						"100"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"radius"				"400"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"damage_percent"		"300"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"bonus_unbalance"		"20"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"travel_speed"			"1000"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"range"					"1400"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"silence_duration"		"5"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"max_cp_damage_percent"	"600"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"max_cp_stun_duration"	"3"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"crafts/alisa/judgment_arrow"
+				"Function"		"spellCast"
+			}
+		}
+
+		"OnChannelFinish"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"crafts/alisa/judgment_arrow"
+				"Function"		"channelFinish"
+			}
+		}
+
+		"Modifiers"
+		{
+			"modifier_judgment_arrow_pulled"
+			{
+				"IsDebuff"		"1"
+
+				"States"
+				{
+					"MODIFIER_STATE_STUNNED"				"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_NO_UNIT_COLLISION"		"MODIFIER_STATE_VALUE_ENABLED"
+				}
+
+				"OverrideAnimation"     "ACT_DOTA_FLAIL"
+			}
+
+			"modifier_judgment_arrow_stun"
+			{
+				"IsDebuff"		"1"
+
+				"Duration"		"%max_cp_stun_duration"
+
+				"States"
+				{
+					"MODIFIER_STATE_STUNNED"				"MODIFIER_STATE_VALUE_ENABLED"
+				}
+
+				"EffectName"		"particles/generic_gameplay/generic_stunned.vpcf"
+				"EffectAttachType"	"follow_overhead"
+
+				"OverrideAnimation"     "ACT_DOTA_DISABLED"
+			}
+
+			"modifier_judgment_arrow_silence"
+			{
+				"IsDebuff"		"1"
+
+				"Duration"		"%silence_duration"
+
+				"States"
+				{
+					"MODIFIER_STATE_SILENCED"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+
+				"EffectName"		"particles/generic_gameplay/generic_silence.vpcf"
+				"EffectAttachType"	"follow_overhead"
+			}
+
+			"modifier_judgment_arrow_casting"
+			{
+				"States"
+				{
+					"MODIFIER_STATE_COMMAND_RESTRICTED"		"MODIFIER_STATE_VALUE_ENABLED"
+				}
+
+				"ThinkInterval"  "0.03"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"crafts/alisa/judgment_arrow"
+						"Function"		"updateFacing"
+					}
+				}
+			}
+
+		}
+	}
