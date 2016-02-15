@@ -154,12 +154,23 @@ function setCraftActivatedStatus(unit)
 	for i=0,unit:GetAbilityCount() - 1 do
 		local ability = unit:GetAbilityByIndex(i)
 		if ability and not ability:IsHidden() then
-			ability:SetActivated(true)
-			-- ability:SetActivated(getCP(unit) >= getCPCost(ability))
-			-- Disable s-crafts except as enhanced crafts (aka against unbalanced)
-			if ability:GetAbilityType() == 1 and not unit:HasModifier("modifier_combat_link_followup_available") then
-				ability:SetActivated(false)
-			end
+			-- ability:SetActivated(true)
+			ability:SetActivated(getCP(unit) >= getCPCost(ability))
+		else
+			break
+		end
+	end
+end
+
+function validEnhancedCraft(caster, target)
+	return caster:HasModifier("modifier_combat_link_followup_available") and target and target:HasModifier("modifier_combat_link_unbalanced")
+end
+
+function applyDelayCooldowns(unit, ability_cast)
+	for i=0,unit:GetAbilityCount() - 1 do
+		local ability = unit:GetAbilityByIndex(i)
+		if ability and not ability:IsHidden() then
+			ability:StartCooldown(getDelay(ability_cast))
 		else
 			break
 		end
@@ -167,15 +178,19 @@ function setCraftActivatedStatus(unit)
 end
 
 if not util_ability_keyvalues then util_ability_keyvalues = LoadKeyValues("scripts/npc/npc_abilities_custom.txt") end
-function getCPCost(ability)
-	local cost = 0
+function getAbilityValueForKey(ability, key)
+	local value = 0
 	local ability_kvs = util_ability_keyvalues[ability:GetName()]
-	if ability_kvs and ability_kvs["CPCost"] then
-		cost = ability_kvs["CPCost"]
+	if ability_kvs and ability_kvs[key] then
+		value = ability_kvs[key]
 	end
-	return cost
+	return value
 end
 
-function validEnhancedCraft(caster, target)
-	return caster:HasModifier("modifier_combat_link_followup_available") and target and target:HasModifier("modifier_combat_link_unbalanced")
+function getCPCost(ability)
+	return getAbilityValueForKey(ability, "CPCost")
+end
+
+function getDelay(ability)
+	return ability:GetCooldown(ability:GetLevel())
 end

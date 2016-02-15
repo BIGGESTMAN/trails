@@ -17,7 +17,7 @@
 		}
 
 		"AbilityCastPoint"				"0"
-		"AbilityCooldown"				"0"
+		"AbilityCooldown"				"10"
 		"AbilityManaCost"				"0"
 		"AbilityCastRange"				"150"
 		"AbilityChannelTime"			"1.5"
@@ -78,6 +78,15 @@
 			{
 				"ScriptFile"	"crafts/rean/azure_flame_slash"
 				"Function"		"channelFinish"
+			}
+		}
+
+		"OnChannelSucceeded"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"crafts/rean/azure_flame_slash"
+				"Function"		"channelSucceeded"
 			}
 		}
 

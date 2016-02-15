@@ -15,6 +15,7 @@ function spellCast(keys)
 	local enhanced = false
 
 	modifyCP(caster, getCPCost(ability) * -1)
+	applyDelayCooldowns(caster, ability)
 
 	if validEnhancedCraft(caster, target) then
 		caster:RemoveModifierByName("modifier_combat_link_followup_available")

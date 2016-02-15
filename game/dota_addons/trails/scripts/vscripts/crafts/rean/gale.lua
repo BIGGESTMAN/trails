@@ -35,6 +35,7 @@ function spellCast(keys)
 
 	if #caster.gale_targets > 0 or caster.gale_original_target then
 		modifyCP(caster, getCPCost(ability) * -1)
+		applyDelayCooldowns(caster, ability)
 		ability:ApplyDataDrivenModifier(caster, caster, "modifier_gale_dashing", {})
 		dashToNextTarget(caster)
 	else

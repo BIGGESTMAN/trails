@@ -2,6 +2,7 @@
 Enhanced : Follows targeted enemy, deals more damage and applies a greater slow, and knocks enemies away from the target.
 
 Cast Point : 0.2
+Delay: 4
 %Physical Damage (damage_percent) : 150
 Slow Duration (slow_duration) : 3
 %Slow (slow) : 40
@@ -15,6 +16,8 @@ Note0 (note0) : Can only be cast if there are enemies in the target area.
 [W] Motivate (motivate) : Rean lets forth an encouraging shout, increasing nearby allies' Physical Attack and granting them CP.\n\n<font color='#01DF01'>CP COST: 30</font>
 Enhanced : Intimidates targeted enemy, decreasing their Physical Attack and CP, and increases allies' Physical Attack and CP by a greater amount.
 
+Cast Point : 0.2
+Delay: 3
 Radius (radius) : 600
 %Physical Attack Increase (damage_increase_percent) : 25%
 Duration (damage_increase_duration) : 15
@@ -26,6 +29,8 @@ Note0 (note0) : Increases Rean's Physical Attack, but doesn't grant him CP.
 [E] Arc Slash (arc_slash) : Rean unleashes a shockwave, dealing physical damage and stunning enemies hit.\n\n<font color='#01DF01'>CP COST: 40</font>
 Enhanced : Deals more damage, stuns for longer and leaves a path of wind behind the shockwave, increasing allies' attack and movement speeds while on it.
 
+Cast Point : 0.2
+Delay: 2
 Radius (radius) : 200
 %Physical Damage (damage_percent) : 120
 Range (range) : 1000
@@ -39,6 +44,8 @@ Enhanced Attackspeed (unbalanced_bonus_attackspeed) : 40
 [D] Gale (gale) : Rean rapidly slices through enemies, dealing physical damage and Disarming them before returning to his starting location. +20 to Unbalance.\n\n<font color='#01DF01'>CP COST: 50</font>
 Enhanced : Slices through each enemy twice, with the second slash dealing reduced damage but heavily slowing. Always attacks the targeted enemy last, leaving Rean next to them afterwards.
 
+Cast Point : 0.2
+Delay: 5
 Radius (radius) : 400
 %Physical Damage (damage_percent) : 200
 Dash Speed : 2000
@@ -52,6 +59,7 @@ Note0 (note0) : Enhanced Gale's movespeed slow decays over the duration.
 [R] Azure Flame Slash (azure_flame_slash) : S-Craft: Rean bathes his sword in blue flames, and after a delay slashes target enemy, dealing physical damage to and Burning them and all nearby enemies. For a duration afterwards, Rean's attacks and crafts Burn enemies.
 200 CP Bonus : Deals more damage, and +75 to Unbalance, applied after Unbalance state is consumed on primary target.
 
+Delay: 10
 Radius (radius) : 250
 %Physical Damage (damage_percent) : 400
 Range : 150

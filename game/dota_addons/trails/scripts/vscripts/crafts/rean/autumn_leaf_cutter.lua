@@ -30,6 +30,7 @@ function spellCast(keys)
 
 		if #targets > 0 then
 			modifyCP(caster, getCPCost(ability) * -1)
+			applyDelayCooldowns(caster, ability)
 			ability:ApplyDataDrivenModifier(caster, caster, "modifier_autumn_leaf_cutter_dashing", {})
 			dash(caster, (target_point - caster:GetAbsOrigin()):Normalized(), dash_speed, (target_point - caster:GetAbsOrigin()):Length2D(), false, secondaryDash)
 		else

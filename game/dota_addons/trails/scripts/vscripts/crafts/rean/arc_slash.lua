@@ -26,6 +26,7 @@ function spellCast(keys)
 	end
 
 	modifyCP(caster, getCPCost(ability) * -1)
+	applyDelayCooldowns(caster, ability)
 
 	collisionRules = {
 		team = caster:GetTeamNumber(),

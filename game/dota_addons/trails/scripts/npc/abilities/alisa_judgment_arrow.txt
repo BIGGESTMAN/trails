@@ -1,7 +1,7 @@
 	"judgment_arrow"
 	{
 		"BaseClass"						"ability_datadriven"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
@@ -17,7 +17,7 @@
 		}
 
 		"AbilityCastPoint"				"0"
-		"AbilityCooldown"				"0"
+		"AbilityCooldown"				"10"
 		"AbilityManaCost"				"0"
 		"AbilityChannelTime"			"1.5"
 		"CPCost"						"100"
@@ -72,6 +72,7 @@
 			{
 				"ScriptFile"	"crafts/alisa/judgment_arrow"
 				"Function"		"spellCast"
+				"Target"		"POINT"
 			}
 		}
 
@@ -81,6 +82,15 @@
 			{
 				"ScriptFile"	"crafts/alisa/judgment_arrow"
 				"Function"		"channelFinish"
+			}
+		}
+
+		"OnChannelSucceeded"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"crafts/alisa/judgment_arrow"
+				"Function"		"channelSucceeded"
 			}
 		}
 
@@ -136,16 +146,6 @@
 				"States"
 				{
 					"MODIFIER_STATE_COMMAND_RESTRICTED"		"MODIFIER_STATE_VALUE_ENABLED"
-				}
-
-				"ThinkInterval"  "0.03"
-				"OnIntervalThink"
-				{
-					"RunScript"
-					{
-						"ScriptFile"	"crafts/alisa/judgment_arrow"
-						"Function"		"updateFacing"
-					}
 				}
 			}
 

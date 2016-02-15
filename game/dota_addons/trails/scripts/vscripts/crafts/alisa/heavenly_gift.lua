@@ -13,6 +13,7 @@ function spellCast(keys)
 	local args = {non_flat = true}
 
 	modifyCP(caster, getCPCost(ability) * -1)
+	applyDelayCooldowns(caster, ability)
 
 	if target then
 	-- if validEnhancedCraft(caster, target) then

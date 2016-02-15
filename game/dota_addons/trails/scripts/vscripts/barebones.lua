@@ -678,6 +678,7 @@ function GameMode:EndRound(winning_team)
 					hero:SetRespawnPosition(spawns[hero:GetTeam()])
 				end
 				hero:RespawnHero(false, false, false)
+				
 				if hero:GetTeam() ~= winning_team then
 					modifyCP(hero, END_OF_ROUND_LOSER_CP)
 				end

@@ -17,7 +17,7 @@
 		}
 
 		"AbilityCastPoint"				"0.2"
-		"AbilityCooldown"				"0"
+		"AbilityCooldown"				"4"
 		"AbilityManaCost"				"0"
 		"AbilityCastRange"				"500"
 		"AOERadius"						"300"

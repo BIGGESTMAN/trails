@@ -6,13 +6,9 @@ function spellCast(keys)
 	local ability = keys.ability
 	local target = keys.target
 
-	if validEnhancedCraft(caster, target) then
-		ability:ApplyDataDrivenModifier(caster, caster, "modifier_azure_flame_slash_casting", {duration = ability:GetChannelTime()})
-		caster.azure_flame_slash_target = target
-	else
-		Notifications:Bottom(keys.caster:GetPlayerOwner(), {text="Must Target An Unbalanced Enemy", duration=1, style={color="red"}})
-		caster:Interrupt()
-	end
+	ability:ApplyDataDrivenModifier(caster, caster, "modifier_azure_flame_slash_casting", {duration = ability:GetChannelTime()})
+	caster.azure_flame_slash_target = target
+	ability:EndCooldown()
 end
 
 function updateFacing(keys)
@@ -34,13 +30,16 @@ end
 function channelFinish(keys)
 	local caster = keys.caster
 	caster:RemoveModifierByName("modifier_azure_flame_slash_casting")
+end
+
+function channelSucceeded(keys)
+	local caster = keys.caster
 	if caster.azure_flame_slash_target then
 		local target = caster.azure_flame_slash_target
 		caster.azure_flame_slash_target = nil
-		caster:RemoveModifierByName("modifier_combat_link_followup_available")
-		target:RemoveModifierByName("modifier_combat_link_unbalanced")
 		executeSlash(caster, target, getCP(caster) == MAX_CP)
 		modifyCP(caster, getCP(caster) * -1)
+		applyDelayCooldowns(caster, keys.ability)
 	end
 end
 

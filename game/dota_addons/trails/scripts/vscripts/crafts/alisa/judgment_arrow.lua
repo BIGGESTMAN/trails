@@ -1,43 +1,26 @@
 require "game_functions"
-require "libraries/notifications"
 
 function spellCast(keys)
 	local caster = keys.caster
 	local ability = keys.ability
-	local target = keys.target
 
-	if validEnhancedCraft(caster, target) then
-		ability:ApplyDataDrivenModifier(caster, caster, "modifier_judgment_arrow_casting", {duration = ability:GetChannelTime()})
-		caster.judgment_arrow_target = target
-	else
-		Notifications:Bottom(keys.caster:GetPlayerOwner(), {text="Must Target An Unbalanced Enemy", duration=1, style={color="red"}})
-		caster:Interrupt()
-	end
-end
-
-function updateFacing(keys)
-	local caster = keys.caster
-	if IsValidEntity(caster.judgment_arrow_target) then
-		local direction = (caster.judgment_arrow_target:GetAbsOrigin() - caster:GetAbsOrigin()):Normalized()
-		direction.z = 0
-		keys.caster:SetForwardVector(direction)
-	end
+	ability:ApplyDataDrivenModifier(caster, caster, "modifier_judgment_arrow_casting", {duration = ability:GetChannelTime()})
+	ability:EndCooldown()
 end
 
 function channelFinish(keys)
 	local caster = keys.caster
 	caster:RemoveModifierByName("modifier_judgment_arrow_casting")
-	if caster.judgment_arrow_target then
-		local target = caster.judgment_arrow_target
-		caster.judgment_arrow_target = nil
-		caster:RemoveModifierByName("modifier_combat_link_followup_available")
-		target:RemoveModifierByName("modifier_combat_link_unbalanced")
-		fireArrow(caster, target, getCP(caster) == MAX_CP)
-		modifyCP(caster, getCP(caster) * -1)
-	end
 end
 
-function fireArrow(caster, target, max_cp)
+function channelSucceeded(keys)
+	local caster = keys.caster
+	fireArrow(caster, getCP(caster) == MAX_CP)
+	modifyCP(caster, getCP(caster) * -1)
+	applyDelayCooldowns(caster, keys.ability)
+end
+
+function fireArrow(caster, max_cp)
 	local ability = caster:FindAbilityByName("judgment_arrow")
 
 	local range = ability:GetSpecialValueFor("range")
@@ -54,7 +37,7 @@ function fireArrow(caster, target, max_cp)
 		iFlag = DOTA_UNIT_TARGET_FLAG_NONE,
 		iOrder = FIND_ANY_ORDER
 	}
-	local direction = (target:GetAbsOrigin() - caster:GetAbsOrigin()):Normalized()
+	local direction = caster:GetForwardVector()
 	local origin_location = caster:GetAbsOrigin()
 
 	ProjectileList:CreateLinearProjectile(caster, origin_location, direction, travel_speed, range, nil, collisionRules, arrowHit, "particles/crafts/alisa/blessed_arrow/arrow.vpcf", {damage = damage, max_cp = max_cp})

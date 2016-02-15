@@ -2,6 +2,7 @@
 Enhanced : The arrow travels much faster and explodes on reaching the target, dealing greater damage and leaving a burning field that deals magic damage over time and Silences.
  
 Cast Point : 0.3
+Delay: 2
 %Magical Damage (damage_percent) : 140
 Burn Duration (burn_duration) : 5
 Range (range) : 1000
@@ -15,6 +16,8 @@ Enhanced Field Duration (unbalanced_field_duration) : 5
 [W] Blessed Arrow (blessed_arrow) : Alisa fires a blessed arrow into the air, healing allies in an area and granting them CP.\n\n<font color='#01DF01'>CP COST: 40</font>
 Enhanced : Heals for more, grants more CP and places Mischievous Blessing on the target, causing allies who attack them to heal and gain bonus CP.
 
+Cast Point : 0.3
+Delay: 4
 Cast Range : 800
 Radius (radius) : 500
 %Healing (healing_percent) : 200
@@ -29,6 +32,8 @@ Note0 (note0) : Initial healing and CP increase doesn't affect Alisa, although s
 [E] Molten Rain (molten_rain) : Alisa rains burning arrows onto enemies, dealing magic damage and slowing in a large area.\n\n<font color='#01DF01'>CP COST: 40</font>
 Enhanced : Deals more damage, Burns enemies hit and reduces enemies' Magic Defense.
 
+Cast Point : 0.3
+Delay: 5
 Cast Range : 800
 Radius (radius) : 500
 Arrow Radius : 150
@@ -47,6 +52,8 @@ Note1 (note1) : Arrow impacts have 150 radius.
 [D] Heavenly Gift (heavenly_gift) : Alisa grants allies in an area Insight and Passion.\n\nInsight allows evasion of physical attacks. Passion grants gradual CP regeneration.\n\n<font color='#01DF01'>CP COST: 50</font>
 Enhanced : Instantly drains the target's CP in order to gradually restore CP of allies around Alisa.
 
+Cast Point : 0.3
+Delay: 5
 Cast Range : 800
 Radius (radius) : 400
 Insight Duration (buffs_duration) : 5
@@ -59,6 +66,7 @@ Note0 (note0) : If in the area of effect, Alisa gains Insight but not Passion.
 [R] Judgment Arrow (judgment_arrow) : S-Craft: Alisa annihilates enemies in a line with an arrow of judgment, dealing magic damage and Silencing them. Enemies hit are pulled along with the arrow.
 200 CP Bonus : Deals more damage and stuns all enemies hit at the end of its path.
 
+Delay: 10
 Cast Time: 1.5
 Radius (radius) : 400
 Projectile Speed : 1000
