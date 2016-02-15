@@ -10,6 +10,9 @@ STAT_MAX_INCREASE = 50
 
 SCRAFT_MINIMUM_CP = 100
 MAX_CP = 200
+END_OF_ROUND_LOSER_CP = 50
+DAMAGE_CP_GAIN_FACTOR = 0.125
+TARGET_CP_GAIN_FACTOR = 1/3
 
 LinkLuaModifier(STAT_STR, "stat_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier(STAT_STR_DOWN, "stat_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
@@ -129,10 +132,10 @@ function modifyCP(unit, amount)
 		local max_cp = unit:FindAbilityByName("cp_tracker"):GetSpecialValueFor("max_cp")
 
 		local modifier = unit:FindModifierByName("modifier_cp_tracker_cp")
-		modifier:SetStackCount(modifier:GetStackCount() + amount)
+		modifier:SetStackCount(modifier:GetStackCount() + math.floor(amount))
 		if modifier:GetStackCount() > max_cp then modifier:SetStackCount(max_cp) end
 
-		if amount > 0 then
+		if amount > 1 then -- ignore incremental increases
 			ParticleManager:CreateParticle("particles/items3_fx/octarine_core_lifesteal.vpcf", PATTACH_ABSORIGIN_FOLLOW, unit)
 		end
 
@@ -140,12 +143,19 @@ function modifyCP(unit, amount)
 	end
 end
 
+function grantDamageCP(damage, attacker, target)
+	local attacker_cp = damage * DAMAGE_CP_GAIN_FACTOR
+	local target_cp = attacker_cp * TARGET_CP_GAIN_FACTOR
+	modifyCP(attacker, attacker_cp)
+	modifyCP(target, target_cp)
+end
+
 function setCraftActivatedStatus(unit)
 	for i=0,unit:GetAbilityCount() - 1 do
 		local ability = unit:GetAbilityByIndex(i)
 		if ability and not ability:IsHidden() then
-			-- ability:SetActivated(true)
-			ability:SetActivated(getCP(unit) >= getCPCost(ability))
+			ability:SetActivated(true)
+			-- ability:SetActivated(getCP(unit) >= getCPCost(ability))
 			-- Disable s-crafts except as enhanced crafts (aka against unbalanced)
 			if ability:GetAbilityType() == 1 and not unit:HasModifier("modifier_combat_link_followup_available") then
 				ability:SetActivated(false)

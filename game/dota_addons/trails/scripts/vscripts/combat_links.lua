@@ -11,8 +11,10 @@ function checkForLink(keys)
 	local link_break_range = ability:GetSpecialValueFor("link_break_range")
 
 	if caster.combat_linked_to then
-		if (caster.combat_linked_to:GetAbsOrigin() - caster:GetAbsOrigin()):Length2D() > link_break_range or not caster.combat_linked_to:IsAlive() then
-			removeLink(caster.combat_linked_to)
+		if not IsValidEntity(caster.combat_linked_to) or (caster.combat_linked_to:GetAbsOrigin() - caster:GetAbsOrigin()):Length2D() > link_break_range or not caster.combat_linked_to:IsAlive() then
+			if IsValidEntity(caster.combat_linked_to) then
+				removeLink(caster.combat_linked_to)
+			end
 			removeLink(caster)
 		end
 	end

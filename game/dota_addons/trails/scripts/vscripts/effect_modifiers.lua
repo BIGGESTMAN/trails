@@ -18,7 +18,7 @@ if IsServer() then
 		local damage_percent = 3
 		local damage = target:GetMaxHealth() * damage_percent * self.damage_interval / 100
 		local damage_type = DAMAGE_TYPE_PURE
-		dealDamage(target, caster, damage, damage_type, ability)
+		dealDamage(target, target, damage, damage_type, ability)
 	end
 end
 

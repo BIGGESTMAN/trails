@@ -7,14 +7,6 @@ function createCPModifier(keys)
 	ability:ApplyDataDrivenModifier(caster, caster, "modifier_cp_tracker_cp", {}):SetStackCount(0)
 end
 
-function damageDealt(keys)
-	local cp_increase = 5
-
-	modifyCP(keys.caster, cp_increase)
-end
-
-function damageTaken(keys)
-	local cp_increase = 5
-
-	modifyCP(keys.caster, cp_increase)
+function passiveCPGain(keys)
+	modifyCP(keys.caster, keys.ability:GetSpecialValueFor("passive_cp_per_second"))
 end

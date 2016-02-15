@@ -7,7 +7,8 @@ if not Filters then
 end
 
 function Filters:DamageFilter(event)
-	if event.entindex_attacker_const then local attacker = EntIndexToHScript(event.entindex_attacker_const) end
+	local attacker = nil
+	if event.entindex_attacker_const then attacker = EntIndexToHScript(event.entindex_attacker_const) end
 	local target = EntIndexToHScript(event.entindex_victim_const)
 	local damage_type = event.damagetype_const
 	local damage = event.damage
@@ -33,6 +34,9 @@ function Filters:DamageFilter(event)
 	end
 	if damage_type == DAMAGE_TYPE_MAGICAL and target:HasModifier(STAT_ADF_DOWN) then
 		event.damage = event.damage / (1 - (target:FindModifierByName(STAT_ADF_DOWN):GetStackCount() / 100))
+	end
+	if attacker and attacker ~= target then
+		grantDamageCP(event.damage, attacker, target)
 	end
 	return true
 end
