@@ -18,10 +18,10 @@
 	opacity: 1;
 }
 
-.InfoTextWindow #ReadyButton {
+.InfoTextWindow #OKButton {
 	horizontal-align: center;
 	margin: 8px;
-	height: 32px;
+	/*height: 32px;*/
 	visibility: visible;
 }
 .InfoTextWindow #ReadyText {

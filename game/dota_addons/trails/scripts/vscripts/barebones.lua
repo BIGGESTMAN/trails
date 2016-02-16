@@ -7,6 +7,8 @@ require "game_functions"
 require "custom_hero_select"
 require "cp_fountain"
 
+LinkLuaModifier("modifier_interround_invulnerability", "modifier_interround_invulnerability.lua", LUA_MODIFIER_MOTION_NONE)
+
 imported_model_characters = {}
 
 -- GameRules Variables
@@ -62,7 +64,7 @@ MUSIC = false
 
 ROUNDS_TO_WIN = 5
 ROUND_END_DELAY = 3
-INFOTEXT_FADE_DELAY = 3
+ROUND_START_DELAY = 3
 
 
 
@@ -341,6 +343,8 @@ function GameMode:OnHeroInGame(hero)
 	-- Custom hero select trigger
 	if CustomHeroSelect:IsPlaceholderHero(hero) then
 		CustomHeroSelect:OnHeroInGame(hero)
+	else
+		hero:AddNewModifier(hero, nil, "modifier_interround_invulnerability", {})
 	end
 	
 	CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "infotext_start", {})
@@ -350,9 +354,39 @@ end
 function GameMode:OnInfoTextOK(eventSourceIndex, args)
 	local player = EntIndexToHScript(eventSourceIndex)
 	local hero = player:GetAssignedHero()
-	Timers:CreateTimer(INFOTEXT_FADE_DELAY, function()
-		CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "infotext_remove_window", {})
-	end)
+
+	hero.round_ready = true
+	if self:AreAllHeroesReady() then
+		CustomGameEventManager:Send_ServerToAllClients("infotext_game_starting", {})
+
+		self:StartCountdown(ROUND_START_DELAY, "quest_time_round_starting", function()
+			self:StartRound()
+		end)
+	end
+end
+
+function GameMode:StartCountdown(time, title, callback)
+	CustomGameEventManager:Send_ServerToAllClients("quest_start_timer", { title = title, time = time })
+	Timers:CreateTimer(time, callback)
+end
+
+function GameMode:AreAllHeroesReady()
+	local player_count = PlayerResource:GetPlayerCountForTeam(DOTA_TEAM_GOODGUYS) + PlayerResource:GetPlayerCountForTeam(DOTA_TEAM_BADGUYS)
+	for i = 0, player_count - 1 do
+		local player = PlayerResource:GetPlayer(i)
+		if not CustomHeroSelect:HasSelectedHero(player) then
+			print("Player " .. i .. " has not selected a hero yet")
+			return false
+		end
+		
+		local hero = player:GetAssignedHero()
+		if not hero.round_ready then
+			print("Hero " .. hero:GetUnitName() .. " is not ready yet")
+			return false
+		end
+	end
+
+	return true
 end
 
 --[[
@@ -656,6 +690,16 @@ function GameMode:InitializeScore()
 	self.current_round = 0
 end
 
+function GameMode:StartRound()
+	for i=0, 9 do
+		local hero = PlayerResource:GetSelectedHeroEntity(i)
+		if hero then
+			hero:RemoveModifierByName("modifier_interround_invulnerability")
+			hero.round_ready = nil
+		end
+	end
+end
+
 function GameMode:EndRound(winning_team)
 	GameRules:SendCustomMessage("#Round_Winner_"..winning_team, 0, 0)
 	self.score[winning_team] = self.score[winning_team] + 1
@@ -678,6 +722,9 @@ function GameMode:EndRound(winning_team)
 					hero:SetRespawnPosition(spawns[hero:GetTeam()])
 				end
 				hero:RespawnHero(false, false, false)
+
+				hero:AddNewModifier(hero, nil, "modifier_interround_invulnerability", {})
+				self:DisplayReadyBox(hero)
 				
 				if hero:GetTeam() ~= winning_team then
 					modifyCP(hero, END_OF_ROUND_LOSER_CP)
@@ -702,4 +749,9 @@ function GameMode:EndRound(winning_team)
 			-- end)
 		end
 	end)
+end
+
+function GameMode:DisplayReadyBox(hero)
+	CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "infotext_start_secondary_rounds", {})
+	CustomGameEventManager:RegisterListener("infotext_ok", WrapMemberMethod(self.OnInfoTextOK, self))
 end

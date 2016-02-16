@@ -1,0 +1,111 @@
+.QuestWindow {
+    margin-top: 80px;
+    margin-bottom: 315px;
+    margin-left: 50px;
+
+    horizontal-align: left;
+    vertical-align: top;
+}
+
+#QuestTimer {
+    opacity: 0;
+    transition-property: opacity;
+    transition-duration: 0.2s;
+    horizontal-align: left;
+    vertical-align: center;
+}
+
+#QuestCounter {
+    opacity: 0;
+    transition-property: opacity;
+    transition-duration: 0.2s;
+    horizontal-align: left;
+    vertical-align: center;
+    flow-children: down;
+}
+
+#QuestGeneric {
+    opacity: 0;
+    transition-property: opacity;
+    transition-duration: 0.2s;
+    horizontal-align: left;
+    vertical-align: center;
+}
+
+#QuestTimer.Visible {
+    opacity: 1;
+}
+#QuestCounter.Visible {
+    opacity: 1;
+}
+#QuestGeneric.Visible {
+    opacity: 1;
+}
+
+.QuestWindow #Text {
+	font-family: Radiance;
+	font-size: 18px;
+	color: gradient(linear, 0% 0%, 0% 100%, from(#e0e0e0), to(#d0d0d0));
+	text-shadow: 0px 3px 4px 4.5 #000000;
+	horizontal-align: left;
+	vertical-align: center;
+}
+
+#TimerText {
+	font-family: Radiance;
+	font-size: 18px;
+	color: gradient(linear, 0% 0%, 0% 100%, from(#e0e0e0), to(#d0d0d0));
+	text-shadow: 0px 3px 4px 4.5 #000000;
+	horizontal-align: left;
+	vertical-align: center;
+}
+
+#GenericText {
+	font-family: Radiance;
+	font-size: 18px;
+	color: gradient(linear, 0% 0%, 0% 100%, from(#e0e0e0), to(#d0d0d0));
+	text-shadow: 0px 3px 4px 4.5 #000000;
+	horizontal-align: left;
+	vertical-align: center;
+}
+
+.QuestWindow #Counter {
+	font-family: Radiance;
+	font-size: 18px;
+	margin-left: 10px;
+	color: gradient(linear, 0% 0%, 0% 100%, from(#f0f0f0), to(#e0e0e0));
+	text-shadow: 0px 3px 4px 2.5 #000000;
+	horizontal-align: left;
+	vertical-align: center;
+}
+.QuestWindow #Counter.Hidden {
+	opacity: 0;
+	visibility: collapse;
+}
+
+.QuestWindow #Progress_Background {
+	width: 400px;
+	height: 12px;
+	margin-top: 4px;
+	vertical-align: center;
+	horizontal-align: center;
+    background-color: gradient(linear, 0% 0%, 0% 100%, from(#42494e), to(#252525));
+	box-shadow: fill #000000ff -1px -1px 4px 4px;
+	border-top: 1px solid #ffffff10;
+	border-left: 1px solid #ffffff03;
+	border-right: 1px solid #ffffff03;
+	border-bottom: 1px solid #202020ff;
+	
+}
+
+.QuestWindow #Progress_Fill {
+	height: 100%;
+	horizontal-align: left;
+	background-color: gradient(linear, 0% 0%, 0% 100%, from(#66c3ea), to(#274d99));
+	border-top: 1px solid #c7e7f9;
+	border-left: 1px solid #ffffff08;
+	border-right: 2px solid #ffffff08;
+
+	box-shadow: #00000060 -6px -2px 3px 12px;
+}
+

@@ -21,7 +21,7 @@
 
 
 		<Button hittest="true" id="OKButton" class="ButtonBevel" onactivate="OnInfoTextOKClicked()">
-			<Label text="#infotext_ok" />
+			<Label id="ReadyButtonText" text="#infotext_ok" />
 		</Button>
 		<Label hittest="false" id="ReadyText" html="false" text="#you_are_ready" />
 	</Panel>

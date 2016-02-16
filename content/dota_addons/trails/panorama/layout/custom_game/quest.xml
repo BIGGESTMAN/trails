@@ -1,0 +1,26 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/custom_game/quest.css" />
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+	</styles>
+	<scripts>
+		<include src="s2r://panorama/scripts/custom_game/quest.js" />
+	</scripts>
+	<Panel hittest="false" class="QuestWindow"> 
+		<Panel id="QuestCounter">
+			<Panel style="flow-children: right;">
+				<Label hittest="false" id="Text" text="(Message)" />
+				<Label hittest="false" id="Counter" text="#quest_counter" />
+			</Panel>
+			<Panel hittest="false" id="Progress_Background">
+				<Panel hittest="false" id="Progress_Fill" />
+			</Panel>
+		</Panel>
+		<Panel id="QuestTimer">
+			<Label hittest="false" id="TimerText" text="#quest_timer" />
+		</Panel>
+		<Panel id="QuestGeneric">
+			<Label hittest="false" id="GenericText" text="" />
+		</Panel>
+	</Panel>
+</root>
