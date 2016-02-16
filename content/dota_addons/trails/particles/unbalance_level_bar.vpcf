@@ -1,0 +1,159 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
+{
+	_class = "CParticleSystemDefinition"
+	m_Operators =
+	[
+		{
+			_class = "C_OP_FadeAndKill"
+		},
+		{
+			_class = "C_OP_SetControlPointPositions"
+			m_bUseWorldLocation = true
+			m_nCP1 = 2
+			m_nCP2 = 3
+			m_nCP3 = 99
+			m_nCP4 = 99
+			m_vecCP1Pos =
+			[
+				-100.000000,
+				0.000000,
+				0.000000,
+			]
+			m_vecCP2Pos =
+			[
+				100.000000,
+				0.000000,
+				0.000000,
+			]
+			m_vecCP3Pos =
+			[
+				0.000000,
+				0.000000,
+				0.000000,
+			]
+			m_vecCP4Pos =
+			[
+				0.000000,
+				0.000000,
+				0.000000,
+			]
+			m_bDisableOperator = true
+		},
+		{
+			_class = "C_OP_SetSingleControlPointPosition"
+			m_nCP1 = 2
+			m_vecCP1Pos =
+			[
+				-100.000000,
+				0.000000,
+				100.000000,
+			]
+			m_bDisableOperator = true
+		},
+	]
+	m_Renderers =
+	[
+		{
+			_class = "C_OP_RenderSprites"
+			m_bAdditive = true
+		},
+	]
+	m_Initializers =
+	[
+		{
+			_class = "C_INIT_RandomLifeTime"
+			m_fLifetimeMin = 0.030000
+			m_fLifetimeMax = 0.030000
+		},
+		{
+			_class = "C_INIT_RandomAlpha"
+		},
+		{
+			_class = "C_INIT_RandomRadius"
+			m_flRadiusMin = 30.000000
+			m_flRadiusMax = 30.000000
+		},
+		{
+			_class = "C_INIT_RandomColor"
+		},
+		{
+			_class = "C_INIT_CreateWithinSphere"
+			m_bDisableOperator = true
+		},
+		{
+			_class = "C_INIT_CreateSequentialPath"
+			m_flNumToAssign = 15.000000
+			m_PathParams =
+			{
+				m_nStartControlPointNumber = 2
+				m_nEndControlPointNumber = 3
+			}
+		},
+		{
+			_class = "C_INIT_RemapCPtoVector"
+			m_nCPInput = 1
+			m_nFieldOutput = 6
+			m_vInputMax =
+			[
+				0.990000,
+				0.990000,
+				0.990000,
+			]
+			m_vOutputMin =
+			[
+				0.750000,
+				0.500000,
+				0.500000,
+			]
+			m_vOutputMax =
+			[
+				1.000000,
+				0.600000,
+				0.600000,
+			]
+		},
+		{
+			_class = "C_INIT_RemapCPtoVector"
+			m_nCPInput = 1
+			m_nFieldOutput = 6
+			m_vInputMin =
+			[
+				0.990000,
+				0.990000,
+				0.990000,
+			]
+			m_vInputMax =
+			[
+				1.000000,
+				1.000000,
+				1.000000,
+			]
+			m_vOutputMin =
+			[
+				1.000000,
+				0.600000,
+				0.600000,
+			]
+			m_vOutputMax =
+			[
+				1.000000,
+				0.600000,
+				0.200000,
+			]
+		},
+		{
+			_class = "C_INIT_RemapCPtoScalar"
+			m_nCPInput = 1
+			m_nFieldOutput = 7
+			m_flInputMax = 0.010000
+		},
+	]
+	m_Emitters =
+	[
+		{
+			_class = "C_OP_ContinuousEmitter"
+			m_flEmitRate = 400.000000
+			m_nScaleControlPoint = 4
+		},
+	]
+}

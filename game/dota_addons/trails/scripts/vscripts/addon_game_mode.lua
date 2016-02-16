@@ -25,6 +25,7 @@ function Precache( context )
 	PrecacheResource("particle", "particles/general/evade_message.vpcf", context)
 	PrecacheResource("particle", "particles/cp_fountain/cp_fountain.vpcf", context)
 	PrecacheResource("particle", "particles/cp_fountain/cp_fountain_active.vpcf", context)
+	PrecacheResource("particle", "particles/unbalance_level_bar.vpcf", context)
 	PrecacheResource("particle_folder", "particles/test_particle", context)
 
 	-- Models can also be precached by folder or individually
