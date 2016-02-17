@@ -1,54 +1,24 @@
 "use strict";
 
-// function OnInfoTextStart(msg) {
-// 	$.GetContextPanel().SetHasClass("ReadiedUp", false);
-// 	$.GetContextPanel().SetHasClass("Visible", true);
-// }
-
-// function OnInfoTextStartSecondary(msg) {
-// 	$.GetContextPanel().SetHasClass("ReadiedUp", false);
-// 	$.GetContextPanel().SetHasClass("Visible", true);
-// 	$("#ReadyButtonText").text = $.Localize("infotext_ok_secondary")
-// 	for (var i in $.GetContextPanel().Children()) {
-// 		if (i < 6) {
-// 			$.GetContextPanel().Children()[i].visible = false
-// 		}
-// 		else if (i == 6) {
-// 			$.GetContextPanel().Children()[i].text = $.Localize("infotext_text_secondary")
-// 		}
-// 	}
-// }
-
-// function OnInfoTextOKClicked() {
-// 	$.GetContextPanel().SetHasClass("ReadiedUp", true);
-// 	GameEvents.SendCustomGameEventToServer("infotext_ok", {} )
-// }
-
-// function OnInfoTextRemove() {
-// 	$.GetContextPanel().SetHasClass("Visible", false);
-// }
-
-function OnStatusBarsStart() {
-	$.GetContextPanel().SetHasClass("Visible", true);
+function OnStatusBarsStart(data) {
+	$.GetContextPanel().Children()[data.player].SetHasClass("Visible", true);
 }
 
 function OnStatusBarsUpdate(data) {
 	var hero_location = Entities.GetAbsOrigin(data.hero)
-	var screenX = Game.WorldToScreenX(hero_location[0], hero_location[1], hero_location[2]) - 175
-	var screenY = Game.WorldToScreenY(hero_location[0], hero_location[1], hero_location[2]) - 25
-	// $.Msg(screenX, " ", screenY)
-	// $.Msg($.GetContextPanel().Children()[0].style)
-	// $.Msg($("#CPBar").style)
+	var screenX = Game.WorldToScreenX(hero_location[0], hero_location[1], hero_location[2]) - 150
+	var screenY = Game.WorldToScreenY(hero_location[0], hero_location[1], hero_location[2])
+	$.Msg(GameUI.GetCursorPosition(), (screenX + 150) + "," + screenY)
 	var status_bar = $.GetContextPanel().Children()[data.player]
-	// $.Msg(data.player)
 	status_bar.style.position = screenX + "px " + screenY + "px 0px";
-	// $.Msg((data.cp / 2) + "%")
-	status_bar.Children()[0].style.width = (data.cp / 2) + "%"
-	// $("#CPBar").width = (data.cp / 200) + "%"
-	// $.GetContextPanel().Children()[0].style.x = Number(screenX)
-	// $.GetContextPanel().Children()[0].style.y = Number(screenY)
-	// $("#CPBar").x = screenX
-	// $("#CPBar").y = screenY
+	var second_bar_full = Math.max(data.cp - 100, 0)
+	var first_bar_full = Math.min(data.cp, 100)
+	if (second_bar_full > 0) {
+		first_bar_full = 100 - second_bar_full
+		status_bar.Children()[0].style.position = (150 * second_bar_full / 100) + "px 0px 0px" 
+	}
+	status_bar.Children()[0].style.width = first_bar_full + "%"
+	status_bar.Children()[1].style.width = second_bar_full + "%"
 }
 
 (function () {

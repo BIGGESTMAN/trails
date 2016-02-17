@@ -352,11 +352,14 @@ function GameMode:OnHeroInGame(hero)
 end
 
 function GameMode:OnInfoTextOK(eventSourceIndex, args)
+	-- Why the fuck does this function run twice zzzzzzzzzzzzzzzzzzzzzz
+	print("OnInfoTextOK ---------------------------------------------------------------")
 	local player = EntIndexToHScript(eventSourceIndex)
 	local hero = player:GetAssignedHero()
 
 	hero.round_ready = true
-	if self:AreAllHeroesReady() then
+	if self:AreAllHeroesReady() and not self.round_started then
+		self.round_started = true
 		CustomGameEventManager:Send_ServerToAllClients("infotext_game_starting", {})
 
 		self:StartCountdown(ROUND_START_DELAY, "quest_time_round_starting", function()
@@ -688,9 +691,11 @@ function GameMode:InitializeScore()
 	self.score[DOTA_TEAM_GOODGUYS] = 0
 	self.score[DOTA_TEAM_BADGUYS] = 0
 	self.current_round = 0
+	self.round_started = false
 end
 
 function GameMode:StartRound()
+	print("Starting round --------------------------------------------")
 	for i=0, 9 do
 		local hero = PlayerResource:GetSelectedHeroEntity(i)
 		if hero then
@@ -707,30 +712,16 @@ function GameMode:AddStatusBars(hero)
 	local playerid = hero:GetPlayerOwnerID()
 	local hero_index = hero:GetEntityIndex()
 	local player = PlayerResource:GetPlayer(playerid)
-	CustomGameEventManager:Send_ServerToAllClients("status_bars_start", {hero=hero_index})
+	CustomGameEventManager:Send_ServerToAllClients("status_bars_start", {player=playerid})
+	CustomGameEventManager:Send_ServerToAllClients("unbalance_bars_start", {player=playerid})
 	Timers:CreateTimer(function()
 		if IsValidEntity(hero) then
 			CustomGameEventManager:Send_ServerToAllClients("status_bars_update", {player=playerid, hero=hero_index, cp=getCP(hero)})
+			local hero_unbalance = hero:FindModifierByName("modifier_unbalanced_level"):GetStackCount()
+			if hero:HasModifier("modifier_combat_link_unbalanced") then hero_unbalance = 100 end
+			CustomGameEventManager:Send_ServerToAllClients("unbalance_bars_update", {player=playerid, hero=hero_index, unbalance=hero_unbalance})
 			return 1/30
 		end
-		-- Build inventories for tooltip to reference
-		-- local unitsWithInventories = {}
-		-- local allEntities = Entities:FindAllInSphere(hero:GetAbsOrigin(), 20100)
-		-- for k,v in pairs(allEntities) do
-		-- 	if v.HasInventory and v:HasInventory() then
-		-- 		local inventory = {}
-		-- 		for i=0,5 do
-		-- 			inventory[i] = v:GetItemInSlot(i)
-		-- 		end
-		-- 		unitsWithInventories[v:GetEntityIndex()] = inventory
-		-- 	end
-		-- end
-
-		-- -- for k,v in pairs(unitsWithInventories[hero_index]) do
-		-- -- 	print(k,v)
-		-- -- end
-		-- -- print(player, playerid, hero_index, unitsWithInventories)
-		-- CustomGameEventManager:Send_ServerToPlayer(player, "update_persona_tooltip", {playerid = playerid, hero=hero_index, unitInventories = unitsWithInventories})
 	end)
 end
 
@@ -738,6 +729,7 @@ function GameMode:EndRound(winning_team)
 	GameRules:SendCustomMessage("#Round_Winner_"..winning_team, 0, 0)
 	self.score[winning_team] = self.score[winning_team] + 1
 	self.current_round = self.current_round + 1
+	self.round_started = false
 	mode:SetTopBarTeamValue(DOTA_TEAM_GOODGUYS, self.score[DOTA_TEAM_GOODGUYS])
 	mode:SetTopBarTeamValue(DOTA_TEAM_BADGUYS, self.score[DOTA_TEAM_BADGUYS])
 
@@ -768,14 +760,14 @@ function GameMode:EndRound(winning_team)
 		
 		-- check for game win
 		if self.score[DOTA_TEAM_GOODGUYS] == ROUNDS_TO_WIN then
-			Say(nil, "Radiant Victory!", false)
+			GameRules:SendCustomMessage("Radiant Victory!", 0, 0)
 			GameRules:SetSafeToLeave( true )
 			GameRules:SetGameWinner( DOTA_TEAM_GOODGUYS )
 			-- Timers:CreateTimer(0.1, function()
 			-- 	CustomGameEventManager:Send_ServerToAllClients( "winner_decided", winnerEventData ) -- Send the winner to Javascript
 			-- end)
 		elseif self.score[DOTA_TEAM_BADGUYS] == ROUNDS_TO_WIN then
-			Say(nil, "Dire Victory!", false)
+			GameRules:SendCustomMessage("Dire Victory!", 0, 0)
 			GameRules:SetSafeToLeave( true )
 			GameRules:SetGameWinner( DOTA_TEAM_BADGUYS )
 			-- Timers:CreateTimer(0.1, function()
@@ -787,5 +779,4 @@ end
 
 function GameMode:DisplayReadyBox(hero)
 	CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "infotext_start_secondary_rounds", {})
-	CustomGameEventManager:RegisterListener("infotext_ok", WrapMemberMethod(self.OnInfoTextOK, self))
 end

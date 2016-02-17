@@ -23,6 +23,7 @@ function OnInfoTextStartSecondary(msg) {
 
 function OnInfoTextOKClicked() {
 	$.GetContextPanel().SetHasClass("ReadiedUp", true);
+	$.Msg("OnInfoTextOKClicked --------------")
 	GameEvents.SendCustomGameEventToServer("infotext_ok", {} )
 }
 

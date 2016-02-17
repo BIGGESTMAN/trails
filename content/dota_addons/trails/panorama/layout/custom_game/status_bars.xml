@@ -1,7 +1,6 @@
 <root>
 	<styles>
 		<include src="s2r://panorama/styles/custom_game/status_bars.css" />
-		<include src="s2r://panorama/styles/custom_game/infotext.css" />
 		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
 	</styles>
 	<scripts>
@@ -10,15 +9,19 @@
 	<Panel hittest="false" class="StatusBarContainer">
 		<Panel hittest="false" class="StatusBarBackground">
 			<Panel hittest="false" id="CPBar" class="CPBar" />
+			<Panel hittest="false" class="OverfullCPBar" />
 		</Panel>
 		<Panel hittest="false" class="StatusBarBackground">
 			<Panel hittest="false" id="CPBar" class="CPBar" />
+			<Panel hittest="false" class="OverfullCPBar" />
 		</Panel>
 		<Panel hittest="false" class="StatusBarBackground">
 			<Panel hittest="false" id="CPBar" class="CPBar" />
+			<Panel hittest="false" class="OverfullCPBar" />
 		</Panel>
 		<Panel hittest="false" class="StatusBarBackground">
 			<Panel hittest="false" id="CPBar" class="CPBar" />
+			<Panel hittest="false" class="OverfullCPBar" />
 		</Panel>
 	</Panel>
 </root>

@@ -1,0 +1,23 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/custom_game/status_bars.css" />
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+	</styles>
+	<scripts>
+		<include src="s2r://panorama/scripts/custom_game/unbalance_bars.js" />
+	</scripts>
+	<Panel hittest="false" class="StatusBarContainer">
+		<Panel hittest="false" class="StatusBarBackground StatusBarBottom">
+			<Panel hittest="false" id="UnbalanceBar" class="UnbalanceBar" />
+		</Panel>
+		<Panel hittest="false" class="StatusBarBackground StatusBarBottom">
+			<Panel hittest="false" id="UnbalanceBar" class="UnbalanceBar" />
+		</Panel>
+		<Panel hittest="false" class="StatusBarBackground StatusBarBottom">
+			<Panel hittest="false" id="UnbalanceBar" class="UnbalanceBar" />
+		</Panel>
+		<Panel hittest="false" class="StatusBarBackground StatusBarBottom">
+			<Panel hittest="false" id="UnbalanceBar" class="UnbalanceBar" />
+		</Panel>
+	</Panel>
+</root>

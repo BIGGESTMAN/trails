@@ -4,17 +4,13 @@
 
 	/*margin-top: 60px;*/
 	/*margin-left: 0px;*/
-	opacity: 0;
+	opacity: 1;
 	/*padding: 15px;*/
 	visibility: visible;
 }
 
-.StatusBarContainer.Visible {
-	opacity: 1;
-}
-
 .StatusBarBackground {
-	opacity: 1;
+	opacity: 0;
 	visibility: visible;
 	vertical-align: top;
 	horizontal-align: left;
@@ -30,25 +26,32 @@
 
 	transition-property: opacity, transform;
     transition-duration: 0.25s;
-	
-	flow-children: down;
-	vertical-align: top;
-	horizontal-align: left;
 }
 
 .StatusBarBackground.Visible {
 	opacity: 1;
-	visibility: visible;
 }
 
 .CPBar {
-	/*color: #00ff00;*/
-	vertical-align: top;
-	horizontal-align: left;
 	width: 100%;
 	height: 100%;
-	/*background-color: #00ff00;*/
+	background-color: gradient( linear, 0% 0%, 0% 100%, from( #B7C54A ), to( #FEFDE1 ) );
+	opacity: 1;
+	visibility: visible;
+}
+
+.OverfullCPBar {
+	width: 100%;
+	height: 100%;
 	background-color: gradient( linear, 0% 0%, 0% 100%, from( #44BA66 ), to( #CEFEEE ) );
+	opacity: 1;
+	visibility: visible;
+}
+
+.UnbalanceBar {
+	width: 0%;
+	height: 100%;
+	background-color: gradient( linear, 0% 0%, 0% 100%, from( #FF9933 ), to( #FFB775 ) );
 	opacity: 1;
 	visibility: visible;
 }

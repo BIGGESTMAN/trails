@@ -8,7 +8,7 @@ function createCPModifier(keys)
 end
 
 function passiveCPGain(keys)
-	if not keys.caster:HasModifier("modifier_interround_invulnerability") then
+	if not keys.caster:HasModifier("modifier_interround_invulnerability") and keys.caster:IsAlive() then
 		modifyCP(keys.caster, keys.ability:GetSpecialValueFor("passive_cp_per_second"))
 	end
 end

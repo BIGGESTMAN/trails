@@ -52,6 +52,7 @@
 		<!-- <CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/victory.xml" />  -->
 
 		<!-- <CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/image_loader.xml" /> -->
+		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/unbalance_bars.xml" />
 		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/status_bars.xml" />
 		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/quest.xml" />
 		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/infotext.xml" />
