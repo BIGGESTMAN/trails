@@ -49,7 +49,7 @@ Delay: 5
 Radius (radius) : 400
 %Physical Damage (damage_percent) : 200
 Dash Speed : 2000
-Disarm Duration (disarm_duration) : 5
+Disarm Duration (disarm_duration) : 3
 Cast Range : 400
 %Enhanced Secondary Damage (unbalanced_damage_percent) : 75
 %Enhanced Slow (unbalanced_slow) : 80
