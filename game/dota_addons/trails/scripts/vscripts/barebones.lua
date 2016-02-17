@@ -710,7 +710,7 @@ function GameMode:AddStatusBars(hero)
 	CustomGameEventManager:Send_ServerToAllClients("status_bars_start", {hero=hero_index})
 	Timers:CreateTimer(function()
 		if IsValidEntity(hero) then
-			CustomGameEventManager:Send_ServerToAllClients("status_bars_update", {hero=hero_index, cp=getCP(hero)})
+			CustomGameEventManager:Send_ServerToAllClients("status_bars_update", {player=playerid, hero=hero_index, cp=getCP(hero)})
 			return 1/30
 		end
 		-- Build inventories for tooltip to reference

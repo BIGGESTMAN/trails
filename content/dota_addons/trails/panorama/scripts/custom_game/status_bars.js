@@ -39,9 +39,11 @@ function OnStatusBarsUpdate(data) {
 	// $.Msg(screenX, " ", screenY)
 	// $.Msg($.GetContextPanel().Children()[0].style)
 	// $.Msg($("#CPBar").style)
-	$.GetContextPanel().style.position = screenX + "px " + screenY + "px 0px";
-	$.Msg((data.cp / 2) + "%")
-	$.GetContextPanel().Children()[0].style.width = (data.cp / 2) + "%"
+	var status_bar = $.GetContextPanel().Children()[data.player]
+	// $.Msg(data.player)
+	status_bar.style.position = screenX + "px " + screenY + "px 0px";
+	// $.Msg((data.cp / 2) + "%")
+	status_bar.Children()[0].style.width = (data.cp / 2) + "%"
 	// $("#CPBar").width = (data.cp / 200) + "%"
 	// $.GetContextPanel().Children()[0].style.x = Number(screenX)
 	// $.GetContextPanel().Children()[0].style.y = Number(screenY)

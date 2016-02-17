@@ -8,6 +8,17 @@
 		<include src="s2r://panorama/scripts/custom_game/status_bars.js" />
 	</scripts>
 	<Panel hittest="false" class="StatusBarContainer">
-		<Panel hittest="false" id="CPBar" class="CPBar" />
+		<Panel hittest="false" class="StatusBarBackground">
+			<Panel hittest="false" id="CPBar" class="CPBar" />
+		</Panel>
+		<Panel hittest="false" class="StatusBarBackground">
+			<Panel hittest="false" id="CPBar" class="CPBar" />
+		</Panel>
+		<Panel hittest="false" class="StatusBarBackground">
+			<Panel hittest="false" id="CPBar" class="CPBar" />
+		</Panel>
+		<Panel hittest="false" class="StatusBarBackground">
+			<Panel hittest="false" id="CPBar" class="CPBar" />
+		</Panel>
 	</Panel>
 </root>

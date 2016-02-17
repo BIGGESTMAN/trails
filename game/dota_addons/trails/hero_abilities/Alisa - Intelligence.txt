@@ -3,10 +3,11 @@ Enhanced : The arrow travels much faster and explodes on reaching the target, de
  
 Cast Point : 0.3
 Delay: 2
+Radius: 100
 %Magical Damage (damage_percent) : 140
 Burn Duration (burn_duration) : 5
 Range (range) : 1000
-Travel Speed : 700
+Travel Speed : 1200
 Enhanced Travel Speed : 1300
 %Enhanced Magical Damage (unbalanced_damage_percent) : 200
 Enhanced Explosion Radius (unbalanced_explosion_radius) : 200

@@ -26,7 +26,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"radius"				"200"
+				"radius"				"100"
 			}
 			"01"
 			{
@@ -41,7 +41,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"travel_speed"			"700"
+				"travel_speed"			"1200"
 			}
 			"01"
 			{
