@@ -40,6 +40,7 @@ function spellCast(keys)
 		dashToNextTarget(caster)
 	else
 		Notifications:Bottom(keys.caster:GetPlayerOwner(), {text="Target Area Must Contain Enemies", duration=1, style={color="red"}})
+		ability:EndCooldown()
 		caster.gale_original_location = nil
 		caster.gale_targets = nil
 	end

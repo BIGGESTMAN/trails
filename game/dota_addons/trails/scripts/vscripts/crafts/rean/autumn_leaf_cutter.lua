@@ -35,6 +35,7 @@ function spellCast(keys)
 			dash(caster, (target_point - caster:GetAbsOrigin()):Normalized(), dash_speed, (target_point - caster:GetAbsOrigin()):Length2D(), false, secondaryDash)
 		else
 			Notifications:Bottom(keys.caster:GetPlayerOwner(), {text="Target Area Must Contain Enemies", duration=1, style={color="red"}})
+			ability:EndCooldown()
 		end
 	end
 end

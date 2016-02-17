@@ -13,21 +13,20 @@ Enhanced Explosion Radius (unbalanced_explosion_radius) : 200
 %Enhanced Damage Per Second (unbalanced_field_damage_percent) : 40
 Enhanced Field Duration (unbalanced_field_duration) : 5
 
-[W] Blessed Arrow (blessed_arrow) : Alisa fires a blessed arrow into the air, healing allies in an area and granting them CP.\n\n<font color='#01DF01'>CP COST: 40</font>
-Enhanced : Heals for more, grants more CP and places Mischievous Blessing on the target, causing allies who attack them to heal and gain bonus CP.
+[W] Blessed Arrow (blessed_arrow) : Alisa fires a blessed arrow into the air, healing allies in an area and granting them CP. Doesn't affect Alisa herself.\n\n<font color='#01DF01'>CP COST: 40</font>
+Enhanced : Heals for more, grants more CP and places Mischievous Blessing on the target, causing Alisa and allies heal and gain bonus CP when attacking them.
 
 Cast Point : 0.3
 Delay: 4
 Cast Range : 800
 Radius (radius) : 500
-%Healing (healing_percent) : 200
+%Healing (healing_percent) : 400
 CP (bonus_cp) : 40
-%Enhanced Healing (unbalanced_healing_percent) : 300
+%Enhanced Healing (unbalanced_healing_percent) : 600
 Enhanced CP (unbalanced_bonus_cp) : 70
 Enhanced Debuff Duration (unbalanced_mischievous_duration) : 10
-%Enhanced Debuff Healing (unbalanced_mischievous_healing_percent) : 40
-Enhanced Debuff CP (unbalanced_mischievous_bonus_cp) : 5
-Note0 (note0) : Initial healing and CP increase doesn't affect Alisa, although she can trigger Mischievous Blessing.
+%Enhanced Debuff Healing (unbalanced_mischievous_healing_percent) : 80
+Enhanced Debuff CP (unbalanced_mischievous_bonus_cp) : 10
 
 [E] Molten Rain (molten_rain) : Alisa rains burning arrows onto enemies, dealing magic damage and slowing in a large area.\n\n<font color='#01DF01'>CP COST: 40</font>
 Enhanced : Deals more damage, Burns enemies hit and reduces enemies' Magic Defense.
@@ -40,16 +39,16 @@ Arrow Radius : 150
 %Magical Damage (damage_percent) : 100
 %Slow (slow) : 50
 Slow Duration (slow_duration) : 1.5
-Duration : 4
+Duration : 3
 Total Arrows : 20
 %Enhanced Magical Damage (unbalanced_damage_percent) : 150
 Enhanced Burn Duration (unbalanced_burn_duration) : 3
 %Enhanced Magic Def. Reduction (unbalanced_adf_down) : 25
 Enhanced Magic Def. Reduction Duration (unbalanced_adf_down_duration) : 5
-Note0 (note0) : Rains 20 total arrows down over 4 seconds.
+Note0 (note0) : Rains 20 total arrows down over 3 seconds.
 Note1 (note1) : Arrow impacts have 150 radius.
 
-[D] Heavenly Gift (heavenly_gift) : Alisa grants allies in an area Insight and Passion.\n\nInsight allows evasion of physical attacks. Passion grants gradual CP regeneration.\n\n<font color='#01DF01'>CP COST: 50</font>
+[D] Heavenly Gift (heavenly_gift) : Alisa grants allies in an area Insight and Passion.\n\nInsight allows evasion of physical damage once per second. Passion grants gradual CP regeneration.\n\nIf in the area of effect, Alisa gains Insight but not Passion.\n\n<font color='#01DF01'>CP COST: 50</font>
 Enhanced : Instantly drains the target's CP in order to gradually restore CP of allies around Alisa.
 
 Cast Point : 0.3
@@ -61,7 +60,6 @@ Passion Duration (buffs_duration) : 5
 Passion CP Per Second (passion_cp_regen) : 10
 Enhanced CP Restore Duration (unbalanced_cp_restore_duration) : 8
 Enhanced CP Restore Radius (unbalanced_cp_restore_radius) : 350
-Note0 (note0) : If in the area of effect, Alisa gains Insight but not Passion.
 
 [R] Judgment Arrow (judgment_arrow) : S-Craft: Alisa annihilates enemies in a line with an arrow of judgment, dealing magic damage and Silencing them. Enemies hit are pulled along with the arrow.
 200 CP Bonus : Deals more damage and stuns all enemies hit at the end of its path.

@@ -17,11 +17,11 @@
 		}
 
 		"AbilityCastPoint"				"0.2"
-		"AbilityCooldown"				"4"
+		"AbilityCooldown"				"6"
 		"AbilityManaCost"				"0"
-		"AbilityCastRange"				"500"
+		"AbilityCastRange"				"300"
 		"AOERadius"						"300"
-		"CPCost"						"20"
+		"CPCost"						"30"
 
 		"AbilitySpecial"
 		{
@@ -43,7 +43,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"slow_duration"			"3"
+				"slow_duration"			"1"
 			}
 			"01"
 			{

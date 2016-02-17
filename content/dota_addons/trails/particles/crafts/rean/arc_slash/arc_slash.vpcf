@@ -139,10 +139,10 @@
 	m_Children =
 	[
 		{
-			m_ChildRef = resource:"particles/units/heroes/hero_drow/drow_silence_wave_glow.vpcf"
+			m_ChildRef = resource:"particles/crafts/rean/arc_slash/arc_slash_glow.vpcf"
 		},
 		{
-			m_ChildRef = resource:"particles/units/heroes/hero_drow/drow_silence_wave_ground_pnt.vpcf"
+			m_ChildRef = resource:"particles/crafts/rean/arc_slash/arc_slash_ground_pnt.vpcf"
 		},
 	]
 }

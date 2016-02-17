@@ -33,7 +33,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"healing_percent"		"200"
+				"healing_percent"		"400"
 			}
 			"01"
 			{
@@ -43,7 +43,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"unbalanced_healing_percent"	"300"
+				"unbalanced_healing_percent"	"600"
 			}
 			"01"
 			{
@@ -58,12 +58,12 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"unbalanced_mischievous_healing_percent"	"40"
+				"unbalanced_mischievous_healing_percent"	"80"
 			}
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"unbalanced_mischievous_bonus_cp"	"5"
+				"unbalanced_mischievous_bonus_cp"	"10"
 			}
 			"01"
 			{

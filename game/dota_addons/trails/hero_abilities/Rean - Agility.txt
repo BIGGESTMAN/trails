@@ -1,8 +1,8 @@
-[Q] Autumn Leaf Cutter (autumn_leaf_cutter) : Rean dashes through enemies in target area, dealing physical damage, slowing and interrupting. +10 to Unbalance.\n\n<font color='#01DF01'>CP COST: 20</font>
+[Q] Autumn Leaf Cutter (autumn_leaf_cutter) : Rean dashes through enemies in target area, dealing physical damage, slowing and interrupting. +10 to Unbalance.\n\n<font color='#01DF01'>CP COST: 30</font>
 Enhanced : Follows targeted enemy, deals more damage and applies a greater slow, and knocks enemies away from the target.
 
 Cast Point : 0.2
-Delay: 4
+Delay: 6
 %Physical Damage (damage_percent) : 150
 Slow Duration (slow_duration) : 3
 %Slow (slow) : 40
