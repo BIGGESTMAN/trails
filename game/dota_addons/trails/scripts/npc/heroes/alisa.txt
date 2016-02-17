@@ -40,7 +40,7 @@
 		//"BountyGoldMax"				"0"										// Gold earned max.
 
 		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
-		"MovementSpeed"				"295"									// Speed.
+		"MovementSpeed"				"335"									// Speed.
 		"MovementTurnRate"			"0.6"									// Turning rate.
 
 		"StatusHealth"				"650"									// Base health.

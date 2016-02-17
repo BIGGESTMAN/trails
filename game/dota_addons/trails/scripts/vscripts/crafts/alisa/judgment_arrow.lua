@@ -49,7 +49,7 @@ function arrowHit(caster, unit, other_args, projectile)
 	local damage_type = ability:GetAbilityDamageType()
 	local silence_duration = ability:GetSpecialValueFor("silence_duration")
 
-	dealDamage(unit, caster, damage, damage_type, ability)
+	dealDamage(unit, caster, damage, damage_type, ability, SCRAFT_CP_GAIN_FACTOR)
 	ability:ApplyDataDrivenModifier(caster, unit, "modifier_judgment_arrow_silence", {})
 	pullUnit(caster, unit, projectile, other_args.max_cp)
 end
@@ -64,7 +64,7 @@ function pullUnit(caster, unit, projectile, max_cp)
 	Timers:CreateTimer(0, function()
 		if IsValidEntity(projectile) then
 			unit_vector = unit_vector - (unit_vector:Normalized() * pull_speed * update_interval)
-			print(unit_vector)
+			-- print(unit_vector)
 			unit:SetAbsOrigin(projectile:GetAbsOrigin() + unit_vector)
 			return update_interval
 		else

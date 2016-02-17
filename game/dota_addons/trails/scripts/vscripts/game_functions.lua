@@ -12,6 +12,7 @@ SCRAFT_MINIMUM_CP = 100
 MAX_CP = 200
 END_OF_ROUND_LOSER_CP = 50
 DAMAGE_CP_GAIN_FACTOR = 0.125
+SCRAFT_CP_GAIN_FACTOR = 0.25
 TARGET_CP_GAIN_FACTOR = 1/3
 
 LinkLuaModifier(STAT_STR, "stat_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
@@ -25,8 +26,37 @@ LinkLuaModifier("modifier_passion", "effect_modifiers.lua", LUA_MODIFIER_MOTION_
 -- Notifications:Top((hero.combat_linked_to):GetPlayerOwner(), {text="Alisa: ", duration=2, style={color="white", ["font-size"]="26px"}})
 -- Notifications:Top((hero.combat_linked_to):GetPlayerOwner(), {text="I've Got You!", style={color="green", ["font-size"]="26px"}, continue = true})
 
-function dealDamage(target, source, damage, damage_type, ability)
-	ApplyDamage({victim = target, attacker = source, damage = damage, damage_type = damage_type, abilityReturn = ability})
+function dealDamage(target, attacker, damage, damage_type, ability, cp_gain_factor)
+	local cp_gain_factor = cp_gain_factor or 1
+
+	if target:HasModifier("modifier_insight") and target:FindModifierByName("modifier_insight").evasion_active and damage_type == DAMAGE_TYPE_PHYSICAL then
+		target:FindModifierByName("modifier_insight"):StartEvasionCooldown()
+		return
+	end
+	if attacker then
+		if damage_type == DAMAGE_TYPE_PHYSICAL and attacker:HasModifier(STAT_STR) then
+			event.damage = event.damage * (1 + (attacker:FindModifierByName(STAT_STR):GetStackCount() / 100))
+		end
+		if damage_type == DAMAGE_TYPE_PHYSICAL and attacker:HasModifier(STAT_STR_DOWN) then
+			event.damage = event.damage * (1 - (attacker:FindModifierByName(STAT_STR_DOWN):GetStackCount() / 100))
+		end
+		if damage_type == DAMAGE_TYPE_PHYSICAL and attacker:HasModifier("modifier_azure_flame_slash_sword_inflamed") then
+			local ability = attacker:FindAbilityByName("azure_flame_slash")
+			local burn_duration = ability:GetSpecialValueFor("burn_duration")
+			target:AddNewModifier(attacker, ability, "modifier_burn", {duration = burn_duration})
+		end
+	end
+	if damage_type == DAMAGE_TYPE_MAGICAL and target:HasModifier(STAT_ADF) then
+		event.damage = event.damage / (1 + (target:FindModifierByName(STAT_ADF):GetStackCount() / 100))
+	end
+	if damage_type == DAMAGE_TYPE_MAGICAL and target:HasModifier(STAT_ADF_DOWN) then
+		event.damage = event.damage / (1 - (target:FindModifierByName(STAT_ADF_DOWN):GetStackCount() / 100))
+	end
+	if attacker and attacker ~= target then
+		grantDamageCP(event.damage, attacker, target, cp_gain_factor)
+	end
+
+	ApplyDamage({victim = target, attacker = attacker, damage = damage, damage_type = damage_type, abilityReturn = ability})
 end
 
 function dash(unit, direction, speed, range, find_clear_space, impactFunction)
@@ -143,8 +173,8 @@ function modifyCP(unit, amount)
 	end
 end
 
-function grantDamageCP(damage, attacker, target)
-	local attacker_cp = damage * DAMAGE_CP_GAIN_FACTOR
+function grantDamageCP(damage, attacker, target, multiplier)
+	local attacker_cp = damage * DAMAGE_CP_GAIN_FACTOR * multiplier
 	local target_cp = attacker_cp * TARGET_CP_GAIN_FACTOR
 	modifyCP(attacker, attacker_cp)
 	modifyCP(target, target_cp)

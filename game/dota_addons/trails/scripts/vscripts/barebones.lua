@@ -344,7 +344,9 @@ function GameMode:OnHeroInGame(hero)
 	if CustomHeroSelect:IsPlaceholderHero(hero) then
 		CustomHeroSelect:OnHeroInGame(hero)
 	else
-		hero:AddNewModifier(hero, nil, "modifier_interround_invulnerability", {})
+		if not self.round_started then -- to make testing easier
+			hero:AddNewModifier(hero, nil, "modifier_interround_invulnerability", {})
+		end
 	end
 	
 	CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "infotext_start", {})

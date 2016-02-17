@@ -62,7 +62,7 @@ function executeSlash(caster, target, max_cp)
 	local targets = FindUnitsInRadius(team, origin, nil, radius, iTeam, iType, iFlag, iOrder, false)
 
 	for k,unit in pairs(targets) do
-		dealDamage(unit, caster, damage, damage_type, ability)
+		dealDamage(unit, caster, damage, damage_type, ability, SCRAFT_CP_GAIN_FACTOR)
 		unit:AddNewModifier(caster, ability, "modifier_burn", {duration = burn_duration})
 		if max_cp then increaseUnbalance(caster, target, ability:GetSpecialValueFor("max_cp_bonus_unbalance") - caster:FindAbilityByName("combat_link"):GetSpecialValueFor("base_unbalance_increase")) end
 	end
