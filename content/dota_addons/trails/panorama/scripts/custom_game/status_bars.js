@@ -17,6 +17,9 @@ function OnStatusBarsUpdate(data) {
 		first_bar_full = 100 - second_bar_full
 		status_bar.Children()[0].style.position = (150 * second_bar_full / 100) + "px 0px 0px" 
 	}
+	else {
+		status_bar.Children()[0].style.position = "0px 0px 0px" 
+	}
 	status_bar.Children()[0].style.width = first_bar_full + "%"
 	status_bar.Children()[1].style.width = second_bar_full + "%"
 }

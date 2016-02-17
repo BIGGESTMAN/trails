@@ -720,8 +720,8 @@ function GameMode:AddStatusBars(hero)
 			local hero_unbalance = hero:FindModifierByName("modifier_unbalanced_level"):GetStackCount()
 			if hero:HasModifier("modifier_combat_link_unbalanced") then hero_unbalance = 100 end
 			CustomGameEventManager:Send_ServerToAllClients("unbalance_bars_update", {player=playerid, hero=hero_index, unbalance=hero_unbalance})
-			return 1/30
 		end
+		return 1/30
 	end)
 end
 
