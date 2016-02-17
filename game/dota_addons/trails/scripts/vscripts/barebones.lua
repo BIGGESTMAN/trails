@@ -696,8 +696,42 @@ function GameMode:StartRound()
 		if hero then
 			hero:RemoveModifierByName("modifier_interround_invulnerability")
 			hero.round_ready = nil
+			if self.current_round == 0 then
+				self:AddStatusBars(hero)
+			end
 		end
 	end
+end
+
+function GameMode:AddStatusBars(hero)
+	local playerid = hero:GetPlayerOwnerID()
+	local hero_index = hero:GetEntityIndex()
+	local player = PlayerResource:GetPlayer(playerid)
+	CustomGameEventManager:Send_ServerToAllClients("status_bars_start", {hero=hero_index})
+	Timers:CreateTimer(function()
+		if IsValidEntity(hero) then
+			CustomGameEventManager:Send_ServerToAllClients("status_bars_update", {hero=hero_index, cp=getCP(hero)})
+			return 1/30
+		end
+		-- Build inventories for tooltip to reference
+		-- local unitsWithInventories = {}
+		-- local allEntities = Entities:FindAllInSphere(hero:GetAbsOrigin(), 20100)
+		-- for k,v in pairs(allEntities) do
+		-- 	if v.HasInventory and v:HasInventory() then
+		-- 		local inventory = {}
+		-- 		for i=0,5 do
+		-- 			inventory[i] = v:GetItemInSlot(i)
+		-- 		end
+		-- 		unitsWithInventories[v:GetEntityIndex()] = inventory
+		-- 	end
+		-- end
+
+		-- -- for k,v in pairs(unitsWithInventories[hero_index]) do
+		-- -- 	print(k,v)
+		-- -- end
+		-- -- print(player, playerid, hero_index, unitsWithInventories)
+		-- CustomGameEventManager:Send_ServerToPlayer(player, "update_persona_tooltip", {playerid = playerid, hero=hero_index, unitInventories = unitsWithInventories})
+	end)
 end
 
 function GameMode:EndRound(winning_team)

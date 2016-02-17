@@ -1,0 +1,40 @@
+.StatusBarContainer {
+	width: 150px;
+	height: 20px;
+	
+	flow-children: down;
+	vertical-align: top;
+	horizontal-align: left;
+
+	/*margin-top: 60px;*/
+	/*margin-left: 0px;*/
+
+	transition-property: opacity, transform;
+    transition-duration: 0.25s;
+	opacity: 0;
+
+	background-color: gradient( linear, 0% 0%, 0% 100%, from( #32393e ), to( #151515 ) );
+	box-shadow: #000000df -4px -4px 2px 8px;
+	border-top: 1px solid #ffffff10;
+	border-left: 1px solid #ffffff06;
+	border-right: 1px solid #ffffff06;
+	border-bottom: 1px solid #101010;
+	/*padding: 15px;*/
+}
+
+.StatusBarContainer.Visible {
+	opacity: 1;
+	visibility: visible;
+}
+
+.CPBar {
+	/*color: #00ff00;*/
+	vertical-align: top;
+	horizontal-align: left;
+	width: 100%;
+	height: 100%;
+	/*background-color: #00ff00;*/
+	background-color: gradient( linear, 0% 0%, 0% 100%, from( #44BA66 ), to( #CEFEEE ) );
+	opacity: 1;
+	visibility: visible;
+}
