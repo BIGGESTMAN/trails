@@ -33,10 +33,10 @@ function dealDamage(target, attacker, damage, damage_type, ability, cp_gain_fact
 	end
 	if attacker then
 		if damage_type == DAMAGE_TYPE_PHYSICAL and attacker:HasModifier(STAT_STR) then
-			event.damage = event.damage * (1 + (attacker:FindModifierByName(STAT_STR):GetStackCount() / 100))
+			damage = damage * (1 + (attacker:FindModifierByName(STAT_STR):GetStackCount() / 100))
 		end
 		if damage_type == DAMAGE_TYPE_PHYSICAL and attacker:HasModifier(STAT_STR_DOWN) then
-			event.damage = event.damage * (1 - (attacker:FindModifierByName(STAT_STR_DOWN):GetStackCount() / 100))
+			damage = damage * (1 - (attacker:FindModifierByName(STAT_STR_DOWN):GetStackCount() / 100))
 		end
 		if damage_type == DAMAGE_TYPE_PHYSICAL and attacker:HasModifier("modifier_azure_flame_slash_sword_inflamed") then
 			local ability = attacker:FindAbilityByName("azure_flame_slash")
@@ -45,13 +45,13 @@ function dealDamage(target, attacker, damage, damage_type, ability, cp_gain_fact
 		end
 	end
 	if damage_type == DAMAGE_TYPE_MAGICAL and target:HasModifier(STAT_ADF) then
-		event.damage = event.damage / (1 + (target:FindModifierByName(STAT_ADF):GetStackCount() / 100))
+		damage = damage / (1 + (target:FindModifierByName(STAT_ADF):GetStackCount() / 100))
 	end
 	if damage_type == DAMAGE_TYPE_MAGICAL and target:HasModifier(STAT_ADF_DOWN) then
-		event.damage = event.damage / (1 - (target:FindModifierByName(STAT_ADF_DOWN):GetStackCount() / 100))
+		damage = damage / (1 - (target:FindModifierByName(STAT_ADF_DOWN):GetStackCount() / 100))
 	end
 	if attacker and attacker ~= target then
-		grantDamageCP(event.damage, attacker, target, cp_gain_factor)
+		grantDamageCP(damage, attacker, target, cp_gain_factor)
 	end
 
 	ApplyDamage({victim = target, attacker = attacker, damage = damage, damage_type = damage_type, abilityReturn = ability})
