@@ -14,7 +14,7 @@ function OnUnbalanceBarsUpdate(data) {
 	var scale = 1200 / screenHeight;
 
 	var screenX = (Game.WorldToScreenX(hero_location[0], hero_location[1], hero_location[2]) - unbalance_bar.desiredlayoutwidth) * scale
-	var screenY = (Game.WorldToScreenY(hero_location[0], hero_location[1], hero_location[2])) * scale + 20
+	var screenY = (Game.WorldToScreenY(hero_location[0], hero_location[1], hero_location[2])) * scale + 15
 	unbalance_bar.style.position = screenX + "px " + screenY + "px 0px";
 	unbalance_bar.Children()[0].style.width = data.unbalance + "%"
 	if (data.unbalance == 100) {

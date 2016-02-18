@@ -365,10 +365,14 @@ function GameMode:OnMusicControlToggled(eventSourceIndex, args)
 	-- Shoutout to unbelievably stupid hacks, fuck this game
 	hero.ignore_music_toggle_click = not hero.ignore_music_toggle_click
 
+	-- print("1")
 	if not hero.ignore_music_toggle_click then
+		-- print("2")
 		if hero.music_playing == nil then
+			-- print("3")
 			self:StartMusicForPlayer(player)
 		else
+			-- print("4")
 			self:StopMusicForPlayer(player)
 		end
 	end
