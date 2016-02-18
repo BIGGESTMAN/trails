@@ -12,3 +12,7 @@ function passiveCPGain(keys)
 		modifyCP(keys.caster, keys.ability:GetSpecialValueFor("passive_cp_per_second"))
 	end
 end
+
+function attackLanded(keys)
+	grantDamageCP(keys.damage, keys.attacker, keys.target)
+end

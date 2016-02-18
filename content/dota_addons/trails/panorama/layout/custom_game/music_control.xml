@@ -1,0 +1,15 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/custom_game/music_control.css" />
+		<include src="s2r://panorama/styles/custom_game/shared.css" />
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+	</styles>
+	<scripts>
+		<include src="s2r://panorama/scripts/custom_game/music_control.js" />
+	</scripts>
+	<Panel hittest="false" class="MusicControlWindow">
+		<Button hittest="true" id="MusicControlButton" class="ButtonBevel" onactivate="OnMusicControlToggled()">
+			<Label id="MusicControlButtonText" text="#music_control_button" />
+		</Button>
+	</Panel>
+</root>

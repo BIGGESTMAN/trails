@@ -349,8 +349,49 @@ function GameMode:OnHeroInGame(hero)
 		end
 	end
 	
+	hero.music_playing = nil
+	hero.player:SetMusicStatus(DOTA_MUSIC_STATUS_NONE, 100000)
+
 	CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "infotext_start", {})
 	CustomGameEventManager:RegisterListener("infotext_ok", WrapMemberMethod(self.OnInfoTextOK, self))
+	CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "music_control_start", {})
+	CustomGameEventManager:RegisterListener("music_control_toggled", WrapMemberMethod(self.OnMusicControlToggled, self))
+end
+
+function GameMode:OnMusicControlToggled(eventSourceIndex, args)
+	local player = EntIndexToHScript(eventSourceIndex)
+	local hero = player:GetAssignedHero()
+
+	-- Shoutout to unbelievably stupid hacks, fuck this game
+	hero.ignore_music_toggle_click = not hero.ignore_music_toggle_click
+
+	if not hero.ignore_music_toggle_click then
+		if hero.music_playing == nil then
+			self:StartMusicForPlayer(player)
+		else
+			self:StopMusicForPlayer(player)
+		end
+	end
+end
+
+function GameMode:StartMusicForPlayer(player)
+	local hero = player:GetAssignedHero()
+	Timers:CreateTimer("music_timer_"..player:GetPlayerID(), {
+		callback = function()
+			local music_string = "Trails.Dont_Be_Defeated"
+			if self.current_round == 8 then music_string = "Trails.Decisive_Collision" end
+			EmitSoundOnClient(music_string, player)
+			hero.music_playing = music_string
+			return 137
+		end
+	})
+end
+
+function GameMode:StopMusicForPlayer(player)
+	local hero = player:GetAssignedHero()
+	Timers:RemoveTimer("music_timer"..player:GetPlayerID())
+	player:StopSound(hero.music_playing)
+	hero.music_playing = nil
 end
 
 function GameMode:OnInfoTextOK(eventSourceIndex, args)
@@ -705,6 +746,10 @@ function GameMode:StartRound()
 			hero.round_ready = nil
 			if self.current_round == 0 then
 				self:AddStatusBars(hero)
+			end
+			if self.current_round == 8 and hero.music_playing then
+				self:StopMusicForPlayer(PlayerResource:GetPlayer(i))
+				self:StartMusicForPlayer(PlayerResource:GetPlayer(i))
 			end
 		end
 	end

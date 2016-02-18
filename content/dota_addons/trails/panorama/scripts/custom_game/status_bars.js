@@ -18,7 +18,7 @@ function OnStatusBarsUpdate(data) {
 
 	var screenX = (Game.WorldToScreenX(hero_location[0], hero_location[1], hero_location[2]) - status_bar.desiredlayoutwidth) * scale
 	var screenY = (Game.WorldToScreenY(hero_location[0], hero_location[1], hero_location[2])) * scale
-	$.Msg(GameUI.GetCursorPosition(), (screenX + 150) + "," + screenY)
+	// $.Msg(GameUI.GetCursorPosition(), (screenX + 150) + "," + screenY)
 	status_bar.style.position = screenX + "px " + screenY + "px 0px";
 	var second_bar_full = Math.max(data.cp - 100, 0)
 	var first_bar_full = Math.min(data.cp, 100)

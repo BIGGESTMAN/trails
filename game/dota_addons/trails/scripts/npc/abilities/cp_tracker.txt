@@ -59,6 +59,16 @@
 						"Function"		"passiveCPGain"
 					}
 				}
+
+				"OnAttackLanded"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"cp_tracker"
+						"Function"		"attackLanded"
+						"damage"		"%attack_damage"
+					}
+				}
 			}
 
 			"modifier_cp_tracker_cp"

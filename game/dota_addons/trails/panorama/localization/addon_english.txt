@@ -40,6 +40,7 @@
 	"close"											"Close"
 	"infotext_ok"									"OK cool whatever reading sucks I want to play a video game"
 	"you_are_ready"									"Waiting for other players to ready up..."
+	"music_control_button"							"Toggle Music"
 
 	"quest_time_round_starting"						"Round starts"
 	"quest_time_reviving"							"Reviving"

@@ -27,8 +27,6 @@ LinkLuaModifier("modifier_passion", "effect_modifiers.lua", LUA_MODIFIER_MOTION_
 -- Notifications:Top((hero.combat_linked_to):GetPlayerOwner(), {text="I've Got You!", style={color="green", ["font-size"]="26px"}, continue = true})
 
 function dealDamage(target, attacker, damage, damage_type, ability, cp_gain_factor)
-	local cp_gain_factor = cp_gain_factor or 1
-
 	if target:HasModifier("modifier_insight") and target:FindModifierByName("modifier_insight").evasion_active and damage_type == DAMAGE_TYPE_PHYSICAL then
 		target:FindModifierByName("modifier_insight"):StartEvasionCooldown()
 		return
@@ -174,6 +172,7 @@ function modifyCP(unit, amount)
 end
 
 function grantDamageCP(damage, attacker, target, multiplier)
+	local multiplier = multiplier or 1
 	local attacker_cp = damage * DAMAGE_CP_GAIN_FACTOR * multiplier
 	local target_cp = attacker_cp * TARGET_CP_GAIN_FACTOR
 	modifyCP(attacker, attacker_cp)
