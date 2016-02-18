@@ -5,10 +5,16 @@ function OnUnbalanceBarsStart(data) {
 }
 
 function OnUnbalanceBarsUpdate(data) {
-	var hero_location = Entities.GetAbsOrigin(data.hero)
-	var screenX = Game.WorldToScreenX(hero_location[0], hero_location[1], hero_location[2]) - 150
-	var screenY = Game.WorldToScreenY(hero_location[0], hero_location[1], hero_location[2]) + 20
 	var unbalance_bar = $.GetContextPanel().Children()[data.player]
+	var hero_location = Entities.GetAbsOrigin(data.hero)
+
+	var wholeScreen = $.GetContextPanel().GetParent()
+	var screenWidth = wholeScreen.actuallayoutwidth
+	var screenHeight = wholeScreen.actuallayoutheight
+	var scale = 1200 / screenHeight;
+
+	var screenX = (Game.WorldToScreenX(hero_location[0], hero_location[1], hero_location[2]) - unbalance_bar.desiredlayoutwidth) * scale
+	var screenY = (Game.WorldToScreenY(hero_location[0], hero_location[1], hero_location[2])) * scale + 20
 	unbalance_bar.style.position = screenX + "px " + screenY + "px 0px";
 	unbalance_bar.Children()[0].style.width = data.unbalance + "%"
 	if (data.unbalance == 100) {
