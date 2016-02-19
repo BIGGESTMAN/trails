@@ -8,9 +8,9 @@
 		"Ability3"				"molten_rain"
 		"Ability4"				"heavenly_gift"
 		"Ability5"				"judgment_arrow"
-		"Ability6"				"attribute_bonus"
-		"Ability7"				"combat_link"
-		"Ability8"				"cp_tracker"
+		"Ability6"				"combat_link"
+		"Ability7"				"cp_tracker"
+		"Ability8"				""
 		"Ability9"				""
 		"Ability10"				""
 		"Ability11"				""
@@ -21,19 +21,19 @@
 		"Ability16"				""
 
 		"ArmorPhysical"				"0"									// Physical protection.
-		"MagicalResistance"			"25"								// Magical protection (percentage).
+		"MagicalResistance"			"0"								// Magical protection (percentage).
 
 		"AttackCapabilities"		"DOTA_UNIT_CAP_RANGED_ATTACK"
-		"AttackDamageMin"			"28"										// Damage range min.
-		"AttackDamageMax"			"28"										// Damage range max.
+		"AttackDamageMin"			"0"										// Damage range min.
+		"AttackDamageMax"			"0"										// Damage range max.
 
 		"AttributePrimary"			"DOTA_ATTRIBUTE_INTELLECT"
-		"AttributeBaseStrength"		"18"										// Base strength
-		"AttributeStrengthGain"		"2"										// Strength bonus per level.
-		"AttributeBaseAgility"		"15"										// Base agility
-		"AttributeAgilityGain"		"1.2"										// Agility bonus per level.
-		"AttributeBaseIntelligence"	"25"										// Base intelligence
-		"AttributeIntelligenceGain"	"2.7"										// Intelligence bonus per level.
+		"AttributeBaseStrength"		"0"										// Base strength
+		"AttributeStrengthGain"		"0"										// Strength bonus per level.
+		"AttributeBaseAgility"		"0"										// Base agility
+		"AttributeAgilityGain"		"0"										// Agility bonus per level.
+		"AttributeBaseIntelligence"	"0"										// Base intelligence
+		"AttributeIntelligenceGain"	"0"										// Intelligence bonus per level.
 
 		//"BountyXP"					"0"										// Experience earn.
 		//"BountyGoldMin"				"0"										// Gold earned min.
@@ -43,7 +43,7 @@
 		"MovementSpeed"				"335"									// Speed.
 		"MovementTurnRate"			"0.6"									// Turning rate.
 
-		"StatusHealth"				"650"									// Base health.
+		"StatusHealth"				"1400"									// Base health.
 		"StatusHealthRegen"			"0"										// Health regeneration rate.
 		"StatusMana"				"0"										// Base mana.
 		"StatusManaRegen"			"0"										// Mana regeneration rate.
@@ -58,4 +58,10 @@
 		"AttackAcquisitionRange"	"900"									// Range within a target can be acquired.
 		//"ProjectileModel"			"particles/econ/items/leshrac/leshrac_tormented_staff/leshrac_base_attack_tormented.vpcf"							// Particle system model for projectile.
 		//"ProjectileSpeed"			"1300"									// Speed of projectile.
+
+		"Str"	"65"
+		"Def"	"100"
+		"Ats"	"120"
+		"Adf"	"100"
+		"Spd"	"0"
 	}

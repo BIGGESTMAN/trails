@@ -1,0 +1,43 @@
+.StatsDisplayWindow {
+	width: 11.75%;
+	height: 10.75%;
+
+	flow-children: right;
+	vertical-align: top;
+	horizontal-align: left;
+
+	opacity: 0;
+
+	position: 666px 957px 0px;
+	background-color: #32393e;
+}
+
+.StatsDisplayWindow.Visible{
+	opacity: 1;
+}
+
+.StatsDisplayContainer {
+	width: 50%;
+	height: 100%;
+
+	flow-children: down;
+	vertical-align: center;
+	horizontal-align: center;
+
+	opacity: 1;
+}
+
+.StatsDisplayWindow .StatsDisplayText {
+	font-family: Radiance;
+	font-size: 15px;
+	color: #b0b0b0;
+
+	width: 100%;
+	/*margin-left: 8px;
+	margin-right: 8px;
+	margin-top: 16px;*/
+	/*line-height: 18px;*/
+
+	vertical-align: center;
+	text-align: center;
+}

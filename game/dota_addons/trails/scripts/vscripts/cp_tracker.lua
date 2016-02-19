@@ -14,5 +14,12 @@ function passiveCPGain(keys)
 end
 
 function attackLanded(keys)
-	grantDamageCP(keys.damage, keys.attacker, keys.target)
+	local attacker = keys.attacker
+	local damage_scale = 1
+	if attacker:HasModifier("modifier_crit") then
+		damage_scale = damage_scale * 2
+		attacker:RemoveModifierByName("modifier_crit")
+	end
+
+	dealScalingDamage(keys.target, attacker, DAMAGE_TYPE_PHYSICAL, damage_scale)
 end

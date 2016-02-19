@@ -10,7 +10,7 @@ function spellCast(keys)
 	local arrow_travel_time = ability:GetSpecialValueFor("arrow_travel_time")
 	local range = (arrow_destination - caster:GetAbsOrigin()):Length()
 	local travel_speed = range / arrow_travel_time
-	local healing = caster:GetAverageTrueAttackDamage() * ability:GetSpecialValueFor("healing_percent") / 100
+	local healing = getStats(caster).ats * ability:GetSpecialValueFor("healing_percent") / 100
 	local bonus_cp = ability:GetSpecialValueFor("bonus_cp")
 	local args = {non_flat = true, healing = healing, bonus_cp = bonus_cp}
 
@@ -21,9 +21,14 @@ function spellCast(keys)
 		caster:RemoveModifierByName("modifier_combat_link_followup_available")
 		target:RemoveModifierByName("modifier_combat_link_unbalanced")
 
-		args.healing = caster:GetAverageTrueAttackDamage() * ability:GetSpecialValueFor("unbalanced_healing_percent") / 100
+		args.healing = getStats(caster).ats * ability:GetSpecialValueFor("unbalanced_healing_percent") / 100
 		args.bonus_cp = ability:GetSpecialValueFor("unbalanced_bonus_cp")
 		args.apply_debuff_to = target
+	end
+	
+	if caster:HasModifier("modifier_crit") then
+		args.healing = args.healing * 2
+		caster:RemoveModifierByName("modifier_crit")
 	end
 
 	local direction = (arrow_destination - caster:GetAbsOrigin()):Normalized()
@@ -62,7 +67,7 @@ function mischievousBlessingAttacked(keys)
 	local ability = keys.ability
 	local unit = keys.attacker
 
-	local healing = caster:GetAverageTrueAttackDamage() * ability:GetSpecialValueFor("unbalanced_mischievous_healing_percent") / 100
+	local healing = getStats(caster).ats * ability:GetSpecialValueFor("unbalanced_mischievous_healing_percent") / 100
 	local bonus_cp = ability:GetSpecialValueFor("unbalanced_mischievous_bonus_cp")
 
 	unit:Heal(healing, caster)

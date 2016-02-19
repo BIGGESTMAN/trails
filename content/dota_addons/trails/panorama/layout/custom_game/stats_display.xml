@@ -1,0 +1,22 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/custom_game/stats_display.css" />
+		<include src="s2r://panorama/styles/custom_game/shared.css" />
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+	</styles>
+	<scripts>
+		<include src="s2r://panorama/scripts/custom_game/stats_display.js" />
+	</scripts>
+	<Panel hittest="true" class="StatsDisplayWindow TrailsGenericWindow">
+		<Panel hittest="false" class="StatsDisplayContainer">
+			<Label hittest="false" id="Str" class="StatsDisplayText"/>
+			<Label hittest="false" id="Def" class="StatsDisplayText"/>
+			<Label hittest="false" id="Ats" class="StatsDisplayText"/>
+			<Label hittest="false" id="Adf" class="StatsDisplayText"/>
+		</Panel>
+		<Panel hittest="false" class="StatsDisplayContainer">
+			<Label hittest="false" id="Spd" class="StatsDisplayText"/>
+			<Label hittest="false" id="Mov" class="StatsDisplayText"/>
+		</Panel>
+	</Panel>
+</root>

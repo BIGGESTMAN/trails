@@ -12,17 +12,22 @@ function spellCast(keys)
 	local range = ability:GetSpecialValueFor("range")
 	local speed = ability:GetSpecialValueFor("projectile_speed")
 	local radius = ability:GetSpecialValueFor("radius")
-	local damage = caster:GetAverageTrueAttackDamage() * ability:GetSpecialValueFor("damage_percent") / 100
-	local stun_duration = ability:GetSpecialValueFor("stun_duration")
+	local damage_scale = ability:GetSpecialValueFor("damage_percent") / 100
+	local delay_inflicted = ability:GetSpecialValueFor("delay_inflicted")
 	local impactFunction = nil
 
 	if validEnhancedCraft(caster, target) then
 		caster:RemoveModifierByName("modifier_combat_link_followup_available")
 		target:RemoveModifierByName("modifier_combat_link_unbalanced")
 
-		damage = caster:GetAverageTrueAttackDamage() * ability:GetSpecialValueFor("unbalanced_damage_percent") / 100
-		stun_duration = ability:GetSpecialValueFor("unbalanced_stun_duration")
+		damage_scale = ability:GetSpecialValueFor("unbalanced_damage_percent") / 100
+		delay_inflicted = ability:GetSpecialValueFor("unbalanced_delay_inflicted")
 		impactFunction = createWindPath
+	end
+	
+	if caster:HasModifier("modifier_crit") then
+		damage_scale = damage_scale * 2
+		caster:RemoveModifierByName("modifier_crit")
 	end
 
 	modifyCP(caster, getCPCost(ability) * -1)
@@ -36,16 +41,16 @@ function spellCast(keys)
 		iFlag = DOTA_UNIT_TARGET_FLAG_NONE,
 		iOrder = FIND_ANY_ORDER
 	}
-	ProjectileList:CreateLinearProjectile(caster, caster:GetAbsOrigin(), direction, speed, range, impactFunction, collisionRules, arcSlashHit, "particles/crafts/rean/arc_slash/arc_slash.vpcf", {damage = damage, stun_duration = stun_duration})
+	ProjectileList:CreateLinearProjectile(caster, caster:GetAbsOrigin(), direction, speed, range, impactFunction, collisionRules, arcSlashHit, "particles/crafts/rean/arc_slash/arc_slash.vpcf", {damage_scale = damage_scale, delay_inflicted = delay_inflicted})
 end
 
 function arcSlashHit(caster, unit, other_args)
 	local ability = caster:FindAbilityByName("arc_slash")
 	local damage_type = ability:GetAbilityDamageType()
 
-	dealDamage(unit, caster, other_args.damage, damage_type, ability)
+	dealScalingDamage(unit, caster, damage_type, other_args.damage_scale)
 	increaseUnbalance(caster, unit)
-	ability:ApplyDataDrivenModifier(caster, unit, "modifier_arc_slash_stun", {duration = other_args.stun_duration})
+	inflictDelay(unit, other_args.delay_inflicted)
 end
 
 function createWindPath(caster, origin_location, direction, speed, range)

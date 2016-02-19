@@ -33,11 +33,17 @@ function spellCast(keys)
 		caster.gale_original_location = caster:GetAbsOrigin()
 	end
 
+	local crit = false
+	if caster:HasModifier("modifier_crit") then
+		crit = true
+		caster:RemoveModifierByName("modifier_crit")
+	end
+
 	if #caster.gale_targets > 0 or caster.gale_original_target then
 		modifyCP(caster, getCPCost(ability) * -1)
 		applyDelayCooldowns(caster, ability)
 		ability:ApplyDataDrivenModifier(caster, caster, "modifier_gale_dashing", {})
-		dashToNextTarget(caster)
+		dashToNextTarget(caster, crit)
 	else
 		Notifications:Bottom(keys.caster:GetPlayerOwner(), {text="Target Area Must Contain Enemies", duration=1, style={color="red"}})
 		ability:EndCooldown()
@@ -46,10 +52,10 @@ function spellCast(keys)
 	end
 end
 
-function hitTarget(caster, direction, speed, target)
+function hitTarget(caster, direction, speed, target, other_args)
 	local ability = caster:FindAbilityByName("gale")
 
-	local damage = caster:GetAverageTrueAttackDamage() * ability:GetSpecialValueFor("damage_percent") / 100
+	local damage_scale = ability:GetSpecialValueFor("damage_percent") / 100
 	local damage_type = ability:GetAbilityDamageType()
 	local bonus_unbalance = ability:GetSpecialValueFor("bonus_unbalance")
 	local dash_speed = ability:GetSpecialValueFor("dash_speed")
@@ -58,10 +64,11 @@ function hitTarget(caster, direction, speed, target)
 
 	if IsValidAlive(target) then
 		if caster.gale_secondary_phase then
-			damage = caster:GetAverageTrueAttackDamage() * ability:GetSpecialValueFor("unbalanced_damage_percent") / 100
+			damage_scale = ability:GetSpecialValueFor("unbalanced_damage_percent") / 100
 			target:AddNewModifier(caster, ability, "modifier_gale_slow", {duration = slow_duration})
 		end
-		dealDamage(target, caster, damage, damage_type, ability)
+		if other_args.crit then damage_scale = damage_scale * 2 end
+		dealScalingDamage(target, caster, damage_type, damage_scale)
 		increaseUnbalance(caster, target, bonus_unbalance)
 		ability:ApplyDataDrivenModifier(caster, target, "modifier_gale_disarm", {})
 		ParticleManager:CreateParticle("particles/units/heroes/hero_bounty_hunter/bounty_hunter_jinda_slow.vpcf", PATTACH_ABSORIGIN, target)
@@ -74,7 +81,7 @@ function hitTarget(caster, direction, speed, target)
 	dash(caster, direction, dash_speed, dash_through_range, false, dashToNextTarget)
 end
 
-function dashToNextTarget(caster)
+function dashToNextTarget(caster, crit)
 	local ability = caster:FindAbilityByName("gale")
 	local dash_speed = ability:GetSpecialValueFor("dash_speed")
 
@@ -84,7 +91,7 @@ function dashToNextTarget(caster)
 		table.remove(caster.gale_targets, target_index)
 		if IsValidAlive(dash_target) then
 			caster:SetForwardVector((dash_target:GetAbsOrigin() - caster:GetAbsOrigin()):Normalized())
-			trackingDash(caster, dash_target, dash_speed, hitTarget)
+			trackingDash(caster, dash_target, dash_speed, hitTarget, {crit = crit})
 		else
 			dashToNextTarget(caster)
 		end
@@ -96,7 +103,7 @@ function dashToNextTarget(caster)
 	elseif caster.gale_secondary_phase and IsValidAlive(caster.gale_original_target) then -- Final slash against original unbalanced target
 		local dash_target = caster.gale_original_target
 		caster:SetForwardVector((dash_target:GetAbsOrigin() - caster:GetAbsOrigin()):Normalized())
-		trackingDash(caster, dash_target, dash_speed, hitTarget)
+		trackingDash(caster, dash_target, dash_speed, hitTarget, {crit = crit})
 	else -- Dash back to original location, or stay at unbalanced target's location
 		if caster.gale_original_location then
 			local original_location_vector = caster.gale_original_location - caster:GetAbsOrigin()

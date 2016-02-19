@@ -26,17 +26,17 @@ CP (bonus_cp) : 25
 Enhanced CP (unbalanced_bonus_cp) : 50
 Note0 (note0) : Increases Rean's Physical Attack, but doesn't grant him CP.
 
-[E] Arc Slash (arc_slash) : Rean unleashes a shockwave, dealing physical damage and stunning enemies hit.\n\n<font color='#01DF01'>CP COST: 40</font>
-Enhanced : Deals more damage, stuns for longer and leaves a path of wind behind the shockwave, increasing allies' attack and movement speeds while on it.
+[E] Arc Slash (arc_slash) : Rean unleashes a shockwave, dealing physical damage and Delaying enemies hit.\n\n<font color='#01DF01'>CP COST: 40</font>
+Enhanced : Deals more damage, inflicts more Delay and leaves a path of wind behind the shockwave, increasing allies' attack and movement speeds while on it.
 
 Cast Point : 0.2
 Delay: 2
 Radius (radius) : 200
 %Physical Damage (damage_percent) : 120
 Range (range) : 1000
-Stun Duration (stun_duration) : 1.0
+Delay Inflicted (delay_inflicted) : 3
 %Enhanced Damage (unbalanced_damage_percent) : 170
-Enhanced Stun Duration (unbalanced_stun_duration) : 2.0
+Enhanced Delay Inflicted (unbalanced_delay_inflicted) : 6
 Enhanced Wind Duration (unbalanced_wind_duration) : 8
 %Enhanced Movespeed (unbalanced_bonus_movespeed) : 15
 Enhanced Attackspeed (unbalanced_bonus_attackspeed) : 40

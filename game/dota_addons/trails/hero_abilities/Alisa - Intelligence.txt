@@ -15,15 +15,15 @@ Enhanced Explosion Radius (unbalanced_explosion_radius) : 200
 Enhanced Field Duration (unbalanced_field_duration) : 5
 
 [W] Blessed Arrow (blessed_arrow) : Alisa fires a blessed arrow into the air, healing allies in an area and granting them CP. Doesn't affect Alisa herself.\n\n<font color='#01DF01'>CP COST: 40</font>
-Enhanced : Heals for more, grants more CP and places Mischievous Blessing on the target, causing Alisa and allies heal and gain bonus CP when attacking them.
+Enhanced : Heals for more, grants more CP and places Mischievous Blessing on the target, causing Alisa and allies to heal and gain bonus CP when attacking them.
 
 Cast Point : 0.3
 Delay: 4
 Cast Range : 800
 Radius (radius) : 500
-%Healing (healing_percent) : 400
+%Healing (healing_percent) : 250
 CP (bonus_cp) : 40
-%Enhanced Healing (unbalanced_healing_percent) : 600
+%Enhanced Healing (unbalanced_healing_percent) : 400
 Enhanced CP (unbalanced_bonus_cp) : 70
 Enhanced Debuff Duration (unbalanced_mischievous_duration) : 10
 %Enhanced Debuff Healing (unbalanced_mischievous_healing_percent) : 80

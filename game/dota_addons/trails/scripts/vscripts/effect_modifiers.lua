@@ -18,7 +18,7 @@ if IsServer() then
 		local damage_percent = 3
 		local damage = target:GetMaxHealth() * damage_percent * self.damage_interval / 100
 		local damage_type = DAMAGE_TYPE_PURE
-		dealDamage(target, caster, damage, damage_type, ability, 0)
+		dealDamage(target, caster, damage, damage_type, 0)
 	end
 end
 
@@ -91,4 +91,26 @@ end
 
 function modifier_passion:GetTexture()
 	return "lina_light_strike_array"
+end
+
+modifier_crit = class({})
+
+function modifier_crit:GetTexture()
+	return "phantom_assassin_arcana_phantom_strike"
+end
+
+modifier_brute_force = class({})
+
+function modifier_brute_force:GetTexture()
+	return "tusk_walrus_punch"
+end
+
+modifier_link_broken = class({})
+
+function modifier_link_broken:GetTexture()
+	return "wisp_tether_break"
+end
+
+function modifier_link_broken:IsDebuff()
+	return true
 end

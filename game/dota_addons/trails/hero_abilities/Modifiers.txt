@@ -2,12 +2,23 @@ Modifiers
 
 ~ Physical Attack Up (modifier_str_up) : Physical damage increased.
 ~ Physical Attack Down (modifier_str_down) : Physical damage reduced.
-~ Magical Defense Up (modifier_adf_down) : Incoming magical damage reduced.
+~ Physical Defense Up (modifier_def_up) : Incoming physical damage reduced.
+~ Physical Defense Down (modifier_def_down) : Incoming physical damage increased.
+~ Magical Attack Up (modifier_ats_up) : Magical damage increased.
+~ Magical Attack Down (modifier_ats_down) : Magical damage reduced.
+~ Magical Defense Up (modifier_adf_up) : Incoming magical damage reduced.
 ~ Magical Defense Down (modifier_adf_down) : Incoming magical damage increased.
+~ Speed Up (modifier_spd_up) : Delay reduced and attackspeed increased.
+~ Speed Down (modifier_spd_down) : Delay increased and attackspeed reduced.
+~ Movement Up (modifier_mov_up) : Movement speed increased.
+~ Movement Down (modifier_mov_down) : Movement speed reduced.
 
 ~ Burned (modifier_burn) : On fire, taking 3%% of max HP each second.
 ~ Insight (modifier_insight) : Evading physical attacks, up to once per second.
 ~ Passion (modifier_passion) : Rapidly gaining CP.
+~ Turn Bonus: Critical (modifier_crit) : Next craft, art or basic attack will deal double damage or heal for double health.
+~ Turn Bonus: Brute Force (modifier_brute_force) : Next offensive craft, art or basic attack will instantly unbalance the target.
+~ Turn Bonus: Link Broken (modifier_link_broken) : Cannot form combat links with allies.
 
 ~ CP (modifier_cp_tracker_cp) : Amount of CP available for crafts. Increased by dealing and recieving damage, and gained slowly over time.
 

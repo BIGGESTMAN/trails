@@ -47,11 +47,16 @@ function executeSlash(caster, target, max_cp)
 	local ability = caster:FindAbilityByName("azure_flame_slash")
 
 	local radius = ability:GetSpecialValueFor("radius")
-	local damage = caster:GetAverageTrueAttackDamage() * ability:GetSpecialValueFor("damage_percent") / 100
+	local damage_scale = ability:GetSpecialValueFor("damage_percent") / 100
 	local damage_type = ability:GetAbilityDamageType()
 	local burn_duration = ability:GetSpecialValueFor("burn_duration")
 
-	if max_cp then damage = caster:GetAverageTrueAttackDamage() * ability:GetSpecialValueFor("max_cp_damage_percent") / 100 end
+	if max_cp then damage_scale = ability:GetSpecialValueFor("max_cp_damage_percent") / 100 end
+	
+	if caster:HasModifier("modifier_crit") then
+		damage_scale = damage_scale * 2
+		caster:RemoveModifierByName("modifier_crit")
+	end
 
 	local team = caster:GetTeamNumber()
 	local origin = target:GetAbsOrigin()
@@ -62,7 +67,7 @@ function executeSlash(caster, target, max_cp)
 	local targets = FindUnitsInRadius(team, origin, nil, radius, iTeam, iType, iFlag, iOrder, false)
 
 	for k,unit in pairs(targets) do
-		dealDamage(unit, caster, damage, damage_type, ability, SCRAFT_CP_GAIN_FACTOR)
+		dealScalingDamage(unit, caster, damage_type, damage_scale, SCRAFT_CP_GAIN_FACTOR)
 		unit:AddNewModifier(caster, ability, "modifier_burn", {duration = burn_duration})
 		if max_cp then increaseUnbalance(caster, target, ability:GetSpecialValueFor("max_cp_bonus_unbalance") - caster:FindAbilityByName("combat_link"):GetSpecialValueFor("base_unbalance_increase")) end
 	end

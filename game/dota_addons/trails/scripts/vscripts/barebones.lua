@@ -5,7 +5,7 @@ require "filters"
 require "combat_links"
 require "game_functions"
 require "custom_hero_select"
-require "cp_fountain"
+require "turn_bonuses"
 
 LinkLuaModifier("modifier_interround_invulnerability", "modifier_interround_invulnerability.lua", LUA_MODIFIER_MOTION_NONE)
 
@@ -231,6 +231,7 @@ function GameMode:CaptureGameMode()
 		mode:SetFogOfWarDisabled(DISABLE_FOG_OF_WAR_ENTIRELY)
 		mode:SetGoldSoundDisabled( DISABLE_GOLD_SOUNDS )
 		mode:SetRemoveIllusionsOnDeath( REMOVE_ILLUSIONS_ON_DEATH )
+		mode:SetDaynightCycleDisabled(true)
 
 		setupProjectileList()
 
@@ -292,7 +293,7 @@ end
 function GameMode:OnAllPlayersLoaded()
 	print("[BAREBONES] All Players have loaded into the game")
 
-	CP_Fountain:Initialize()
+	Turn_Bonuses:Initialize()
 end
 
 --[[
@@ -347,15 +348,41 @@ function GameMode:OnHeroInGame(hero)
 		if not self.round_started then -- to make testing easier
 			hero:AddNewModifier(hero, nil, "modifier_interround_invulnerability", {})
 		end
-	end
+		initializeStats(hero)
 	
-	hero.music_playing = nil
-	hero.player:SetMusicStatus(DOTA_MUSIC_STATUS_NONE, 100000)
+		-- Turn off music by default
+		hero.music_playing = nil
+		hero.player:SetMusicStatus(DOTA_MUSIC_STATUS_NONE, 100000)
 
-	CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "infotext_start", {})
-	CustomGameEventManager:RegisterListener("infotext_ok", WrapMemberMethod(self.OnInfoTextOK, self))
-	CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "music_control_start", {})
-	CustomGameEventManager:RegisterListener("music_control_toggled", WrapMemberMethod(self.OnMusicControlToggled, self))
+		-- Setup custom UI stuff
+		CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "infotext_start", {})
+		CustomGameEventManager:RegisterListener("infotext_ok", WrapMemberMethod(self.OnInfoTextOK, self))
+		CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "music_control_start", {})
+		CustomGameEventManager:RegisterListener("music_control_toggled", WrapMemberMethod(self.OnMusicControlToggled, self))
+		CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "stats_display_start", {})
+		self:UpdateStatsDisplay(hero)
+	end
+end
+
+function GameMode:UpdateStatsDisplay(hero)
+	Timers:CreateTimer(0, function()
+		local stats = {}
+
+		local origin = Vector(0,0,0)
+		local radius = 20100
+		local iTeam = DOTA_UNIT_TARGET_TEAM_BOTH
+		local iType = DOTA_UNIT_TARGET_HERO
+		local iFlag = DOTA_UNIT_TARGET_FLAG_INVULNERABLE
+		local iOrder = FIND_ANY_ORDER
+		units = FindUnitsInRadius(DOTA_TEAM_GOODGUYS, origin, nil, radius, iTeam, iType, iFlag, iOrder, false)
+		for k,unit in pairs(units) do
+			stats[unit:GetEntityIndex()] = getStats(unit)
+			stats[unit:GetEntityIndex()].mov = unit:GetIdealSpeed()
+		end
+
+		CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "stats_display_update", {playerid = hero:GetPlayerID(), unitStats = stats})
+		return 1/30
+	end)
 end
 
 function GameMode:OnMusicControlToggled(eventSourceIndex, args)
@@ -386,14 +413,14 @@ function GameMode:StartMusicForPlayer(player)
 			if self.current_round == 8 then music_string = "Trails.Decisive_Collision" end
 			EmitSoundOnClient(music_string, player)
 			hero.music_playing = music_string
-			return 137
+			return 135
 		end
 	})
 end
 
 function GameMode:StopMusicForPlayer(player)
 	local hero = player:GetAssignedHero()
-	Timers:RemoveTimer("music_timer"..player:GetPlayerID())
+	Timers:RemoveTimer("music_timer_"..player:GetPlayerID())
 	player:StopSound(hero.music_playing)
 	hero.music_playing = nil
 end
@@ -757,6 +784,7 @@ function GameMode:StartRound()
 			end
 		end
 	end
+	Turn_Bonuses:StartRound(self.current_round)
 end
 
 function GameMode:AddStatusBars(hero)
@@ -783,6 +811,7 @@ function GameMode:EndRound(winning_team)
 	self.round_started = false
 	mode:SetTopBarTeamValue(DOTA_TEAM_GOODGUYS, self.score[DOTA_TEAM_GOODGUYS])
 	mode:SetTopBarTeamValue(DOTA_TEAM_BADGUYS, self.score[DOTA_TEAM_BADGUYS])
+	Turn_Bonuses:EndRound()
 
 	Timers:CreateTimer(ROUND_END_DELAY, function()
 		local swapped_spawns = self.current_round % 2 == 1

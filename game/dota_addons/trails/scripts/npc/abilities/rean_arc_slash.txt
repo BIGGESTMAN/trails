@@ -41,8 +41,8 @@
 			}
 			"01"
 			{
-				"var_type"				"FIELD_FLOAT"
-				"stun_duration"			"1.0"
+				"var_type"				"FIELD_INTEGER"
+				"delay_inflicted"		"3"
 			}
 			"01"
 			{
@@ -56,8 +56,8 @@
 			}
 			"01"
 			{
-				"var_type"				"FIELD_FLOAT"
-				"unbalanced_stun_duration"	"2.0"
+				"var_type"				"FIELD_INTEGER"
+				"unbalanced_delay_inflicted"	"6"
 			}
 			"01"
 			{
@@ -93,21 +93,6 @@
 
 		"Modifiers"
 		{
-			"modifier_arc_slash_stun"
-			{
-				"IsDebuff"	"1"
-
-				"States"
-				{
-					"MODIFIER_STATE_STUNNED"		"MODIFIER_STATE_VALUE_ENABLED"
-				}
-
-				"EffectName"		"particles/generic_gameplay/generic_stunned.vpcf"
-				"EffectAttachType"	"follow_overhead"
-
-				"OverrideAnimation"	"ACT_DOTA_DISABLED"
-			}
-
 			"modifier_arc_slash_speedbuff"
 			{
 				"Duration"	"%unbalanced_buff_linger_time"

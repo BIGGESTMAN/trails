@@ -56,7 +56,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"unbalanced_travel_speed"	"1300"
+				"unbalanced_travel_speed"	"1800"
 			}
 			"01"
 			{

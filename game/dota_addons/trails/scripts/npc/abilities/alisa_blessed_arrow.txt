@@ -33,7 +33,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"healing_percent"		"400"
+				"healing_percent"		"250"
 			}
 			"01"
 			{
@@ -43,7 +43,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"unbalanced_healing_percent"	"600"
+				"unbalanced_healing_percent"	"400"
 			}
 			"01"
 			{

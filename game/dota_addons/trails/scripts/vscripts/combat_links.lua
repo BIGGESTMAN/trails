@@ -11,7 +11,7 @@ function checkForLink(keys)
 	local link_break_range = ability:GetSpecialValueFor("link_break_range")
 
 	if caster.combat_linked_to then
-		if not IsValidEntity(caster.combat_linked_to) or (caster.combat_linked_to:GetAbsOrigin() - caster:GetAbsOrigin()):Length2D() > link_break_range or not caster.combat_linked_to:IsAlive() then
+		if not IsValidEntity(caster.combat_linked_to) or (caster.combat_linked_to:GetAbsOrigin() - caster:GetAbsOrigin()):Length2D() > link_break_range or not caster.combat_linked_to:IsAlive() or caster:HasModifier("modifier_link_broken") or caster.combat_linked_to:HasModifier("modifier_link_broken") then
 			if IsValidEntity(caster.combat_linked_to) then
 				removeLink(caster.combat_linked_to)
 			end
@@ -30,7 +30,7 @@ function checkForLink(keys)
 		local targets = FindUnitsInRadius(team, origin, nil, radius, iTeam, iType, iFlag, iOrder, false)
 
 		for k,target in pairs(targets) do
-			if target ~= caster and not target.combat_linked_to then
+			if target ~= caster and not target.combat_linked_to and not caster:HasModifier("modifier_link_broken") and not target:HasModifier("modifier_link_broken") then
 				caster.combat_linked_to = target
 				target.combat_linked_to = caster
 				ability:ApplyDataDrivenModifier(caster, caster, "modifier_combat_link_linked", {})
@@ -70,10 +70,11 @@ function increaseUnbalance(caster, target, bonus_increase)
 		local modifier = target:FindModifierByName("modifier_unbalanced_level")
 		if modifier then -- to make script not crash when hitting creeps ~_~
 			modifier:IncreaseLevel(base_increase + bonus_increase)
-			if modifier:GetStackCount() >= unbalance_threshold then
+			if modifier:GetStackCount() >= unbalance_threshold or caster:HasModifier("modifier_brute_force") then
 				ability:ApplyDataDrivenModifier(caster, caster.combat_linked_to, "modifier_combat_link_followup_available", {})
 				ability:ApplyDataDrivenModifier(caster, target, "modifier_combat_link_unbalanced", {})
 				modifier:SetStackCount(0)
+				caster:RemoveModifierByName("modifier_brute_force")
 			end
 		end
 	end
