@@ -292,8 +292,6 @@ end
 ]]
 function GameMode:OnAllPlayersLoaded()
 	print("[BAREBONES] All Players have loaded into the game")
-
-	Turn_Bonuses:Initialize()
 end
 
 --[[
@@ -359,6 +357,7 @@ function GameMode:OnHeroInGame(hero)
 		CustomGameEventManager:RegisterListener("infotext_ok", WrapMemberMethod(self.OnInfoTextOK, self))
 		CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "music_control_start", {})
 		CustomGameEventManager:RegisterListener("music_control_toggled", WrapMemberMethod(self.OnMusicControlToggled, self))
+		CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "turn_bonus_display_start", {})
 		CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "stats_display_start", {})
 		self:UpdateStatsDisplay(hero)
 	end
@@ -474,16 +473,7 @@ end
 function GameMode:OnGameInProgress()
 	print("[BAREBONES] The game has officially begun")
 
-	Timers:CreateTimer(0, function() -- Start this timer 30 game-time seconds later
-		--print("This function is called 30 seconds after the game begins, and every 30 seconds thereafter")
-		if MUSIC then
-			EmitGlobalSound("barebones.Music")
-		end
-		--[[Returns:void
-		Play named sound for all players
-		]]
-		return 480.0 -- Rerun this timer every 30 game-time seconds
-	end)
+	Turn_Bonuses:Initialize()
 end
 
 -- Cleanup a player when they leave

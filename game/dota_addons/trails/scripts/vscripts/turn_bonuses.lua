@@ -14,7 +14,7 @@ function Turn_Bonuses:Initialize()
 		self.StatMax, -- +50% to a random stat (str, def, ats, adf, spd, mov) for 10 seconds
 		self.Crit,	 -- Next craft, art or basic attack in next 10 seconds deals double damage
 		self.HPHeal, -- Heal 50% of max HP
-		self.EPHeal, -- Heal 50% of max EP
+		-- self.EPHeal, -- Heal 50% of max EP
 		self.CPHeal, -- +50 CP
 		-- self.ZeroArts, -- Next art in next 10 seconds has no cast time and no EP cost
 		self.BruteForce, -- Next offensive craft, art or basic attack in next 10 seconds unbalances target(s)
@@ -25,6 +25,19 @@ function Turn_Bonuses:Initialize()
 		self.VanishBlow, -- Next offensive craft, art or basic attack in next 10 seconds banishes target(s)
 		self.CPMax -- +200 CP
 	}
+	-- self.bonus_names = {
+	-- 	self.StatMax = "Stat Bonus",
+	-- 	self.Crit = "Critical",
+	-- 	self.HPHeal = "HP Heal",
+	-- 	self.EPHeal = "EP Heal",
+	-- 	self.CPHeal = "CP Boost",
+	-- 	self.ZeroArts = "Zero-Arts",
+	-- 	self.BruteForce = "Brute Force",
+	-- 	self.LinkBreak = "Link Break",
+	-- 	self.StatusAttack = "Status Attack",
+	-- 	self.VanishBlow = "Vanish Blow",
+	-- 	self.CPMax = "CP Max",
+	-- }
 
 	self.spawn_interval = 15
 	self.radius = 300
@@ -36,11 +49,18 @@ function Turn_Bonuses:Initialize()
 	self.hp_heal = 0.5
 	self.cp_heal = 50
 
+	self.current_bonus_name = ""
+	self.current_bonus_taken = false
+	self.next_bonus = nil
+	self.time_until_next_bonus = self.spawn_interval
+
 	local particle = ParticleManager:CreateParticle("particles/cp_fountain/cp_fountain.vpcf", PATTACH_CUSTOMORIGIN, nil)
 	ParticleManager:SetParticleControl(particle, 0, self.location)
 end
 
 function Turn_Bonuses:StartRound(round)
+	self.next_bonus = self:RandomBonus(round)
+	self:UpdateTurnBonusDisplay()
 	Timers:CreateTimer("turn_bonuses_spawn", {
 		endTime = self.spawn_interval,
 		callback = function()
@@ -52,16 +72,14 @@ end
 
 function Turn_Bonuses:SpawnBonus(round)
 	print("Spawning turn bonus")
-	self:RemoveBonus()
 
-	local higher_elements_chance = round * self.higher_elements_chance_per_round
-	local higher_elements_bonus = RandomInt(0, 99) < higher_elements_chance
-	local bonus = nil
-	if not higher_elements_bonus then
-		bonus = self.possible_bonuses[RandomInt(1,#self.possible_bonuses)]
-	else
-		bonus = self.higher_elements_bonuses[RandomInt(1,#self.higher_elements_bonuses)]
-	end
+	local bonus = self.next_bonus
+	self.current_bonus_name = self:GetBonusName(bonus)
+	self.current_bonus_taken = false
+	self.next_bonus = self:RandomBonus(round)
+	self.time_until_next_bonus = self.spawn_interval
+
+	self:RemoveBonus()
 
 	self.bonus_particle = ParticleManager:CreateParticle("particles/generic_gameplay/rune_doubledamage.vpcf", PATTACH_CUSTOMORIGIN, nil)
 	ParticleManager:SetParticleControl(self.bonus_particle, 0, self.location)
@@ -78,9 +96,11 @@ function Turn_Bonuses:SpawnBonus(round)
 
 			if #units[DOTA_TEAM_BADGUYS] == 0 and #units[DOTA_TEAM_GOODGUYS] > 0 then
 				bonus(self, units[DOTA_TEAM_GOODGUYS][1])
+				self.current_bonus_taken = true
 				self:RemoveBonus()
 			elseif #units[DOTA_TEAM_GOODGUYS] == 0 and #units[DOTA_TEAM_BADGUYS] > 0 then
 				bonus(self, units[DOTA_TEAM_BADGUYS][1])
+				self.current_bonus_taken = true
 				self:RemoveBonus()
 			else
 				return self.update_interval
@@ -89,7 +109,48 @@ function Turn_Bonuses:SpawnBonus(round)
 	})
 end
 
+function Turn_Bonuses:RandomBonus(round)
+	local bonus = nil
+	local higher_elements_chance = round * self.higher_elements_chance_per_round
+	local higher_elements_bonus = RandomInt(0, 99) < higher_elements_chance
+	if not higher_elements_bonus then
+		bonus = self.possible_bonuses[RandomInt(1,#self.possible_bonuses)]
+	else
+		bonus = self.higher_elements_bonuses[RandomInt(1,#self.higher_elements_bonuses)]
+	end
+	return bonus
+end
+
+function Turn_Bonuses:GetBonusName(bonus)
+	local name = nil
+	if bonus == self.StatMax then
+		name = "Stat Bonus"
+	elseif bonus == self.Crit then
+		name = "Critical"
+	elseif bonus == self.HPHeal then
+		name = "HP Heal"
+	elseif bonus == self.EPHeal then
+		name = "EP Heal"
+	elseif bonus == self.CPHeal then
+		name = "CP Boost"
+	elseif bonus == self.ZeroArts then
+		name = "Zero-Arts"
+	elseif bonus == self.BruteForce then
+		name = "Brute Force"
+	elseif bonus == self.LinkBreak then
+		name = "Link Break"
+	elseif bonus == self.StatusAttack then
+		name = "Status Attack"
+	elseif bonus == self.VanishBlow then
+		name = "Vanish Blow"
+	elseif bonus == self.CPMax then
+		name = "CP Max"
+	end
+	return name
+end
+
 function Turn_Bonuses:RemoveBonus()
+	self:UpdateTurnBonusDisplayTaken()
 	if self.bonus_particle then
 		ParticleManager:DestroyParticle(self.bonus_particle, false)
 		self.bonus_particle = nil
@@ -100,6 +161,24 @@ function Turn_Bonuses:EndRound()
 	Timers:RemoveTimer("turn_bonuses_spawn")
 	Timers:RemoveTimer("turn_bonuses_pickup_check")
 	self:RemoveBonus()
+end
+
+function Turn_Bonuses:UpdateTurnBonusDisplay()
+	print(self.time_until_next_bonus)
+	CustomGameEventManager:Send_ServerToAllClients("turn_bonus_display_update", {current_bonus = self.current_bonus_name, current_bonus_taken = self.current_bonus_taken, next_bonus = self:GetBonusName(self.next_bonus), time_until_next_bonus = self.time_until_next_bonus})
+	Timers:RemoveTimer("turn_bonus_display_tick")
+	Timers:CreateTimer("turn_bonus_display_tick", {
+		endTime = 1,
+		callback = function()
+			self.time_until_next_bonus = self.time_until_next_bonus - 1
+			CustomGameEventManager:Send_ServerToAllClients("turn_bonus_display_tick", {time_until_next_bonus = self.time_until_next_bonus})
+			return 1
+		end
+	})
+end
+
+function Turn_Bonuses:UpdateTurnBonusDisplayTaken()
+	CustomGameEventManager:Send_ServerToAllClients("turn_bonus_display_update", {current_bonus = self.current_bonus_name, current_bonus_taken = self.current_bonus_taken, next_bonus = self:GetBonusName(self.next_bonus), time_until_next_bonus = self.time_until_next_bonus})
 end
 
 function Turn_Bonuses:StatMax(unit)

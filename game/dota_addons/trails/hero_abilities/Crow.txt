@@ -3,6 +3,7 @@ Enhanced : Max number of shots increased. Crow can move while shooting with a 20
 DevNotes - The two slows fully stack. Fires 1 shot at the start, then the rest in 0.2/0.1 second intervals. The area radius is divided into four 90° segments. The first shot damages within the north-east segment of the circle. The next occurs in the north-west segment, proceeding counterclockwise.
 
 Cast Point : 0.3
+Delay : 4
 Max Shots : 11
 Physical Damage per Shot : 30%
 Area Move Speed Slow : 20%
@@ -20,6 +21,7 @@ Enhanced : No cast point. Increases Freeze duration.
 DevNotes - Cancels all the target's commands at the start of the Freeze.
 
 Cast Point : 0.6
+Delay : 5
 Magical Damage : 130%
 Freeze Duration : 3
 Cast Range : 700
@@ -32,6 +34,7 @@ CP Cost : 30
 Enhanced : Draws a card for all heroes.
 
 Cast Point : 0.6
+Delay : 4
 Physical Attack Increase : 50%
 Armor & Magic Resistance Increase : 50%
 CP Increase : 100
@@ -45,6 +48,7 @@ Enhanced : Increases the damage of the first shot. Fires a second shot that also
 DevNotes - 50% chance to Confuse, 50% chance to Nightmare.
 
 Cast Point : 0
+Delay : 6
 Physical Damage : 300%
 Confuse & Nightmare Duration : 4
 Range : 900
@@ -58,6 +62,7 @@ CP Cost : 45
 DevNotes - On cast, he fires bullets away from him over 1 second, each with adjusted travel speed so they're all 1000 radius away from him at 1.5 seconds. Earlier bullets can pause at 1000 radius to achieve this. The travel speed and travel speed increase below is applied once they begin their return. The final/slowest bullet is the 'real' one, be loose with the others for visual fanciness but that one can be reliably used to time the damage on reaching their destination etc.
 
 Cast Point : 0
+Delay : 10
 Maximum Physical Damage : 500%
 Minimum Physical Damage : 200%
 Travel Speed : 1000

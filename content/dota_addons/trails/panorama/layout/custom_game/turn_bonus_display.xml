@@ -1,0 +1,16 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/custom_game/turn_bonus_display.css" />
+		<include src="s2r://panorama/styles/custom_game/shared.css" />
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+	</styles>
+	<scripts>
+		<include src="s2r://panorama/scripts/custom_game/turn_bonus_display.js" />
+	</scripts>
+	<Panel hittest="true" class="TurnBonusDisplayWindow TrailsGenericWindow">
+		<Label hittest="false" class="SubHeader" text="#current_turn_bonus" />
+		<Label hittest="false" class="Text" html="true"/>
+		<Label hittest="false" class="SubHeader"/>
+		<Label hittest="false" class="Text" html="true"/>
+	</Panel>
+</root>
