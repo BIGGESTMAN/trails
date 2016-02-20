@@ -23,6 +23,7 @@ function spellCast(keys)
 		target:RemoveModifierByName("modifier_combat_link_unbalanced")
 		caster.unbalanced_autumn_leaf_cutter_target = target
 		modifyCP(caster, getCPCost(ability) * -1)
+		applyDelayCooldowns(caster, ability)
 		ability:ApplyDataDrivenModifier(caster, caster, "modifier_autumn_leaf_cutter_dashing", {})
 		trackingDash(caster, target, dash_speed, secondaryDash, {crit = crit})
 	else

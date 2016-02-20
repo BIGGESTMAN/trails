@@ -33,7 +33,7 @@ Modifiers
 ~ Arc Slash Stun (modifier_arc_slash_stun) : Unable to act.
 ~ Wind Path Speed (modifier_arc_slash_speedbuff) : Attackspeed increased by %dMODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT% and movespeed increased by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%.
 ~ Gale Disarm (modifier_gale_disarm) : Unable to attack.
-~ Enhanced Gale Slow (modifier_gale_slow) : Movement slowed by 80%, decaying over the duration.
+~ Enhanced Gale Slow (modifier_gale_slow) : Movement slowed by 80%%, decaying over the duration.
 ~ Sword Ablaze (modifier_azure_flame_slash_sword_inflamed) : Rean's sword flares with blue flame, and will Burn enemies he deals damage to.
 ~ Casting S-Craft (modifier_azure_flame_slash_casting) : About to unleash Rean's ultimate ability, Azure Flame Slash.
 
@@ -45,3 +45,8 @@ Modifiers
 ~ Judgment Arrow Stun (modifier_judgment_arrow_stun) : Unable to act.
 ~ Judgment Arrow Silence (modifier_judgment_arrow_silence) : Unable to use crafts.
 ~ Casting S-Craft (modifier_judgment_arrow_casting) : About to unleash Alisa's ultimate ability, Judgment Arrow.
+
+~ Rapid Volley (modifier_rapid_volley_casting) : Barraging an area with bullets.
+~ Rapid Volley Slow (modifier_rapid_volley_area_slow) : Movement slowed by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%.
+~ Rapid Volley Slow (modifier_rapid_volley_bullet_slow) : Movement slowed by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%.
+~ Enhanced Rapid Volley (modifier_rapid_volley_enhanced_casting) : Rapidly barraging an area with bullets, and still able to move, although slowed by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%.

@@ -1,0 +1,166 @@
+	"rapid_volley"
+	{
+		"BaseClass"						"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
+		"MaxLevel"						"1"
+
+		"AbilityTextureName"			"gyrocopter_flak_cannon"
+		"AbilityCastAnimation"			"ACT_DOTA_ATTACK"
+
+		"precache"
+		{
+			"particle"					"particles/crafts/crow/rapid_volley_crater.vpcf"
+		}
+
+		"AbilityCastPoint"				"0.3"
+		"AbilityCooldown"				"4"
+		"AbilityManaCost"				"0"
+		"AbilityCastRange"				"800"
+		"AOERadius"						"275"
+		"CPCost"						"20"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"bullet_min_spawn_radius"	"75"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"bullet_max_spawn_radius"	"200"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"damage_percent"		"30"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"damage_radius"			"100"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"area_slow_radius"		"275"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"area_slow_duration"	"0.06"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"area_slow"				"-20"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"bullet_slow_duration"	"4"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"bullet_slow"			"-20"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"duration"				"2"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"shots"					"11"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"unbalanced_shots"		"21"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"unbalanced_self_slow"	"-20"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"crafts/crow/rapid_volley"
+				"Function"		"spellCast"
+				"Target"		"POINT"
+			}
+		}
+
+		"Modifiers"
+		{
+			"modifier_rapid_volley_casting"
+			{
+				"Duration"		"%duration"
+
+				"States"
+				{
+					"MODIFIER_STATE_COMMAND_RESTRICTED"		"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+
+			"modifier_rapid_volley_area_slow"
+			{
+				"IsDebuff"	"1"
+
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE" "%area_slow"
+				}
+			}
+
+			"modifier_rapid_volley_bullet_slow"
+			{
+				"IsDebuff"	"1"
+
+				"Duration"	"%bullet_slow_duration"
+
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE" "%bullet_slow"
+				}
+			}
+
+			"modifier_rapid_volley_enhanced_casting"
+			{
+				"Duration"		"%duration"
+
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE" "%unbalanced_self_slow"
+				}
+
+				"OnAttackStart"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"crafts/crow/rapid_volley"
+						"Function"		"endVolley"
+					}
+				}
+
+				"OnAbilityStart"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"crafts/crow/rapid_volley"
+						"Function"		"endVolley"
+					}
+				}
+			}
+		}
+	}

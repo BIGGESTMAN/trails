@@ -160,6 +160,8 @@ function getCustomHeroName(name)
 		custom_name = "npc_dota_hero_alisa"
 	elseif name == "npc_dota_hero_ember_spirit" then
 		custom_name = "npc_dota_hero_rean"
+	elseif name == "npc_dota_hero_sniper" then
+		custom_name = "npc_dota_hero_crow"
 	end
 	return custom_name
 end

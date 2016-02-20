@@ -16,6 +16,13 @@ var ALL_HEROES = {
 		"molten_rain",
 		"heavenly_gift",
 		"judgment_arrow"
+	],
+	"npc_dota_hero_sniper": [
+		"rapid_volley",
+		"freezing_bullet",
+		"wild_card",
+		"chaos_trigger",
+		"cross_raven"
 	]
 }
 
