@@ -1,0 +1,90 @@
+	"freezing_bullet"
+	{
+		"BaseClass"						"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT_TARGET | DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"MaxLevel"						"1"
+
+		"AbilityTextureName"			"crow_freezing_bullet"
+		"AbilityCastAnimation"			""
+
+		"precache"
+		{
+			"particle"					"particles/crafts/crow/freezing_bullet.vpcf"
+		}
+
+		"AbilityCastPoint"				"0.6"
+		"AbilityCooldown"				"5"
+		"AbilityManaCost"				"0"
+		"CPCost"						"30"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"radius"				"250"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"damage_percent"		"130"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"travel_speed"			"1700"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"range"					"700"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"freeze_duration"		"3"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"unbalanced_freeze_duration"	"5"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"unbalanced_cast_point"	"0"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"normal_cast_point"			"0.6"
+			}
+		}
+
+		"OnAbilityPhaseStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"crafts/crow/freezing_bullet"
+				"Function"		"abilityPhaseStart"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"crafts/crow/freezing_bullet"
+				"Function"		"spellCast"
+				"Target"		"POINT"
+			}
+		}
+
+		"Modifiers"
+		{
+
+		}
+	}

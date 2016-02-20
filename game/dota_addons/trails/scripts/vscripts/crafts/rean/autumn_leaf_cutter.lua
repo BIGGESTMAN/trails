@@ -47,7 +47,7 @@ function spellCast(keys)
 	end
 end
 
-function secondaryDash(caster, direction, speed, other_args)
+function secondaryDash(caster, direction, speed, range, find_clear_space, other_args)
 	local ability = caster:FindAbilityByName("autumn_leaf_cutter")
 
 	local radius = ability:GetSpecialValueFor("radius")

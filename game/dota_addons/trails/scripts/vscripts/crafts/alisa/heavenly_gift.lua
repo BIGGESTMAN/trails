@@ -15,8 +15,7 @@ function spellCast(keys)
 	modifyCP(caster, getCPCost(ability) * -1)
 	applyDelayCooldowns(caster, ability)
 
-	if target then
-	-- if validEnhancedCraft(caster, target) then
+	if validEnhancedCraft(caster, target) then
 		caster:RemoveModifierByName("modifier_combat_link_followup_available")
 		target:RemoveModifierByName("modifier_combat_link_unbalanced")
 

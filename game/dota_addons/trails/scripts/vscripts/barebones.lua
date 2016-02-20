@@ -239,6 +239,7 @@ function GameMode:CaptureGameMode()
 		mode:SetDamageFilter(Dynamic_Wrap(Filters, "DamageFilter"), self)
 		mode:SetModifierGainedFilter(Dynamic_Wrap(Filters, "ModifierGainedFilter"), self)
 		mode:SetModifyGoldFilter(Dynamic_Wrap(Filters, "ModifyGoldFilter"), self)
+		mode:SetExecuteOrderFilter(Dynamic_Wrap(Filters, "ExecuteOrderFilter"), self)
 
 		self:OnFirstPlayerLoaded()
 	end

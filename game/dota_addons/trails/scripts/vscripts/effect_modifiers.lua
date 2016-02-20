@@ -12,7 +12,6 @@ if IsServer() then
 
 	function modifier_burn:OnIntervalThink()
 		local caster = self:GetCaster()
-		local ability = self:GetAbility()
 		local target = self:GetParent()
 
 		local damage_percent = 3
@@ -38,8 +37,6 @@ modifier_insight = class({})
 
 if IsServer() then
 	function modifier_insight:OnCreated( kv )
-		local ability = self:GetAbility()
-
 		self.evasion_active = true
 		self.evasion_cooldown_time = 1
 	end
@@ -71,9 +68,6 @@ modifier_passion = class({})
 
 if IsServer() then
 	function modifier_passion:OnCreated( kv )
-		local ability = self:GetAbility()
-
-
 		self.cp_interval = 1/30
 		self.cp_per_second = kv.cp_per_second
 		self.accrued_cp = 0
@@ -91,6 +85,37 @@ end
 
 function modifier_passion:GetTexture()
 	return "lina_light_strike_array"
+end
+
+modifier_freeze = class({})
+
+if IsServer() then
+	function modifier_freeze:OnCreated( kv )
+		self:GetParent():Interrupt()
+		self:GetParent():Stop()
+	end
+
+	function modifier_freeze:OnDestroy()
+		local caster = self:GetCaster()
+		local target = self:GetParent()
+
+		local damage_percent = 10
+		local damage = target:GetMaxHealth() * damage_percent / 100
+		local damage_type = DAMAGE_TYPE_PURE
+		dealDamage(target, caster, damage, damage_type, 0)
+	end
+end
+
+function modifier_freeze:GetEffectName()
+	return "particles/units/heroes/hero_crystalmaiden/maiden_frostbite_buff.vpcf"
+end
+
+function modifier_freeze:GetEffectAttachType()
+	return PATTACH_ABSORIGIN_FOLLOW
+end
+
+function modifier_freeze:GetTexture()
+	return "crystal_maiden_frostbite"
 end
 
 modifier_crit = class({})

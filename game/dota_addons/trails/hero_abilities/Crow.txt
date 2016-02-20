@@ -4,30 +4,30 @@ DevNotes - The two slows fully stack. Fires 1 shot at the start, then the rest i
 
 Cast Point : 0.3
 Delay : 4
-Max Shots : 11
-Physical Damage per Shot : 30%
-Area Move Speed Slow : 20%
-Damage Move Speed Slow : 20%
-Damage Move Speed Slow Duration : 4
+Max Shots (shots) : 11
+%Physical Damage per Shot (damage_percent) : 30%
+%Area Move Speed Slow (area_slow) : 20%
+%Damage Move Speed Slow (bullet_slow) : 20%
+Damage Move Speed Slow Duration (bullet_slow_duration) : 4
 Cast Range : 800
-Area Radius : 275
+Area Radius (area_slow_radius) : 275
 Damage Radius : 100
 Damage Spawn Radius : 75-200
-Enhanced Max Shots : 21
+Enhanced Max Shots (unbalanced_shots) : 21
 CP Cost : 20
 
-[W] Freezing Bullet (freezing_bullet) : Crow fires a shot imbued with the power of ice, dealing magical damage to enemies and Freezing them. Frozen enemy heroes have a 1 second delay before each command and take pure damage equal to 10% of their max health when it wears off.
+[W] Freezing Bullet (freezing_bullet) : Crow fires a shot imbued with the power of ice, dealing magical damage to enemies and Freezing them.\n\nFrozen enemy heroes have a 1 second delay before each command and take pure damage equal to 10% of their max health when it wears off.
 Enhanced : No cast point. Increases Freeze duration.
 DevNotes - Cancels all the target's commands at the start of the Freeze.
 
 Cast Point : 0.6
 Delay : 5
-Magical Damage : 130%
-Freeze Duration : 3
-Cast Range : 700
+Magical Damage (damage_percent) : 130%
+Freeze Duration (freeze_duration) : 3
+Cast Range (range) : 700
 Travel Speed : 1700
-Radius : 250
-Enhanced Freeze Duration : 5
+Radius (radius) : 250
+Enhanced Freeze Duration (unbalanced_freeze_duration) : 5
 CP Cost : 30
 
 [E] Wild Card (wild_card) : Crow draws a card to aid or hinder a random hero. If it's an ally, it increases their physical attack, armor and magic resistance, or CP. If it's an enemy, they are Confused or suffer a Deathblow. Confused enemies attack any nearby unit, prioritizing enemies. Deathblow instantly kills enemies if they have less than 15% of their maximum health, or if they fall below it within the duration.
