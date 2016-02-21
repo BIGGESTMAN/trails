@@ -66,7 +66,7 @@ function slowUnitsInArea(caster, area_center, duration)
 	local iOrder = FIND_ANY_ORDER
 	local targets = FindUnitsInRadius(team, area_center, nil, radius, iTeam, iType, iFlag, iOrder, false)
 	for k,unit in pairs(targets) do
-		ability:ApplyDataDrivenModifier(caster, unit, "modifier_rapid_volley_area_slow", {duration = duration})
+		ability:ApplyDataDrivenModifier(caster, unit, "modifier_rapid_volley_area_slow", {duration = duration + 1/30})
 	end
 end
 

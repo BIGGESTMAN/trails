@@ -118,6 +118,127 @@ function modifier_freeze:GetTexture()
 	return "crystal_maiden_frostbite"
 end
 
+modifier_confuse = class({})
+
+LinkLuaModifier("modifier_confuse_specially_deniable", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
+if IsServer() then
+	function modifier_confuse:OnCreated( kv )
+		self:GetParent():Interrupt()
+		self:GetParent():Stop()
+
+		self:StartIntervalThink(0.03)
+	end
+
+	function modifier_confuse:OnIntervalThink()
+		local caster = self:GetCaster()
+		local target = self:GetParent()
+		local target_radius = 350
+		local attack_target = nil
+
+		local team = target:GetTeamNumber()
+		local iType = DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC + DOTA_UNIT_TARGET_MECHANICAL
+		local iFlag = DOTA_UNIT_TARGET_FLAG_NONE
+		local iOrder = FIND_CLOSEST
+		local ally_targets = FindUnitsInRadius(team, target:GetAbsOrigin(), nil, target_radius, DOTA_UNIT_TARGET_TEAM_FRIENDLY, iType, iFlag, iOrder, false)
+		local enemy_targets = FindUnitsInRadius(team, target:GetAbsOrigin(), nil, target_radius, DOTA_UNIT_TARGET_TEAM_ENEMY, iType, iFlag, iOrder, false)
+		if #ally_targets > 1 then
+			attack_target = ally_targets[2]
+		elseif #enemy_targets > 0 then
+			attack_target = enemy_targets[1]
+		else
+			target:Stop()
+		end
+		if attack_target then
+			attack_target:AddNewModifier(target, nil, "modifier_confuse_specially_deniable", {duration = 0.06})
+			local attack_order = 
+			{
+				UnitIndex = target:entindex(),
+				OrderType = DOTA_UNIT_ORDER_ATTACK_TARGET + 200,
+				TargetIndex = attack_target:entindex()
+			}
+			ExecuteOrderFromTable(attack_order)
+		end
+		target:SetForceAttackTarget(attack_target)
+	end
+
+	function modifier_confuse:OnDestroy()
+		self:GetParent():SetForceAttackTarget(nil)
+		self:GetParent():Interrupt()
+		self:GetParent():Stop()
+	end
+end
+
+function modifier_confuse:GetEffectName()
+	return "particles/units/heroes/hero_witchdoctor/witchdoctor_maledict_dot.vpcf"
+end
+
+function modifier_confuse:GetEffectAttachType()
+	return PATTACH_ABSORIGIN_FOLLOW
+end
+
+function modifier_confuse:GetTexture()
+	return "mud_golem_rock_destroy"
+end
+
+modifier_confuse_specially_deniable = class({})
+
+function modifier_confuse_specially_deniable:IsHidden()
+	return true
+end
+
+function modifier_confuse_specially_deniable:CheckState()
+	local state = {
+	[MODIFIER_STATE_SPECIALLY_DENIABLE] = true,
+	}
+
+	return state
+end
+
+modifier_nightmare = class({})
+
+if IsServer() then
+	function modifier_nightmare:OnDestroy()
+		local caster = self:GetCaster()
+		local target = self:GetParent()
+		local debuff_duration = 3
+
+		applyRandomDebuff(target, caster, debuff_duration, true)
+	end
+end
+
+function modifier_nightmare:CheckState()
+	local state = {
+	[MODIFIER_STATE_STUNNED] = true,
+	[MODIFIER_STATE_LOW_ATTACK_PRIORITY] = true,
+	}
+
+	return state
+end
+
+function modifier_nightmare:DeclareFunctions()
+	return {MODIFIER_EVENT_ON_TAKEDAMAGE}
+end
+
+function modifier_nightmare:OnTakeDamage(params)
+	for k,v in pairs(params) do
+		print(k,v)
+	end
+	print("?")
+	self:Destroy()
+end
+
+function modifier_nightmare:GetEffectName()
+	return "particles/units/heroes/hero_bane/bane_nightmare.vpcf"
+end
+
+function modifier_nightmare:GetEffectAttachType()
+	return PATTACH_ABSORIGIN_FOLLOW
+end
+
+function modifier_nightmare:GetTexture()
+	return "bane_nightmare"
+end
+
 modifier_crit = class({})
 
 function modifier_crit:GetTexture()

@@ -30,7 +30,7 @@ Radius (radius) : 250
 Enhanced Freeze Duration (unbalanced_freeze_duration) : 5
 CP Cost : 30
 
-[E] Wild Card (wild_card) : Crow draws a card to aid or hinder a random hero. If it's an ally, it increases their physical attack, armor and magic resistance, or CP. If it's an enemy, they are Confused or suffer a Deathblow. Confused enemies attack any nearby unit, prioritizing enemies. Deathblow instantly kills enemies if they have less than 15% of their maximum health, or if they fall below it within the duration.
+[E] Wild Card (wild_card) : Crow draws a card to aid or hinder a random hero. If it's an ally, it increases their physical attack, armor and magic resistance, or CP. If it's an enemy, they are Confused or suffer a Deathblow.\n\nConfused enemies attack any nearby unit, prioritizing enemies.\n\nDeathblow instantly kills enemies if they have less than 15% of their maximum health, or if they fall below it within the duration.
 Enhanced : Draws a card for all heroes.
 
 Cast Point : 0.6
@@ -43,18 +43,18 @@ Confuse & Deathblow Duration : 3
 Radius : Global
 CP Cost : 5
 
-[D] Chaos Trigger (chaos_trigger) : Crow takes aim with a bullet of pure insanity, locking on to enemies that stand before him for more than 0.5 seconds. After 1 second, he deals physical damage to them, Confusing them or putting them in a Nightmare. Enemies in a Nightmare are disabled until they take damage, on which they suffer from another random status effect for 3 seconds.
+[D] Chaos Trigger (chaos_trigger) : Crow takes aim with a bullet of pure insanity, locking on to enemies in a line in front of him; after 1 second, he deals physical damage to them, Confusing them or putting them in a Nightmare.\n\nEnemies in a Nightmare are disabled until they take damage, on which they suffer from another random status effect for 3 seconds.
 Enhanced : Increases the damage of the first shot. Fires a second shot that also causes Confuse and Nightmare but deals reduced damage in the same trajectory after 2 seconds. All other actions cancel this.
 DevNotes - 50% chance to Confuse, 50% chance to Nightmare.
 
 Cast Point : 0
 Delay : 6
-Physical Damage : 300%
-Confuse & Nightmare Duration : 4
-Range : 900
-Radius : 250
-Enhanced First Shot Damage : 375%
-Enhanced Second Shot Damage : 125%
+%Physical Damage (damage_percent) : 300%
+Confuse & Nightmare Duration (debuff_duration) : 4
+Range (range) : 900
+Radius (width) : 250
+%Enhanced First Shot Damage (unbalanced_damage_percent) : 375%
+%Enhanced Second Shot Damage (unbalanced_secondary_damage_percent) : 125%
 CP Cost : 45
 
 [R] Cross Raven (cross_raven) : Crow unleashes bullets in all directions, which home in after 1.5 seconds and detonate around him to deal physical damage. Enemies away from the center take decreased damage. Can be cast again up to 2 times to alter their destination, their travel speed increasing over time.

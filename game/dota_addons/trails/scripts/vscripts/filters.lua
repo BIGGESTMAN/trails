@@ -22,8 +22,13 @@ function Filters:ModifyGoldFilter(event)
 end
 
 function Filters:ExecuteOrderFilter(event)
-	if event.order_type < 100 then
+	if event.order_type >= 200 then
+		event.order_type = event.order_type - 200
+	elseif event.order_type < 100 then
 		for k,unit_index in pairs(event.units) do
+			if EntIndexToHScript(unit_index):HasModifier("modifier_confuse") then
+				return false
+			end
 			if EntIndexToHScript(unit_index):HasModifier("modifier_freeze") then
 				local delayed_order = {
 					UnitIndex = unit_index,

@@ -30,7 +30,6 @@ function spellCast(keys)
 		ability:SetOverrideCastPoint(ability:GetSpecialValueFor("normal_cast_point"))
 	end
 
-	local crit = false
 	if caster:HasModifier("modifier_crit") then
 		damage_scale = damage_scale * 2
 		caster:RemoveModifierByName("modifier_crit")
