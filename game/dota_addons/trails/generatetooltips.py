@@ -23,7 +23,7 @@ for fname in filenames:
 				ability = {}
 				bracket_info, truncated_line = line[1:].split("] ")
 				ability['is_quartz'] = len(bracket_info) > 1
-				print(truncated_line)
+				# print(truncated_line)
 				ability['name'], rest_of_line = truncated_line.split(' (')
 				ability['internal_name'], ability['desc'] = rest_of_line.split(") : ")
 
@@ -35,7 +35,7 @@ for fname in filenames:
 				continue
 
 			if line[0] == '~':
-				print(line)
+				# print(line)
 				modifier = {}
 				truncated_line = line[len('~ '):]
 				modifier['name'], rest_of_line = truncated_line.split(' (')
@@ -48,8 +48,11 @@ for fname in filenames:
 
 			# print(line)
 
-			if (line[:len("Enhanced : ")] == "Enhanced : "):
-				ability['desc'] = ability['desc'] + "\n<font color='#FE9A2E'>{}</font>".format(line)
+			if (line[:len("Enhanced : ")] == "Enhanced : ") or (line[:len("200 CP Bonus : ")] == "200 CP Bonus : "):
+				ability['Enhanced'] = "\n<font color='#FE9A2E'>{}</font>".format(line)
+
+			if (line[:len("CP Cost : ")] == "CP Cost : "):
+				ability['CP_Cost'] = "\n<font color='#01DF01'>{}</font>".format(line)
 
 			if ("Delay" in line):
 				nil, ability['delay'] = line.split(': ')
@@ -84,6 +87,13 @@ with open('resource/tooltips/generated_tooltips.txt', mode='w', encoding='utf-8'
 		delay_string = ""
 		if ability['is_quartz']:
 			delay_string = r"\n\n<font color='#0040FF'>DELAY: {}</font>".format(ability['delay'])
+		else:
+			if 'CP_Cost' in ability:
+				print(ability['CP_Cost'])
+				ability['desc'] = ability['desc'] + ability['CP_Cost']
+			if 'Enhanced' in ability:
+				print(ability['Enhanced'])
+				ability['desc'] = ability['desc'] + ability['Enhanced']
 		outfile.write('\t\t{}{}_Description" "{}{}"\n'.format(current_ability_prefix, name, ability['desc'], delay_string))
 
 		for effect, key in ability['effects']:
@@ -93,8 +103,8 @@ with open('resource/tooltips/generated_tooltips.txt', mode='w', encoding='utf-8'
 		outfile.write("\n")
 	for modifier in modifiers:
 		name = modifier['internal_name'].replace(" ", "_")
-		print('\t\t{}{}" "{}"\n'.format(modifier_prefix, name, modifier['name']))
-		print('\t\t{}{}_Description" "{}"\n'.format(modifier_prefix, name, modifier['desc']))
+		# print('\t\t{}{}" "{}"\n'.format(modifier_prefix, name, modifier['name']))
+		# print('\t\t{}{}_Description" "{}"\n'.format(modifier_prefix, name, modifier['desc']))
 		outfile.write('\t\t{}{}" "{}"\n'.format(modifier_prefix, name, modifier['name']))
 		outfile.write('\t\t{}{}_Description" "{}"\n'.format(modifier_prefix, name, modifier['desc']))
 		outfile.write("\n")

@@ -1,4 +1,4 @@
-[Q] Flamberge (flamberge) : Alisa fires a piercing fire arrow, interrupting, Burning and dealing magic damage to enemies hit. +20 to Unbalance.\n\n<font color='#01DF01'>CP COST: 25</font>
+[Q] Flamberge (flamberge) : Alisa fires a piercing fire arrow, interrupting, Burning and dealing magic damage to enemies hit. +20 to Unbalance.
 Enhanced : The arrow travels much faster and explodes on reaching the target, dealing greater damage and leaving a burning field that deals magic damage over time and Silences.
  
 Cast Point : 0.3
@@ -13,8 +13,9 @@ Enhanced Travel Speed : 1300
 Enhanced Explosion Radius (unbalanced_explosion_radius) : 200
 %Enhanced Damage Per Second (unbalanced_field_damage_percent) : 40
 Enhanced Field Duration (unbalanced_field_duration) : 5
+CP Cost : 25
 
-[W] Blessed Arrow (blessed_arrow) : Alisa fires a blessed arrow into the air, healing allies in an area and granting them CP. Doesn't affect Alisa herself.\n\n<font color='#01DF01'>CP COST: 40</font>
+[W] Blessed Arrow (blessed_arrow) : Alisa fires a blessed arrow into the air, healing allies in an area and granting them CP. Doesn't affect Alisa herself.
 Enhanced : Heals for more, grants more CP and places Mischievous Blessing on the target, causing Alisa and allies to heal and gain bonus CP when attacking them.
 
 Cast Point : 0.3
@@ -28,8 +29,9 @@ Enhanced CP (unbalanced_bonus_cp) : 70
 Enhanced Debuff Duration (unbalanced_mischievous_duration) : 10
 %Enhanced Debuff Healing (unbalanced_mischievous_healing_percent) : 80
 Enhanced Debuff CP (unbalanced_mischievous_bonus_cp) : 10
+CP Cost : 40
 
-[E] Molten Rain (molten_rain) : Alisa rains burning arrows onto enemies, dealing magic damage and slowing in a large area.\n\n<font color='#01DF01'>CP COST: 40</font>
+[E] Molten Rain (molten_rain) : Alisa rains burning arrows onto enemies, dealing magic damage and slowing in a large area.
 Enhanced : Deals more damage, Burns enemies hit and reduces enemies' Magic Defense.
 
 Cast Point : 0.3
@@ -48,8 +50,9 @@ Enhanced Burn Duration (unbalanced_burn_duration) : 3
 Enhanced Magic Def. Reduction Duration (unbalanced_adf_down_duration) : 5
 Note0 (note0) : Rains 20 total arrows down over 3 seconds.
 Note1 (note1) : Arrow impacts have 150 radius.
+CP Cost : 40
 
-[D] Heavenly Gift (heavenly_gift) : Alisa grants allies in an area Insight and Passion.\n\nInsight allows evasion of physical damage once per second. Passion grants gradual CP regeneration.\n\nIf in the area of effect, Alisa gains Insight but not Passion.\n\n<font color='#01DF01'>CP COST: 50</font>
+[D] Heavenly Gift (heavenly_gift) : Alisa grants allies in an area Insight and Passion.\n\nInsight allows evasion of physical damage once per second. Passion grants gradual CP regeneration.\n\nIf in the area of effect, Alisa gains Insight but not Passion.
 Enhanced : Instantly drains the target's CP in order to gradually restore CP of allies around Alisa.
 
 Cast Point : 0.3
@@ -61,6 +64,7 @@ Passion Duration (buffs_duration) : 5
 Passion CP Per Second (passion_cp_regen) : 10
 Enhanced CP Restore Duration (unbalanced_cp_restore_duration) : 8
 Enhanced CP Restore Radius (unbalanced_cp_restore_radius) : 350
+CP Cost : 50
 
 [R] Judgment Arrow (judgment_arrow) : S-Craft: Alisa annihilates enemies in a line with an arrow of judgment, dealing magic damage and Silencing them. Enemies hit are pulled along with the arrow.
 200 CP Bonus : Deals more damage and stuns all enemies hit at the end of its path.
@@ -74,3 +78,4 @@ Range (range) : 1400
 Silence Duration (silence_duration) : 5
 %200 CP Magical Damage (max_cp_damage_percent) : 600
 200 CP Stun Duration (max_cp_stun_duration) : 3
+CP Cost : 100
