@@ -25,7 +25,8 @@ function OnStatsDisplayUpdate(data) {
 		selectedUnit = selectedControlledUnits[0]
 	}
 
-	var stats = data.unitStats[selectedUnit]
+	// var stats = data.unitStats[selectedUnit]
+	var stats = data.unitStats[stats_display.heroIndex]
 
 	$("#Str").text = "Str: " + stats["str"]
 	$("#Def").text = "Def: " + stats["def"]

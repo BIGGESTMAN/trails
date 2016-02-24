@@ -1,15 +1,16 @@
-.StatsDisplayWindow {
-	width: 11.75%;
-	height: 10.75%;
+.TrailsGenericWindow.StatsDisplayWindow {
+	width: 200px;
+	height: 100%;
 
 	flow-children: right;
 	vertical-align: top;
 	horizontal-align: left;
 
-	opacity: 0;
+	opacity: 1;
 
-	position: 666px 957px 0px;
 	background-color: #32393e;
+	padding: 0px;
+	box-shadow: none;
 }
 
 .StatsDisplayWindow.Visible{
@@ -25,6 +26,7 @@
 	horizontal-align: center;
 
 	opacity: 1;
+	margin-top: 5px;
 }
 
 .StatsDisplayWindow .StatsDisplayText {

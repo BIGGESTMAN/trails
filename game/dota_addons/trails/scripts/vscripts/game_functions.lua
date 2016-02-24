@@ -332,3 +332,16 @@ end
 function getCPCost(ability)
 	return getAbilityValueForKey(ability, "CPCost")
 end
+
+function getAbilityCPCosts(hero)
+	local cp_costs = {}
+	for i=0,hero:GetAbilityCount() - 1 do
+		local ability = hero:GetAbilityByIndex(i)
+		if ability and not ability:IsHidden() then
+			cp_costs[i] = getCPCost(ability)
+		else
+			break
+		end
+	end
+	return cp_costs
+end

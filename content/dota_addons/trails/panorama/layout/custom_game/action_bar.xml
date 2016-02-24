@@ -1,0 +1,36 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+		<include src="file://{resources}/styles/custom_game/action_bar.css" />
+	</styles>
+	<scripts>
+		<include src="file://{resources}/scripts/custom_game/action_bar.js" />
+	</scripts>
+	<Panel class="AbilityOverlayRoot">
+		<Panel id="BuffList"/>
+		<Panel id="MainBarContainer">
+			<Panel id="ResourceBarContainer">
+				<Panel hittest="false" class="ResourceBarBackground">
+					<Panel hittest="false" id="HealthBar" class="ResourceBar" />
+				</Panel>
+				<Panel hittest="false" class="ResourceBarBackground">
+					<Panel hittest="false" id="ManaBar" class="ResourceBar" />
+				</Panel>
+				<Panel hittest="false" class="ResourceBarBackground">
+					<Panel hittest="false" id="CPBar" class="CPBar ResourceBar" />
+					<Panel hittest="false" id="OverfullCPBar" class="OverfullCPBar ResourceBar" />
+				</Panel>
+				<Panel hittest="false" class="ResourceBarBackground">
+					<Panel hittest="false" id="UnbalanceBar" class="ResourceBar" />
+				</Panel>
+			</Panel>
+			<Panel id="HeroPortraitWindow">
+				<Label id="HeroPortraitName"/>
+				<Button id="HeroPortrait" onactivate="OnHeroPortraitClicked()"/>
+			</Panel>
+			<Panel id="StatsDisplay" />
+			<Panel id="ability_list" />
+		</Panel>
+	</Panel>
+</root>
+

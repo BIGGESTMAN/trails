@@ -342,6 +342,7 @@ function GameMode:OnHeroInGame(hero)
 
 	-- Custom hero select trigger
 	if CustomHeroSelect:IsPlaceholderHero(hero) then
+		hero:AddNewModifier(hero, nil, "modifier_interround_invulnerability", {})
 		CustomHeroSelect:OnHeroInGame(hero)
 	else
 		if not self.round_started then -- to make testing easier
@@ -359,8 +360,10 @@ function GameMode:OnHeroInGame(hero)
 		CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "music_control_start", {})
 		CustomGameEventManager:RegisterListener("music_control_toggled", WrapMemberMethod(self.OnMusicControlToggled, self))
 		CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "turn_bonus_display_start", {})
-		CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "stats_display_start", {})
+		-- CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "stats_display_start", {})
 		self:UpdateStatsDisplay(hero)
+		CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "ability_bar_start", {heroIndex = hero:GetEntityIndex(), cpCosts = getAbilityCPCosts(hero)})
+		self:UpdateAbilityBars(hero)
 	end
 end
 
@@ -381,6 +384,23 @@ function GameMode:UpdateStatsDisplay(hero)
 		end
 
 		CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "stats_display_update", {playerid = hero:GetPlayerID(), unitStats = stats})
+		return 1/30
+	end)
+end
+
+function GameMode:UpdateAbilityBars(hero)
+	Timers:CreateTimer(0, function()
+		local values = {}
+		local units = {hero}
+		if hero.combat_linked_to then units[2] = hero.combat_linked_to end
+
+		for k,unit in pairs(units) do
+			local hero_unbalance = unit:FindModifierByName("modifier_unbalanced_level"):GetStackCount()
+			if unit:HasModifier("modifier_combat_link_unbalanced") then hero_unbalance = 100 end
+			values[unit:GetEntityIndex()] = {cp = getCP(unit), unbalance = hero_unbalance}
+		end
+
+		CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "resource_bars_update", {unitValues = values})
 		return 1/30
 	end)
 end

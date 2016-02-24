@@ -39,6 +39,8 @@ function checkForLink(keys)
 				caster.tether_particle = ParticleManager:CreateParticle("particles/units/heroes/hero_wisp/wisp_tether.vpcf", PATTACH_POINT_FOLLOW, caster)
 				ParticleManager:SetParticleControlEnt(caster.tether_particle, 0, caster, PATTACH_POINT_FOLLOW, "attach_hitloc", caster:GetAbsOrigin(), true)
 				ParticleManager:SetParticleControlEnt(caster.tether_particle, 1, target, PATTACH_POINT_FOLLOW, "attach_hitloc", target:GetAbsOrigin(), true)
+				CustomGameEventManager:Send_ServerToPlayer(caster:GetOwner(), "ally_ability_bar_start", {heroIndex = target:GetEntityIndex(), cpCosts = getAbilityCPCosts(target)})
+				CustomGameEventManager:Send_ServerToPlayer(target:GetOwner(), "ally_ability_bar_start", {heroIndex = caster:GetEntityIndex(), cpCosts = getAbilityCPCosts(caster)})
 				break
 			end
 		end
@@ -52,6 +54,7 @@ function removeLink(unit)
 		ParticleManager:DestroyParticle(unit.tether_particle, false)
 		unit.tether_particle = nil
 	end
+	CustomGameEventManager:Send_ServerToPlayer(unit:GetOwner(), "ally_ability_bar_remove", {})
 end
 
 function attackLanded(keys)
