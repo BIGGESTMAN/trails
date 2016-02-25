@@ -68,6 +68,7 @@ function executeSlash(caster, target, max_cp)
 
 	for k,unit in pairs(targets) do
 		dealScalingDamage(unit, caster, damage_type, damage_scale, SCRAFT_CP_GAIN_FACTOR)
+		increaseUnbalance(caster, unit)
 		unit:AddNewModifier(caster, ability, "modifier_burn", {duration = burn_duration})
 		if max_cp then increaseUnbalance(caster, target, ability:GetSpecialValueFor("max_cp_bonus_unbalance") - caster:FindAbilityByName("combat_link"):GetSpecialValueFor("base_unbalance_increase")) end
 	end

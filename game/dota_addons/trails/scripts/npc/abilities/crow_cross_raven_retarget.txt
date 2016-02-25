@@ -1,0 +1,46 @@
+	"cross_raven_retarget"
+	{
+		"BaseClass"						"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+		"MaxLevel"						"1"
+
+		"AbilityTextureName"			"templar_assassin_psionic_trap"
+		"AbilityCastAnimation"			""
+		"AnimationPlaybackRate" 		"1.5"
+
+		"precache"
+		{
+
+		}
+
+		"AbilityCastPoint"				"0"
+		"AbilityCooldown"				"0"
+		"AbilityManaCost"				"0"
+		"AbilityCastRange"				"1500"
+		"AOERadius"						"600"
+		"CPCost"						"0"
+
+		"AbilitySpecial"
+		{
+
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"crafts/crow/cross_raven"
+				"Function"		"retarget"
+				"Target"		"POINT"
+			}
+		}
+
+		"Modifiers"
+		{
+
+		}
+	}

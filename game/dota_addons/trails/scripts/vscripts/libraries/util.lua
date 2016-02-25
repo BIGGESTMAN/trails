@@ -168,6 +168,15 @@ function copyOfTable(table)
 	return new_table
 end
 
+function removeElementFromTable(table_arg, element)
+	for k,v in pairs(table_arg) do
+		if v == element then
+			table.remove(table_arg, k)
+			break
+		end
+	end
+end
+
 function getNumberOfModifierInstances(unit, modifier_name)
 	local count = 0
 	local modifiers = unit:GetModifierCount()

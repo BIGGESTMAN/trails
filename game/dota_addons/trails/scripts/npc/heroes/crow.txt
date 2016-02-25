@@ -10,7 +10,7 @@
 		"Ability5"				"cross_raven"
 		"Ability6"				"combat_link"
 		"Ability7"				"cp_tracker"
-		"Ability8"				""
+		"Ability8"				"cross_raven_retarget"
 		"Ability9"				""
 		"Ability10"				""
 		"Ability11"				""

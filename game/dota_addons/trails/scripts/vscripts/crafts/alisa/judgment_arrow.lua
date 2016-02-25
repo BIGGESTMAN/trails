@@ -55,6 +55,7 @@ function arrowHit(caster, unit, other_args, projectile)
 	local silence_duration = ability:GetSpecialValueFor("silence_duration")
 
 	dealScalingDamage(unit, caster, damage_type, damage_scale, SCRAFT_CP_GAIN_FACTOR)
+	increaseUnbalance(caster, unit)
 	ability:ApplyDataDrivenModifier(caster, unit, "modifier_judgment_arrow_silence", {})
 	pullUnit(caster, unit, projectile, other_args.max_cp)
 end

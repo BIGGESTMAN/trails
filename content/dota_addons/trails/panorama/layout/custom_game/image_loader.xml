@@ -11,6 +11,7 @@
 			<Image id="image_loader" src="file://{images}/heroes/npc_dota_hero_sniper.png" hittest="false" />
 			<Image id="image_loader" src="file://{images}/heroes/portrait_npc_dota_hero_ember_spirit.png" hittest="false"/>
 			<Image id="image_loader" src="file://{images}/heroes/portrait_npc_dota_hero_windrunner.png" hittest="false"/>
+			<Image id="image_loader" src="file://{images}/heroes/portrait_npc_dota_hero_sniper.png" hittest="false"/>
 			<Image id="image_loader" src="file://{images}/spellicons/rean_autumn_leaf_cutter.png" hittest="false" />
 			<Image id="image_loader" src="file://{images}/spellicons/rean_azure_flame_slash.png" hittest="false" />
 			<Image id="image_loader" src="file://{images}/spellicons/rean_gale.png" hittest="false" />

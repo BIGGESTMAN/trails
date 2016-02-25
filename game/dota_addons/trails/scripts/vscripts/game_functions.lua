@@ -36,6 +36,7 @@ LinkLuaModifier("modifier_passion", "effect_modifiers.lua", LUA_MODIFIER_MOTION_
 LinkLuaModifier("modifier_freeze", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_confuse", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_nightmare", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_deathblow", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_crit", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_brute_force", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_link_broken", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
@@ -295,8 +296,8 @@ function validEnhancedCraft(caster, target)
 end
 
 function applyRandomDebuff(target, caster, duration, not_sleep_debuff)
-	local debuffs = 					{"modifier_burn", "modifier_freeze", "modifier_confuse", "modifier_nightmare"}
-	if not_sleep_debuff then debuffs = 	{"modifier_burn", "modifier_freeze", "modifier_confuse"} end
+	local debuffs = 					{"modifier_burn", "modifier_freeze", "modifier_confuse", "modifier_deathblow", "modifier_nightmare"}
+	if not_sleep_debuff then debuffs = 	{"modifier_burn", "modifier_freeze", "modifier_confuse", "modifier_deathblow"} end
 	local debuff = debuffs[RandomInt(1,#debuffs)]
 	target:AddNewModifier(caster, nil, debuff, {duration = duration})
 end

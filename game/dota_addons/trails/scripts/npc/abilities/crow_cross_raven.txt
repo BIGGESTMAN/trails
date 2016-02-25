@@ -1,0 +1,156 @@
+	"cross_raven"
+	{
+		"BaseClass"						"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+		"MaxLevel"						"1"
+
+		"AbilityTextureName"			"dark_seer_vacuum"
+		"AbilityCastAnimation"			""
+		"AnimationPlaybackRate" 		"1.5"
+
+		"precache"
+		{
+
+		}
+
+		"AbilityCastPoint"				"0"
+		"AbilityCooldown"				"10"
+		"AbilityManaCost"				"0"
+		"AbilityChannelTime"			"1"
+		"AOERadius"						"600"
+		"CPCost"						"100"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"max_damage_percent"	"500"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"min_damage_percent"	"200"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"radius"				"600"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"max_damage_radius"		"275"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"recasts"				"2"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"outward_bullet_travel_time"	"1.5"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"bullets_max_radius"	"1000"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"inward_bullet_travel_speed"	"1000"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"inward_bullet_travel_speed_increase"	"300"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"max_cp_max_damage_percent"	"1000"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"max_cp_min_damage_percent"	"400"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"max_cp_debuff_duration"	"4"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"crafts/crow/cross_raven"
+				"Function"		"spellCast"
+			}
+		}
+
+		"OnChannelFinish"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"crafts/crow/cross_raven"
+				"Function"		"channelFinish"
+			}
+		}
+
+		"OnChannelInterrupted"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"crafts/crow/cross_raven"
+				"Function"		"channelInterrupted"
+			}
+		}
+
+		"Modifiers"
+		{
+			"modifier_cross_raven_casting"
+			{
+				"States"
+				{
+					"MODIFIER_STATE_COMMAND_RESTRICTED"		"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+
+			"modifier_cross_raven_countdown"
+			{
+				"IsHidden"	"1"
+
+				"Duration"	"%outward_bullet_travel_time"
+
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"crafts/crow/cross_raven"
+						"Function"		"triggerBulletsConverge"
+					}
+				}
+			}
+
+			"modifier_cross_raven_bullet"
+			{
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"crafts/crow/cross_raven"
+						"Function"		"bulletImpacted"
+					}
+				}
+			}
+		}
+	}

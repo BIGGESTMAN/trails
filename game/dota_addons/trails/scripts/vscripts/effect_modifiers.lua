@@ -220,11 +220,7 @@ function modifier_nightmare:DeclareFunctions()
 end
 
 function modifier_nightmare:OnTakeDamage(params)
-	for k,v in pairs(params) do
-		print(k,v)
-	end
-	print("?")
-	self:Destroy()
+	if params.unit == self:GetParent() then self:Destroy() end
 end
 
 function modifier_nightmare:GetEffectName()
@@ -237,6 +233,53 @@ end
 
 function modifier_nightmare:GetTexture()
 	return "bane_nightmare"
+end
+
+modifier_deathblow = class({})
+
+if IsServer() then
+	function modifier_deathblow:OnCreated()
+		local target = self:GetParent()
+
+		self.kill_threshold = 15
+		local health_percent = target:GetHealthPercent()
+		if health_percent <= self.kill_threshold then
+			target:Kill(self:GetAbility(), self:GetCaster())
+		end
+	end
+
+	function modifier_deathblow:OnTakeDamage(params)
+		local target = self:GetParent()
+
+		if params.unit == target then
+			local health_percent = target:GetHealthPercent()
+			if health_percent <= self.kill_threshold then
+				target:Kill(self:GetAbility(), self:GetCaster())
+			end
+		end
+		for k,v in pairs(params) do
+			print(k,v)
+		end
+		print("?")
+	end
+end
+
+function modifier_deathblow:DeclareFunctions()
+	return {MODIFIER_EVENT_ON_TAKEDAMAGE}
+end
+
+
+
+function modifier_deathblow:GetEffectName()
+	return "particles/units/heroes/hero_necrolyte/necrolyte_scythe_mist.vpcf"
+end
+
+function modifier_deathblow:GetEffectAttachType()
+	return PATTACH_ABSORIGIN_FOLLOW
+end
+
+function modifier_deathblow:GetTexture()
+	return "necrolyte_reapers_scythe"
 end
 
 modifier_crit = class({})

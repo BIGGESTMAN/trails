@@ -57,19 +57,23 @@ Radius (width) : 250
 %Enhanced Second Shot Damage (unbalanced_secondary_damage_percent) : 125%
 CP Cost : 45
 
-[R] Cross Raven (cross_raven) : Crow unleashes bullets in all directions, which home in after 1.5 seconds and detonate around him to deal physical damage. Enemies away from the center take decreased damage. Can be cast again up to 2 times to alter their destination, their travel speed increasing over time.
+[R] Cross Raven (cross_raven) : Crow unleashes bullets in all directions, which home in after a delay and detonate around him to deal physical damage. Enemies away from the center take decreased damage. Can be cast again up to 2 times to alter their destination, their travel speed increasing over time.
 200 CP Bonus : Deals more damage. All enemies hit are put into a Nightmare, and enemies that take maximum damage suffer a Deathblow.
 DevNotes - On cast, he fires bullets away from him over 1 second, each with adjusted travel speed so they're all 1000 radius away from him at 1.5 seconds. Earlier bullets can pause at 1000 radius to achieve this. The travel speed and travel speed increase below is applied once they begin their return. The final/slowest bullet is the 'real' one, be loose with the others for visual fanciness but that one can be reliably used to time the damage on reaching their destination etc.
 
 Cast Point : 0
 Delay : 10
-Maximum Physical Damage : 500%
-Minimum Physical Damage : 200%
+Bullet Converge Delay (outward_bullet_travel_time) : 1.5
+Maximum Physical Damage (max_damage_percent) : 500%
+Minimum Physical Damage (min_damage_percent) : 200%
 Travel Speed : 1000
 Travel Speed Increase per Second : 300
 Recast Range : 1500
-Radius : 600
-Maximum Physical Damage Radius : 275
-200 CP Maximum Physical Damage : 1000%
-200 CP Minimum Physical Damage : 400%
-200 CP Nightmare & Deathblow Duration : 4
+Radius (radius) : 600
+Maximum Physical Damage Radius (max_damage_radius) : 275
+200 CP Maximum Physical Damage (max_cp_max_damage_percent) : 1000%
+200 CP Minimum Physical Damage (min_cp_min_damage_percent) : 400%
+200 CP Nightmare & Deathblow Duration (max_cp_debuff_duration) : 4
+CP Cost : 100
+
+[R] Cross Raven (cross_raven_retarget) : Designate a new target for Cross Raven.
