@@ -35,11 +35,11 @@ Enhanced : Draws a card for all heroes.
 
 Cast Point : 0.6
 Delay : 4
-Physical Attack Increase : 50%
-Armor & Magic Resistance Increase : 50%
-CP Increase : 100
-Physical Attack, Armor & Magic Resist Duration : 9
-Confuse & Deathblow Duration : 3
+Physical Attack Increase (stat_increase_percent) : 50%
+Armor & Magic Resistance Increase (stat_increase_percent) : 50%
+CP Increase (cp_increase) : 100
+Physical Attack, Armor & Magic Resist Duration (stat_increase_duration) : 9
+Confuse & Deathblow Duration (debuff_duration) : 3
 Radius : Global
 CP Cost : 5
 

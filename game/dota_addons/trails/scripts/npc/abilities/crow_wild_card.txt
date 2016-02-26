@@ -1,0 +1,47 @@
+	"wild_card"
+	{
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"crafts/crow/wild_card"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"MaxLevel"						"1"
+
+		"AbilityTextureName"			"chaos_knight_chaos_strike"
+		"AbilityCastAnimation"			""
+		"AnimationPlaybackRate" 		"1.5"
+
+		"precache"
+		{
+
+		}
+
+		"AbilityCastPoint"				"0.6"
+		"AbilityCooldown"				"4"
+		"AbilityManaCost"				"0"
+		"CPCost"						"5"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"stat_increase_percent"	"30"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"cp_increase"			"50"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"stat_increase_duration"	"9"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"debuff_duration"		"3"
+			}
+		}
+	}

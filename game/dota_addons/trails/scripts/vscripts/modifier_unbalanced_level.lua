@@ -61,3 +61,15 @@ end
 function modifier_unbalanced_level:IsDebuff()
 	return true
 end
+
+function modifier_unbalanced_level:GetAttributes()
+	return MODIFIER_ATTRIBUTE_PERMANENT
+end
+
+function modifier_unbalanced_level:DeclareFunctions()
+	return { MODIFIER_EVENT_ON_DEATH }
+end
+
+function modifier_unbalanced_level:OnDeath()
+	self:SetStackCount(0)
+end

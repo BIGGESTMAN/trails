@@ -452,7 +452,8 @@ function GameMode:OnInfoTextOK(eventSourceIndex, args)
 	local hero = player:GetAssignedHero()
 
 	hero.round_ready = true
-	if self:AreAllHeroesReady() and not self.round_started then
+	if not self.round_started then
+	-- if self:AreAllHeroesReady() and not self.round_started then
 		self.round_started = true
 		CustomGameEventManager:Send_ServerToAllClients("infotext_game_starting", {})
 

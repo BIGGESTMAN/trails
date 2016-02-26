@@ -36,7 +36,6 @@ end
 function channelInterrupted(keys)
 	local caster = keys.caster
 	fizzleBullets(caster)
-	caster.chaos_trigger_targets = nil
 end
 
 function fireBullet(keys)
@@ -223,6 +222,19 @@ function bulletImpacted(keys)
 		caster.cross_raven_max_cp = nil
 		caster.cross_raven_target = nil
 		caster.cross_raven_bullet_speed = nil
+		caster.cross_raven_retargets = nil
 		caster:SwapAbilities("cross_raven_retarget", "cross_raven", false, true)
 	end
+end
+
+function fizzleBullets(caster)
+	for k,bullet in pairs(caster.cross_raven_bullets) do
+		bullet:RemoveSelf()
+	end
+	caster.cross_raven_bullets = nil
+	caster.cross_raven_max_cp = nil
+	caster.cross_raven_target = nil
+	caster.cross_raven_bullet_speed = nil
+	caster.cross_raven_retargets = nil
+	caster:RemoveModifierByName("modifier_cross_raven_countdown")
 end
