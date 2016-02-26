@@ -23,9 +23,9 @@ function Precache( context )
 	-- Particles can be precached individually or by folder
 	-- It it likely that precaching a single particle system will precache all of its children, but this may not be guaranteed
 	PrecacheResource("particle", "particles/general/evade_message.vpcf", context)
-	PrecacheResource("particle", "particles/cp_fountain/cp_fountain.vpcf", context)
-	PrecacheResource("particle", "particles/cp_fountain/cp_fountain_active.vpcf", context)
-	PrecacheResource("particle", "particles/unbalance_level_bar.vpcf", context)
+	PrecacheResource("particle", "particles/turn_bonuses/turn_bonus_available.vpcf", context)
+	PrecacheResource("particle", "particles/turn_bonuses/turn_bonus_claimed.vpcf", context)
+	PrecacheResource("particle", "particles/turn_bonuses/turn_bonus_zone.vpcf", context)
 	PrecacheResource("particle_folder", "particles/test_particle", context)
 
 	-- Models can also be precached by folder or individually
@@ -33,7 +33,6 @@ function Precache( context )
 	PrecacheResource("model_folder", "particles/heroes/antimage", context)
 	PrecacheResource("model", "particles/heroes/viper/viper.vmdl", context)
 	-- PrecacheModel("models/heroes/viper/viper.vmdl", context)
-	PrecacheModel("models/reimu/reimu_reference.vmdl", context)
 
 	-- Sounds can precached here like anything else
 	PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_gyrocopter.vsndevts", context)

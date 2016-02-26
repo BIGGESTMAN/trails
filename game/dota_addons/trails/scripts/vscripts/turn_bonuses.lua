@@ -54,7 +54,7 @@ function Turn_Bonuses:Initialize()
 	self.next_bonus = nil
 	self.time_until_next_bonus = self.spawn_interval
 
-	local particle = ParticleManager:CreateParticle("particles/cp_fountain/cp_fountain.vpcf", PATTACH_CUSTOMORIGIN, nil)
+	local particle = ParticleManager:CreateParticle("particles/turn_bonuses/turn_bonus_zone.vpcf", PATTACH_CUSTOMORIGIN, nil)
 	ParticleManager:SetParticleControl(particle, 0, self.location)
 end
 
@@ -73,7 +73,6 @@ end
 function Turn_Bonuses:SpawnBonus(round)
 	print("Spawning turn bonus")
 
-	local bonus = self.next_bonus
 	self.current_bonus_name = self:GetBonusName(bonus)
 	self.current_bonus_taken = false
 	self.next_bonus = self:RandomBonus(round)
@@ -81,7 +80,7 @@ function Turn_Bonuses:SpawnBonus(round)
 
 	self:RemoveBonus()
 
-	self.bonus_particle = ParticleManager:CreateParticle("particles/generic_gameplay/rune_doubledamage.vpcf", PATTACH_CUSTOMORIGIN, nil)
+	self.bonus_particle = ParticleManager:CreateParticle("particles/turn_bonuses/turn_bonus_available.vpcf", PATTACH_CUSTOMORIGIN, nil)
 	ParticleManager:SetParticleControl(self.bonus_particle, 0, self.location)
 
 	Timers:CreateTimer("turn_bonuses_pickup_check", {
@@ -95,18 +94,23 @@ function Turn_Bonuses:SpawnBonus(round)
 			units[DOTA_TEAM_BADGUYS] = FindUnitsInRadius(DOTA_TEAM_BADGUYS, self.location, nil, self.radius, iTeam, iType, iFlag, iOrder, false)
 
 			if #units[DOTA_TEAM_BADGUYS] == 0 and #units[DOTA_TEAM_GOODGUYS] > 0 then
-				bonus(self, units[DOTA_TEAM_GOODGUYS][1])
-				self.current_bonus_taken = true
-				self:RemoveBonus()
+				self:GrantBonusTo(units[DOTA_TEAM_GOODGUYS][1])
 			elseif #units[DOTA_TEAM_GOODGUYS] == 0 and #units[DOTA_TEAM_BADGUYS] > 0 then
-				bonus(self, units[DOTA_TEAM_BADGUYS][1])
-				self.current_bonus_taken = true
-				self:RemoveBonus()
+				self:GrantBonusTo(units[DOTA_TEAM_BADGUYS][1])
 			else
 				return self.update_interval
 			end
 		end
 	})
+end
+
+function Turn_Bonuses:GrantBonusTo(unit)
+	self.next_bonus(self, unit)
+	self.current_bonus_taken = true
+	self:RemoveBonus()
+	local claimed_particle = ParticleManager:CreateParticle("particles/turn_bonuses/turn_bonus_claimed.vpcf", PATTACH_CUSTOMORIGIN, nil)
+	ParticleManager:SetParticleControl(claimed_particle, 0, self.location)
+	ParticleManager:SetParticleControlEnt(claimed_particle, 2, unit, PATTACH_POINT_FOLLOW, "attach_hitloc", unit:GetAbsOrigin(), true)
 end
 
 function Turn_Bonuses:RandomBonus(round)
