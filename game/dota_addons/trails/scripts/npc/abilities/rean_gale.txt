@@ -33,7 +33,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"damage_percent"		"200"
+				"damage_percent"		"250"
 			}
 			"01"
 			{
@@ -58,7 +58,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"unbalanced_damage_percent"	"75"
+				"unbalanced_damage_percent"	"125"
 			}
 			"01"
 			{
@@ -70,6 +70,12 @@
 				"var_type"				"FIELD_INTEGER"
 				"unbalanced_slow_duration"	"3"
 			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"mark_duration"			"2"
+			}
+
 		}
 
 		"OnSpellStart"
@@ -84,6 +90,36 @@
 
 		"Modifiers"
 		{
+			"modifier_gale_passive"
+			{
+				"Passive"	"1"
+
+				"OnAttackLanded"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"crafts/rean/gale"
+						"Function"		"attackLanded"
+					}
+				}
+			}
+
+			"modifier_gale_mark"
+			{
+				"IsDebuff"	"1"
+
+				"Duration"	"%mark_duration"
+
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"crafts/rean/gale"
+						"Function"		"removeMarkParticle"
+					}
+				}
+			}
+
 			"modifier_gale_dashing"
 			{
 				"IsHidden"	"1"

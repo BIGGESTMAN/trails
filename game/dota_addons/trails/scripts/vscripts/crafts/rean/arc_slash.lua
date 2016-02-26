@@ -1,6 +1,7 @@
 require "game_functions"
 require "combat_links"
 require "projectile_list"
+require "crafts/rean/gale"
 
 function spellCast(keys)
 	local caster = keys.caster
@@ -51,6 +52,7 @@ function arcSlashHit(caster, unit, other_args)
 	dealScalingDamage(unit, caster, damage_type, other_args.damage_scale)
 	increaseUnbalance(caster, unit)
 	inflictDelay(unit, other_args.delay_inflicted)
+	applyGaleMark(caster, unit)
 end
 
 function createWindPath(caster, origin_location, direction, speed, range)

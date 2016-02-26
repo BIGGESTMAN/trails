@@ -38,7 +38,7 @@ function Filters:ExecuteOrderFilter(event)
 					Position = Vector(event.position_x, event.position_y, event.position_z),
 					Queue = event.queue
 				}
-				Timers:CreateTimer(1, function() ExecuteOrderFromTable(delayed_order) end)
+				Timers:CreateTimer(FREEZE_COMMAND_DELAY, function() ExecuteOrderFromTable(delayed_order) end)
 				return false
 			end
 		end

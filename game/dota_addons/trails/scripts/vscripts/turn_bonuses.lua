@@ -25,19 +25,6 @@ function Turn_Bonuses:Initialize()
 		self.VanishBlow, -- Next offensive craft, art or basic attack in next 10 seconds banishes target(s)
 		self.CPMax -- +200 CP
 	}
-	-- self.bonus_names = {
-	-- 	self.StatMax = "Stat Bonus",
-	-- 	self.Crit = "Critical",
-	-- 	self.HPHeal = "HP Heal",
-	-- 	self.EPHeal = "EP Heal",
-	-- 	self.CPHeal = "CP Boost",
-	-- 	self.ZeroArts = "Zero-Arts",
-	-- 	self.BruteForce = "Brute Force",
-	-- 	self.LinkBreak = "Link Break",
-	-- 	self.StatusAttack = "Status Attack",
-	-- 	self.VanishBlow = "Vanish Blow",
-	-- 	self.CPMax = "CP Max",
-	-- }
 
 	self.spawn_interval = 15
 	self.radius = 300
@@ -71,9 +58,7 @@ function Turn_Bonuses:StartRound(round)
 end
 
 function Turn_Bonuses:SpawnBonus(round)
-	print("Spawning turn bonus")
-
-	self.current_bonus_name = self:GetBonusName(bonus)
+	self.current_bonus_name = self:GetBonusName(self.next_bonus)
 	self.current_bonus_taken = false
 	self.next_bonus = self:RandomBonus(round)
 	self.time_until_next_bonus = self.spawn_interval
@@ -168,7 +153,6 @@ function Turn_Bonuses:EndRound()
 end
 
 function Turn_Bonuses:UpdateTurnBonusDisplay()
-	print(self.time_until_next_bonus)
 	CustomGameEventManager:Send_ServerToAllClients("turn_bonus_display_update", {current_bonus = self.current_bonus_name, current_bonus_taken = self.current_bonus_taken, next_bonus = self:GetBonusName(self.next_bonus), time_until_next_bonus = self.time_until_next_bonus})
 	Timers:RemoveTimer("turn_bonus_display_tick")
 	Timers:CreateTimer("turn_bonus_display_tick", {

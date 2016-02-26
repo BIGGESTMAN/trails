@@ -31,6 +31,17 @@ function spellCast(keys)
 		end
 	else
 		caster.gale_original_location = caster:GetAbsOrigin()
+		local invalid_targets = {}
+		for k,unit in pairs(caster.gale_targets) do
+			if not (unit:HasModifier("modifier_gale_mark") and unit:FindModifierByName("modifier_gale_mark"):GetStackCount() == 2) then
+				table.insert(invalid_targets, unit)
+			else
+				unit:RemoveModifierByName("modifier_gale_mark")
+			end
+		end
+		for k,unit in pairs(invalid_targets) do
+			removeElementFromTable(caster.gale_targets, unit)
+		end
 	end
 
 	local crit = false
@@ -45,7 +56,7 @@ function spellCast(keys)
 		ability:ApplyDataDrivenModifier(caster, caster, "modifier_gale_dashing", {})
 		dashToNextTarget(caster, crit)
 	else
-		Notifications:Bottom(keys.caster:GetPlayerOwner(), {text="Target Area Must Contain Enemies", duration=1, style={color="red"}})
+		Notifications:Bottom(keys.caster:GetPlayerOwner(), {text="Target Area Must Contain Marked Enemies", duration=1, style={color="red"}})
 		ability:EndCooldown()
 		caster.gale_original_location = nil
 		caster.gale_targets = nil
@@ -116,4 +127,30 @@ function dashToNextTarget(caster, crit)
 		caster.gale_targets = nil
 		caster:RemoveModifierByName("modifier_gale_dashing")
 	end
+end
+
+function attackLanded(keys)
+	applyGaleMark(keys.attacker, keys.target)
+end
+
+function applyGaleMark(caster, target)
+	local ability = caster:FindAbilityByName("gale")
+
+	local modifier = target:FindModifierByName("modifier_gale_mark")
+	if not modifier then
+		modifier = ability:ApplyDataDrivenModifier(caster, target, "modifier_gale_mark", {})
+		modifier:SetStackCount(1)
+	else
+		modifier = ability:ApplyDataDrivenModifier(caster, target, "modifier_gale_mark", {})
+		modifier:SetStackCount(2)
+	end
+
+	if target.gale_mark_particle then ParticleManager:DestroyParticle(target.gale_mark_particle, false) end
+	target.gale_mark_particle = ParticleManager:CreateParticle("particles/crafts/rean/gale/mark.vpcf", PATTACH_OVERHEAD_FOLLOW, target)
+	ParticleManager:SetParticleControl(target.gale_mark_particle, 2, Vector(0,modifier:GetStackCount(),0))
+end
+
+function removeMarkParticle(keys)
+	ParticleManager:DestroyParticle(keys.target.gale_mark_particle, false)
+	keys.target.gale_mark_particle = nil
 end

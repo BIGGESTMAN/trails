@@ -37,7 +37,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"damage_percent"		"30"
+				"damage_percent"		"45"
 			}
 			"01"
 			{
@@ -57,17 +57,17 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"area_slow"				"-20"
+				"area_slow"				"-25"
 			}
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"bullet_slow_duration"	"4"
+				"bullet_slow_duration"	"3"
 			}
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"bullet_slow"			"-20"
+				"bullet_slow"			"-25"
 			}
 			"01"
 			{
@@ -87,7 +87,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"unbalanced_self_slow"	"-20"
+				"unbalanced_self_slow"	"-15"
 			}
 		}
 

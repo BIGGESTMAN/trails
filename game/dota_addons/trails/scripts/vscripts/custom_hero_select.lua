@@ -11,6 +11,8 @@ function CustomHeroSelect:Initialize()
 
 	self.initialized = true
 	self.pickedHeroes = {}
+	self.pickedHeroes[DOTA_TEAM_GOODGUYS] = {}
+	self.pickedHeroes[DOTA_TEAM_BADGUYS] = {}
 	self.start_gold = 0
 	self.customHeroSelectData = LoadKeyValues("scripts/kv/herolist_custom.txt")
 	CustomGameEventManager:RegisterListener("heroselect_pick", WrapMemberMethod(self.OnHeroSelectPickedEvent, self))
@@ -58,9 +60,13 @@ function CustomHeroSelect:OnHeroSelectPickedEvent(source, data)
 
 	local hero = player:GetAssignedHero()
 	if hero ~= nil and CustomHeroSelect:IsPlaceholderHero(hero) then
-		-- if not CustomHeroSelect.pickedHeroes[picked_hero_id] then
-		-- 	CustomHeroSelect.pickedHeroes[picked_hero_id] = true
-			-- CustomGameEventManager:Send_ServerToTeam(player:GetTeamNumber(), "heroselect_pick_other", { hero_id = picked_hero_id });
+		for k,v in pairs(CustomHeroSelect.pickedHeroes) do
+			print(k,v)
+		end
+		print(player:GetTeamNumber(), CustomHeroSelect.pickedHeroes[player:GetTeamNumber()], picked_hero_id)
+		if not CustomHeroSelect.pickedHeroes[player:GetTeamNumber()][picked_hero_id] then
+			CustomHeroSelect.pickedHeroes[player:GetTeamNumber()][picked_hero_id] = true
+			CustomGameEventManager:Send_ServerToTeam(player:GetTeamNumber(), "heroselect_pick_other", { hero_id = picked_hero_id });
 			CustomGameEventManager:Send_ServerToPlayer(player, "heroselect_pick_confirm", {})
 
 			PrecacheUnitByNameAsync(picked_hero_id, function()
@@ -71,7 +77,7 @@ function CustomHeroSelect:OnHeroSelectPickedEvent(source, data)
 					oldHero:RemoveSelf()
 				end
 			end, player:GetPlayerID())
-		-- end
+		end
 	end
 end
 

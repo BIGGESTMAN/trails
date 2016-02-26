@@ -2,9 +2,9 @@
 Enhanced : Follows targeted enemy, deals more damage and applies a greater slow, and knocks enemies away from the target.
 
 Cast Point : 0.2
-Delay: 6
-%Physical Damage (damage_percent) : 150
-Slow Duration (slow_duration) : 3
+Delay: 1
+%Physical Damage (damage_percent) : 120
+Slow Duration (slow_duration) : 1
 %Slow (slow) : 40
 Radius (radius) : 300
 %Enhanced Damage (unbalanced_damage_percent) : 225
@@ -32,29 +32,29 @@ CP Cost : 30
 Enhanced : Deals more damage, inflicts more Delay and leaves a path of wind behind the shockwave, increasing allies' attack and movement speeds while on it.
 
 Cast Point : 0.2
-Delay: 2
+Delay: 1
 Radius (radius) : 200
-%Physical Damage (damage_percent) : 120
+%Physical Damage (damage_percent) : 50
 Range (range) : 1000
-Delay Inflicted (delay_inflicted) : 3
+Delay Inflicted (delay_inflicted) : 1
 %Enhanced Damage (unbalanced_damage_percent) : 170
 Enhanced Delay Inflicted (unbalanced_delay_inflicted) : 6
 Enhanced Wind Duration (unbalanced_wind_duration) : 8
 %Enhanced Movespeed (unbalanced_bonus_movespeed) : 15
 Enhanced Attackspeed (unbalanced_bonus_attackspeed) : 40
-CP Cost : 40
+CP Cost : 15
 
-[D] Gale (gale) : Rean rapidly slices through enemies, dealing physical damage and Disarming them before returning to his starting location. +20 to Unbalance.
-Enhanced : Slices through each enemy twice, with the second slash dealing reduced damage but heavily slowing. Always attacks the targeted enemy last, leaving Rean next to them afterwards.
+[D] Gale (gale) : Passively marks enemies each time they're hit by another of Rean's attacks, enabling targeting by Gale once they're marked twice. When cast, Rean rapidly slices through marked enemies in the area, dealing physical damage and Disarming them before returning to his starting location. +20 to Unbalance.
+Enhanced : Slices through each enemy twice, regardless of marks, with the second slash dealing reduced damage but heavily slowing. Always attacks the targeted enemy last, leaving Rean next to them afterwards.
 
 Cast Point : 0.2
 Delay: 5
 Radius (radius) : 400
-%Physical Damage (damage_percent) : 200
+%Physical Damage (damage_percent) : 250
 Dash Speed : 2000
 Disarm Duration (disarm_duration) : 3
 Cast Range : 400
-%Enhanced Secondary Damage (unbalanced_damage_percent) : 75
+%Enhanced Secondary Damage (unbalanced_damage_percent) : 125
 %Enhanced Slow (unbalanced_slow) : 80
 Enhanced Slow Duration (unbalanced_slow_duration) : 3
 Note0 (note0) : Enhanced Gale's movespeed slow decays over the duration.

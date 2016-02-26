@@ -1,5 +1,6 @@
 require "game_functions"
 require "libraries/notifications"
+require "crafts/rean/gale"
 
 function spellCast(keys)
 	local caster = keys.caster
@@ -70,6 +71,7 @@ function executeSlash(caster, target, max_cp)
 		dealScalingDamage(unit, caster, damage_type, damage_scale, SCRAFT_CP_GAIN_FACTOR)
 		increaseUnbalance(caster, unit)
 		unit:AddNewModifier(caster, ability, "modifier_burn", {duration = burn_duration})
+		applyGaleMark(caster, unit)
 		if max_cp then increaseUnbalance(caster, target, ability:GetSpecialValueFor("max_cp_bonus_unbalance") - caster:FindAbilityByName("combat_link"):GetSpecialValueFor("base_unbalance_increase")) end
 	end
 

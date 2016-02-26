@@ -410,10 +410,10 @@ function GameMode:OnMusicControlToggled(eventSourceIndex, args)
 	local hero = player:GetAssignedHero()
 
 	-- Shoutout to unbelievably stupid hacks, fuck this game
-	-- hero.ignore_music_toggle_click = not hero.ignore_music_toggle_click
+	hero.ignore_music_toggle_click = not hero.ignore_music_toggle_click
 
 	-- print("1")
-	-- if not hero.ignore_music_toggle_click then
+	if not hero.ignore_music_toggle_click then
 		-- print("2")
 		if hero.music_playing == nil then
 			-- print("3")
@@ -422,7 +422,7 @@ function GameMode:OnMusicControlToggled(eventSourceIndex, args)
 			-- print("4")
 			self:StopMusicForPlayer(player)
 		end
-	-- end
+	end
 end
 
 function GameMode:StartMusicForPlayer(player)
@@ -452,8 +452,7 @@ function GameMode:OnInfoTextOK(eventSourceIndex, args)
 	local hero = player:GetAssignedHero()
 
 	hero.round_ready = true
-	if not self.round_started then
-	-- if self:AreAllHeroesReady() and not self.round_started then
+	if self:AreAllHeroesReady() and not self.round_started then
 		self.round_started = true
 		CustomGameEventManager:Send_ServerToAllClients("infotext_game_starting", {})
 

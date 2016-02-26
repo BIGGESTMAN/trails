@@ -2,6 +2,7 @@ require "game_functions"
 require "combat_links"
 require "libraries/animations"
 require "libraries/notifications"
+require "crafts/rean/gale"
 
 function spellCast(keys)
 	local caster = keys.caster
@@ -79,6 +80,7 @@ function secondaryDash(caster, direction, speed, range, find_clear_space, other_
 		increaseUnbalance(caster, unit, bonus_unbalance)
 		ability:ApplyDataDrivenModifier(caster, unit, slow_modifier_name, {})
 		unit:Interrupt()
+		applyGaleMark(caster, unit)
 
 		if caster.unbalanced_autumn_leaf_cutter_target and unit ~= caster.unbalanced_autumn_leaf_cutter_target then
 			ability:ApplyDataDrivenModifier(caster, unit, "modifier_autumn_leaf_cutter_knockback", {})
