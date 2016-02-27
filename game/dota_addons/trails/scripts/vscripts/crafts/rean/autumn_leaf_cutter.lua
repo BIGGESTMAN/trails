@@ -76,7 +76,7 @@ function secondaryDash(caster, direction, speed, range, find_clear_space, other_
 	local targets = FindUnitsInRadius(team, origin, nil, radius, iTeam, iType, iFlag, iOrder, false)
 
 	for k,unit in pairs(targets) do
-		dealScalingDamage(unit, caster, damage_type, damage_scale)
+		dealScalingDamage(unit, caster, damage_type, damage_scale, ability)
 		increaseUnbalance(caster, unit, bonus_unbalance)
 		ability:ApplyDataDrivenModifier(caster, unit, slow_modifier_name, {})
 		unit:Interrupt()

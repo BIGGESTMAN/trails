@@ -56,7 +56,7 @@ function flambergeHit(caster, unit, other_args)
 
 	if other_args.crit then damage_scale = damage_scale * 2 end
 
-	dealScalingDamage(unit, caster, damage_type, damage_scale)
+	dealScalingDamage(unit, caster, damage_type, damage_scale, ability)
 	increaseUnbalance(caster, unit, bonus_unbalance)
 	unit:AddNewModifier(caster, ability, "modifier_burn", {duration = duration})
 	unit:Interrupt()

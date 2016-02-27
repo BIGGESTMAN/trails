@@ -43,6 +43,9 @@
 	"music_control_button"							"Toggle Music"
 	"current_turn_bonus"							"Current Turn Bonus:"
 
+	"round_recap_header"							"Round Recap (Damage Dealt)"
+	"round_recap_ready"								"Ready For Next Round"
+
 	"quest_time_round_starting"						"Round starts"
 	"quest_time_reviving"							"Reviving"
 

@@ -6,6 +6,7 @@ require "combat_links"
 require "game_functions"
 require "custom_hero_select"
 require "turn_bonuses"
+require "round_recap"
 
 LinkLuaModifier("modifier_interround_invulnerability", "modifier_interround_invulnerability.lua", LUA_MODIFIER_MOTION_NONE)
 
@@ -364,6 +365,8 @@ function GameMode:OnHeroInGame(hero)
 		self:UpdateStatsDisplay(hero)
 		CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "ability_bar_start", {heroIndex = hero:GetEntityIndex(), cpCosts = getAbilityCPCosts(hero)})
 		self:UpdateAbilityBars(hero)
+
+		CustomGameEventManager:RegisterListener("round_recap_ready", WrapMemberMethod(self.OnInfoTextOK, self))
 	end
 end
 
@@ -455,6 +458,7 @@ function GameMode:OnInfoTextOK(eventSourceIndex, args)
 	if self:AreAllHeroesReady() and not self.round_started then
 		self.round_started = true
 		CustomGameEventManager:Send_ServerToAllClients("infotext_game_starting", {})
+		CustomGameEventManager:Send_ServerToAllClients("round_recap_remove", {})
 
 		self:StartCountdown(ROUND_START_DELAY, "quest_time_round_starting", function()
 			self:StartRound()
@@ -796,6 +800,7 @@ function GameMode:StartRound()
 		end
 	end
 	Turn_Bonuses:StartRound(self.current_round)
+	Round_Recap:StartRound()
 end
 
 function GameMode:AddStatusBars(hero)
@@ -841,13 +846,15 @@ function GameMode:EndRound(winning_team)
 				hero:RespawnHero(false, false, false)
 
 				hero:AddNewModifier(hero, nil, "modifier_interround_invulnerability", {})
-				self:DisplayReadyBox(hero)
+				-- self:DisplayReadyBox(hero)
 				
 				if hero:GetTeam() ~= winning_team then
 					modifyCP(hero, END_OF_ROUND_LOSER_CP)
 				end
 			end
 		end
+
+		Round_Recap:EndRound()
 		
 		-- check for game win
 		if self.score[DOTA_TEAM_GOODGUYS] == ROUNDS_TO_WIN then

@@ -94,7 +94,7 @@ function arrowImpact(caster, origin_location, direction, speed, range, collision
 	local iOrder = FIND_ANY_ORDER
 	local targets = FindUnitsInRadius(team, target_point, nil, arrow_radius, iTeam, iType, iFlag, iOrder, false)
 	for k,unit in pairs(targets) do
-		dealScalingDamage(unit, caster, damage_type, damage_scale)
+		dealScalingDamage(unit, caster, damage_type, damage_scale, ability)
 		increaseUnbalance(caster, unit)
 		ability:ApplyDataDrivenModifier(caster, unit, "modifier_molten_rain_slow", {})
 		if other_args.enhanced then

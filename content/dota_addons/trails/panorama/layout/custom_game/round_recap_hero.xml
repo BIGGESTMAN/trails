@@ -1,0 +1,19 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/custom_game/round_recap.css" />
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+	</styles>
+	<script>
+		(function () {
+			var hero_name = $.GetContextPanel().GetAttributeString("hero_name", "");
+
+			$("#HeroName").text = $.Localize(hero_name);
+			$("#Portrait").style.backgroundImage = "url('file://{resources}/images/heroes/" + hero_name + ".png')"
+		})();
+	</script>
+	<Panel hittest="false" class="RoundRecapHero">
+		<Label hittest="false" id="HeroName"/>
+		<Panel id="Portrait" background-image="url('file://{resources}/images/heroes/npc_dota_hero_ember_spirit.png')"/>
+		<Panel id="abilities_list"/>
+	</Panel>
+</root>

@@ -1,0 +1,19 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/custom_game/round_recap.css" />
+		<include src="s2r://panorama/styles/custom_game/shared.css" />
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+	</styles>
+	<scripts>
+		<include src="s2r://panorama/scripts/custom_game/round_recap.js" />
+	</scripts>
+	<Panel hittest="false" class="RoundRecapWindow TrailsGenericWindow">
+		<Label hittest="false" id="Header" text="#round_recap_header" />
+		<Panel id="heroes_list"/>
+
+		<Button hittest="true" id="ReadyButton" class="ButtonBevel" onactivate="OnRoundRecapReadyClicked()">
+			<Label id="ReadyButtonText" text="#round_recap_ready" />
+		</Button>
+		<Label hittest="false" id="ReadyText" html="false" text="#you_are_ready" />
+	</Panel>
+</root>

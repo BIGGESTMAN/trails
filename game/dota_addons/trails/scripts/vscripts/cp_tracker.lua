@@ -23,5 +23,5 @@ function attackLanded(keys)
 		attacker:RemoveModifierByName("modifier_crit")
 	end
 
-	dealScalingDamage(keys.target, attacker, DAMAGE_TYPE_PHYSICAL, damage_scale)
+	dealScalingDamage(keys.target, attacker, DAMAGE_TYPE_PHYSICAL, damage_scale, nil)
 end

@@ -1,0 +1,112 @@
+.RoundRecapWindow {
+	width: 1200px;
+	height: 800px;
+	
+	flow-children: down;
+	vertical-align: center;
+	horizontal-align: center;
+
+	position: 0px 300px 0px;
+
+	transition-property: opacity, transform;
+    transition-duration: 1s;
+	opacity: 0;
+}
+
+.RoundRecapWindow.Visible {
+	transform: translate3d(0px, -300px, 0px);
+	opacity: 1;
+}
+
+.RoundRecapWindow #ReadyButton {
+	horizontal-align: center;
+	margin: 8px;
+	/*height: 32px;*/
+	visibility: visible;
+}
+.RoundRecapWindow #ReadyText {
+	horizontal-align: center;
+	margin: 8px;
+	height: 32px;
+	color: #00ff00;
+	visibility: collapse;
+}
+
+.RoundRecapWindow.ReadiedUp #ReadyButton {
+	visibility: collapse;
+}
+.RoundRecapWindow.ReadiedUp #ReadyText {
+	visibility: visible;
+}
+
+.RoundRecapWindow #Header {
+	font-family: Goudy Trajan;
+	font-size: 22px;
+	
+	color: #fefefe;
+	text-shadow: 1px 1px 4px 1 #000000;
+
+	width: 100%;
+	height: 34px;
+	margin: 8px;
+
+	text-align: center;
+	border-bottom: 1px solid #808080;
+}
+
+#heroes_list {
+	width: 100%;
+	height: 80%;
+
+	flow-children: right;
+	horizontal-align: center;
+}
+
+.RoundRecapHero {
+	width: 25%;
+	height: 100%;
+	flow-children: down;
+}
+
+.RoundRecapHero #HeroName {
+	horizontal-align: center;
+	text-align: center;
+	font-size: 25px;
+	color: #fefefe;
+	text-shadow: 1px 1px 4px 2 #000000;
+}
+
+.RoundRecapHero #Portrait {
+	horizontal-align: center;
+	width: 108px;
+	height: 64px;
+	background-size: 100% 100%;
+}
+
+
+.RoundRecapHero #abilities_list {
+	flow-children: down;
+}
+
+.RoundRecapSkill {
+	horizontal-align: left;
+	/*margin-left: 50%;*/
+	margin-top: 20px;
+	horizontal-align: center;
+}
+
+.RoundRecapSkill #Icon {
+	width: 64px;
+	height: 64px;
+}
+
+.RoundRecapSkill #DamageDealtText
+{
+	text-shadow: 0px 0px 6px 6 #000000;
+	margin: 2px;
+	vertical-align: bottom;
+	horizontal-align: right;
+	font-size: 18px;
+	font-family: Goudy Trajan Medium;
+	color: white;
+}

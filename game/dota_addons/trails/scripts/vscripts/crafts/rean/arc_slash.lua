@@ -49,7 +49,7 @@ function arcSlashHit(caster, unit, other_args)
 	local ability = caster:FindAbilityByName("arc_slash")
 	local damage_type = ability:GetAbilityDamageType()
 
-	dealScalingDamage(unit, caster, damage_type, other_args.damage_scale)
+	dealScalingDamage(unit, caster, damage_type, other_args.damage_scale, ability)
 	increaseUnbalance(caster, unit)
 	inflictDelay(unit, other_args.delay_inflicted)
 	applyGaleMark(caster, unit)

@@ -68,7 +68,7 @@ function executeSlash(caster, target, max_cp)
 	local targets = FindUnitsInRadius(team, origin, nil, radius, iTeam, iType, iFlag, iOrder, false)
 
 	for k,unit in pairs(targets) do
-		dealScalingDamage(unit, caster, damage_type, damage_scale, SCRAFT_CP_GAIN_FACTOR)
+		dealScalingDamage(unit, caster, damage_type, damage_scale, ability, SCRAFT_CP_GAIN_FACTOR)
 		increaseUnbalance(caster, unit)
 		unit:AddNewModifier(caster, ability, "modifier_burn", {duration = burn_duration})
 		applyGaleMark(caster, unit)

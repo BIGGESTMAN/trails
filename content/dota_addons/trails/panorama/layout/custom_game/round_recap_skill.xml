@@ -1,0 +1,33 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/custom_game/round_recap.css" />
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+	</styles>
+	<script>
+		function SkillShowTooltip() {
+			var ability_name = $.GetContextPanel().GetAttributeString("ability_name", "");
+			if (ability_name != "basic_attacks") {
+				$.DispatchEvent("DOTAShowAbilityTooltip", $.GetContextPanel(), ability_name);
+			}
+		}
+		function SkillHideTooltip() {
+			$.DispatchEvent("DOTAHideAbilityTooltip");
+		}
+		(function () {
+			var ability_name = $.GetContextPanel().GetAttributeString("ability_name", "");
+			$.Msg(ability_name)
+			if (ability_name == "basic_attacks") {
+				$.Msg("?")
+				ability_name = "bounty_hunter_jinada"
+			}
+			$("#Icon").abilityname = ability_name
+			$("#DamageDealtText").text = $.GetContextPanel().GetAttributeInt("damage", 0);
+		})();
+	</script>
+	<Panel hittest="false" class="RoundRecapSkill">
+		<Button hittest="true" onmouseover="SkillShowTooltip()" onmouseout="SkillHideTooltip()" >
+			<DOTAAbilityImage hittest="true" id="Icon" />
+		</Button>
+		<Label id="DamageDealtText" />
+	</Panel>
+</root>

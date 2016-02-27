@@ -1,3 +1,5 @@
+require "round_recap"
+
 STAT_STR = "modifier_str_up" -- Increases phys damage
 STAT_STR_DOWN = "modifier_str_down"
 STAT_ATS = "modifier_ats_up" -- Increases magic damage
@@ -30,7 +32,11 @@ LinkLuaModifier(STAT_ADF, "stat_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier(STAT_SPD, "stat_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier(STAT_MOV, "stat_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier(STAT_STR_DOWN, "stat_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier(STAT_ATS_DOWN, "stat_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier(STAT_DEF_DOWN, "stat_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier(STAT_ADF_DOWN, "stat_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier(STAT_SPD_DOWN, "stat_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier(STAT_MOV_DOWN, "stat_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 
 LinkLuaModifier("modifier_burn", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_insight", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
@@ -47,16 +53,16 @@ LinkLuaModifier("modifier_link_broken", "effect_modifiers.lua", LUA_MODIFIER_MOT
 -- Notifications:Top((hero.combat_linked_to):GetPlayerOwner(), {text="Alisa: ", duration=2, style={color="white", ["font-size"]="26px"}})
 -- Notifications:Top((hero.combat_linked_to):GetPlayerOwner(), {text="I've Got You!", style={color="green", ["font-size"]="26px"}, continue = true})
 
-function dealDamage(target, attacker, damage, damage_type, cp_gain_factor)
+function dealDamage(target, attacker, damage, damage_type, ability, cp_gain_factor)
 	if target:HasModifier("modifier_insight") and target:FindModifierByName("modifier_insight").evasion_active and damage_type == DAMAGE_TYPE_PHYSICAL then
 		target:FindModifierByName("modifier_insight"):StartEvasionCooldown()
 		return
 	end
 	if attacker then
 		if damage_type == DAMAGE_TYPE_PHYSICAL and attacker:HasModifier("modifier_azure_flame_slash_sword_inflamed") then
-			local ability = attacker:FindAbilityByName("azure_flame_slash")
-			local burn_duration = ability:GetSpecialValueFor("burn_duration")
-			target:AddNewModifier(attacker, ability, "modifier_burn", {duration = burn_duration})
+			local flame_slash_ability = attacker:FindAbilityByName("azure_flame_slash")
+			local burn_duration = flame_slash_ability:GetSpecialValueFor("burn_duration")
+			target:AddNewModifier(attacker, flame_slash_ability, "modifier_burn", {duration = burn_duration})
 		end
 	end
 	if target.stats then
@@ -71,13 +77,14 @@ function dealDamage(target, attacker, damage, damage_type, cp_gain_factor)
 	end
 
 	ApplyDamage({victim = target, attacker = attacker, damage = damage, damage_type = damage_type})
+	Round_Recap:AddAbilityDamage(attacker, ability, damage)
 end
 
-function dealScalingDamage(target, attacker, damage_type, scale, cp_gain_factor)
+function dealScalingDamage(target, attacker, damage_type, scale, ability, cp_gain_factor)
 	if damage_type == DAMAGE_TYPE_PHYSICAL then
-		dealDamage(target, attacker, scale * getStats(attacker).str, damage_type, cp_gain_factor)
+		dealDamage(target, attacker, scale * getStats(attacker).str, damage_type, ability, cp_gain_factor)
 	elseif damage_type == DAMAGE_TYPE_MAGICAL then
-		dealDamage(target, attacker, scale * getStats(attacker).ats, damage_type, cp_gain_factor)
+		dealDamage(target, attacker, scale * getStats(attacker).ats, damage_type, ability, cp_gain_factor)
 	end
 end
 
