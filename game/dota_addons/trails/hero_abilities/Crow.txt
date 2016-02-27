@@ -41,17 +41,19 @@ Confuse & Deathblow Duration (debuff_duration) : 3
 Radius : Global
 CP Cost : 5
 
-[D] Chaos Trigger (chaos_trigger) : Crow takes aim with a bullet of pure insanity, locking on to enemies in a line in front of him; after 1 second, he deals physical damage to them, Confusing them or putting them in a Nightmare.\n\nEnemies in a Nightmare are disabled until they take damage, on which they suffer from another random status effect for 3 seconds.
+[D] Chaos Trigger (chaos_trigger) : Crow takes aim with a bullet of pure insanity, locking on to enemies that remain in his sight. After 1.5 seconds, he deals physical damage to them, Confusing enemies closer to Crow and putting those at a distance in a Nightmare.\n\nEnemies in a Nightmare are disabled until they take damage, and they suffer from another random status effect for 3 seconds when it ends.
 Enhanced : Increases the damage of the first shot. Fires a second shot that also causes Confuse and Nightmare but deals reduced damage in the same trajectory after 2 seconds. All other actions cancel this.
 DevNotes - 50% chance to Confuse, 50% chance to Nightmare.
 
 Cast Point : 0
 Delay : 6
-%Physical Damage (damage_percent) : 300%
-Confuse & Nightmare Duration (debuff_duration) : 4
-Range (range) : 900
-Radius (width) : 250
-%Enhanced First Shot Damage (unbalanced_damage_percent) : 375%
+Lockon Time (lockon_time) : 0.9
+%Physical Damage (damage_percent) : 250%
+Confuse & Nightmare Duration (debuff_duration) : 3
+Range (range) : 1100
+Aim Width (width) : 225
+Confuse Range (confuse_range) : 600
+%Enhanced First Shot Damage (unbalanced_damage_percent) : 300%
 %Enhanced Second Shot Damage (unbalanced_secondary_damage_percent) : 125%
 CP Cost : 45
 

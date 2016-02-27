@@ -36,7 +36,7 @@ function Turn_Bonuses:Initialize()
 	self.hp_heal = 0.5
 	self.cp_heal = 50
 
-	self.current_bonus_name = ""
+	self.current_bonus = nil
 	self.current_bonus_taken = false
 	self.next_bonus = nil
 	self.time_until_next_bonus = self.spawn_interval
@@ -58,7 +58,7 @@ function Turn_Bonuses:StartRound(round)
 end
 
 function Turn_Bonuses:SpawnBonus(round)
-	self.current_bonus_name = self:GetBonusName(self.next_bonus)
+	self.current_bonus = self.next_bonus
 	self.current_bonus_taken = false
 	self.next_bonus = self:RandomBonus(round)
 	self.time_until_next_bonus = self.spawn_interval
@@ -90,7 +90,7 @@ function Turn_Bonuses:SpawnBonus(round)
 end
 
 function Turn_Bonuses:GrantBonusTo(unit)
-	self.next_bonus(self, unit)
+	self.current_bonus(self, unit)
 	self.current_bonus_taken = true
 	self:RemoveBonus()
 	local claimed_particle = ParticleManager:CreateParticle("particles/turn_bonuses/turn_bonus_claimed.vpcf", PATTACH_CUSTOMORIGIN, nil)
@@ -153,7 +153,7 @@ function Turn_Bonuses:EndRound()
 end
 
 function Turn_Bonuses:UpdateTurnBonusDisplay()
-	CustomGameEventManager:Send_ServerToAllClients("turn_bonus_display_update", {current_bonus = self.current_bonus_name, current_bonus_taken = self.current_bonus_taken, next_bonus = self:GetBonusName(self.next_bonus), time_until_next_bonus = self.time_until_next_bonus})
+	CustomGameEventManager:Send_ServerToAllClients("turn_bonus_display_update", {current_bonus = self:GetBonusName(self.current_bonus), current_bonus_taken = self.current_bonus_taken, next_bonus = self:GetBonusName(self.next_bonus), time_until_next_bonus = self.time_until_next_bonus})
 	Timers:RemoveTimer("turn_bonus_display_tick")
 	Timers:CreateTimer("turn_bonus_display_tick", {
 		endTime = 1,
@@ -166,7 +166,7 @@ function Turn_Bonuses:UpdateTurnBonusDisplay()
 end
 
 function Turn_Bonuses:UpdateTurnBonusDisplayTaken()
-	CustomGameEventManager:Send_ServerToAllClients("turn_bonus_display_update", {current_bonus = self.current_bonus_name, current_bonus_taken = self.current_bonus_taken, next_bonus = self:GetBonusName(self.next_bonus), time_until_next_bonus = self.time_until_next_bonus})
+	CustomGameEventManager:Send_ServerToAllClients("turn_bonus_display_update", {current_bonus = self:GetBonusName(self.current_bonus), current_bonus_taken = self.current_bonus_taken, next_bonus = self:GetBonusName(self.next_bonus), time_until_next_bonus = self.time_until_next_bonus})
 end
 
 function Turn_Bonuses:StatMax(unit)

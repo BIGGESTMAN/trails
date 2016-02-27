@@ -93,6 +93,7 @@
 			"modifier_gale_passive"
 			{
 				"Passive"	"1"
+				"IsHidden"	"1"
 
 				"OnAttackLanded"
 				{

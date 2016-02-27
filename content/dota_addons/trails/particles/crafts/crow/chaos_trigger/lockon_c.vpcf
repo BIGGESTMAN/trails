@@ -9,7 +9,7 @@
 		255,
 		252,
 		0,
-		55,
+		255,
 	]
 	m_Renderers =
 	[
@@ -67,7 +67,7 @@
 			_class = "C_OP_LerpScalar"
 			m_flOutput = 0.805300
 			m_nFieldOutput = 4
-			m_flEndTime = 0.700000
+			m_flEndTime = 1.260000
 		},
 		{
 			_class = "C_OP_SetToCP"

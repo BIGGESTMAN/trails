@@ -19,10 +19,18 @@ function spellCast(keys)
 		target:RemoveModifierByName("modifier_combat_link_unbalanced")
 		caster.chaos_trigger_enhanced = true
 	end
+
+	local direction = (target_point - caster:GetAbsOrigin()):Normalized()
+	caster.chaos_trigger_aim_area_particle = ParticleManager:CreateParticle("particles/crafts/crow/chaos_trigger/aim_area.vpcf", PATTACH_CUSTOMORIGIN, nil)
+	ParticleManager:SetParticleControlForward(caster.chaos_trigger_aim_area_particle, 0, direction)
+	ParticleManager:SetParticleControl(caster.chaos_trigger_aim_area_particle, 0, caster:GetAbsOrigin())
 end
 
 function channelFinish(keys)
-	keys.caster:RemoveModifierByName("modifier_chaos_trigger_casting")
+	local caster = keys.caster
+	caster:RemoveModifierByName("modifier_chaos_trigger_casting")
+	ParticleManager:DestroyParticle(caster.chaos_trigger_aim_area_particle, false)
+	caster.chaos_trigger_aim_area_particle = nil
 end
 
 function channelSucceeded(keys)

@@ -15,12 +15,13 @@
 		{
 			"particle"					"particles/units/heroes/hero_bane/bane_projectile.vpcf"
 			"particle"					"particles/crafts/crow/chaos_trigger/lockon.vpcf"
+			"particle"					"particles/crafts/crow/chaos_trigger/aim_area.vpcf"
 		}
 
 		"AbilityCastPoint"				"0"
 		"AbilityCooldown"				"6"
 		"AbilityManaCost"				"0"
-		"AbilityChannelTime"			"1"
+		"AbilityChannelTime"			"1.5"
 		"CPCost"						"45"
 
 		"AbilitySpecial"
@@ -28,27 +29,27 @@
 			"01"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"lockon_time"			"0.5"
+				"lockon_time"			"0.9"
 			}
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"damage_percent"		"300"
+				"damage_percent"		"250"
 			}
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"width"					"250"
+				"width"					"225"
 			}
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"range"					"900"
+				"range"					"1100"
 			}
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"debuff_duration"		"4"
+				"debuff_duration"		"3"
 			}
 			"01"
 			{
@@ -58,7 +59,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"unbalanced_damage_percent"	"375"
+				"unbalanced_damage_percent"	"300"
 			}
 			"01"
 			{

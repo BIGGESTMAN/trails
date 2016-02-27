@@ -9,7 +9,7 @@
 		255,
 		252,
 		0,
-		55,
+		255,
 	]
 	m_Renderers =
 	[
@@ -76,7 +76,7 @@
 		{
 			_class = "C_OP_InstantaneousEmitter"
 			m_nParticlesToEmit = 1
-			m_flStartTime = 0.500000
+			m_flStartTime = 0.900000
 		},
 	]
 	m_Children =
