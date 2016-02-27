@@ -257,18 +257,12 @@ if IsServer() then
 				target:Kill(self:GetAbility(), self:GetCaster())
 			end
 		end
-		for k,v in pairs(params) do
-			print(k,v)
-		end
-		print("?")
 	end
 end
 
 function modifier_deathblow:DeclareFunctions()
 	return {MODIFIER_EVENT_ON_TAKEDAMAGE}
 end
-
-
 
 function modifier_deathblow:GetEffectName()
 	return "particles/units/heroes/hero_necrolyte/necrolyte_scythe_mist.vpcf"
@@ -280,6 +274,20 @@ end
 
 function modifier_deathblow:GetTexture()
 	return "necrolyte_reapers_scythe"
+end
+
+modifier_cp_boost = class({})
+
+function modifier_cp_boost:GetEffectName()
+	return "particles/units/heroes/hero_earth_spirit/espirit_stoneremnant_gravity_grndglow.vpcf"
+end
+
+function modifier_cp_boost:GetEffectAttachType()
+	return PATTACH_ABSORIGIN_FOLLOW
+end
+
+function modifier_cp_boost:GetTexture()
+	return "earth_spirit_petrify"
 end
 
 modifier_crit = class({})

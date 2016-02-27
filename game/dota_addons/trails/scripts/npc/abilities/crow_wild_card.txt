@@ -26,12 +26,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"stat_increase_percent"	"30"
-			}
-			"01"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"cp_increase"			"50"
+				"stat_increase_percent"	"50"
 			}
 			"01"
 			{

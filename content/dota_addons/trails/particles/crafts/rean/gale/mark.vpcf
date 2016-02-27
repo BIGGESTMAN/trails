@@ -9,7 +9,7 @@
 		228,
 		0,
 		0,
-		150,
+		255,
 	]
 	m_Renderers =
 	[
@@ -42,7 +42,7 @@
 		},
 		{
 			_class = "C_OP_FadeInSimple"
-			m_flFadeInTime = 0.500000
+			m_flFadeInTime = 0.100000
 		},
 		{
 			_class = "C_OP_PositionLock"

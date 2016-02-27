@@ -18,6 +18,7 @@ END_OF_ROUND_LOSER_CP = 50
 DAMAGE_CP_GAIN_FACTOR = 0.125
 SCRAFT_CP_GAIN_FACTOR = 0.25
 TARGET_CP_GAIN_FACTOR = 1/3
+CP_BOOST_GAIN_FACTOR = 1.5
 
 FREEZE_COMMAND_DELAY = 0.6
 CRIT_DAMAGE_FACTOR = 2
@@ -38,6 +39,7 @@ LinkLuaModifier("modifier_freeze", "effect_modifiers.lua", LUA_MODIFIER_MOTION_N
 LinkLuaModifier("modifier_confuse", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_nightmare", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_deathblow", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_cp_boost", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_crit", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_brute_force", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_link_broken", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
@@ -253,21 +255,23 @@ function getInverseStat(stat)
 end
 
 function getCP(unit)
-	return unit:FindModifierByName("modifier_cp_tracker_cp"):GetStackCount()
+	return unit:FindModifierByName("modifier_cp_tracker_cp").cp
 end
 
 function modifyCP(unit, amount)
 	if unit:HasAbility("cp_tracker") then
+		if unit:HasModifier("modifier_cp_boost") then amount = amount * CP_BOOST_GAIN_FACTOR end
 		local max_cp = unit:FindAbilityByName("cp_tracker"):GetSpecialValueFor("max_cp")
 
 		local modifier = unit:FindModifierByName("modifier_cp_tracker_cp")
-		modifier:SetStackCount(modifier:GetStackCount() + math.floor(amount))
-		if modifier:GetStackCount() > max_cp then modifier:SetStackCount(max_cp) end
+		modifier.cp = modifier.cp + amount
+		if modifier.cp > max_cp then modifier.cp = max_cp end
 
 		if amount > 1 then -- ignore incremental increases
 			ParticleManager:CreateParticle("particles/items3_fx/octarine_core_lifesteal.vpcf", PATTACH_ABSORIGIN_FOLLOW, unit)
 		end
 
+		modifier:SetStackCount(math.floor(modifier.cp))
 		setCraftActivatedStatus(unit)
 	end
 end

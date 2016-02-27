@@ -46,7 +46,7 @@ function wildCardEffect(caster, target)
 	local bonus_cp = ability:GetSpecialValueFor("cp_increase")
 	local debuff_duration = ability:GetSpecialValueFor("debuff_duration")
 
-	local friendly_effects = {"str_up", "def_adf_up", "cp_up"}
+	local friendly_effects = {"str_up", "def_adf_up", "modifier_cp_boost"}
 	local enemy_effects = {"modifier_confuse", "modifier_deathblow"}
 
 	if caster:GetTeam() == target:GetTeam() then
@@ -56,12 +56,12 @@ function wildCardEffect(caster, target)
 		elseif effect == "def_adf_up" then
 			modifyStat(target, STAT_DEF, stat_increase_percent, stat_increase_duration)
 			modifyStat(target, STAT_ADF, stat_increase_percent, stat_increase_duration)
-		elseif effect == "cp_up" then
-			modifyCP(target, bonus_cp)
+		elseif effect == "modifier_cp_boost" then
+			target:AddNewModifier(caster, ability, "modifier_cp_boost", {duration = stat_increase_duration})
 		end
 	else
 		local modifier_name = enemy_effects[RandomInt(1, #enemy_effects)]
-		unit:AddNewModifier(caster, ability, modifier_name, {duration = debuff_duration})
+		target:AddNewModifier(caster, ability, modifier_name, {duration = debuff_duration})
 	end
 end
 
