@@ -31,6 +31,10 @@ function channelFinish(keys)
 	caster:RemoveModifierByName("modifier_chaos_trigger_casting")
 	ParticleManager:DestroyParticle(caster.chaos_trigger_aim_area_particle, false)
 	caster.chaos_trigger_aim_area_particle = nil
+	for unit,aimtime in pairs(caster.chaos_trigger_targets) do
+		ParticleManager:DestroyParticle(unit.chaos_trigger_lockon_particle, true)
+		unit.chaos_trigger_lockon_particle = nil
+	end
 end
 
 function channelSucceeded(keys)
@@ -70,8 +74,6 @@ function fireShots(caster, targets)
 			end
 
 			ProjectileList:CreateTrackingProjectile(caster, unit, 2000, function() end, "particles/units/heroes/hero_bane/bane_projectile.vpcf")
-			ParticleManager:DestroyParticle(unit.chaos_trigger_lockon_particle, true)
-			unit.chaos_trigger_lockon_particle = nil
 		end
 	end
 
