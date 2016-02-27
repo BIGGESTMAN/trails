@@ -136,18 +136,20 @@ end
 function applyGaleMark(caster, target)
 	local ability = caster:FindAbilityByName("gale")
 
-	local modifier = target:FindModifierByName("modifier_gale_mark")
-	if not modifier then
-		modifier = ability:ApplyDataDrivenModifier(caster, target, "modifier_gale_mark", {})
-		modifier:SetStackCount(1)
-	else
-		modifier = ability:ApplyDataDrivenModifier(caster, target, "modifier_gale_mark", {})
-		modifier:SetStackCount(2)
-	end
+	if target:IsAlive() then
+		local modifier = target:FindModifierByName("modifier_gale_mark")
+		if not modifier then
+			modifier = ability:ApplyDataDrivenModifier(caster, target, "modifier_gale_mark", {})
+			modifier:SetStackCount(1)
+		else
+			modifier = ability:ApplyDataDrivenModifier(caster, target, "modifier_gale_mark", {})
+			modifier:SetStackCount(2)
+		end
 
-	if target.gale_mark_particle then ParticleManager:DestroyParticle(target.gale_mark_particle, false) end
-	target.gale_mark_particle = ParticleManager:CreateParticle("particles/crafts/rean/gale/mark.vpcf", PATTACH_OVERHEAD_FOLLOW, target)
-	ParticleManager:SetParticleControl(target.gale_mark_particle, 2, Vector(0,modifier:GetStackCount(),0))
+		if target.gale_mark_particle then ParticleManager:DestroyParticle(target.gale_mark_particle, false) end
+		target.gale_mark_particle = ParticleManager:CreateParticle("particles/crafts/rean/gale/mark.vpcf", PATTACH_OVERHEAD_FOLLOW, target)
+		ParticleManager:SetParticleControl(target.gale_mark_particle, 2, Vector(0,modifier:GetStackCount(),0))
+	end
 end
 
 function removeMarkParticle(keys)

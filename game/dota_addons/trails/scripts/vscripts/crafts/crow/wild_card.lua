@@ -63,6 +63,8 @@ function wildCardEffect(caster, target)
 		local modifier_name = enemy_effects[RandomInt(1, #enemy_effects)]
 		target:AddNewModifier(caster, ability, modifier_name, {duration = debuff_duration})
 	end
+
+	ParticleManager:CreateParticle("particles/units/heroes/hero_chen/chen_penitence.vpcf", PATTACH_ABSORIGIN_FOLLOW, target)
 end
 
 function wild_card:GetBehavior()
