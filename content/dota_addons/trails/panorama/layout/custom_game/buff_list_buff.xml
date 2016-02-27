@@ -32,7 +32,7 @@
 							onmouseout="BuffHideTooltip()"
 							>
 			<Panel id="BuffImage">
-				<DOTAAbilityImage id="AbilityImage" />
+				<Panel id="AbilityImage" />
 				<DOTAItemImage id="ItemImage" scaling="stretch-to-fit-y-preserve-aspect" />
 				<Panel id="DurationOverlay" />
 			</Panel>

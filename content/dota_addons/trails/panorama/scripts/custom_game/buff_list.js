@@ -32,7 +32,7 @@ function UpdateBuff( buffPanel, queryUnit, buffSerial )
 	if ( itemIdx === -1 )
 	{
 		if ( itemImage ) itemImage.itemname = "";
-		if ( abilityImage ) abilityImage.abilityname = buffTexture;
+		if ( abilityImage ) abilityImage.style.backgroundImage = "url('file://{resources}/images/spellicons/" + buffTexture + ".png')";
 		buffPanel.SetHasClass( "item_buff", false );
 		buffPanel.SetHasClass( "ability_buff", true );
 	}
