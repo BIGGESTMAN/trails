@@ -1,7 +1,7 @@
 	"cross_raven"
 	{
 		"BaseClass"						"ability_datadriven"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_CHANNELED"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
@@ -20,6 +20,7 @@
 		"AbilityCastPoint"				"0"
 		"AbilityCooldown"				"10"
 		"AbilityManaCost"				"0"
+		"AbilityCastRange"				"1500"
 		"AbilityChannelTime"			"1"
 		"AOERadius"						"600"
 		"CPCost"						"100"
@@ -94,6 +95,7 @@
 			{
 				"ScriptFile"	"crafts/crow/cross_raven"
 				"Function"		"spellCast"
+				"Target"		"POINT"
 			}
 		}
 

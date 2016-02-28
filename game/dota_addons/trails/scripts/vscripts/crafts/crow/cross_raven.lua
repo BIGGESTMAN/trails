@@ -6,12 +6,13 @@ require "libraries/util"
 function spellCast(keys)
 	local caster = keys.caster
 	local ability = keys.ability
+	local target_point = keys.target_points[1]
 
 	ability:ApplyDataDrivenModifier(caster, caster, "modifier_cross_raven_casting", {duration = ability:GetChannelTime()})
 	ability:ApplyDataDrivenModifier(caster, caster, "modifier_cross_raven_countdown", {})
 	caster.cross_raven_bullets = {}
 	caster.cross_raven_max_cp = getCP(caster) == MAX_CP
-	caster.cross_raven_target = caster:GetAbsOrigin()
+	caster.cross_raven_target = target_point
 	caster.cross_raven_bullet_speed = ability:GetSpecialValueFor("inward_bullet_travel_speed")
 	caster.cross_raven_retargets = ability:GetSpecialValueFor("recasts")
 
@@ -125,7 +126,7 @@ function retarget(keys)
 				bullet:SetPhysicsAcceleration(Vector(0,0,0))
 				bullet:OnPhysicsFrame(nil)
 				bullet.target_point = nil
-				if not caster:HasModifier("modifier_cross_raven_countdown") then
+				if not caster:HasModifier("modifier_cross_raven_countdown") and caster.cross_raven_target then
 					convergeBullet(caster, bullet)
 				end
 			end
@@ -137,16 +138,18 @@ function triggerBulletsConverge(keys)
 	local caster = keys.caster
 	local ability = keys.ability
 
-	Timers:CreateTimer(0, function()
-		if caster.cross_raven_bullets then
-			caster.cross_raven_bullet_speed = caster.cross_raven_bullet_speed + ability:GetSpecialValueFor("inward_bullet_travel_speed_increase") * 1/30
-			return 1/30
-		end
-	end)
+	if caster.cross_raven_bullets and caster.cross_raven_target then
+		Timers:CreateTimer(0, function()
+			if caster.cross_raven_bullets then
+				caster.cross_raven_bullet_speed = caster.cross_raven_bullet_speed + ability:GetSpecialValueFor("inward_bullet_travel_speed_increase") * 1/30
+				return 1/30
+			end
+		end)
 
-	for k,bullet in pairs(caster.cross_raven_bullets) do
-		if not bullet.target_point then
-			convergeBullet(caster, bullet)
+		for k,bullet in pairs(caster.cross_raven_bullets) do
+			if not bullet.target_point then
+				convergeBullet(caster, bullet)
+			end
 		end
 	end
 end
@@ -223,18 +226,19 @@ function bulletImpacted(keys)
 		caster.cross_raven_target = nil
 		caster.cross_raven_bullet_speed = nil
 		caster.cross_raven_retargets = nil
-		caster:SwapAbilities("cross_raven_retarget", "cross_raven", false, true)
+		if ability:IsHidden() then caster:SwapAbilities("cross_raven_retarget", "cross_raven", false, true) end
 	end
 end
 
 function fizzleBullets(caster)
-	for k,bullet in pairs(caster.cross_raven_bullets) do
-		bullet:RemoveSelf()
-	end
-	caster.cross_raven_bullets = nil
 	caster.cross_raven_max_cp = nil
 	caster.cross_raven_target = nil
 	caster.cross_raven_bullet_speed = nil
 	caster.cross_raven_retargets = nil
 	caster:RemoveModifierByName("modifier_cross_raven_countdown")
+	for k,bullet in pairs(caster.cross_raven_bullets) do
+		bullet:RemoveSelf()
+	end
+	caster.cross_raven_bullets = nil
+	if caster:FindAbilityByName("cross_raven"):IsHidden() then caster:SwapAbilities("cross_raven_retarget", "cross_raven", false, true) end
 end
