@@ -6,7 +6,7 @@ function OnRoundRecapStart(msg) {
 	$.GetContextPanel().SetHasClass("Visible", true);
 
 	var heroesContainer = $("#heroes_list");
-	$.Msg(msg)
+	// $.Msg(msg)
 	heroesContainer.RemoveAndDeleteChildren()
 	for (var i in msg.heroes) {
 		$.Msg(msg.heroes)
@@ -19,6 +19,8 @@ function CreateHeroPanel(hero, parent) {
 
 	var heroPanel = $.CreatePanel("Panel", parent, hero_name);
 	heroPanel.SetAttributeString("hero_name", hero_name);
+	$.Msg("Player Index: ", hero.player)
+	heroPanel.SetAttributeInt("player_index", hero.player)
 	heroPanel.BLoadLayout("file://{resources}/layout/custom_game/round_recap_hero.xml", false, false);
 
 	for (var i in hero.abilities) {

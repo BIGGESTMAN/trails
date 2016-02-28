@@ -68,7 +68,7 @@
 	flow-children: down;
 }
 
-.RoundRecapHero #HeroName {
+.RoundRecapHero #PlayerName {
 	horizontal-align: center;
 	text-align: center;
 	font-size: 25px;

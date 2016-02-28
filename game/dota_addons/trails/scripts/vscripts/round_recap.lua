@@ -22,7 +22,7 @@ function Round_Recap:AddAbilityDamage(hero, ability, damage)
 	hero_index = hero:GetEntityIndex()
 	if ability then ability_name = ability:GetAbilityName() end
 
-	if not self.heroes[hero_index] then self.heroes[hero_index] = {name = hero:GetUnitName(), abilities = {}} end
+	if not self.heroes[hero_index] then self.heroes[hero_index] = {name = hero:GetUnitName(), abilities = {}, player = hero:GetPlayerOwnerID()} end
 	if not self.heroes[hero_index].abilities[ability_name] then self.heroes[hero_index].abilities[ability_name] = {name = ability_name, damage = 0} end
 	self.heroes[hero_index].abilities[ability_name].damage = self.heroes[hero_index].abilities[ability_name].damage + damage
 end

@@ -54,7 +54,7 @@ for fname in filenames:
 			if (line[:len("CP Cost : ")] == "CP Cost : "):
 				ability['CP_Cost'] = "\n<font color='#01DF01'>{}</font>".format(line)
 
-			if ("Delay" in line):
+			if (line[:len("Delay : ")] == "Delay : "):
 				nil, ability['delay'] = line.split(': ')
 				continue
 			

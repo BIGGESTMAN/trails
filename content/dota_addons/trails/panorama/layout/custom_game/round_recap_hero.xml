@@ -4,15 +4,27 @@
 		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
 	</styles>
 	<script>
+		function RGBAPlayerColor(id) {
+			var abgr = Players.GetPlayerColor(id).toString(16)
+			var rgba = abgr.substring(6,8) + abgr.substring(4,6) + abgr.substring(2,4) + abgr.substring(0,2)
+			return rgba
+		}
+
 		(function () {
 			var hero_name = $.GetContextPanel().GetAttributeString("hero_name", "");
+			var player_index = $.GetContextPanel().GetAttributeInt("player_index", 0);
+			var player_name = Players.GetPlayerName(player_index)
+			var player_color = "#" + RGBAPlayerColor(player_index)
 
-			$("#HeroName").text = $.Localize(hero_name);
+			<!-- $("#HeroName").text = $.Localize(hero_name); -->
+			$("#PlayerName").text = player_name
+			$.Msg(hero_name,",",player_index, ",", player_name, ",", player_color)
+			$("#PlayerName").style.color = player_color
 			$("#Portrait").style.backgroundImage = "url('file://{resources}/images/heroes/" + hero_name + ".png')"
 		})();
 	</script>
 	<Panel hittest="false" class="RoundRecapHero">
-		<Label hittest="false" id="HeroName"/>
+		<Label hittest="false" id="PlayerName"/>
 		<Panel id="Portrait" background-image="url('file://{resources}/images/heroes/npc_dota_hero_ember_spirit.png')"/>
 		<Panel id="abilities_list"/>
 	</Panel>
