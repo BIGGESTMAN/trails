@@ -20,6 +20,15 @@
 			<Label hittest="false" class="SubHeader" text="#infotext_subheader_3" />
 			<Label hittest="false" class="Text" html="true" text="#infotext_text_3" />
 
+			<Label hittest="false" class="TrailspediaHeader" html="true" text="#trailspedia_header"/>
+			<Label hittest="false" class="TrailspediaText" html="true" text="#trailspedia_insight" />
+			<Label hittest="false" class="TrailspediaText" html="true" text="#trailspedia_passion" />
+			<Label hittest="false" class="TrailspediaText" html="true" text="#trailspedia_cp_boost" />
+			<Label hittest="false" class="TrailspediaText" html="true" text="#trailspedia_burn" />
+			<Label hittest="false" class="TrailspediaText" html="true" text="#trailspedia_freeze" />
+			<Label hittest="false" class="TrailspediaText" html="true" text="#trailspedia_confuse" />
+			<Label hittest="false" class="TrailspediaText" html="true" text="#trailspedia_nightmare" />
+			<Label hittest="false" class="TrailspediaText" html="true" text="#trailspedia_deathblow" />
 
 			<Button hittest="true" id="OKButton" class="ButtonBevel" onactivate="OnInfoTextOKClicked()">
 				<Label id="ReadyButtonText" text="#infotext_ok" />
@@ -28,6 +37,9 @@
 		</Panel>
 		<Button hittest="true" id="SlideButton" onactivate="OnInfoTextWindowToggled()">
 			<Label hittest="false" id="SlideButtonText" text="&lt;&lt;"/>
+		</Button>
+		<Button hittest="true" id="PageToggleButton" onactivate="OnInfoTextPageChanged()">
+			<Label hittest="false" id="PageToggleText" text="Status Effects"/>
 		</Button>
 	</Panel>
 </root>

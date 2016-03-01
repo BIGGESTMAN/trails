@@ -3,7 +3,7 @@
 	height: 100%;
 	opacity: 1;
 	visibility: visible;
-	flow-children: right;
+	/*flow-children: right;*/
 	transition-property: transform;
     transition-duration: 0.5s;
 }
@@ -53,7 +53,7 @@
 	visibility: visible;
 }
 
-.InfoTextWindow #Header, .InfoTextWindow .SubHeader {
+.InfoTextWindow #Header, .InfoTextWindow .SubHeader, .InfoTextWindow .TrailspediaHeader {
 	font-family: Goudy Trajan;
 	font-size: 22px;
 	
@@ -75,7 +75,7 @@
 	color: #d0d0d0;
 }
 
-.InfoTextWindow .Text, .InfoTextWindow .TipsText {
+.InfoTextWindow .Text, .InfoTextWindow .TrailspediaText {
 	font-family: Radiance;
 	font-size: 16px;
 	color: #b0b0b0;
@@ -89,8 +89,21 @@
 	text-align: center;
 }
 
-.InfoTextWindow .TipsText {
+.InfoTextContainer.TrailspediaActive .Text, .InfoTextContainer.TrailspediaActive .SubHeader, .InfoTextContainer.TrailspediaActive #Header {
+	visibility: collapse;
+}
+
+.InfoTextContainer .TrailspediaText {
 	text-align: left;
+	font-size: 14px;
+}
+
+.InfoTextContainer .TrailspediaText, .InfoTextContainer .TrailspediaHeader {
+	visibility: collapse;
+}
+
+.InfoTextContainer.TrailspediaActive .TrailspediaText, .InfoTextContainer.TrailspediaActive .TrailspediaHeader {
+	visibility: visible;
 }
 
 .InfoTextContainer #SlideButton {
@@ -108,11 +121,37 @@
 	/*border-left: 1px solid #ffffff06;*/
 	border-right: 2px solid #ffffff06;
 	border-bottom: 2px solid #101010;
+	position: 400px 0px 0px;
 }
 
 .InfoTextContainer #SlideButtonText {
 	font-family: Goudy Trajan;
 	font-size: 22px;
+	text-align: center;
+	vertical-align: center;
+	horizontal-align: center;
+}
+
+.InfoTextContainer #PageToggleButton {
+	horizontal-align: left;
+	vertical-align: top;
+	position: 290px 75px 0px;
+	height: 25px;
+	width: 100px;
+	opacity: 1;
+	visibility: visible;
+	transform: translate3d(20px, 0px, 0px);
+	background-color: gradient( linear, 0% 0%, 0% 100%, from( #32393e ), to( #151515 ) );
+	/*box-shadow: #000000df -4px -4px 2px 8px;*/
+	border-top: 1px solid #ffffff10;
+	border-left: 1px solid #ffffff06;
+	border-right: 1px solid #ffffff06;
+	border-bottom: 1px solid #101010;
+}
+
+.InfoTextContainer #PageToggleText {
+	font-family: Goudy Trajan;
+	font-size: 12px;
 	text-align: center;
 	vertical-align: center;
 	horizontal-align: center;

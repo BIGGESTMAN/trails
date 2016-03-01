@@ -43,6 +43,17 @@ function OnInfoTextWindowToggled() {
 	}
 }
 
+function OnInfoTextPageChanged() {
+	var currently_trailspedia = $.GetContextPanel().BHasClass("TrailspediaActive") 
+	$.GetContextPanel().SetHasClass("TrailspediaActive", !currently_trailspedia);
+	if (currently_trailspedia) {
+		$("#PageToggleText").text = "Status Effects"
+	}
+	else {
+		$("#PageToggleText").text = "General Info"
+	}
+}
+
 (function () {
 	GameEvents.Subscribe("infotext_start", OnInfoTextStart);
 	GameEvents.Subscribe("infotext_start_secondary_rounds", OnInfoTextStartSecondary);

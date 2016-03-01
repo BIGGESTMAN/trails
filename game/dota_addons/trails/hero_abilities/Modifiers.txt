@@ -16,7 +16,7 @@ Modifiers
 ~ Burned (modifier_burn) : On fire, losing 3%% of max HP each second.
 ~ Insight (modifier_insight) : Evading physical attacks, up to once per second.
 ~ Passion (modifier_passion) : Rapidly gaining CP.
-~ Frozen (modifier_freeze) : All actions are delayed by 1 second, and will lose 10%% of max HP when the freeze ends.
+~ Frozen (modifier_freeze) : All actions are delayed by 0.6 seconds, and will lose 10%% of max HP when the freeze ends.
 ~ Confused (modifier_confuse) : Uncontrollable, and randomly attacking nearby units.
 ~ Nightmare (modifier_nightmare) : Disabled and unable to act; when the nightmare ends, a random non-sleep debuff will be applied for 3 seconds. Ends early if damage is taken.
 ~ Deathblow (modifier_deathblow) : Will die instantly if unit falls below 15%% of max HP.
