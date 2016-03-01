@@ -7,22 +7,27 @@
 	<scripts>
 		<include src="s2r://panorama/scripts/custom_game/infotext.js" />
 	</scripts>
-	<Panel hittest="false" class="InfoTextWindow TrailsGenericWindow">
-		<Label hittest="false" id="Header" text="#infotext_header" />
-		<Label hittest="false" class="SubHeader" text="#infotext_subheader_1" />
-		<Label hittest="false" class="Text" html="true" text="#infotext_text_1" />
+	<Panel hittest="false" class="InfoTextContainer">
+		<Panel hittest="false" id="InfoTextWindow" class="InfoTextWindow TrailsGenericWindow">
+			<Label hittest="false" id="Header" text="#infotext_header" />
+			<Label hittest="false" class="SubHeader" text="#infotext_subheader_1" />
+			<Label hittest="false" class="Text" html="true" text="#infotext_text_1" />
 
-		<!-- <Label hittest="false" class="SubHeader" text="#preboss_nextboss_header" /> -->
+			<!-- <Label hittest="false" class="SubHeader" text="#preboss_nextboss_header" /> -->
 
-		<Label hittest="false" class="SubHeader" text="#infotext_subheader_2" />
-		<Label hittest="false" class="Text" html="true" text="#infotext_text_2" />
-		<Label hittest="false" class="SubHeader" text="#infotext_subheader_3" />
-		<Label hittest="false" class="Text" html="true" text="#infotext_text_3" />
+			<Label hittest="false" class="SubHeader" text="#infotext_subheader_2" />
+			<Label hittest="false" class="Text" html="true" text="#infotext_text_2" />
+			<Label hittest="false" class="SubHeader" text="#infotext_subheader_3" />
+			<Label hittest="false" class="Text" html="true" text="#infotext_text_3" />
 
 
-		<Button hittest="true" id="OKButton" class="ButtonBevel" onactivate="OnInfoTextOKClicked()">
-			<Label id="ReadyButtonText" text="#infotext_ok" />
+			<Button hittest="true" id="OKButton" class="ButtonBevel" onactivate="OnInfoTextOKClicked()">
+				<Label id="ReadyButtonText" text="#infotext_ok" />
+			</Button>
+			<Label hittest="false" id="ReadyText" html="false" text="#you_are_ready" />
+		</Panel>
+		<Button hittest="true" id="SlideButton" onactivate="OnInfoTextWindowToggled()">
+			<Label hittest="false" id="SlideButtonText" text="&lt;&lt;"/>
 		</Button>
-		<Label hittest="false" id="ReadyText" html="false" text="#you_are_ready" />
 	</Panel>
 </root>

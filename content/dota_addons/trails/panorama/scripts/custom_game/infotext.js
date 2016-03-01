@@ -3,32 +3,44 @@
 var seen_tutorials = {}
 
 function OnInfoTextStart(msg) {
-	$.GetContextPanel().SetHasClass("ReadiedUp", false);
-	$.GetContextPanel().SetHasClass("Visible", true);
+	$("#InfoTextWindow").SetHasClass("ReadiedUp", false);
+	$("#InfoTextWindow").SetHasClass("Visible", true);
 }
 
 function OnInfoTextStartSecondary(msg) {
-	$.GetContextPanel().SetHasClass("ReadiedUp", false);
-	$.GetContextPanel().SetHasClass("Visible", true);
+	$("#InfoTextWindow").SetHasClass("ReadiedUp", false);
+	$("#InfoTextWindow").SetHasClass("Visible", true);
 	$("#ReadyButtonText").text = $.Localize("infotext_ok_secondary")
-	for (var i in $.GetContextPanel().Children()) {
+	for (var i in $("#InfoTextWindow").Children()) {
 		if (i < 6) {
-			$.GetContextPanel().Children()[i].visible = false
+			$("#InfoTextWindow").Children()[i].visible = false
 		}
 		else if (i == 6) {
-			$.GetContextPanel().Children()[i].text = $.Localize("infotext_text_secondary")
+			$("#InfoTextWindow").Children()[i].text = $.Localize("infotext_text_secondary")
 		}
 	}
 }
 
 function OnInfoTextOKClicked() {
-	$.GetContextPanel().SetHasClass("ReadiedUp", true);
+	$("#InfoTextWindow").SetHasClass("ReadiedUp", true);
 	$.Msg("OnInfoTextOKClicked --------------")
 	GameEvents.SendCustomGameEventToServer("infotext_ok", {} )
 }
 
 function OnInfoTextRemove() {
-	$.GetContextPanel().SetHasClass("Visible", false);
+	$.GetContextPanel().SetHasClass("Hidden", true);
+	$("#SlideButtonText").text = ">>"
+}
+
+function OnInfoTextWindowToggled() {
+	var currently_hidden = $.GetContextPanel().BHasClass("Hidden") 
+	$.GetContextPanel().SetHasClass("Hidden", !currently_hidden);
+	if (currently_hidden) {
+		$("#SlideButtonText").text = "<<"
+	}
+	else {
+		$("#SlideButtonText").text = ">>"
+	}
 }
 
 (function () {
