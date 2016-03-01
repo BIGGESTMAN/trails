@@ -52,6 +52,9 @@
 .InfoTextWindow.ReadiedUp #ReadyText {
 	visibility: visible;
 }
+.InfoTextWindow.GameStarted #ReadyText, .InfoTextWindow.GameStarted #OKButton {
+	visibility: collapse;
+}
 
 .InfoTextWindow #Header, .InfoTextWindow .SubHeader, .InfoTextWindow .TrailspediaHeader {
 	font-family: Goudy Trajan;
@@ -116,11 +119,11 @@
 	margin-bottom: 500px;
 	transform: translate3d(20px, 0px, 0px);
 	background-color: gradient( linear, 0% 0%, 0% 100%, from( #32393e ), to( #151515 ) );
-	/*box-shadow: #000000df -4px -4px 2px 8px;*/
-	border-top: 2px solid #ffffff10;
+	box-shadow: #000000df -4px -4px 2px 8px;
+	border-top: 1px solid #ffffff10;
 	/*border-left: 1px solid #ffffff06;*/
-	border-right: 2px solid #ffffff06;
-	border-bottom: 2px solid #101010;
+	border-right: 1px solid #ffffff06;
+	border-bottom: 1px solid #101010;
 	position: 400px 0px 0px;
 }
 

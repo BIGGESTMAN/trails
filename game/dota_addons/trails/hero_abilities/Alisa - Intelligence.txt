@@ -52,7 +52,7 @@ Note0 (note0) : Rains 20 total arrows down over 3 seconds.
 Note1 (note1) : Arrow impacts have 150 radius.
 CP Cost : 40
 
-[D] Heavenly Gift (heavenly_gift) : Alisa grants allies in an area Insight and Passion.\n\nInsight allows evasion of physical damage once per second. Passion grants gradual CP regeneration.\n\nIf in the area of effect, Alisa gains Insight but not Passion.
+[D] Heavenly Gift (heavenly_gift) : Alisa grants allies in an area Insight and Passion.\n\nIf in the area of effect, Alisa gains Insight but not Passion.
 Enhanced : Instantly drains the target's CP in order to gradually restore CP of allies around Alisa.
 
 Cast Point : 0.3

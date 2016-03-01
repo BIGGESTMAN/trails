@@ -8,6 +8,9 @@
 		<include src="s2r://panorama/scripts/custom_game/infotext.js" />
 	</scripts>
 	<Panel hittest="false" class="InfoTextContainer">
+		<Button hittest="true" id="SlideButton" onactivate="OnInfoTextWindowToggled()">
+			<Label hittest="false" id="SlideButtonText" text="&lt;&lt;"/>
+		</Button>
 		<Panel hittest="false" id="InfoTextWindow" class="InfoTextWindow TrailsGenericWindow">
 			<Label hittest="false" id="Header" text="#infotext_header" />
 			<Label hittest="false" class="SubHeader" text="#infotext_subheader_1" />
@@ -35,9 +38,6 @@
 			</Button>
 			<Label hittest="false" id="ReadyText" html="false" text="#you_are_ready" />
 		</Panel>
-		<Button hittest="true" id="SlideButton" onactivate="OnInfoTextWindowToggled()">
-			<Label hittest="false" id="SlideButtonText" text="&lt;&lt;"/>
-		</Button>
 		<Button hittest="true" id="PageToggleButton" onactivate="OnInfoTextPageChanged()">
 			<Label hittest="false" id="PageToggleText" text="Status Effects"/>
 		</Button>

@@ -29,6 +29,8 @@ function OnInfoTextOKClicked() {
 
 function OnInfoTextRemove() {
 	$.GetContextPanel().SetHasClass("Hidden", true);
+	$("#InfoTextWindow").SetHasClass("GameStarted", true)
+	$("#InfoTextWindow").SetHasClass("ReadiedUp", false)
 	$("#SlideButtonText").text = ">>"
 }
 
