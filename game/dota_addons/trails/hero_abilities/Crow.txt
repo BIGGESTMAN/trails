@@ -57,7 +57,7 @@ Confuse Range (confuse_range) : 600
 %Enhanced Second Shot Damage (unbalanced_secondary_damage_percent) : 125%
 CP Cost : 45
 
-[R] Cross Raven (cross_raven) : Crow unleashes bullets in all directions, which home into an area after a delay and detonate to deal physical damage. Enemies away from the center take decreased damage. Can be cast again up to 2 times to alter their destination, their travel speed increasing over time.
+[R] Cross Raven (cross_raven) : S-Craft: Crow unleashes bullets in all directions, which home into an area after a delay and detonate to deal physical damage. Enemies away from the center take decreased damage. Can be cast again up to 2 times to alter their destination, their travel speed increasing over time.
 200 CP Bonus : Deals more damage. All enemies hit are put into a Nightmare, and enemies that take maximum damage suffer a Deathblow.
 DevNotes - On cast, he fires bullets away from him over 1 second, each with adjusted travel speed so they're all 1000 radius away from him at 1.5 seconds. Earlier bullets can pause at 1000 radius to achieve this. The travel speed and travel speed increase below is applied once they begin their return. The final/slowest bullet is the 'real' one, be loose with the others for visual fanciness but that one can be reliably used to time the damage on reaching their destination etc.
 

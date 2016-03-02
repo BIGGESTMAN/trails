@@ -25,9 +25,6 @@
 			<Panel class="Inner">
 				<Label id="HeroName" text="" />
 				<Label id="HeroDescription" text="" />
-<!-- 
-				<Label class="Header" text="#HeroSelect_Passive"/>
-				<Panel class="HeroAbilityContainer" id="HeroPassiveAbilityContainer" /> -->
 				<Panel class="HeaderContainer">
 					<Label id="CraftsHeader" class="Header" text="#HeroSelect_Abilities"/>
 					<Label id="CraftsTooltip" class="Tooltip" text="#HeroSelect_Crafts_Tooltip"/>
