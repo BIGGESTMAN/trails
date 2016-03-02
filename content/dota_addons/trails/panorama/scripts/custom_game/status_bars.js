@@ -24,8 +24,7 @@ function OnStatusBarsUpdate(data) {
 	var first_bar_full = Math.min(data.cp, 100)
 	if (second_bar_full > 0) {
 		first_bar_full = 100 - second_bar_full
-		status_bar.Children()[0].style.position = (status_bar.actuallayoutwidth * second_bar_full / 100) + "px 0px 0px" 
-		// $.Msg(second_bar_full, ", ", status_bar.Children()[0].style.position, ", ", status_bar.actuallayoutwidth)
+		status_bar.Children()[0].style.position = second_bar_full + "% 0px 0px"
 	}
 	else {
 		status_bar.Children()[0].style.position = "0px 0px 0px" 

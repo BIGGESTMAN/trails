@@ -97,7 +97,7 @@ function OnResourceBarsUpdate(data) {
 	// $.Msg(cpBarBackground)
 	if (second_cp_bar_full > 0) {
 		first_cp_bar_full = 100 - second_cp_bar_full
-		cpBar.style.position = "0px -" + (cpBarBackground.actuallayoutheight * second_cp_bar_full / 100) + "px 0px"
+		cpBar.style.position = "0px -" + second_cp_bar_full + "% 0px"
 	}
 	else {
 		cpBar.style.position = "0px 0px 0px" 
