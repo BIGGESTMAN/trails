@@ -86,7 +86,7 @@ function fireShot(caster, area_center, damage_scale, quadrant)
 	local iOrder = FIND_ANY_ORDER
 	local targets = FindUnitsInRadius(team, target_point, nil, damage_radius, iTeam, iType, iFlag, iOrder, false)
 	for k,unit in pairs(targets) do
-		dealScalingDamage(unit, caster, damage_type, damage_scale, ability)
+		dealScalingDamage(unit, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR)
 		increaseUnbalance(caster, unit)
 		if not caster.rapid_volley_targets_hit[unit] then
 			ability:ApplyDataDrivenModifier(caster, unit, "modifier_rapid_volley_bullet_slow", {})

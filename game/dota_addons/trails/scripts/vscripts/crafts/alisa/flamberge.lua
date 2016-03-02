@@ -56,7 +56,7 @@ function flambergeHit(caster, unit, other_args)
 
 	if other_args.crit then damage_scale = damage_scale * 2 end
 
-	dealScalingDamage(unit, caster, damage_type, damage_scale, ability)
+	dealScalingDamage(unit, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR)
 	increaseUnbalance(caster, unit, bonus_unbalance)
 	unit:AddNewModifier(caster, ability, "modifier_burn", {duration = duration})
 	unit:Interrupt()
@@ -107,7 +107,7 @@ function createFireField(caster, location, crit)
 		local iOrder = FIND_ANY_ORDER
 		local targets = FindUnitsInRadius(team, location, nil, radius, iTeam, iType, iFlag, iOrder, false)
 		for k,unit in pairs(targets) do
-			dealScalingDamage(unit, caster, damage_type, damage_scale)
+			dealScalingDamage(unit, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR)
 			ability:ApplyDataDrivenModifier(caster, unit, "modifier_flamberge_silence", {})
 		end
 		duration_elapsed = duration_elapsed + damage_interval

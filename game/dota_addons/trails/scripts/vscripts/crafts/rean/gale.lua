@@ -79,7 +79,7 @@ function hitTarget(caster, direction, speed, target, other_args)
 			target:AddNewModifier(caster, ability, "modifier_gale_slow", {duration = slow_duration})
 		end
 		if other_args.crit then damage_scale = damage_scale * 2 end
-		dealScalingDamage(target, caster, damage_type, damage_scale, ability)
+		dealScalingDamage(target, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR)
 		increaseUnbalance(caster, target, bonus_unbalance)
 		ability:ApplyDataDrivenModifier(caster, target, "modifier_gale_disarm", {})
 		ParticleManager:CreateParticle("particles/units/heroes/hero_bounty_hunter/bounty_hunter_jinda_slow.vpcf", PATTACH_ABSORIGIN, target)

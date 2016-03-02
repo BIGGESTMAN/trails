@@ -55,7 +55,7 @@ function freezingBulletHit(caster, unit, other_args)
 	local damage_type = ability:GetAbilityDamageType()
 	local freeze_duration = other_args.freeze_duration
 
-	dealScalingDamage(unit, caster, damage_type, damage_scale, ability)
+	dealScalingDamage(unit, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR)
 	increaseUnbalance(caster, unit)
 	unit:AddNewModifier(caster, ability, "modifier_freeze", {duration = freeze_duration})
 end
