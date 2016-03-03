@@ -53,6 +53,7 @@
 	"current_turn_bonus"							"Current Turn Bonus:"
 
 	"round_recap_header"							"Round Recap (Damage Dealt)"
+	"round_recap_close"								"Close"
 	"round_recap_ready"								"Ready For Next Round"
 
 	"quest_time_round_starting"						"Round starts"

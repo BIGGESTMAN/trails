@@ -46,6 +46,7 @@ function Turn_Bonuses:Initialize()
 end
 
 function Turn_Bonuses:StartRound(round)
+	CustomGameEventManager:Send_ServerToAllClients("turn_bonus_display_start", {})
 	self.next_bonus = self:RandomBonus(round)
 	self:UpdateTurnBonusDisplay()
 	Timers:CreateTimer("turn_bonuses_spawn", {
@@ -150,6 +151,7 @@ function Turn_Bonuses:EndRound()
 	Timers:RemoveTimer("turn_bonuses_spawn")
 	Timers:RemoveTimer("turn_bonuses_pickup_check")
 	self:RemoveBonus()
+	CustomGameEventManager:Send_ServerToAllClients("turn_bonus_display_hide", {})
 end
 
 function Turn_Bonuses:UpdateTurnBonusDisplay()

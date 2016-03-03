@@ -4,6 +4,10 @@ function OnTurnBonusDisplayStart(data) {
 	$.GetContextPanel().SetHasClass("Visible", true);
 }
 
+function OnTurnBonusDisplayHide(data) {
+	$.GetContextPanel().SetHasClass("Visible", false);
+}
+
 function OnTurnBonusDisplayUpdate(data) {
 	var turn_bonus_display = $.GetContextPanel()
 
@@ -31,5 +35,6 @@ function OnTurnBonusDisplayTick(data) {
 	GameEvents.Subscribe("turn_bonus_display_start", OnTurnBonusDisplayStart);
 	GameEvents.Subscribe("turn_bonus_display_update", OnTurnBonusDisplayUpdate);
 	GameEvents.Subscribe("turn_bonus_display_tick", OnTurnBonusDisplayTick);
+	GameEvents.Subscribe("turn_bonus_display_hide", OnTurnBonusDisplayHide);
 })();
 

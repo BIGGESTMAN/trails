@@ -7,8 +7,287 @@
 		"BaseClass"           "item_datadriven"
 	}
 
-	"item_fire_bolt" {
+	"item_earth_lance" {
 		"ID"	"2001"
+		"BaseClass"	"item_datadriven"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"Model"	"models/props_gameplay/red_box.vmdl"
+		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
+		"AbilityTextureName"	"item_quartz_earth_1"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_1"
+		"ItemAliases"	"earth_lance"
+		"AbilityCooldown"	"3"
+		"AbilityCastPoint"	"1"
+		"AbilityManaCost"	"60"
+		"AbilityChannelTime"	"0"
+		"ItemCost"	"0"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemDeclarations"	"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemShareability"	"ITEM_NOT_SHAREABLE"
+		"AbilitySpecial" {
+			"00" {
+				"var_type"	"FIELD_INTEGER"
+				"damage_percent"	"120%"
+			}
+			"00" {
+				"var_type"	"FIELD_INTEGER"
+				"duration"	"2"
+			}
+		}
+		"OnSpellStart" {
+			"RunScript" {
+				"ScriptFile"	"arts/earth"
+				"Function"	"earthlanceSpellCast"
+			}
+		}
+		"Modifiers" {
+			"modifier_item_earth_lance_passive" {
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"Properties" {
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"	"%bonus_str"
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%bonus_def"
+				}
+			}
+		}
+	}
+	"item_earth_grow" {
+		"ID"	"2002"
+		"BaseClass"	"item_datadriven"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"Model"	"models/props_gameplay/red_box.vmdl"
+		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
+		"AbilityTextureName"	"item_quartz_earth_1"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_1"
+		"ItemAliases"	"earth_grow"
+		"AbilityCooldown"	"3"
+		"AbilityCastPoint"	"1.5"
+		"AbilityCastRange"	"600"
+		"AbilityManaCost"	"30"
+		"AbilityChannelTime"	"0"
+		"ItemCost"	"0"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemDeclarations"	"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemShareability"	"ITEM_NOT_SHAREABLE"
+		"AbilitySpecial" {
+			"00" {
+				"var_type"	"FIELD_INTEGER"
+				"duration"	"10"
+			}
+			"00" {
+				"var_type"	"FIELD_INTEGER"
+				"tooltip_cast_range"	"600"
+			}
+		}
+		"OnSpellStart" {
+			"RunScript" {
+				"ScriptFile"	"arts/earth"
+				"Function"	"earthgrowSpellCast"
+			}
+		}
+		"Modifiers" {
+			"modifier_item_earth_grow_passive" {
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"Properties" {
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"	"%bonus_str"
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%bonus_def"
+				}
+			}
+		}
+	}
+	"item_yggdrasil" {
+		"ID"	"2003"
+		"BaseClass"	"item_datadriven"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"Model"	"models/props_gameplay/red_box.vmdl"
+		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
+		"AbilityTextureName"	"item_quartz_earth_1"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_1"
+		"ItemAliases"	"yggdrasil"
+		"AbilityCooldown"	"6"
+		"AbilityCastPoint"	"2"
+		"AbilityCastRange"	"400"
+		"AbilityManaCost"	"240"
+		"AbilityChannelTime"	"0"
+		"ItemCost"	"0"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemDeclarations"	"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemShareability"	"ITEM_NOT_SHAREABLE"
+		"AbilitySpecial" {
+			"00" {
+				"var_type"	"FIELD_INTEGER"
+				"damage_percent"	"70%"
+			}
+			"00" {
+				"var_type"	"FIELD_INTEGER"
+				"tooltip_cast_range"	"400"
+			}
+		}
+		"OnSpellStart" {
+			"RunScript" {
+				"ScriptFile"	"arts/earth"
+				"Function"	"yggdrasilSpellCast"
+			}
+		}
+		"Modifiers" {
+			"modifier_item_yggdrasil_passive" {
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"Properties" {
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"	"%bonus_str"
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%bonus_def"
+				}
+			}
+		}
+	}
+	"item_aqua_bleed" {
+		"ID"	"2004"
+		"BaseClass"	"item_datadriven"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"Model"	"models/props_gameplay/red_box.vmdl"
+		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
+		"AbilityTextureName"	"item_quartz_water_1"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_1"
+		"ItemAliases"	"aqua_bleed"
+		"AbilityCooldown"	"3"
+		"AbilityCastPoint"	"1"
+		"AbilityCastRange"	"600"
+		"AbilityManaCost"	"20"
+		"AbilityChannelTime"	"0"
+		"ItemCost"	"0"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemDeclarations"	"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemShareability"	"ITEM_NOT_SHAREABLE"
+		"AbilitySpecial" {
+			"00" {
+				"var_type"	"FIELD_INTEGER"
+				"damage_percent"	"200%"
+			}
+			"00" {
+				"var_type"	"FIELD_INTEGER"
+				"tooltip_cast_range"	"600"
+			}
+		}
+		"OnSpellStart" {
+			"RunScript" {
+				"ScriptFile"	"arts/water"
+				"Function"	"aquableedSpellCast"
+			}
+		}
+		"Modifiers" {
+			"modifier_item_aqua_bleed_passive" {
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"Properties" {
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"	"%bonus_str"
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%bonus_def"
+				}
+			}
+		}
+	}
+	"item_thelas" {
+		"ID"	"2005"
+		"BaseClass"	"item_datadriven"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"Model"	"models/props_gameplay/red_box.vmdl"
+		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
+		"AbilityTextureName"	"item_quartz_water_1"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_1"
+		"ItemAliases"	"thelas"
+		"AbilityCooldown"	"7"
+		"AbilityCastPoint"	"2"
+		"AbilityCastRange"	"600"
+		"AbilityManaCost"	"50"
+		"AbilityChannelTime"	"0"
+		"ItemCost"	"0"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemDeclarations"	"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemShareability"	"ITEM_NOT_SHAREABLE"
+		"AbilitySpecial" {
+			"00" {
+				"var_type"	"FIELD_INTEGER"
+				"tooltip_cast_range"	"600"
+			}
+		}
+		"OnSpellStart" {
+			"RunScript" {
+				"ScriptFile"	"arts/water"
+				"Function"	"thelasSpellCast"
+			}
+		}
+		"Modifiers" {
+			"modifier_item_thelas_passive" {
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"Properties" {
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"	"%bonus_str"
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%bonus_def"
+				}
+			}
+		}
+	}
+	"item_crystal_flood" {
+		"ID"	"2006"
+		"BaseClass"	"item_datadriven"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"Model"	"models/props_gameplay/red_box.vmdl"
+		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
+		"AbilityTextureName"	"item_quartz_water_1"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_1"
+		"ItemAliases"	"crystal_flood"
+		"AbilityCooldown"	"6"
+		"AbilityCastPoint"	"2"
+		"AbilityCastRange"	"500"
+		"AbilityManaCost"	"220"
+		"AbilityChannelTime"	"0"
+		"ItemCost"	"0"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemDeclarations"	"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemShareability"	"ITEM_NOT_SHAREABLE"
+		"AbilitySpecial" {
+			"00" {
+				"var_type"	"FIELD_INTEGER"
+				"tooltip_cast_range"	"500"
+			}
+		}
+		"OnSpellStart" {
+			"RunScript" {
+				"ScriptFile"	"arts/water"
+				"Function"	"crystalfloodSpellCast"
+			}
+		}
+		"Modifiers" {
+			"modifier_item_crystal_flood_passive" {
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"Properties" {
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"	"%bonus_str"
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%bonus_def"
+				}
+			}
+		}
+	}
+	"item_fire_bolt" {
+		"ID"	"2007"
 		"BaseClass"	"item_datadriven"
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
 		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
@@ -18,11 +297,11 @@
 		"AbilityTextureName"	"item_quartz_fire_1"
 		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_1"
 		"ItemAliases"	"fire_bolt"
-		"AbilityCooldown"	"0"
-		"AbilityCastPoint"	"0"
-		"AbilityCastRange"	"800"
+		"AbilityCooldown"	"3"
+		"AbilityCastPoint"	"1"
+		"AbilityCastRange"	"550"
 		"AbilityManaCost"	"20"
-		"AbilityChannelTime"	"0.5"
+		"AbilityChannelTime"	"0"
 		"ItemCost"	"0"
 		"ItemDroppable"	"1"
 		"ItemSellable"	"1"
@@ -31,27 +310,15 @@
 		"AbilitySpecial" {
 			"00" {
 				"var_type"	"FIELD_INTEGER"
-				"damage_percent"	"200"
+				"damage_percent"	"200%"
 			}
 			"00" {
 				"var_type"	"FIELD_INTEGER"
-				"tooltip_cast_range"	"800"
+				"duration"	"2"
 			}
 			"00" {
 				"var_type"	"FIELD_INTEGER"
-				"burn_chance"	"20"
-			}
-			"00" {
-				"var_type"	"FIELD_INTEGER"
-				"burn_duration"	"5"
-			}
-			"00" {
-				"var_type"	"FIELD_INTEGER"
-				"bonus_str"	"10"
-			}
-			"00" {
-				"var_type"	"FIELD_INTEGER"
-				"bonus_def"	"1"
+				"tooltip_cast_range"	"550"
 			}
 		}
 		"OnSpellStart" {
@@ -71,423 +338,35 @@
 			}
 		}
 	}
-	"item_heatwave" {
-		"ID"	"2002"
-		"BaseClass"	"item_datadriven"
-		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_CHANNELED"
-		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
-		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-		"Model"	"models/props_gameplay/red_box.vmdl"
-		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
-		"AbilityTextureName"	"item_quartz_fire_1"
-		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_1"
-		"ItemAliases"	"heatwave"
-		"AbilityCooldown"	"0"
-		"AbilityCastPoint"	"0"
-		"AbilityCastRange"	"800"
-		"AbilityManaCost"	"50"
-		"AbilityChannelTime"	"1.5"
-		"ItemCost"	"0"
-		"ItemDroppable"	"1"
-		"ItemSellable"	"1"
-		"ItemDeclarations"	"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
-		"ItemShareability"	"ITEM_NOT_SHAREABLE"
-		"AbilitySpecial" {
-			"00" {
-				"var_type"	"FIELD_INTEGER"
-				"damage_percent"	"250"
-			}
-			"00" {
-				"var_type"	"FIELD_INTEGER"
-				"tooltip_cast_range"	"800"
-			}
-			"00" {
-				"var_type"	"FIELD_INTEGER"
-				"burn_chance"	"20"
-			}
-			"00" {
-				"var_type"	"FIELD_INTEGER"
-				"burn_duration"	"6"
-			}
-		}
-		"OnSpellStart" {
-			"RunScript" {
-				"ScriptFile"	"arts/fire"
-				"Function"	"heatwaveSpellCast"
-			}
-		}
-		"Modifiers" {
-			"modifier_item_heatwave_passive" {
-				"Passive"	"1"
-				"IsHidden"	"1"
-				"Properties" {
-					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"	"%bonus_str"
-					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%bonus_def"
-				}
-			}
-		}
-	}
-	"item_flame_tongue" {
-		"ID"	"2003"
-		"BaseClass"	"item_datadriven"
-		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_CHANNELED"
-		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
-		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-		"Model"	"models/props_gameplay/red_box.vmdl"
-		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
-		"AbilityTextureName"	"item_quartz_fire_2"
-		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_1"
-		"ItemAliases"	"flame_tongue"
-		"AbilityCooldown"	"0"
-		"AbilityCastPoint"	"0"
-		"AbilityCastRange"	"800"
-		"AbilityManaCost"	"120"
-		"AbilityChannelTime"	"2.0"
-		"ItemCost"	"0"
-		"ItemDroppable"	"1"
-		"ItemSellable"	"1"
-		"ItemDeclarations"	"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
-		"ItemShareability"	"ITEM_NOT_SHAREABLE"
-		"AbilitySpecial" {
-			"00" {
-				"var_type"	"FIELD_INTEGER"
-				"damage_percent"	"300"
-			}
-			"00" {
-				"var_type"	"FIELD_INTEGER"
-				"tooltip_cast_range"	"800"
-			}
-			"00" {
-				"var_type"	"FIELD_INTEGER"
-				"burn_chance"	"20"
-			}
-			"00" {
-				"var_type"	"FIELD_INTEGER"
-				"burn_duration"	"7"
-			}
-		}
-		"OnSpellStart" {
-			"RunScript" {
-				"ScriptFile"	"arts/fire"
-				"Function"	"flametongueSpellCast"
-			}
-		}
-		"Modifiers" {
-			"modifier_item_flame_tongue_passive" {
-				"Passive"	"1"
-				"IsHidden"	"1"
-				"Properties" {
-					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"	"%bonus_str"
-					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%bonus_def"
-				}
-			}
-		}
-	}
-	"item_volcanic_rain" {
-		"ID"	"2004"
-		"BaseClass"	"item_datadriven"
-		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_CHANNELED"
-		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
-		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-		"Model"	"models/props_gameplay/red_box.vmdl"
-		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
-		"AbilityTextureName"	"item_quartz_fire_2"
-		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_1"
-		"ItemAliases"	"volcanic_rain"
-		"AbilityCooldown"	"0"
-		"AbilityCastPoint"	"0"
-		"AbilityCastRange"	"800"
-		"AbilityManaCost"	"180"
-		"AbilityChannelTime"	"2.5"
-		"ItemCost"	"0"
-		"ItemDroppable"	"1"
-		"ItemSellable"	"1"
-		"ItemDeclarations"	"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
-		"ItemShareability"	"ITEM_NOT_SHAREABLE"
-		"AbilitySpecial" {
-			"00" {
-				"var_type"	"FIELD_INTEGER"
-				"damage_percent"	"350"
-			}
-			"00" {
-				"var_type"	"FIELD_INTEGER"
-				"tooltip_cast_range"	"800"
-			}
-			"00" {
-				"var_type"	"FIELD_INTEGER"
-				"burn_chance"	"20"
-			}
-			"00" {
-				"var_type"	"FIELD_INTEGER"
-				"burn_duration"	"8"
-			}
-		}
-		"OnSpellStart" {
-			"RunScript" {
-				"ScriptFile"	"arts/fire"
-				"Function"	"volcanicrainSpellCast"
-			}
-		}
-		"Modifiers" {
-			"modifier_item_volcanic_rain_passive" {
-				"Passive"	"1"
-				"IsHidden"	"1"
-				"Properties" {
-					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"	"%bonus_str"
-					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%bonus_def"
-				}
-			}
-		}
-	}
-	"item_flare_bomb" {
-		"ID"	"2005"
-		"BaseClass"	"item_datadriven"
-		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_CHANNELED"
-		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
-		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-		"Model"	"models/props_gameplay/red_box.vmdl"
-		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
-		"AbilityTextureName"	"item_quartz_fire_3"
-		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_1"
-		"ItemAliases"	"flare_bomb"
-		"AbilityCooldown"	"0"
-		"AbilityCastPoint"	"0"
-		"AbilityCastRange"	"800"
-		"AbilityManaCost"	"240"
-		"AbilityChannelTime"	"3.0"
-		"ItemCost"	"0"
-		"ItemDroppable"	"1"
-		"ItemSellable"	"1"
-		"ItemDeclarations"	"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
-		"ItemShareability"	"ITEM_NOT_SHAREABLE"
-		"AbilitySpecial" {
-			"00" {
-				"var_type"	"FIELD_INTEGER"
-				"damage_percent"	"400"
-			}
-			"00" {
-				"var_type"	"FIELD_INTEGER"
-				"tooltip_cast_range"	"800"
-			}
-			"00" {
-				"var_type"	"FIELD_INTEGER"
-				"burn_chance"	"20"
-			}
-			"00" {
-				"var_type"	"FIELD_INTEGER"
-				"burn_duration"	"9"
-			}
-		}
-		"OnSpellStart" {
-			"RunScript" {
-				"ScriptFile"	"arts/fire"
-				"Function"	"flarebombSpellCast"
-			}
-		}
-		"Modifiers" {
-			"modifier_item_flare_bomb_passive" {
-				"Passive"	"1"
-				"IsHidden"	"1"
-				"Properties" {
-					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"	"%bonus_str"
-					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%bonus_def"
-				}
-			}
-		}
-	}
-	"item_purgatorial_flame" {
-		"ID"	"2006"
-		"BaseClass"	"item_datadriven"
-		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_CHANNELED"
-		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
-		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-		"Model"	"models/props_gameplay/red_box.vmdl"
-		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
-		"AbilityTextureName"	"item_quartz_fire_3"
-		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_1"
-		"ItemAliases"	"purgatorial_flame"
-		"AbilityCooldown"	"0"
-		"AbilityCastPoint"	"0"
-		"AbilityCastRange"	"800"
-		"AbilityManaCost"	"400"
-		"AbilityChannelTime"	"3.5"
-		"ItemCost"	"0"
-		"ItemDroppable"	"1"
-		"ItemSellable"	"1"
-		"ItemDeclarations"	"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
-		"ItemShareability"	"ITEM_NOT_SHAREABLE"
-		"AbilitySpecial" {
-			"00" {
-				"var_type"	"FIELD_INTEGER"
-				"damage_percent"	"550"
-			}
-			"00" {
-				"var_type"	"FIELD_INTEGER"
-				"tooltip_cast_range"	"800"
-			}
-			"00" {
-				"var_type"	"FIELD_INTEGER"
-				"burn_duration"	"12"
-			}
-		}
-		"OnSpellStart" {
-			"RunScript" {
-				"ScriptFile"	"arts/fire"
-				"Function"	"purgatorialflameSpellCast"
-			}
-		}
-		"Modifiers" {
-			"modifier_item_purgatorial_flame_passive" {
-				"Passive"	"1"
-				"IsHidden"	"1"
-				"Properties" {
-					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"	"%bonus_str"
-					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%bonus_def"
-				}
-			}
-		}
-	}
-	"item_forte" {
-		"ID"	"2007"
-		"BaseClass"	"item_datadriven"
-		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
-		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
-		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-		"Model"	"models/props_gameplay/red_box.vmdl"
-		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
-		"AbilityTextureName"	"item_quartz_fire_1"
-		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_1"
-		"ItemAliases"	"forte"
-		"AbilityCooldown"	"0"
-		"AbilityCastPoint"	"0"
-		"AbilityCastRange"	"800"
-		"AbilityManaCost"	"30"
-		"AbilityChannelTime"	"1.5"
-		"ItemCost"	"0"
-		"ItemDroppable"	"1"
-		"ItemSellable"	"1"
-		"ItemDeclarations"	"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
-		"ItemShareability"	"ITEM_NOT_SHAREABLE"
-		"AbilitySpecial" {
-			"00" {
-				"var_type"	"FIELD_INTEGER"
-				"damage_increase_percent"	"25%"
-			}
-			"00" {
-				"var_type"	"FIELD_INTEGER"
-				"damage_increase_duration"	"10"
-			}
-			"00" {
-				"var_type"	"FIELD_INTEGER"
-				"tooltip_cast_range"	"800"
-			}
-		}
-		"OnSpellStart" {
-			"RunScript" {
-				"ScriptFile"	"arts/fire"
-				"Function"	"forteSpellCast"
-			}
-		}
-		"Modifiers" {
-			"modifier_item_forte_passive" {
-				"Passive"	"1"
-				"IsHidden"	"1"
-				"Properties" {
-					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"	"%bonus_str"
-					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%bonus_def"
-				}
-			}
-		}
-	}
-	"item_la_forte" {
+	"item_impassion" {
 		"ID"	"2008"
 		"BaseClass"	"item_datadriven"
-		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_CHANNELED"
-		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
-		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-		"Model"	"models/props_gameplay/red_box.vmdl"
-		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
-		"AbilityTextureName"	"item_quartz_fire_2"
-		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_1"
-		"ItemAliases"	"la_forte"
-		"AbilityCooldown"	"0"
-		"AbilityCastPoint"	"0"
-		"AbilityCastRange"	"800"
-		"AbilityManaCost"	"60"
-		"AbilityChannelTime"	"2.5"
-		"ItemCost"	"0"
-		"ItemDroppable"	"1"
-		"ItemSellable"	"1"
-		"ItemDeclarations"	"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
-		"ItemShareability"	"ITEM_NOT_SHAREABLE"
-		"AbilitySpecial" {
-			"00" {
-				"var_type"	"FIELD_INTEGER"
-				"damage_increase_percent"	"25%"
-			}
-			"00" {
-				"var_type"	"FIELD_INTEGER"
-				"damage_increase_duration"	"10"
-			}
-			"00" {
-				"var_type"	"FIELD_INTEGER"
-				"tooltip_cast_range"	"800"
-			}
-			"00" {
-				"var_type"	"FIELD_INTEGER"
-				"radius"	"300"
-			}
-		}
-		"OnSpellStart" {
-			"RunScript" {
-				"ScriptFile"	"arts/fire"
-				"Function"	"laforteSpellCast"
-			}
-		}
-		"Modifiers" {
-			"modifier_item_la_forte_passive" {
-				"Passive"	"1"
-				"IsHidden"	"1"
-				"Properties" {
-					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"	"%bonus_str"
-					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%bonus_def"
-				}
-			}
-		}
-	}
-	"item_impassion" {
-		"ID"	"2009"
-		"BaseClass"	"item_datadriven"
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
 		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"Model"	"models/props_gameplay/red_box.vmdl"
 		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
-		"AbilityTextureName"	"item_quartz_fire_2"
+		"AbilityTextureName"	"item_quartz_fire_1"
 		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_1"
 		"ItemAliases"	"impassion"
-		"AbilityCooldown"	"0"
-		"AbilityCastPoint"	"0"
-		"AbilityCastRange"	"800"
+		"AbilityCooldown"	"4"
+		"AbilityCastPoint"	"1.5"
+		"AbilityCastRange"	"600"
 		"AbilityManaCost"	"40"
-		"AbilityChannelTime"	"2.0"
+		"AbilityChannelTime"	"0"
 		"ItemCost"	"0"
 		"ItemDroppable"	"1"
 		"ItemSellable"	"1"
 		"ItemDeclarations"	"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
 		"ItemShareability"	"ITEM_NOT_SHAREABLE"
 		"AbilitySpecial" {
-			"00" {
-				"var_type"	"FIELD_INTEGER"
-				"cp_regen"	"5"
-			}
 			"00" {
 				"var_type"	"FIELD_INTEGER"
 				"duration"	"10"
 			}
 			"00" {
 				"var_type"	"FIELD_INTEGER"
-				"tooltip_cast_range"	"800"
+				"tooltip_cast_range"	"600"
 			}
 		}
 		"OnSpellStart" {
@@ -507,22 +386,21 @@
 			}
 		}
 	}
-	"item_heat_up" {
-		"ID"	"2010"
+	"item_arc_prominence" {
+		"ID"	"2009"
 		"BaseClass"	"item_datadriven"
-		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
-		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"Model"	"models/props_gameplay/red_box.vmdl"
 		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
-		"AbilityTextureName"	"item_quartz_fire_2"
+		"AbilityTextureName"	"item_quartz_fire_1"
 		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_1"
-		"ItemAliases"	"heat_up"
-		"AbilityCooldown"	"0"
-		"AbilityCastPoint"	"0"
-		"AbilityCastRange"	"800"
-		"AbilityManaCost"	"50"
-		"AbilityChannelTime"	"3.0"
+		"ItemAliases"	"arc_prominence"
+		"AbilityCooldown"	"10"
+		"AbilityCastPoint"	"3"
+		"AbilityManaCost"	"250"
+		"AbilityChannelTime"	"0"
 		"ItemCost"	"0"
 		"ItemDroppable"	"1"
 		"ItemSellable"	"1"
@@ -531,7 +409,95 @@
 		"AbilitySpecial" {
 			"00" {
 				"var_type"	"FIELD_INTEGER"
-				"bonus_cp"	"35"
+				"damage_percent"	"230%"
+			}
+		}
+		"OnSpellStart" {
+			"RunScript" {
+				"ScriptFile"	"arts/fire"
+				"Function"	"arcprominenceSpellCast"
+			}
+		}
+		"Modifiers" {
+			"modifier_item_arc_prominence_passive" {
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"Properties" {
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"	"%bonus_str"
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%bonus_def"
+				}
+			}
+		}
+	}
+	"item_spark_arrow" {
+		"ID"	"2010"
+		"BaseClass"	"item_datadriven"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"Model"	"models/props_gameplay/red_box.vmdl"
+		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
+		"AbilityTextureName"	"item_quartz_wind_1"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_1"
+		"ItemAliases"	"spark_arrow"
+		"AbilityCooldown"	"3"
+		"AbilityCastPoint"	"1"
+		"AbilityCastRange"	"1000"
+		"AbilityManaCost"	"50"
+		"AbilityChannelTime"	"0"
+		"ItemCost"	"0"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemDeclarations"	"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemShareability"	"ITEM_NOT_SHAREABLE"
+		"AbilitySpecial" {
+			"00" {
+				"var_type"	"FIELD_INTEGER"
+				"damage_percent"	"75%"
+			}
+		}
+		"OnSpellStart" {
+			"RunScript" {
+				"ScriptFile"	"arts/wind"
+				"Function"	"sparkarrowSpellCast"
+			}
+		}
+		"Modifiers" {
+			"modifier_item_spark_arrow_passive" {
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"Properties" {
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"	"%bonus_str"
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%bonus_def"
+				}
+			}
+		}
+	}
+	"item_recuria" {
+		"ID"	"2011"
+		"BaseClass"	"item_datadriven"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"Model"	"models/props_gameplay/red_box.vmdl"
+		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
+		"AbilityTextureName"	"item_quartz_wind_1"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_1"
+		"ItemAliases"	"recuria"
+		"AbilityCooldown"	"5"
+		"AbilityCastPoint"	"1.5"
+		"AbilityCastRange"	"800"
+		"AbilityManaCost"	"50"
+		"AbilityChannelTime"	"0"
+		"ItemCost"	"0"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemDeclarations"	"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemShareability"	"ITEM_NOT_SHAREABLE"
+		"AbilitySpecial" {
+			"00" {
+				"var_type"	"FIELD_INTEGER"
+				"duration"	"3"
 			}
 			"00" {
 				"var_type"	"FIELD_INTEGER"
@@ -540,12 +506,339 @@
 		}
 		"OnSpellStart" {
 			"RunScript" {
-				"ScriptFile"	"arts/fire"
-				"Function"	"heatupSpellCast"
+				"ScriptFile"	"arts/wind"
+				"Function"	"recuriaSpellCast"
 			}
 		}
 		"Modifiers" {
-			"modifier_item_heat_up_passive" {
+			"modifier_item_recuria_passive" {
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"Properties" {
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"	"%bonus_str"
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%bonus_def"
+				}
+			}
+		}
+	}
+	"item_aerial" {
+		"ID"	"2012"
+		"BaseClass"	"item_datadriven"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"Model"	"models/props_gameplay/red_box.vmdl"
+		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
+		"AbilityTextureName"	"item_quartz_wind_1"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_1"
+		"ItemAliases"	"aerial"
+		"AbilityCooldown"	"6"
+		"AbilityCastPoint"	"2"
+		"AbilityCastRange"	"900"
+		"AbilityManaCost"	"120"
+		"AbilityChannelTime"	"0"
+		"ItemCost"	"0"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemDeclarations"	"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemShareability"	"ITEM_NOT_SHAREABLE"
+		"AbilitySpecial" {
+			"00" {
+				"var_type"	"FIELD_INTEGER"
+				"damage_percent"	"30%"
+			}
+			"00" {
+				"var_type"	"FIELD_INTEGER"
+				"tooltip_cast_range"	"900"
+			}
+		}
+		"OnSpellStart" {
+			"RunScript" {
+				"ScriptFile"	"arts/wind"
+				"Function"	"aerialSpellCast"
+			}
+		}
+		"Modifiers" {
+			"modifier_item_aerial_passive" {
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"Properties" {
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"	"%bonus_str"
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%bonus_def"
+				}
+			}
+		}
+	}
+	"item_luminous_ray" {
+		"ID"	"2013"
+		"BaseClass"	"item_datadriven"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"Model"	"models/props_gameplay/red_box.vmdl"
+		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
+		"AbilityTextureName"	"item_quartz_Mirage_1"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_1"
+		"ItemAliases"	"luminous_ray"
+		"AbilityCooldown"	"3"
+		"AbilityCastPoint"	"1"
+		"AbilityCastRange"	"800"
+		"AbilityManaCost"	"30"
+		"AbilityChannelTime"	"0"
+		"ItemCost"	"0"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemDeclarations"	"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemShareability"	"ITEM_NOT_SHAREABLE"
+		"AbilitySpecial" {
+			"00" {
+				"var_type"	"FIELD_INTEGER"
+				"damage_percent"	"220%"
+			}
+			"00" {
+				"var_type"	"FIELD_INTEGER"
+				"tooltip_cast_range"	"875"
+			}
+		}
+		"OnSpellStart" {
+			"RunScript" {
+				"ScriptFile"	"arts/Mirage"
+				"Function"	"luminousraySpellCast"
+			}
+		}
+		"Modifiers" {
+			"modifier_item_luminous_ray_passive" {
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"Properties" {
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"	"%bonus_str"
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%bonus_def"
+				}
+			}
+		}
+	}
+	"item_crescent_mirror" {
+		"ID"	"2014"
+		"BaseClass"	"item_datadriven"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"Model"	"models/props_gameplay/red_box.vmdl"
+		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
+		"AbilityTextureName"	"item_quartz_Mirage_1"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_1"
+		"ItemAliases"	"crescent_mirror"
+		"AbilityCooldown"	"5"
+		"AbilityCastPoint"	"1.5"
+		"AbilityCastRange"	"700"
+		"AbilityManaCost"	"150"
+		"AbilityChannelTime"	"0"
+		"ItemCost"	"0"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemDeclarations"	"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemShareability"	"ITEM_NOT_SHAREABLE"
+		"AbilitySpecial" {
+			"00" {
+				"var_type"	"FIELD_INTEGER"
+				"tooltip_cast_range"	"700"
+			}
+		}
+		"OnSpellStart" {
+			"RunScript" {
+				"ScriptFile"	"arts/Mirage"
+				"Function"	"crescentmirrorSpellCast"
+			}
+		}
+		"Modifiers" {
+			"modifier_item_crescent_mirror_passive" {
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"Properties" {
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"	"%bonus_str"
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%bonus_def"
+				}
+			}
+		}
+	}
+	"item_phantom_phobia" {
+		"ID"	"2015"
+		"BaseClass"	"item_datadriven"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"Model"	"models/props_gameplay/red_box.vmdl"
+		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
+		"AbilityTextureName"	"item_quartz_Mirage_1"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_1"
+		"ItemAliases"	"phantom_phobia"
+		"AbilityCooldown"	"6"
+		"AbilityCastPoint"	"2"
+		"AbilityCastRange"	"600"
+		"AbilityManaCost"	"200"
+		"AbilityChannelTime"	"0"
+		"ItemCost"	"0"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemDeclarations"	"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemShareability"	"ITEM_NOT_SHAREABLE"
+		"AbilitySpecial" {
+			"00" {
+				"var_type"	"FIELD_INTEGER"
+				"duration"	"9"
+			}
+			"00" {
+				"var_type"	"FIELD_INTEGER"
+				"damage_percent"	"450%"
+			}
+			"00" {
+				"var_type"	"FIELD_INTEGER"
+				"tooltip_cast_range"	"600"
+			}
+		}
+		"OnSpellStart" {
+			"RunScript" {
+				"ScriptFile"	"arts/Mirage"
+				"Function"	"phantomphobiaSpellCast"
+			}
+		}
+		"Modifiers" {
+			"modifier_item_phantom_phobia_passive" {
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"Properties" {
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"	"%bonus_str"
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%bonus_def"
+				}
+			}
+		}
+	}
+	"item_gold_sphere" {
+		"ID"	"2016"
+		"BaseClass"	"item_datadriven"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"Model"	"models/props_gameplay/red_box.vmdl"
+		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
+		"AbilityTextureName"	"item_quartz_Space_1"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_1"
+		"ItemAliases"	"gold_sphere"
+		"AbilityCooldown"	"3"
+		"AbilityCastPoint"	"1"
+		"AbilityCastRange"	"800"
+		"AbilityManaCost"	"30"
+		"AbilityChannelTime"	"0"
+		"ItemCost"	"0"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemDeclarations"	"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemShareability"	"ITEM_NOT_SHAREABLE"
+		"AbilitySpecial" {
+			"00" {
+				"var_type"	"FIELD_INTEGER"
+				"damage_percent"	"70%"
+			}
+			"00" {
+				"var_type"	"FIELD_INTEGER"
+				"tooltip_cast_range"	"800"
+			}
+		}
+		"OnSpellStart" {
+			"RunScript" {
+				"ScriptFile"	"arts/Space"
+				"Function"	"goldsphereSpellCast"
+			}
+		}
+		"Modifiers" {
+			"modifier_item_gold_sphere_passive" {
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"Properties" {
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"	"%bonus_str"
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%bonus_def"
+				}
+			}
+		}
+	}
+	"item_seraphim_ring" {
+		"ID"	"2017"
+		"BaseClass"	"item_datadriven"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"Model"	"models/props_gameplay/red_box.vmdl"
+		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
+		"AbilityTextureName"	"item_quartz_Space_1"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_1"
+		"ItemAliases"	"seraphim_ring"
+		"AbilityCooldown"	"10"
+		"AbilityCastPoint"	"3"
+		"AbilityManaCost"	"400"
+		"AbilityChannelTime"	"0"
+		"ItemCost"	"0"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemDeclarations"	"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemShareability"	"ITEM_NOT_SHAREABLE"
+		"AbilitySpecial" {
+		}
+		"OnSpellStart" {
+			"RunScript" {
+				"ScriptFile"	"arts/Space"
+				"Function"	"seraphimringSpellCast"
+			}
+		}
+		"Modifiers" {
+			"modifier_item_seraphim_ring_passive" {
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"Properties" {
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"	"%bonus_str"
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%bonus_def"
+				}
+			}
+		}
+	}
+	"item_dark_matter" {
+		"ID"	"2018"
+		"BaseClass"	"item_datadriven"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"Model"	"models/props_gameplay/red_box.vmdl"
+		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
+		"AbilityTextureName"	"item_quartz_Space_1"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_1"
+		"ItemAliases"	"dark_matter"
+		"AbilityCooldown"	"5"
+		"AbilityCastPoint"	"1.5"
+		"AbilityCastRange"	"700"
+		"AbilityManaCost"	"100"
+		"AbilityChannelTime"	"0"
+		"ItemCost"	"0"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemDeclarations"	"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemShareability"	"ITEM_NOT_SHAREABLE"
+		"AbilitySpecial" {
+			"00" {
+				"var_type"	"FIELD_INTEGER"
+				"damage_percent"	"300%"
+			}
+			"00" {
+				"var_type"	"FIELD_INTEGER"
+				"tooltip_cast_range"	"700"
+			}
+		}
+		"OnSpellStart" {
+			"RunScript" {
+				"ScriptFile"	"arts/Space"
+				"Function"	"darkmatterSpellCast"
+			}
+		}
+		"Modifiers" {
+			"modifier_item_dark_matter_passive" {
 				"Passive"	"1"
 				"IsHidden"	"1"
 				"Properties" {

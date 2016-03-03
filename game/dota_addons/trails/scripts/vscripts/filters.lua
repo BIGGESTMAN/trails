@@ -18,7 +18,8 @@ end
 
 function Filters:ModifyGoldFilter(event)
 	local hero = PlayerResource:GetPlayer(event.player_id_const):GetAssignedHero()
-	return true
+	DeepPrintTable(event)
+	return event.reason_const == 17 or event.reason_const == DOTA_ModifyGold_PurchaseItem
 end
 
 function Filters:ExecuteOrderFilter(event)

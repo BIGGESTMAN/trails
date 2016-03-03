@@ -23,7 +23,7 @@ TREE_REGROW_TIME = 60.0                 -- How long should it take individual tr
 
 GOLD_TICK_TIME = 0.6                    -- How long should we wait in seconds between gold ticks?
 
-RECOMMENDED_BUILDS_DISABLED = true     -- Should we disable the recommened builds for heroes (Note: this is not working currently I believe)
+RECOMMENDED_BUILDS_DISABLED = false     -- Should we disable the recommened builds for heroes (Note: this is not working currently I believe)
 CAMERA_DISTANCE_OVERRIDE = 1134.0        -- How far out should we allow the camera to go?  1134 is the default in Dota
 
 MINIMAP_ICON_SIZE = 1                   -- What icon size should we use for our heroes?
@@ -36,7 +36,7 @@ CUSTOM_BUYBACK_COOLDOWN_ENABLED = false  -- Should we use a custom buyback time?
 BUYBACK_ENABLED = false                 -- Should we allow people to buyback when they die?
 
 DISABLE_FOG_OF_WAR_ENTIRELY = false      -- Should we disable fog of war entirely for both teams?
-USE_STANDARD_HERO_GOLD_BOUNTY = true    -- Should we give gold for hero kills the same as in Dota, or allow those values to be changed?
+USE_STANDARD_HERO_GOLD_BOUNTY = false    -- Should we give gold for hero kills the same as in Dota, or allow those values to be changed?
 
 USE_CUSTOM_TOP_BAR_VALUES = true        -- Should we do customized top bar values or use the default kill count per team?
 TOP_BAR_VISIBLE = true                  -- Should we display the top bar score/count at all?
@@ -58,7 +58,7 @@ MAX_ABILITY_LEVELS = CHEATY_STUFF
 STARTING_ITEMS = false
 FREEEEEEEE_MONEY = CHEATY_STUFF
 UNIVERSAL_SHOP_MODE = false             -- Should the main shop contain Secret Shop items as well as regular items
-GOLD_PER_TICK = 99999                 		    -- How much gold should players get per tick?
+GOLD_PER_TICK = 0                 		    -- How much gold should players get per tick?
 USE_CUSTOM_XP_VALUES = CHEATY_STUFF             -- Should we use custom XP values to level up heroes, or the default Dota numbers?
 
 MUSIC = false
@@ -66,6 +66,10 @@ MUSIC = false
 ROUNDS_TO_WIN = 5
 ROUND_END_DELAY = 3
 ROUND_START_DELAY = 3
+
+BASE_GOLD_PER_ROUND = 1000
+GOLD_INCREASE_PER_ROUND = 500
+SHOPPING_TIME = 15
 
 
 
@@ -233,6 +237,7 @@ function GameMode:CaptureGameMode()
 		mode:SetGoldSoundDisabled( DISABLE_GOLD_SOUNDS )
 		mode:SetRemoveIllusionsOnDeath( REMOVE_ILLUSIONS_ON_DEATH )
 		mode:SetDaynightCycleDisabled(true)
+		mode:SetStashPurchasingDisabled(true)
 
 		setupProjectileList()
 
@@ -314,7 +319,7 @@ function GameMode:OnHeroInGame(hero)
 	-- Store this hero handle in this table.
 	table.insert(self.vPlayers, hero)
 
-	hero:SetGold(625, false)
+	-- hero:SetGold(625, false)
 
 	Timers:CreateTimer(0.03, function() -- Give illusions a frame to acquire the illusion modifier
 		if not hero:IsIllusion() then
@@ -797,6 +802,7 @@ function GameMode:StartRound()
 				self:StopMusicForPlayer(PlayerResource:GetPlayer(i))
 				self:StartMusicForPlayer(PlayerResource:GetPlayer(i))
 			end
+			FindClearSpaceForUnit(hero, self:GetSpawnPosition(hero, false), true)
 		end
 	end
 	Turn_Bonuses:StartRound(self.current_round)
@@ -830,27 +836,19 @@ function GameMode:EndRound(winning_team)
 	Turn_Bonuses:EndRound()
 
 	Timers:CreateTimer(ROUND_END_DELAY, function()
-		local swapped_spawns = self.current_round % 2 == 1
-		local spawns = {}
-		spawns[DOTA_TEAM_GOODGUYS] = Entities:FindByClassname(nil, "info_player_start_goodguys"):GetAbsOrigin()
-		spawns[DOTA_TEAM_BADGUYS] = Entities:FindByClassname(nil, "info_player_start_badguys"):GetAbsOrigin()
-
 		for i=0, 9 do
 			local hero = PlayerResource:GetSelectedHeroEntity(i)
 			if hero then
-				if swapped_spawns then
-					hero:SetRespawnPosition(spawns[hero:GetOpposingTeamNumber()])
-				else
-					hero:SetRespawnPosition(spawns[hero:GetTeam()])
-				end
+				hero:SetRespawnPosition(GameMode:GetSpawnPosition(hero, true))
 				hero:RespawnHero(false, false, false)
 
 				hero:AddNewModifier(hero, nil, "modifier_interround_invulnerability", {})
-				-- self:DisplayReadyBox(hero)
 				
 				if hero:GetTeam() ~= winning_team then
 					modifyCP(hero, END_OF_ROUND_LOSER_CP)
 				end
+
+				hero:ModifyGold(BASE_GOLD_PER_ROUND + GOLD_INCREASE_PER_ROUND * self.current_round - 1, true, 17)
 			end
 		end
 
@@ -861,20 +859,35 @@ function GameMode:EndRound(winning_team)
 			GameRules:SendCustomMessage("Radiant Victory!", 0, 0)
 			GameRules:SetSafeToLeave( true )
 			GameRules:SetGameWinner( DOTA_TEAM_GOODGUYS )
-			-- Timers:CreateTimer(0.1, function()
-			-- 	CustomGameEventManager:Send_ServerToAllClients( "winner_decided", winnerEventData ) -- Send the winner to Javascript
-			-- end)
 		elseif self.score[DOTA_TEAM_BADGUYS] == ROUNDS_TO_WIN then
 			GameRules:SendCustomMessage("Dire Victory!", 0, 0)
 			GameRules:SetSafeToLeave( true )
 			GameRules:SetGameWinner( DOTA_TEAM_BADGUYS )
-			-- Timers:CreateTimer(0.1, function()
-			-- 	CustomGameEventManager:Send_ServerToAllClients( "winner_decided", winnerEventData ) -- Send the winner to Javascript
-			-- end)
+		else
+			self:StartCountdown(SHOPPING_TIME, "quest_time_round_starting", function()
+				self:StartRound()
+			end)
 		end
 	end)
 end
 
-function GameMode:DisplayReadyBox(hero)
-	CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "infotext_start_secondary_rounds", {})
+function GameMode:GetSpawnPosition(hero, shopping)
+	local swapped_spawns = self.current_round % 2 == 1
+	local spawn_location = nil
+	local team = hero:GetTeam()
+	if swapped_spawns then team = hero:GetOpposingTeamNumber() end
+	if not shopping then
+		if team == DOTA_TEAM_GOODGUYS then
+			spawn_location = Entities:FindByClassname(nil, "info_player_start_goodguys"):GetAbsOrigin()
+		elseif team == DOTA_TEAM_BADGUYS then
+			spawn_location = Entities:FindByClassname(nil, "info_player_start_badguys"):GetAbsOrigin()
+		end
+	else
+		if team == DOTA_TEAM_GOODGUYS then
+			spawn_location = Entities:FindByName(nil, "shop_spawn_radiant"):GetAbsOrigin()
+		elseif team == DOTA_TEAM_BADGUYS then
+			spawn_location = Entities:FindByName(nil, "shop_spawn_dire"):GetAbsOrigin()
+		end
+	end
+	return spawn_location
 end

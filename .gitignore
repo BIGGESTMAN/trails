@@ -17,6 +17,7 @@ game/dota_addons/trails/scripts/npc/npc_abilities_custom.txt
 game/dota_addons/trails/scripts/npc/items/generated_items.txt
 game/dota_addons/trails/panorama/*
 
+game/dota_addons/trails/scripts/shops.txt
 game/dota_addons/trails/scripts/vscripts/npc_units.txt
 
 media/*

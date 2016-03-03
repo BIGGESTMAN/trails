@@ -1,98 +1,213 @@
 Quartz
 
-[F1UE] Fire Bolt (fire_bolt) : Launches a blazing orb of fire at an enemy, dealing fire damage.\n\nFire damage has a chance to Burn victims, dealing damage over time based on the target's maximum HP.
+[E1NE] Earth Lance (earth_lance) : Sharpened stones rise from the ground to pierce enemies around the caster, each dealing earth damage in a small area. If an isolated enemy is hit, they are Petrified.
+DevNotes - Stones rise under enemies in 500 radius of the caster at the channel's end.
 
-%Fire Damage (damage_percent) : 200
-Range (tooltip_cast_range) : 800
-Burn Chance (burn_chance) : 20
-Burn Duration (burn_duration) : 5
-Str (bonus_str) : 10
-Def (bonus_def) : 1
-Mana Cost : 20
-Cast Range : 800
-Delay : 0.5
+Cast Point : 1
+Delay : 3
+Earth Damage per Stone (damage_percent) : 120%
+Petrify Duration (duration) : 2
+Search Radius : 500
+Damage & Isolation Radius : 225
+EP Cost : 60
 
-[F1AE] Heatwave (heatwave) : Covers the earth's surface with intense heat, dealing fire damage to enemies in a small area.\n\nFire damage has a chance to Burn victims, dealing damage over time based on the target's maximum HP.
+[E1UF] Earth Grow (earth_grow) : With the power of the earth, gives an ally HP Regeneration.
 
-%Fire Damage (damage_percent) : 250
-Range (tooltip_cast_range) : 800
-Burn Chance (burn_chance) : 20
-Burn Duration (burn_duration) : 6
-Mana Cost : 50
-Cast Range : 800
-Delay : 1.5
+Cast Point : 1.5
+Delay : 3
+HP Regeneration Duration (duration) : 10
+Range (tooltip_cast_range) : 600
+Cast Range : 600
+EP Cost : 30
 
-[F2AE] Flame Tongue (flame_tongue) : Causes flames to erupt from the ground and skewer enemies in an area, dealing fire damage.\n\nFire damage has a chance to Burn victims, dealing damage over time based on the target's maximum HP.
+[E1AE] Yggdrasil (yggdrasil) : The world tree takes root, continuously dealing earth damage and reducing MOV in an area that increases as the caster channels. When the channel ends, the damage is echoed and enemies are Petrified for 1.5 seconds plus half the channel time. 
+DevNotes - The area grows linearly with channel time. The damage during the channel has an initial instance of 70% the first time it hits each enemy, separate from the 35% damage dealt in 0.5 second intervals, meaning 70-280% damage from the channel only. The echoed damage is the damage a single enemy would have taken, meaning 70-280% damage. The MOV Reduction lingers for 0.5 seconds.
 
-%Fire Damage (damage_percent) : 300
-Range (tooltip_cast_range) : 800
-Burn Chance (burn_chance) : 20
-Burn Duration (burn_duration) : 7
-Mana Cost : 120
-Cast Range : 800
-Delay : 2.0
+Cast Point : 2
+Delay : 6
+Max Channel Duration : 3
+Earth Damage per Second (damage_percent) : 70%
+MOV Reduction : 50%
+Range (tooltip_cast_range) : 400
+Cast Range : 400
+Initial Radius : 400
+Max Radius : 1600
+EP Cost : 240
 
-[F2AE] Volcanic Rain (volcanic_rain) : Causes incandescent volcanic bombs to rain from the sky, dealing fire damage in a large area.\n\nFire damage has a chance to Burn victims, dealing damage over time based on the target's maximum HP.
+[W1UE] Aqua Bleed (aqua_bleed) : A focused jet of water is channeled towards an enemy, dealing water damage while knocking them back. Another enemy can intercept the jet.
+DevNotes - Causes 40% damage and knockback in 0.2 second intervals with no initial instance. Knocks back in the same direction as the jet. 
 
-%Fire Damage (damage_percent) : 350
-Range (tooltip_cast_range) : 800
-Burn Chance (burn_chance) : 20
-Burn Duration (burn_duration) : 8
-Mana Cost : 180
-Cast Range : 800
-Delay : 2.5
+Cast Point : 1
+Delay : 3
+Max Channel Duration : 1
+Max Water Damage (damage_percent) : 200%
+Knockback Duration per Instance : 0.1
+Knockback Distance per Instance : 90
+Range (tooltip_cast_range) : 600
+Cast Range : 600
+Intercept Radius : 125
+EP Cost : 20
 
-[F3AE] Flare Bomb (flare_bomb) : Summons two flames which collide in a great explosion, dealing fire damage in a huge area.\n\nFire damage has a chance to Burn victims, dealing damage over time based on the target's maximum HP.
+[W1UF] Thelas (thelas) : Blessed water resurrects a fallen ally and heals them for a small amount.
 
-%Fire Damage (damage_percent) : 400
-Range (tooltip_cast_range) : 800
-Burn Chance (burn_chance) : 20
-Burn Duration (burn_duration) : 9
-Mana Cost : 240
-Cast Range : 800
-Delay : 3.0
+Cast Point : 2
+Delay : 7
+Heal : 150%
+Range (tooltip_cast_range) : 600
+Cast Range : 600
+EP Cost : 50
 
-[F3AE] Purgatorial Flame (purgatorial_flame) : Summons the flames of Gehenna to reduce enemies to ash, dealing fire damage and Burning in a small area.
+[W1AE] Crystal Flood (crystal_flood) : A great torrent flows through the targeted path, dealing water damage to enemies while pulling them along. After 1 second, enemies in the area take additional water damage and are Frozen. 
+DevNotes - Vector-targeted. The path's length and width are fixed regardless of drag distance.
 
-%Fire Damage (damage_percent) : 550
-Range (tooltip_cast_range) : 800
-Burn Duration (burn_duration) : 12
-Mana Cost : 400
-Cast Range : 800
-Delay : 3.5
+Cast Point : 2
+Delay : 6
+Initial Water Damage : 150%
+Additional Water Damage : 250%
+Freeze Duration : 3
+Range (tooltip_cast_range) : 500
+Cast Range : 500
+Pull Travel Speed : 600
+Path Length : 800
+Path Width : 400
+EP Cost : 220
 
-[F1UF] Forte (forte) : Increases an ally's Physical Attack with the power of fire.
+[F1UE] Fire Bolt (fire_bolt) : Launches a fireball that deals fire damage and Burns. 
 
-%Physical Attack Increase (damage_increase_percent) : 25%
-Duration (damage_increase_duration) : 10
-Range (tooltip_cast_range) : 800
-Mana Cost : 30
-Cast Range : 800
-Delay : 1.5
+Cast Point : 1
+Delay : 3
+Fire Damage (damage_percent) : 200%
+Burn Duration (duration) : 2
+Range (tooltip_cast_range) : 550
+Cast Range : 550
+Travel Speed : 900
+EP Cost : 20
 
-[F2AF] La Forte (la_forte) : Increases Physical Attack of allies in target area with the power of fire.
+[F1UF] Impassion (impassion) : Rouses an ally's will to battle, giving them CP Regeneration. 
 
-%Physical Attack Increase (damage_increase_percent) : 25%
-Duration (damage_increase_duration) : 10
-Range (tooltip_cast_range) : 800
-Radius (radius) : 300
-Mana Cost : 60
-Cast Range : 800
-Delay : 2.5
-
-[F2UF] Impassion (impassion) : Raises an ally's spirit, granting them Passion.\n\nPassion grants gradual CP regeneration.
-
-CP Per Second : (cp_regen) : 5
+Cast Point : 1.5
+Delay : 4
 Duration (duration) : 10
-Range (tooltip_cast_range) : 800
-Mana Cost : 40
-Cast Range : 800
-Delay : 2.0
+Range (tooltip_cast_range) : 600
+Cast Range : 600
+EP Cost : 40
 
-[F2UF] Heat Up (heat_up) : Cleanses an ally with fire's spirit, curing negative statuses and granting CP.
+[F1NE] Arc Prominence (arc_prominence) : Slowly amasses solar energy to release it after 6 seconds or taking damage equal to 50% of the caster's current health. The resulting explosion deals fire damage and Burns enemies, the damage and duration increasing based on the time spent gathering energy.
+DevNotes - Explosion is centered around the caster. The increases are multiplicative. The damage to set off the explosion is determined at the moment of successful cast and is based solely on total damage taken, so it cannot be delayed by heals.
 
-CP (bonus_cp) : 35
+Cast Point : 3
+Delay : 10
+Base Fire Damage (damage_percent) : 230%
+Base Burn Duration : 1.5
+Fire Damage & Burn Duration Increase per Second : 20%
+Radius : 700
+EP Cost : 250
+
+[I1AE] Spark Arrow (spark_arrow) : Flings a bolt of lightning, which jumps to nearby enemies up to 3 times on successful hit. The initial impact and each jump deals wind damage and Seals.
+DevNotes - Can hit the same unit twice. Jumps in 0.3 second intervals.
+
+Cast Point : 1
+Delay : 3
+Wind Damage per Instance (damage_percent) : 75%
+Seal Duration : 1
+Cast Range : 1000
+Travel Distance : 1000
+Travel Speed : 2000
+Bolt Radius : 125
+Jump Search Radius : 500
+EP Cost : 50
+
+[I1AF] Recuria (recuria) : Creates an air pocket of calming winds that remove all status ailments and stat reductions from allies.
+DevNotes - Instantly purges all negative effects, then in 0.5 second intervals.
+
+Cast Point : 1.5
+Delay : 5
+Duration (duration) : 3
 Range (tooltip_cast_range) : 800
-Mana Cost : 50
 Cast Range : 800
-Delay : 3.0
+Radius : 450
+EP Cost : 50
+
+[I1AE] Aerial (aerial) : A powerful tornado tears foes apart, dealing magical damage to each enemy in 0.25 second intervals. The tornado ends after 5 seconds or 32 total instances of damage.
+DevNotes - The tornado instantly damages enemies that enter its radius, then with a 0.25 second cooldown per hit for each enemy.
+
+Cast Point : 2
+Delay : 6
+Wind Damage per Instance (damage_percent) : 30%
+Range (tooltip_cast_range) : 900
+Cast Range : 900
+Radius : 500
+EP Cost : 120
+
+[M1AE] Luminous Ray (luminous_ray) : A moonbeam deals mirage damage to enemies.
+
+Cast Point : 1
+Delay : 3
+Mirage Damage (damage_percent) : 220%
+Range (tooltip_cast_range) : 875
+Width : 175
+Cast Range : 800
+EP Cost : 30
+
+[M1UF] Crescent Mirror (crescent_mirror) : The illusory moon enchants allies, increasing their ATS by 25% and giving them Magic Reflect.
+DevNotes - Radius centered around target ally at the end of the cast.
+
+Cast Point : 1.5
+Delay : 5
+ATS Duration : 10
+Magic Reflect Duration : 20
+Range (tooltip_cast_range) : 700
+Cast Range : 700
+Radius : 500
+EP Cost : 150
+
+[M1UE] Phantom Phobia (phantom_phobia) : Fills the hearts of enemies with a nameless dread that deals mirage damage over time and reduces a random stat by 25%.
+DevNotes - Reduces one out of STR, DEF, ATS, ADF, SPD, and MOV. Deals 25% damage every 0.5 seconds with no initial instance.
+
+Cast Point : 2
+Delay : 6
+Damage & Stat Reduction Duration (duration) : 9
+Total Mirage Damage (damage_percent) : 450%
+Range (tooltip_cast_range) : 600
+Cast Range : 600
+Radius : 550
+EP Cost : 200
+
+[S1AE] Gold Sphere (gold_sphere) : Three balls of dazzling light Blind enemies facing them. After 1 second, they fly at nearby random enemies to deal space damage and Blind them.
+DevNotes - The Blind before the balls fly lingers for 0.5 seconds.
+
+Cast Point : 1
+Delay : 3
+Space Damage per Ball (damage_percent) : 70%
+Blind Duration : 2
+Range (tooltip_cast_range) : 800
+Cast Range : 800
+Travel Speed : 1000
+Blind Radius : 500
+Search Radius : 500
+EP Cost : 30
+
+[S1NF] Seraphim Ring (seraphim_ring) : Sends out a band of light that resurrects and fully heals all allies it touches as well as giving HP Regeneration. The heal is reduced by 40% for each enemy the ring passes through.
+DevNotes - The caster always receives the full heal. The reduction is multiplicative.
+
+Cast Point : 3
+Delay : 10
+HP Regeneration Duration : 6
+Band Width : 200
+Band Travel Speed : 600
+Max Band Radius : 2000
+EP Cost : 400
+
+[S1AE] Dark Matter (dark_matter) : A gravitational collapse sucks in and crushes enemies, dealing space damage and reducing MOV by 50%. The MOV reduction duration increases by 1 second for each affected enemy beyond the first.
+DevNotes - The damage is dealt to enemies within the radius at the end of the pull, and the MOV reduction is applied then as well. Enemies that enter the radius after the cast are affected as well. Enemies that reach the center before the pull duration's end stop moving but continue to be disabled.
+
+Cast Point : 1.5
+Delay : 5
+Pull Duration : 0.7
+Space Damage (damage_percent) : 300%
+Base MOV Reduction Duration : 1
+Range (tooltip_cast_range) : 700
+Cast Range : 700
+Pull Travel Speed : 600
+Radius : 450
+EP Cost : 100
