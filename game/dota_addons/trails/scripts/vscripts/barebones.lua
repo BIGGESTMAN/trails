@@ -144,6 +144,7 @@ function GameMode:InitGameMode()
 	ListenToGameEvent('dota_player_pick_hero', Dynamic_Wrap(GameMode, 'OnPlayerPickHero'), self)
 	ListenToGameEvent('dota_team_kill_credit', Dynamic_Wrap(GameMode, 'OnTeamKillCredit'), self)
 	ListenToGameEvent("player_reconnected", Dynamic_Wrap(GameMode, 'OnPlayerReconnect'), self)
+	ListenToGameEvent("player_chat", Dynamic_Wrap(GameMode, 'OnPlayerChat'), self)
 
 	-- Change random seed
 	local timeTxt = string.gsub(string.gsub(GetSystemTime(), ':', ''), '0','')
@@ -172,6 +173,30 @@ function GameMode:InitGameMode()
 	--Convars:RegisterCommand( "command_example", Dynamic_Wrap(dotacraft, 'ExampleConsoleCommand'), "A console command example", 0 )
 
 	print('[BAREBONES] Done loading Barebones gamemode!\n\n')
+end
+
+-- This function is called whenever any player sends a chat message to team or All
+function GameMode:OnPlayerChat(keys)
+	print("OnPlayerChat")
+	local teamonly = keys.teamonly
+	local userID = keys.userid
+	local playerID = self.vUserIds[userID]:GetPlayerID()
+	local player = PlayerResource:GetPlayer(playerID)
+	local hero = player:GetAssignedHero()
+
+	local text = keys.text
+
+	if text == "-die" then
+		hero:Kill(nil, hero)
+	elseif text == "-win" then
+		self:EndRound(hero:GetTeam())
+	elseif text == "-togglemusic" then
+		if hero.music_playing == nil then
+			self:StartMusicForPlayer(player)
+		else
+			self:StopMusicForPlayer(player)
+		end
+	end
 end
 
 mode = nil
@@ -363,8 +388,8 @@ function GameMode:OnHeroInGame(hero)
 		-- Setup custom UI stuff
 		CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "infotext_start", {})
 		CustomGameEventManager:RegisterListener("infotext_ok", WrapMemberMethod(self.OnInfoTextOK, self))
-		CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "music_control_start", {})
-		CustomGameEventManager:RegisterListener("music_control_toggled", WrapMemberMethod(self.OnMusicControlToggled, self))
+		-- CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "music_control_start", {})
+		-- CustomGameEventManager:RegisterListener("music_control_toggled", WrapMemberMethod(self.OnMusicControlToggled, self))
 		CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "turn_bonus_display_start", {})
 		-- CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "stats_display_start", {})
 		self:UpdateStatsDisplay(hero)

@@ -54,7 +54,7 @@
 		<!-- <CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/image_loader.xml" /> -->
 		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/turn_bonus_display.xml" />
 		<!-- <CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/stats_display.xml" /> -->
-		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/music_control.xml" />
+		<!-- <CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/music_control.xml" /> -->
 		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/unbalance_bars.xml" />
 		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/status_bars.xml" />
 		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/quest.xml" />
