@@ -11,6 +11,12 @@ if IsServer() then
 
 		local radius = ability:GetSpecialValueFor("radius")
 		local petrify_duration = ability:GetSpecialValueFor("petrify_duration")
+		local damage_scale = ability:GetSpecialValueFor("damage_percent") / 100
+
+		if caster:HasModifier("modifier_crit") then
+			damage_scale = damage_scale * 2
+			caster:RemoveModifierByName("modifier_crit")
+		end
 
 		applyArtsDelayCooldowns(caster, ability)
 
@@ -24,7 +30,7 @@ if IsServer() then
 
 		ability.targets_hit = {}
 		for k,unit in pairs(targets) do
-			createSpike(caster, ability, unit)
+			createSpike(caster, ability, unit, damage_scale)
 			if ability.targets_hit[unit] == 1 then
 				unit:AddNewModifier(caster, ability, "modifier_petrify", {duration = petrify_duration})
 			end
@@ -34,8 +40,7 @@ if IsServer() then
 		endCastParticle(caster)
 	end
 
-	function createSpike(caster, ability, target)
-		local damage_scale = ability:GetSpecialValueFor("damage_percent") / 100
+	function createSpike(caster, ability, target, damage_scale)
 		local spike_radius = ability:GetSpecialValueFor("spike_radius")
 		local damage_type = DAMAGE_TYPE_MAGICAL
 
