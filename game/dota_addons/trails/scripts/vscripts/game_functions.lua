@@ -47,6 +47,7 @@ LinkLuaModifier("modifier_confuse", "effect_modifiers.lua", LUA_MODIFIER_MOTION_
 LinkLuaModifier("modifier_nightmare", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_deathblow", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_cp_boost", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_petrify", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_crit", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_brute_force", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_link_broken", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
@@ -57,6 +58,9 @@ LinkLuaModifier("modifier_link_broken", "effect_modifiers.lua", LUA_MODIFIER_MOT
 function dealDamage(target, attacker, damage, damage_type, ability, cp_gain_factor)
 	if target:HasModifier("modifier_insight") and target:FindModifierByName("modifier_insight").evasion_active and damage_type == DAMAGE_TYPE_PHYSICAL then
 		target:FindModifierByName("modifier_insight"):StartEvasionCooldown()
+		return
+	end
+	if target:HasModifier("modifier_petrify") and damage_type == DAMAGE_TYPE_MAGICAL then
 		return
 	end
 	if attacker then
@@ -309,8 +313,8 @@ function validEnhancedCraft(caster, target)
 end
 
 function applyRandomDebuff(target, caster, duration, not_sleep_debuff)
-	local debuffs = 					{"modifier_burn", "modifier_freeze", "modifier_confuse", "modifier_deathblow", "modifier_nightmare"}
-	if not_sleep_debuff then debuffs = 	{"modifier_burn", "modifier_freeze", "modifier_confuse", "modifier_deathblow"} end
+	local debuffs = 					{"modifier_burn", "modifier_freeze", "modifier_confuse", "modifier_deathblow", "modifier_petrify", "modifier_nightmare"}
+	if not_sleep_debuff then debuffs = 	{"modifier_burn", "modifier_freeze", "modifier_confuse", "modifier_deathblow", "modifier_petrify"} end
 	local debuff = debuffs[RandomInt(1,#debuffs)]
 	target:AddNewModifier(caster, nil, debuff, {duration = duration})
 end

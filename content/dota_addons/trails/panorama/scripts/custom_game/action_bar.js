@@ -86,7 +86,7 @@ function OnResourceBarsUpdate(data) {
 	var unbalanceBar = $("#UnbalanceBar")
 
 	var healthPercent = Entities.GetHealthPercent(heroIndex)
-	var manaPercent = Entities.GetMana(heroIndex) / Entities.GetMaxMana(heroIndex) / 100
+	var manaPercent = Entities.GetMana(heroIndex) / Entities.GetMaxMana(heroIndex) * 100
 	healthBar.style.height = healthPercent + "%"
 	if (manaPercent) {
 		manaBar.style.height = manaPercent + "%"

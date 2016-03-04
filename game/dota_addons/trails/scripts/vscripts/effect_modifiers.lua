@@ -33,6 +33,10 @@ function modifier_burn:GetTexture()
 	return "ogre_magi_ignite"
 end
 
+function modifier_burn:IsDebuff()
+	return true
+end
+
 modifier_insight = class({})
 
 if IsServer() then
@@ -118,6 +122,10 @@ function modifier_freeze:GetTexture()
 	return "crystal_maiden_frostbite"
 end
 
+function modifier_freeze:IsDebuff()
+	return true
+end
+
 modifier_confuse = class({})
 
 LinkLuaModifier("modifier_confuse_specially_deniable", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
@@ -180,6 +188,10 @@ function modifier_confuse:GetTexture()
 	return "mud_golem_rock_destroy"
 end
 
+function modifier_confuse:IsDebuff()
+	return true
+end
+
 modifier_confuse_specially_deniable = class({})
 
 function modifier_confuse_specially_deniable:IsHidden()
@@ -235,6 +247,57 @@ function modifier_nightmare:GetTexture()
 	return "bane_nightmare"
 end
 
+function modifier_nightmare:IsDebuff()
+	return true
+end
+
+modifier_petrify = class({})
+
+if IsServer() then
+	function modifier_petrify:OnTakeDamage(params)
+		if params.unit == self:GetParent() then
+			if damage_type == DAMAGE_TYPE_PHYSICAL then
+				self:Destroy()
+
+				local damage_percent = 20
+				local damage = self:GetParent():GetMaxHealth() * damage_percent / 100
+				local damage_type = DAMAGE_TYPE_PURE
+				dealDamage(self:GetParent(), caster, damage, damage_type, self:GetAbility(), 0)
+			end
+		end
+	end
+end
+
+function modifier_petrify:CheckState()
+	local state = {
+	[MODIFIER_STATE_STUNNED] = true,
+	[MODIFIER_STATE_FROZEN] = true,
+	[MODIFIER_STATE_LOW_ATTACK_PRIORITY] = true,
+	}
+
+	return state
+end
+
+function modifier_petrify:DeclareFunctions()
+	return {MODIFIER_EVENT_ON_TAKEDAMAGE}
+end
+
+function modifier_petrify:GetStatusEffectName()
+	return "particles/status_fx/status_effect_medusa_stone_gaze.vpcf"
+end
+
+function modifier_petrify:HeroEffectPriority()
+	return 10
+end
+
+function modifier_petrify:GetTexture()
+	return "earthshaker_fissure_egset"
+end
+
+function modifier_petrify:IsDebuff()
+	return true
+end
+
 modifier_deathblow = class({})
 
 if IsServer() then
@@ -274,6 +337,10 @@ end
 
 function modifier_deathblow:GetTexture()
 	return "necrolyte_reapers_scythe"
+end
+
+function modifier_deathblow:IsDebuff()
+	return true
 end
 
 modifier_cp_boost = class({})

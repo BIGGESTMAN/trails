@@ -8,9 +8,9 @@ DEF (bonus_def) : 20
 Cast Point : 1
 Delay : 3
 Earth Damage per Stone (damage_percent) : 120%
-Petrify Duration (duration) : 2
-Search Radius : 500
-Damage & Isolation Radius : 225
+Petrify Duration (petrify_duration) : 2
+Search Radius (radius) : 500
+Damage & Isolation Radius (spike_radius) : 225
 EP Cost : 60
 
 [E1UF] Earth Grow (earth_grow) : With the power of the earth, gives an ally HP Regeneration.

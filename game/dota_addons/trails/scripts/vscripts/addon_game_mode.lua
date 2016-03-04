@@ -26,7 +26,7 @@ function Precache( context )
 	PrecacheResource("particle", "particles/turn_bonuses/turn_bonus_available.vpcf", context)
 	PrecacheResource("particle", "particles/turn_bonuses/turn_bonus_claimed.vpcf", context)
 	PrecacheResource("particle", "particles/turn_bonuses/turn_bonus_zone.vpcf", context)
-	PrecacheResource("particle_folder", "particles/test_particle", context)
+	PrecacheResource("particle_folder", "particles/arts", context)
 
 	-- Models can also be precached by folder or individually
 	-- PrecacheModel should generally used over PrecacheResource for individual models

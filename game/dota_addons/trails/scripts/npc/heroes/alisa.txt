@@ -35,9 +35,9 @@
 		"AttributeBaseIntelligence"	"0"										// Base intelligence
 		"AttributeIntelligenceGain"	"0"										// Intelligence bonus per level.
 
-		//"BountyXP"					"0"										// Experience earn.
-		//"BountyGoldMin"				"0"										// Gold earned min.
-		//"BountyGoldMax"				"0"										// Gold earned max.
+		"BountyXP"					"0"										// Experience earn.
+		"BountyGoldMin"				"0"										// Gold earned min.
+		"BountyGoldMax"				"0"										// Gold earned max.
 
 		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
 		"MovementSpeed"				"335"									// Speed.
@@ -45,7 +45,7 @@
 
 		"StatusHealth"				"1400"									// Base health.
 		"StatusHealthRegen"			"0"										// Health regeneration rate.
-		"StatusMana"				"0"										// Base mana.
+		"StatusMana"				"250"										// Base mana.
 		"StatusManaRegen"			"0"										// Mana regeneration rate.
 
 		"VisionDaytimeRange"		"1800"									// Range of vision during day light.
@@ -61,7 +61,7 @@
 
 		"Str"	"65"
 		"Def"	"100"
-		"Ats"	"120"
+		"Ats"	"105"
 		"Adf"	"100"
 		"Spd"	"0"
 	}

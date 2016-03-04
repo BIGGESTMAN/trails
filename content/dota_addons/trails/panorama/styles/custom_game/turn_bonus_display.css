@@ -9,6 +9,7 @@
 
 	opacity: 1;
 	transition-property: transform;
+	transition-duration: 0.5s;
 }
 
 .TurnBonusDisplayWindow.Visible {
