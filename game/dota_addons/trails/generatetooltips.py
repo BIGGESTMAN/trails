@@ -23,7 +23,6 @@ for fname in filenames:
 				ability = {}
 				bracket_info, truncated_line = line[1:].split("] ")
 				ability['is_quartz'] = len(bracket_info) > 1
-				# print(truncated_line)
 				ability['name'], rest_of_line = truncated_line.split(' (')
 				ability['internal_name'], ability['desc'] = rest_of_line.split(") : ")
 
@@ -35,18 +34,12 @@ for fname in filenames:
 				continue
 
 			if line[0] == '~':
-				# print(line)
 				modifier = {}
 				truncated_line = line[len('~ '):]
 				modifier['name'], rest_of_line = truncated_line.split(' (')
 				modifier['internal_name'], modifier['desc'] = rest_of_line.split(") : ")
-				# print(modifier['name'])
-				# print(modifier['internal_name'])
-				# print(modifier['desc'])
 				modifiers.append(modifier)
 				continue
-
-			# print(line)
 
 			if (line[:len("Enhanced : ")] == "Enhanced : ") or (line[:len("200 CP Bonus : ")] == "200 CP Bonus : "):
 				ability['Enhanced'] = "\n<font color='#FE9A2E'>{}</font>".format(line)
@@ -54,8 +47,8 @@ for fname in filenames:
 			if (line[:len("CP Cost : ")] == "CP Cost : "):
 				ability['CP_Cost'] = "\n<font color='#01DF01'>{}</font>".format(line)
 
-			if (line[:len("Delay : ")] == "Delay : "):
-				nil, ability['delay'] = line.split(': ')
+			if (line[:len("Cast Point : ")] == "Cast Point : "):
+				nil, ability['cast_time'] = line.split(': ')
 				continue
 			
 			if (not ability) or ("(" not in line):
@@ -65,8 +58,6 @@ for fname in filenames:
 
 			effect, value = line.split(') :')
 			name, key = effect.split(" (")
-			# print(name)
-			# print(key)
 			key = key.replace(" ", "_")
 			if not special:
 				ability['effects'].append((name.upper() + ":", key.capitalize()))
@@ -84,27 +75,21 @@ with open('resource/tooltips/generated_tooltips.txt', mode='w', encoding='utf-8'
 		name = ability['internal_name'].replace(" ", "_")
 		outfile.write('\t\t{}{}" "{}"\n'.format(current_ability_prefix, name, ability['name']))
 
-		delay_string = ""
+		cast_time_string = ""
 		if ability['is_quartz']:
-			delay_string = r"\n\n<font color='#0040FF'>DELAY: {}</font>".format(ability['delay'])
+			cast_time_string = r"\n\n<font color='#4080FF'>CAST TIME: {}</font>".format(ability['cast_time'])
 		else:
 			if 'CP_Cost' in ability:
-				print(ability['CP_Cost'])
 				ability['desc'] = ability['desc'] + ability['CP_Cost']
 			if 'Enhanced' in ability:
-				print(ability['Enhanced'])
 				ability['desc'] = ability['desc'] + ability['Enhanced']
-		outfile.write('\t\t{}{}_Description" "{}{}"\n'.format(current_ability_prefix, name, ability['desc'], delay_string))
+		outfile.write('\t\t{}{}_Description" "{}{}"\n'.format(current_ability_prefix, name, ability['desc'], cast_time_string))
 
 		for effect, key in ability['effects']:
-			# print(key)
-			# print(effect)
 			outfile.write('\t\t{}{}_{}" "{}"\n'.format(current_ability_prefix, name, key, effect))
 		outfile.write("\n")
 	for modifier in modifiers:
 		name = modifier['internal_name'].replace(" ", "_")
-		# print('\t\t{}{}" "{}"\n'.format(modifier_prefix, name, modifier['name']))
-		# print('\t\t{}{}_Description" "{}"\n'.format(modifier_prefix, name, modifier['desc']))
 		outfile.write('\t\t{}{}" "{}"\n'.format(modifier_prefix, name, modifier['name']))
 		outfile.write('\t\t{}{}_Description" "{}"\n'.format(modifier_prefix, name, modifier['desc']))
 		outfile.write("\n")

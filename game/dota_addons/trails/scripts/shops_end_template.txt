@@ -1,35 +1,3 @@
-	"attributes"
-	{
-		
-	}
-
-	"weapons_armor"
-	{
-
-	}
-
-	"misc"
-	{
-
-	}
-
-	// Level 1 - Green Recipes
-	"basics"
-	{
-
-	}
-
-	// Level 2 - Blue Recipes
-	"support"
-	{
-
-	}
-
-	"magics"
-	{
-
-	}
-
 	// Level 3 - Purple Recipes
 	"defense"
 	{

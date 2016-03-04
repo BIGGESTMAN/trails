@@ -7,7 +7,9 @@ filenames = os.listdir(directoryname)
 target_type_strings = {'U' : "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET", 'A' : "DOTA_ABILITY_BEHAVIOR_POINT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE", 'N' : "DOTA_ABILITY_BEHAVIOR_NO_TARGET"}
 target_team_strings = {'F' : "DOTA_UNIT_TARGET_TEAM_FRIENDLY", 'E' : "DOTA_UNIT_TARGET_TEAM_ENEMY", 'B' : "DOTA_UNIT_TARGET_TEAM_BOTH"}
 channeled_behavior_string = "DOTA_ABILITY_BEHAVIOR_CHANNELED"
-element_strings = {'F' : "fire", 'E' : "earth", 'W' : "water", 'I' : "wind", 'T' : "Time", 'S' : "Space", 'M' : "Mirage"}
+element_strings = {'F' : "fire", 'E' : "earth", 'W' : "water", 'I' : "wind", 'T' : "time", 'S' : "space", 'M' : "mirage"}
+
+shop_category_names = {('F', "consumables"), ('E', "attributes"), ('W', "weapons_armor"), ('I', "misc"), ('T', "basics"), ('S', "support"), ('M', "magics")}
 
 items = []
 item = None
@@ -33,17 +35,13 @@ for fname in filenames:
 				item['tier'] = line[2]
 				item['target_type'] = line[3]
 				item['target_team'] = line[4]
-				print(item['target_team'])
 				truncated_line = line[len('[----] '):]
-				# print(truncated_line)
 				item['name'], rest_of_line = truncated_line.split(' (')
 				item['internal_name'], item['desc'] = rest_of_line.split(") : ")
 
 				item['effects'] = []
 				items.append(item)
 				continue
-
-			# print(line)
 
 			if ("EP Cost" in line):
 				nil, item['manacost'] = line.split(': ')
@@ -63,8 +61,6 @@ for fname in filenames:
 
 			effect, value = line.split(') :')
 			name, key = effect.split(" (")
-			# print(name)
-			# print(key)
 			key = key.replace(" ", "_")
 			item['effects'].append((key, value[1:]))
 	item = None
@@ -125,9 +121,12 @@ with open('scripts/npc/items/generated_items.txt', mode='w', encoding='utf-8') a
 with open('scripts/shops.txt', mode='w', encoding='utf-8') as outfile:
 	with open("scripts/shops_start_template.txt") as infile:
 		outfile.write(infile.read())
-	outfile.write('\t"consumables"\n\t{\n')
-	for item in items:
-		outfile.write('\t\t"item"\t"{}{}"\n'.format(name_prefix, item['internal_name']))
-	outfile.write('\t}\n\n')
+	for element, category in shop_category_names:
+		outfile.write('\t"{}"\n\t{{\n'.format(category))
+
+		for item in items:
+			if (item['element'] == element):
+				outfile.write('\t\t"item"\t"{}{}"\n'.format(name_prefix, item['internal_name']))
+		outfile.write('\t}\n\n')
 	with open("scripts/shops_end_template.txt") as infile:
 		outfile.write(infile.read())

@@ -14,6 +14,7 @@ game/dota_addons/trails/tools_thumbnail_cache.bin
 game/dota_addons/trails/panorama_debugger.cfg
 game/dota_addons/trails/scripts/npc/npc_heroes_custom.txt
 game/dota_addons/trails/scripts/npc/npc_abilities_custom.txt
+game/dota_addons/trails/scripts/npc/npc_items_custom.txt
 game/dota_addons/trails/scripts/npc/items/generated_items.txt
 game/dota_addons/trails/panorama/*
 
