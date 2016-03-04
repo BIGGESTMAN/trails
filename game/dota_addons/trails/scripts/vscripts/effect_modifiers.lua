@@ -260,7 +260,7 @@ if IsServer() then
 				self:Destroy()
 
 				local damage_percent = 20
-				local damage = self:GetParent():GetMaxHealth() * damage_percent / 100
+				local damage = self:GetParent():GetHealthDeficit() * damage_percent / 100
 				local damage_type = DAMAGE_TYPE_PURE
 				dealDamage(self:GetParent(), caster, damage, damage_type, self:GetAbility(), 0)
 			end

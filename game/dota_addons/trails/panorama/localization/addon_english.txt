@@ -40,6 +40,7 @@
 	"trailspedia_confuse"							"<b>Confuse:</b> Causes the target to randomly attack nearby units."
 	"trailspedia_nightmare"							"<b>Nightmare:</b> Renders the target unable to act; when the nightmare ends, a random non-sleep debuff will be applied for 3 seconds. Ends early if damage is taken."
 	"trailspedia_deathblow"							"<b>Deathblow:</b> Causes the target to die instantly if they fall below 15% of max HP."
+	"trailspedia_petrify"							"<b>Petrify:</b> Disables target and renders them immune to magic. Taking physical damage will break the disable early and deal pure damage equal to 20% of the target's missing health."
 
 	"infotext_text_secondary"						"Waiting to start the next round..."
 	"infotext_ok_secondary"							"Ready"

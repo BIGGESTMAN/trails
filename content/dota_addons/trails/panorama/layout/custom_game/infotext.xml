@@ -32,6 +32,7 @@
 			<Label hittest="false" class="TrailspediaText" html="true" text="#trailspedia_confuse" />
 			<Label hittest="false" class="TrailspediaText" html="true" text="#trailspedia_nightmare" />
 			<Label hittest="false" class="TrailspediaText" html="true" text="#trailspedia_deathblow" />
+			<Label hittest="false" class="TrailspediaText" html="true" text="#trailspedia_petrify" />
 
 			<Button hittest="true" id="OKButton" class="ButtonBevel" onactivate="OnInfoTextOKClicked()">
 				<Label id="ReadyButtonText" text="#infotext_ok" />
