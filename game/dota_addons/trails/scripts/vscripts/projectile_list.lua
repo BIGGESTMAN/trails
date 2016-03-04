@@ -67,7 +67,8 @@ function setupProjectileList()
 		end
 	end
 
-	function ProjectileList:CreateTrackingProjectile(origin, target, speed, impactFunction, particle_name)
+	function ProjectileList:CreateTrackingProjectile(origin, target, speed, impactFunction, particle_name, other_args)
+		other_args = other_args or {}
 		particle_name = particle_name or getProjectileModel(origin:GetUnitName())
 		impactFunction = impactFunction or function() origin:PerformAttack(target, true, true, true, true, false) end
 
@@ -109,7 +110,7 @@ function setupProjectileList()
 						return 0.03
 					else
 						if not target:IsNull() and not origin:IsNull() then
-							impactFunction()
+							impactFunction(origin, target, speed, other_args)
 						end
 						ParticleManager:DestroyParticle(particle, false)
 						Timers:CreateTimer(3, function()

@@ -253,9 +253,5 @@ function findFirstUnitInLine(caster, origin, endpoint, width, target_team, targe
 	local iType = target_type or DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC + DOTA_UNIT_TARGET_MECHANICAL
 	local iOrder = FIND_CLOSEST
 	local targets = FindUnitsInLine(team, origin, endpoint, nil, width, iTeam, iType, iOrder)
-	if #targets >= 1 then
-		return targets[1]
-	else
-		return nil
-	end
+	return targets[1]
 end
