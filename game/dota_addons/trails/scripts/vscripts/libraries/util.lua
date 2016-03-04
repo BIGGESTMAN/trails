@@ -246,3 +246,16 @@ function randomPointInCircle(origin, radius)
     if u > radius then u = radius * 2 - u end
     return Vector(u*math.cos(t), u*math.sin(t),0) + origin
 end
+
+function findFirstUnitInLine(caster, origin, endpoint, width, target_team, target_type)
+	local team = caster:GetTeamNumber()
+	local iTeam = target_team or DOTA_UNIT_TARGET_TEAM_ENEMY
+	local iType = target_type or DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC + DOTA_UNIT_TARGET_MECHANICAL
+	local iOrder = FIND_CLOSEST
+	local targets = FindUnitsInLine(team, origin, endpoint, nil, width, iTeam, iType, iOrder)
+	if #targets >= 1 then
+		return targets[1]
+	else
+		return nil
+	end
+end

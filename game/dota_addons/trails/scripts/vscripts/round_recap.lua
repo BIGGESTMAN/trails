@@ -12,8 +12,6 @@ function Round_Recap:StartRound()
 end
 
 function Round_Recap:EndRound()
-	print("Round ended")
-	DeepPrintTable(self.heroes)
 	CustomGameEventManager:Send_ServerToAllClients("round_recap_start", {heroes = self.heroes})
 end
 
@@ -28,6 +26,5 @@ function Round_Recap:AddAbilityDamage(hero, ability, damage)
 
 	if not self.heroes[hero_index] then self.heroes[hero_index] = {name = hero:GetUnitName(), abilities = {}, player = hero:GetPlayerOwnerID()} end
 	if not self.heroes[hero_index].abilities[ability_name] then self.heroes[hero_index].abilities[ability_name] = {name = ability_name, damage = 0, index = ability_index} end
-	print(self.heroes[hero_index].abilities[ability_name].index, ability_index)
 	self.heroes[hero_index].abilities[ability_name].damage = self.heroes[hero_index].abilities[ability_name].damage + damage
 end

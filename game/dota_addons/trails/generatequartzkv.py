@@ -6,7 +6,6 @@ filenames = os.listdir(directoryname)
 
 target_type_strings = {'U' : "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET", 'A' : "DOTA_ABILITY_BEHAVIOR_POINT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE", 'N' : "DOTA_ABILITY_BEHAVIOR_NO_TARGET"}
 target_team_strings = {'F' : "DOTA_UNIT_TARGET_TEAM_FRIENDLY", 'E' : "DOTA_UNIT_TARGET_TEAM_ENEMY", 'B' : "DOTA_UNIT_TARGET_TEAM_BOTH"}
-# channeled_behavior_string = "DOTA_ABILITY_BEHAVIOR_CHANNELED"
 element_strings = {'F' : "fire", 'E' : "earth", 'W' : "water", 'I' : "wind", 'T' : "time", 'S' : "space", 'M' : "mirage"}
 
 shop_category_names = {('F', "consumables"), ('E', "attributes"), ('W', "weapons_armor"), ('I', "misc"), ('T', "basics"), ('S', "support"), ('M', "magics")}
@@ -57,6 +56,10 @@ for fname in filenames:
 				continue
 			if (line[:len("Price : ")] == "Price : "):
 				nil, item['quartz_cost'] = line.split(': ')
+				continue
+			if (line[:len("Max Channel Duration : ")] == "Max Channel Duration : "):
+				nil, item['channel_time'] = line.split(': ')
+				continue
 			
 			if (not item) or ("(" not in line):
 				continue
@@ -76,7 +79,12 @@ with open('scripts/npc/items/generated_items.txt', mode='w', encoding='utf-8') a
 		outfile.write('\t\t"ID"\t"{}"\n'.format(2001 + items_written))
 		outfile.write('\t\t"BaseClass"\t"item_lua"\n')
 		outfile.write('\t\t"ScriptFile"\t"arts/{}/{}"\n'.format(element_strings[item['element']], item['internal_name']))
-		outfile.write('\t\t"AbilityBehavior"\t"{}"\n'.format(target_type_strings[item['target_type']]))
+
+		channeled_behavior_string = ""
+		if ('channel_time' in item):
+			channeled_behavior_string = " | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+		outfile.write('\t\t"AbilityBehavior"\t"{}{}"\n'.format(target_type_strings[item['target_type']], channeled_behavior_string))
+
 		outfile.write('\t\t"AbilityUnitTargetTeam"\t"{}"\n'.format(target_team_strings[item['target_team']]))
 		outfile.write('\t\t"AbilityUnitTargetType"\t"{}"\n'.format("DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"))
 		outfile.write('\t\t"Model"\t"models/props_gameplay/red_box.vmdl"\n')
@@ -89,7 +97,8 @@ with open('scripts/npc/items/generated_items.txt', mode='w', encoding='utf-8') a
 		if ('cast_range' in item):
 			outfile.write('\t\t"AbilityCastRange"\t"{}"\n'.format(item['cast_range']))
 		outfile.write('\t\t"AbilityManaCost"\t"{}"\n'.format(item['manacost']))
-		outfile.write('\t\t"AbilityChannelTime"\t"0"\n')
+		if ('channel_time' in item):
+			outfile.write('\t\t"AbilityChannelTime"\t"{}"\n'.format(item['channel_time']))
 		outfile.write('\t\t"ItemCost"\t"{}"\n'.format(item['quartz_cost']))
 		outfile.write('\t\t"ItemDroppable"\t"1"\n')
 		outfile.write('\t\t"ItemSellable"\t"1"\n')
