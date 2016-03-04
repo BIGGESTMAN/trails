@@ -15,18 +15,28 @@
 		}
 		(function () {
 			var ability_name = $.GetContextPanel().GetAttributeString("ability_name", "");
-			$.Msg(ability_name)
 			if (ability_name == "basic_attacks") {
-				$.Msg("?")
 				ability_name = "bounty_hunter_jinada"
+				$("#Icon").style.backgroundImage = "url('file://{resources}/images/spellicons/" + ability_name + ".png')";
 			}
-			$("#Icon").abilityname = ability_name
+			else {
+				var abilityTexture = $.GetContextPanel().GetAttributeString("ability_texture_name", "")
+				var itemIdx = ability_name.indexOf( "item_" );
+				if (itemIdx === -1) {
+					$("#Icon").style.backgroundImage = "url('file://{resources}/images/spellicons/" + abilityTexture + ".png')";
+				} else {
+					abilityTexture = abilityTexture.substr('item_'.length)
+					$("#Icon").style.backgroundImage = "url('file://{resources}/images/items/" + abilityTexture + ".png')";
+					$("#Icon").style.backgroundSize = "86px 64px";
+					$("#Icon").style.backgroundPosition = "center";
+				}
+			}
 			$("#DamageDealtText").text = $.GetContextPanel().GetAttributeInt("damage", 0);
 		})();
 	</script>
 	<Panel hittest="false" class="RoundRecapSkill">
 		<Button hittest="true" onmouseover="SkillShowTooltip()" onmouseout="SkillHideTooltip()" >
-			<DOTAAbilityImage hittest="true" id="Icon" />
+			<Panel hittest="true" id="Icon" />
 		</Button>
 		<Label id="DamageDealtText" />
 	</Panel>

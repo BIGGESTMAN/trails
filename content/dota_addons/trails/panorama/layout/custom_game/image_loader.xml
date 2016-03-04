@@ -18,6 +18,28 @@
 			<Image id="image_loader" src="file://{images}/spellicons/alisa_blessed_arrow.png" hittest="false" />
 			<Image id="image_loader" src="file://{images}/spellicons/alisa_heavenly_gift.png" hittest="false" />
 			<Image id="image_loader" src="file://{images}/spellicons/crow_freezing_bullet.png" hittest="false" />
+
+			<Image id="image_loader" src="file://{images}/items/quartz_earth_1.png" hittest="false" />
+			<Image id="image_loader" src="file://{images}/items/quartz_earth_2.png" hittest="false" />
+			<Image id="image_loader" src="file://{images}/items/quartz_earth_3.png" hittest="false" />
+			<Image id="image_loader" src="file://{images}/items/quartz_fire_1.png" hittest="false" />
+			<Image id="image_loader" src="file://{images}/items/quartz_fire_2.png" hittest="false" />
+			<Image id="image_loader" src="file://{images}/items/quartz_fire_3.png" hittest="false" />
+			<Image id="image_loader" src="file://{images}/items/quartz_water_1.png" hittest="false" />
+			<Image id="image_loader" src="file://{images}/items/quartz_water_2.png" hittest="false" />
+			<Image id="image_loader" src="file://{images}/items/quartz_water_3.png" hittest="false" />
+			<Image id="image_loader" src="file://{images}/items/quartz_wind_1.png" hittest="false" />
+			<Image id="image_loader" src="file://{images}/items/quartz_wind_2.png" hittest="false" />
+			<Image id="image_loader" src="file://{images}/items/quartz_wind_3.png" hittest="false" />
+			<Image id="image_loader" src="file://{images}/items/quartz_time_1.png" hittest="false" />
+			<Image id="image_loader" src="file://{images}/items/quartz_time_2.png" hittest="false" />
+			<Image id="image_loader" src="file://{images}/items/quartz_time_3.png" hittest="false" />
+			<Image id="image_loader" src="file://{images}/items/quartz_space_1.png" hittest="false" />
+			<Image id="image_loader" src="file://{images}/items/quartz_space_2.png" hittest="false" />
+			<Image id="image_loader" src="file://{images}/items/quartz_space_3.png" hittest="false" />
+			<Image id="image_loader" src="file://{images}/items/quartz_mirage_1.png" hittest="false" />
+			<Image id="image_loader" src="file://{images}/items/quartz_mirage_2.png" hittest="false" />
+			<Image id="image_loader" src="file://{images}/items/quartz_mirage_3.png" hittest="false" />
 		</Panel>
 	</Panel>
 </root>

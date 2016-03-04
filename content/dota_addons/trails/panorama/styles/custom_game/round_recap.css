@@ -98,6 +98,7 @@
 .RoundRecapSkill #Icon {
 	width: 64px;
 	height: 64px;
+	background-size: 100% 100%;
 }
 
 .RoundRecapSkill #DamageDealtText
