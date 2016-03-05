@@ -37,6 +37,40 @@ function modifier_burn:IsDebuff()
 	return true
 end
 
+modifier_faint = class({})
+
+function modifier_faint:GetEffectName()
+	return "particles/generic_gameplay/generic_stunned_old.vpcf"
+end
+
+function modifier_faint:GetEffectAttachType()
+	return PATTACH_OVERHEAD_FOLLOW
+end
+
+function modifier_faint:GetTexture()
+	return "faceless_void_time_lock"
+end
+
+function modifier_faint:IsDebuff()
+	return true
+end
+
+function modifier_faint:CheckState()
+	local state = {
+	[MODIFIER_STATE_STUNNED] = true,
+	}
+
+	return state
+end
+
+function modifier_faint:DeclareFunctions()
+	return { MODIFIER_PROPERTY_OVERRIDE_ANIMATION }
+end
+ 
+function modifier_faint:GetOverrideAnimation( params )
+	return ACT_DOTA_DISABLED
+end
+
 modifier_seal = class({})
 
 function modifier_seal:CheckState()

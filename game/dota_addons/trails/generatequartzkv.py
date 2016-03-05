@@ -107,7 +107,7 @@ with open('scripts/npc/items/generated_items.txt', mode='w', encoding='utf-8') a
 		outfile.write('\t\t"AbilitySpecial" {\n')
 		for key, value in item['effects']:
 			outfile.write('\t\t\t"00" {{\n'.format())
-			outfile.write('\t\t\t\t"var_type"\t"FIELD_INTEGER"\n')
+			outfile.write('\t\t\t\t"var_type"\t"FIELD_FLOAT"\n')
 			outfile.write('\t\t\t\t"{}"\t"{}"\n'.format(key, value))
 			outfile.write('\t\t\t}\n')
 		outfile.write('\t\t}\n')

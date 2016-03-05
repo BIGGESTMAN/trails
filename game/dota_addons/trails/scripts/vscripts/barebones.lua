@@ -339,6 +339,7 @@ function GameMode:OnHeroInGame(hero)
 
 	-- Store a reference to the player handle inside this hero handle.
 	hero.player = PlayerResource:GetPlayer(hero:GetPlayerID())
+	if not hero.player then return end -- Ignore all this shit if this is an illusion or w/e
 	-- Store the player's name inside this hero handle.
 	hero.playerName = PlayerResource:GetPlayerName(hero:GetPlayerID())
 	-- Store this hero handle in this table.

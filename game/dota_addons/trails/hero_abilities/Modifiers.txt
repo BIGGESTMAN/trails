@@ -24,8 +24,9 @@ Modifiers
 ~ Deathblow (modifier_deathblow) : Will die instantly if unit falls below 15%% of max HP.
 ~ CP Boost (modifier_cp_boost) : CP gain increased by 50%%.
 ~ Petrify (modifier_petrify) : Disabled and immune to magic. Taking physical damage will break the disable early and deal pure damage equal to 20% of unit's missing health.
+~ Faint (modifier_faint) : Disabled and taking 50%% more damage.
 ~ Turn Bonus: Critical (modifier_crit) : Next craft, art or basic attack will deal double damage or heal for double health.
-~ Turn Bonus: Brute Force (modifier_brute_force) : Next offensive craft, art or basic attack will instantly unbalance the target.
+~ Turn Bonus: Brute Force (modifier_brute_force) : Next offensive craft or basic attack will instantly unbalance the target.
 ~ Turn Bonus: Link Broken (modifier_link_broken) : Cannot form combat links with allies.
 
 ~ CP (modifier_cp_tracker_cp) : Amount of CP available for crafts. Increased by dealing and recieving damage, and gained slowly over time.

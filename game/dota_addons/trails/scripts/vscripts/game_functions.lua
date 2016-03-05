@@ -25,6 +25,7 @@ CP_BOOST_GAIN_FACTOR = 1.5
 
 FREEZE_COMMAND_DELAY = 0.6
 CRIT_DAMAGE_FACTOR = 2
+FAINT_DAMAGE_FACTOR = 1.5
 
 LinkLuaModifier(STAT_STR, "stat_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier(STAT_ATS, "stat_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
@@ -50,6 +51,7 @@ LinkLuaModifier("modifier_nightmare", "effect_modifiers.lua", LUA_MODIFIER_MOTIO
 LinkLuaModifier("modifier_deathblow", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_cp_boost", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_petrify", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_faint", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_crit", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_brute_force", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_link_broken", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
@@ -64,6 +66,9 @@ function dealDamage(target, attacker, damage, damage_type, ability, cp_gain_fact
 	end
 	if target:HasModifier("modifier_petrify") and damage_type == DAMAGE_TYPE_MAGICAL then
 		return
+	end
+	if target:HasModifier("modifier_faint") then
+		damage = damage * FAINT_DAMAGE_FACTOR
 	end
 	if attacker then
 		if damage_type == DAMAGE_TYPE_PHYSICAL and attacker:HasModifier("modifier_azure_flame_slash_sword_inflamed") then

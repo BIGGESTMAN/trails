@@ -7,13 +7,13 @@ Price : 500
 DEF (bonus_def) : 20
 Cast Point : 1
 Delay : 3
-Magic Damage per Stone (damage_percent) : 120%
+%Magic Damage per Stone (damage_percent) : 120%
 Petrify Duration (petrify_duration) : 2
 Search Radius (radius) : 500
 Damage & Isolation Radius (spike_radius) : 225
 EP Cost : 60
 
-[E1UF] Earth Grow (earth_grow) : With the power of the earth, gives an ally HP Regeneration.
+[E1UF] Earth Pulse (earth_pulse) : With the power of the earth, gives an ally HP Regeneration.
 
 Price : 750
 HP (bonus_health) : 300
@@ -50,7 +50,7 @@ ADF (bonus_adf) : 20
 Cast Point : 1
 Delay : 3
 Max Channel Duration : 1
-Total Magic Damage (damage_percent) : 200%
+%Total Magic Damage (damage_percent) : 200%
 Knockback Duration per Instance : 0.1
 Knockback Distance per Instance : 90
 Range (tooltip_cast_range) : 600
@@ -93,7 +93,7 @@ Price : 500
 STR (bonus_str) : 20
 Cast Point : 1
 Delay : 3
-Magic Damage (damage_percent) : 200%
+%Magic Damage (damage_percent) : 200%
 Burn Duration (burn_duration) : 2
 Range (tooltip_cast_range) : 550
 Cast Range : 550
@@ -133,7 +133,7 @@ Price : 500
 MOV (bonus_mov) : 15
 Cast Point : 1
 Delay : 3
-Magic Damage per Instance (damage_percent) : 75%
+%Magic Damage per Hit (damage_percent) : 75%
 Seal Duration (seal_duration) : 1
 Cast Range : 1000
 Travel Distance : 1000
@@ -170,18 +170,18 @@ Cast Range : 900
 Radius : 500
 EP Cost : 120
 
-[T1UE] Soul Blur (soul_blur) : Ravages an enemy's spacetime to deal time damage and create a stationary illusion for 3 seconds. If the enemy moves out of range of their illusion, they Faint.
+[T1UE] Soul Blur (soul_blur) : Ravages an enemy's spacetime to deal magic damage and create a stationary illusion for 3 seconds. If the enemy moves out of range of their illusion, they Faint.
 DevNotes - The illusion is invulnerable and untargetable.
 
 Price : 500
 SPD (bonus_spd) : 10
 Cast Point : 1
 Delay : 4
-Time Damage : 210%
-Faint Duration : 1.2
+%Magic Damage (damage_percent) : 210%
+Faint Duration (faint_duration) : 1.2
 Range (tooltip_cast_range) : 600
 Cast Range : 600
-Illusion Search Radius : 300
+Illusion Search Radius (faint_range) : 300
 EP Cost : 30
 
 [T1AF] Chrono Drive (chrono_drive) : Opens a timegate that increases MOV and SPD by 25% the first time each ally passes through it.
@@ -262,7 +262,7 @@ Cast Range : 600
 Radius : 550
 EP Cost : 200
 
-[S1AE] Gold Sphere (gold_sphere) : Three balls of dazzling light Blind enemies facing them. After 1 second, they fly at nearby random enemies to deal space damage and Blind them.
+[S1AE] Golden Sphere (golden_sphere) : Three balls of dazzling light Blind enemies facing them. After 1 second, they fly at nearby random enemies to deal space damage and Blind them.
 DevNotes - The Blind before the balls fly lingers for 0.5 seconds.
 
 Price : 500
@@ -278,7 +278,7 @@ Blind Radius : 500
 Search Radius : 500
 EP Cost : 30
 
-[S1NF] Seraphim Ring (seraphim_ring) : Sends out a band of light that resurrects and fully heals all allies it touches as well as giving HP Regeneration. The heal is reduced by 40% for each enemy the ring passes through.
+[S1NF] Seraphic Ring (seraphic_ring) : Sends out a band of light that resurrects and fully heals all allies it touches as well as giving HP Regeneration. The heal is reduced by 40% for each enemy the ring passes through.
 DevNotes - The caster always receives the full heal. The reduction is multiplicative.
 
 Price : 3000
