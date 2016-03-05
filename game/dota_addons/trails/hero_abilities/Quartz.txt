@@ -228,7 +228,7 @@ Cast Point : 1
 Delay : 3
 Mirage Damage (damage_percent) : 220%
 Range (tooltip_cast_range) : 875
-Width : 175
+Width (width) : 175
 Cast Range : 800
 EP Cost : 30
 

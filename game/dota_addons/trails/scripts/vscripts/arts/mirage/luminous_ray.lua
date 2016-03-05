@@ -1,6 +1,5 @@
 require "game_functions"
 require "arts"
-require "projectile_list"
 
 item_luminous_ray = class({})
 
@@ -11,7 +10,7 @@ if IsServer() then
 		local target_point = self:GetCursorPosition()
 
 		local range = 800
-		local radius = 175
+		local radius = ability:GetSpecialValueFor("width")
 		local damage_scale = ability:GetSpecialValueFor("damage_percent") / 100
 		local damage_type = DAMAGE_TYPE_MAGICAL
 

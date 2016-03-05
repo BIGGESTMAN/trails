@@ -27,6 +27,8 @@ FREEZE_COMMAND_DELAY = 0.6
 CRIT_DAMAGE_FACTOR = 2
 FAINT_DAMAGE_FACTOR = 1.5
 
+LinkLuaModifier("modifier_base_mov_buff", "modifier_base_mov_buff.lua", LUA_MODIFIER_MOTION_NONE)
+
 LinkLuaModifier(STAT_STR, "stat_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier(STAT_ATS, "stat_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier(STAT_DEF, "stat_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
@@ -201,6 +203,7 @@ function initializeStats(hero)
 		spd = getHeroValueForKey(hero, "Spd"),
 		mov = hero:GetBaseMoveSpeed()
 	}
+	hero:AddNewModifier(hero, nil, "modifier_base_mov_buff", {})
 end
 
 function getStats(hero)
