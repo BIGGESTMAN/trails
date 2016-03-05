@@ -1,0 +1,87 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
+{
+	_class = "CParticleSystemDefinition"
+	m_bShouldHitboxesFallbackToRenderBounds = false
+	m_nMaxParticles = 4
+	m_Children =
+	[
+		{
+			m_ChildRef = resource:"particles/arts/mirage/luminous_ray/beam_rings.vpcf"
+			m_bDisableChild = true
+		},
+		{
+			m_ChildRef = resource:"particles/arts/mirage/luminous_ray/beam_shaft_bits.vpcf"
+		},
+		{
+			m_ChildRef = resource:"particles/arts/mirage/luminous_ray/beam_smoke.vpcf"
+		},
+		{
+			m_ChildRef = resource:"particles/arts/mirage/luminous_ray/beam_moonlight.vpcf"
+		},
+		{
+			m_ChildRef = resource:"particles/arts/mirage/luminous_ray/beam_burst.vpcf"
+			m_bDisableChild = true
+		},
+		{
+			m_ChildRef = resource:"particles/arts/mirage/luminous_ray/beam_flare.vpcf"
+		},
+		{
+			m_ChildRef = resource:"particles/arts/mirage/luminous_ray/beam_bits.vpcf"
+			m_bDisableChild = true
+		},
+		{
+			m_ChildRef = resource:"particles/arts/mirage/luminous_ray/beam_shaft03.vpcf"
+		},
+		{
+			m_ChildRef = resource:"particles/arts/mirage/luminous_ray/beam_shaft02.vpcf"
+		},
+		{
+			m_ChildRef = resource:"particles/arts/mirage/luminous_ray/beam_shaft04.vpcf"
+		},
+		{
+			m_ChildRef = resource:"particles/arts/mirage/luminous_ray/beam_shaft05.vpcf"
+		},
+	]
+	m_ConstantColor =
+	[
+		207,
+		224,
+		255,
+		255,
+	]
+	m_Operators =
+	[
+		{
+			_class = "C_OP_SetSingleControlPointPosition"
+			m_vecCP1Pos =
+			[
+				0.000000,
+				0.000000,
+				100.000000,
+			]
+			m_bSetOnce = true
+			m_nCP1 = 0
+		},
+		{
+			_class = "C_OP_Decay"
+		},
+		{
+			_class = "C_OP_SetSingleControlPointPosition"
+			m_bSetOnce = true
+			m_vecCP1Pos =
+			[
+				0.000000,
+				0.000000,
+				100.000000,
+			]
+			m_nHeadLocation = 1
+		},
+	]
+	m_Emitters =
+	[
+		{
+			_class = "C_OP_InstantaneousEmitter"
+			m_nParticlesToEmit = 1
+		},
+	]
+}

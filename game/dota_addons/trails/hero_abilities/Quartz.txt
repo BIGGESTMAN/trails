@@ -220,7 +220,7 @@ Touch Radius : 125
 Detonation Radius : 350 
 EP Cost : 200
 
-[M1AE] Luminous Ray (luminous_ray) : A moonbeam deals mirage damage to enemies.
+[M1AE] Luminous Ray (luminous_ray) : A moonbeam deals magic damage to enemies.
 
 Price : 500
 ATS (bonus_ats) : 20
