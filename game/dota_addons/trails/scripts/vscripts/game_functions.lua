@@ -200,6 +200,27 @@ end
 
 function getStats(hero)
 	local stats = copyOfTable(hero.stats)
+	stats = getQuartzAdjustedStats(hero, stats)
+	stats = getModifierAdjustedStats(hero, stats)
+	return stats
+end
+
+function getQuartzAdjustedStats(hero, stats)
+	for i=0,5 do
+		local quartz = hero:GetItemInSlot(i)
+		if quartz then
+			stats.str = stats.str + quartz:GetSpecialValueFor("bonus_str")
+			stats.def = stats.def + quartz:GetSpecialValueFor("bonus_def")
+			stats.ats = stats.ats + quartz:GetSpecialValueFor("bonus_ats")
+			stats.adf = stats.adf + quartz:GetSpecialValueFor("bonus_adf")
+			stats.spd = stats.spd + quartz:GetSpecialValueFor("bonus_spd")
+			stats.mov = stats.mov + quartz:GetSpecialValueFor("bonus_mov")
+		end
+	end
+	return stats
+end
+
+function getModifierAdjustedStats(hero, stats)
 	if hero:HasModifier(STAT_STR) then stats.str = stats.str * (1 + hero:FindModifierByName(STAT_STR):GetStackCount() / 100) end
 	if hero:HasModifier(STAT_STR_DOWN) then stats.str = stats.str * (1 - hero:FindModifierByName(STAT_STR_DOWN):GetStackCount() / 100) end
 	if hero:HasModifier(STAT_DEF) then stats.def = stats.def * (1 + hero:FindModifierByName(STAT_DEF):GetStackCount() / 100) end

@@ -21,8 +21,6 @@ function inflictArtsDelay(unit, amount)
 		local art = unit:GetItemInSlot(i)
 		if art then
 			art:StartCooldown(amount + art:GetCooldownTimeRemaining())
-		else
-			break
 		end
 	end
 end
