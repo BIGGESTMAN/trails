@@ -37,6 +37,59 @@ function modifier_burn:IsDebuff()
 	return true
 end
 
+modifier_seal = class({})
+
+function modifier_seal:CheckState()
+	local state = {
+	[MODIFIER_STATE_DISARMED] = true,
+	[MODIFIER_STATE_SILENCED] = true,
+	}
+
+	return state
+end
+
+function modifier_seal:GetEffectName()
+	return "particles/units/heroes/hero_invoker/invoker_deafening_blast_disarm_debuff.vpcf"
+end
+
+function modifier_seal:GetEffectAttachType()
+	return PATTACH_OVERHEAD_FOLLOW
+end
+
+function modifier_seal:GetTexture()
+	return "enchantress_untouchable"
+end
+
+function modifier_seal:IsDebuff()
+	return true
+end
+
+modifier_mute = class({})
+
+function modifier_mute:CheckState()
+	local state = {
+	[MODIFIER_STATE_MUTED] = true,
+	}
+
+	return state
+end
+
+function modifier_mute:GetEffectName()
+	return "particles/generic_gameplay/generic_silence.vpcf"
+end
+
+function modifier_mute:GetEffectAttachType()
+	return PATTACH_OVERHEAD_FOLLOW
+end
+
+function modifier_mute:GetTexture()
+	return "silencer_last_word"
+end
+
+function modifier_mute:IsDebuff()
+	return true
+end
+
 modifier_insight = class({})
 
 if IsServer() then

@@ -42,7 +42,7 @@ Initial Radius : 400
 Max Radius : 1600
 EP Cost : 240
 
-[W1UE] Aqua Bleed (aqua_bleed) : A focused jet of water is channeled towards an enemy, dealing water damage while knocking them back. Another enemy can intercept the jet.
+[W1UE] Aqua Bleed (aqua_bleed) : A focused jet of water is channeled towards an enemy, dealing magic damage while knocking them back. Another enemy can intercept the jet.
 DevNotes - Causes 40% damage and knockback in 0.2 second intervals with no initial instance. Knocks back in the same direction as the jet. 
 
 Price : 500
@@ -50,7 +50,7 @@ ADF (bonus_adf) : 20
 Cast Point : 1
 Delay : 3
 Max Channel Duration : 1
-Max Water Damage (damage_percent) : 200%
+Total Magic Damage (damage_percent) : 200%
 Knockback Duration per Instance : 0.1
 Knockback Distance per Instance : 90
 Range (tooltip_cast_range) : 600
@@ -87,14 +87,14 @@ Path Length : 800
 Path Width : 400
 EP Cost : 220
 
-[F1UE] Fire Bolt (fire_bolt) : Launches a fireball that deals fire damage and Burns. 
+[F1UE] Fire Bolt (fire_bolt) : Launches a fireball that deals magic damage and Burns. 
 
 Price : 500
 STR (bonus_str) : 20
 Cast Point : 1
 Delay : 3
-Fire Damage (damage_percent) : 200%
-Burn Duration (duration) : 2
+Magic Damage (damage_percent) : 200%
+Burn Duration (burn_duration) : 2
 Range (tooltip_cast_range) : 550
 Cast Range : 550
 Travel Speed : 900
@@ -126,18 +126,18 @@ Fire Damage & Burn Duration Increase per Second : 20%
 Radius : 700
 EP Cost : 250
 
-[I1AE] Spark Arrow (spark_arrow) : Flings a bolt of lightning, which jumps to nearby enemies up to 3 times on successful hit. The initial impact and each jump deals wind damage and Seals.
+[I1AE] Spark Arrow (spark_arrow) : Flings a bolt of lightning, which jumps to nearby enemies up to 3 times on successful hit. The initial impact and each jump deals magic damage and Seals.
 DevNotes - Can hit the same unit twice. Jumps in 0.3 second intervals.
 
 Price : 500
 MOV (bonus_mov) : 15
 Cast Point : 1
 Delay : 3
-Wind Damage per Instance (damage_percent) : 75%
-Seal Duration : 1
+Magic Damage per Instance (damage_percent) : 75%
+Seal Duration (seal_duration) : 1
 Cast Range : 1000
 Travel Distance : 1000
-Travel Speed : 2000
+Travel Speed : 1500
 Bolt Radius : 125
 Jump Search Radius : 500
 EP Cost : 50

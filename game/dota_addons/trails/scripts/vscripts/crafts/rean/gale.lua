@@ -72,6 +72,7 @@ function hitTarget(caster, direction, speed, target, other_args)
 	local dash_speed = ability:GetSpecialValueFor("dash_speed")
 	local dash_through_range = ability:GetSpecialValueFor("dash_through_range")
 	local slow_duration = ability:GetSpecialValueFor("unbalanced_slow_duration")
+	local seal_duration = ability:GetSpecialValueFor("disarm_duration")
 
 	if IsValidAlive(target) then
 		if caster.gale_secondary_phase then
@@ -81,7 +82,7 @@ function hitTarget(caster, direction, speed, target, other_args)
 		if other_args.crit then damage_scale = damage_scale * 2 end
 		dealScalingDamage(target, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR)
 		increaseUnbalance(caster, target, bonus_unbalance)
-		ability:ApplyDataDrivenModifier(caster, target, "modifier_gale_disarm", {})
+		target:AddNewModifier(caster, ability, "modifier_seal", {duration = seal_duration})
 		ParticleManager:CreateParticle("particles/units/heroes/hero_bounty_hunter/bounty_hunter_jinda_slow.vpcf", PATTACH_ABSORIGIN, target)
 	end
 

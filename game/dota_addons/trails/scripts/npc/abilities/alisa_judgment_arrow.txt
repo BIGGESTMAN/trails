@@ -126,21 +126,6 @@
 				"OverrideAnimation"     "ACT_DOTA_DISABLED"
 			}
 
-			"modifier_judgment_arrow_silence"
-			{
-				"IsDebuff"		"1"
-
-				"Duration"		"%silence_duration"
-
-				"States"
-				{
-					"MODIFIER_STATE_SILENCED"	"MODIFIER_STATE_VALUE_ENABLED"
-				}
-
-				"EffectName"		"particles/generic_gameplay/generic_silence.vpcf"
-				"EffectAttachType"	"follow_overhead"
-			}
-
 			"modifier_judgment_arrow_casting"
 			{
 				"States"

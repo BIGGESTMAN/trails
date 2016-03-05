@@ -32,6 +32,8 @@
 	"infotext_subheader_3"							"Other Misc Shit"
 	"infotext_text_3"								"<p>The objective of the game is to kill all enemy heroes each round -- there are no creeps, towers, or shops.</p><p>In the middle of the map there is a zone which grants Turn Bonuses every 15 seconds -- if your team has uncontested control of it at any point while the Turn Bonus is active, it will grant the bonus to the closest member of your team.</p><p>The first team to win 5 rounds wins the game.</p>"
 	"trailspedia_header"							"Status Effects"
+	"trailspedia_seal"								"<b>Seal:</b> Prevents attacking and craft use."
+	"trailspedia_mute"								"<b>Mute:</b> Prevents casting of arts."
 	"trailspedia_insight"							"<b>Insight:</b> Evades an instance of physical damage once per second."
 	"trailspedia_passion"							"<b>Passion:</b> Rapidly regenerates CP."
 	"trailspedia_cp_boost"							"<b>CP Boost:</b> Increases all CP gained by 50%."

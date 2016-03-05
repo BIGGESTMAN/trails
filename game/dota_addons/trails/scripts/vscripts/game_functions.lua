@@ -39,6 +39,8 @@ LinkLuaModifier(STAT_ADF_DOWN, "stat_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier(STAT_SPD_DOWN, "stat_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier(STAT_MOV_DOWN, "stat_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 
+LinkLuaModifier("modifier_seal", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_mute", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_burn", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_insight", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_passion", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)

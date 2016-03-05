@@ -44,7 +44,7 @@ Enhanced Wind Duration (unbalanced_wind_duration) : 8
 Enhanced Attackspeed (unbalanced_bonus_attackspeed) : 40
 CP Cost : 15
 
-[D] Gale (gale) : Passively marks enemies each time they're hit by another of Rean's attacks, enabling targeting by Gale once they're marked twice. When cast, Rean rapidly slices through marked enemies in the area, dealing physical damage and Disarming them before returning to his starting location. +20 to Unbalance.
+[D] Gale (gale) : Passively marks enemies each time they're hit by another of Rean's attacks, enabling targeting by Gale once they're marked twice. When cast, Rean rapidly slices through marked enemies in the area, dealing physical damage and Sealing them before returning to his starting location. +20 to Unbalance.
 Enhanced : Slices through each enemy twice, regardless of marks, with the second slash dealing reduced damage but heavily slowing. Always attacks the targeted enemy last, leaving Rean next to them afterwards.
 
 Cast Point : 0.2
@@ -52,7 +52,7 @@ Delay: 5
 Radius (radius) : 400
 %Physical Damage (damage_percent) : 250
 Dash Speed : 2000
-Disarm Duration (disarm_duration) : 3
+Seal Duration (disarm_duration) : 3
 Cast Range : 400
 %Enhanced Secondary Damage (unbalanced_damage_percent) : 125
 %Enhanced Slow (unbalanced_slow) : 80

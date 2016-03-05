@@ -52,11 +52,11 @@ function arrowHit(caster, unit, other_args, projectile)
 	local ability = caster:FindAbilityByName("judgment_arrow")
 	local damage_scale = other_args.damage_scale
 	local damage_type = ability:GetAbilityDamageType()
-	local silence_duration = ability:GetSpecialValueFor("silence_duration")
+	local mute_duration = ability:GetSpecialValueFor("silence_duration")
 
 	dealScalingDamage(unit, caster, damage_type, damage_scale, ability, SCRAFT_CP_GAIN_FACTOR)
 	increaseUnbalance(caster, unit)
-	ability:ApplyDataDrivenModifier(caster, unit, "modifier_judgment_arrow_silence", {})
+	unit:AddNewModifier(caster, ability, "modifier_mute", {duration = mute_duration})
 	pullUnit(caster, unit, projectile, other_args.max_cp)
 end
 

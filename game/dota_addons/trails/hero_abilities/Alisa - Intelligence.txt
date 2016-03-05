@@ -66,7 +66,7 @@ Enhanced CP Restore Duration (unbalanced_cp_restore_duration) : 8
 Enhanced CP Restore Radius (unbalanced_cp_restore_radius) : 350
 CP Cost : 50
 
-[R] Judgment Arrow (judgment_arrow) : S-Craft: Alisa annihilates enemies in a line with an arrow of judgment, dealing magic damage and Silencing them. Enemies hit are pulled along with the arrow.
+[R] Judgment Arrow (judgment_arrow) : S-Craft: Alisa annihilates enemies in a line with an arrow of judgment, dealing magic damage and Muting them. Enemies hit are pulled along with the arrow.
 200 CP Bonus : Deals more damage and stuns all enemies hit at the end of its path.
 
 Delay: 10
@@ -75,7 +75,7 @@ Radius (radius) : 400
 Projectile Speed : 1000
 %Magical Damage (damage_percent) : 300
 Range (range) : 1400
-Silence Duration (silence_duration) : 5
+Mute Duration (silence_duration) : 5
 %200 CP Magical Damage (max_cp_damage_percent) : 600
 200 CP Stun Duration (max_cp_stun_duration) : 3
 CP Cost : 100

@@ -15,7 +15,6 @@ function setupProjectileList()
 
 	function ProjectileList:GetProjectiles()
 		for projectile,_ in pairs(self.projectiles) do
-			-- print(projectile)
 			if projectile:IsNull() or not projectile:IsAlive() then
 				self.projectiles[projectile] = nil
 			end
@@ -126,8 +125,9 @@ function setupProjectileList()
 	end
 
 	function ProjectileList:CreateLinearProjectile(caster, origin_location, direction, speed, range, impactFunction, collisionRules, collisionFunction, particle_name, other_args)
-		print("linear projectile created")
 		other_args = other_args or {}
+		local destroy_on_collision = other_args.destroy_on_collision
+		local cannot_collide_with = other_args.cannot_collide_with or {}
 
 		local update_interval = 1/30
 		speed = speed * update_interval
@@ -165,9 +165,14 @@ function setupProjectileList()
 						collisionRules["origin"] = projectile:GetAbsOrigin()
 						local targets = FindUnitsInRadiusTable(collisionRules)
 						for k,unit in pairs(targets) do
-							if not projectile.units_hit[unit] then
-								collisionFunction(caster, unit, other_args, projectile)
+							if not cannot_collide_with[unit] and not projectile.units_hit[unit] then
+								collisionFunction(caster, unit, other_args, projectile, range, collisionRules, collisionFunction, particle_name, speed / update_interval)
 								projectile.units_hit[unit] = true
+								if destroy_on_collision then
+									if impactFunction then impactFunction(caster, origin_location, direction, speed / update_interval, range, collisionRules, collisionFunction, other_args, projectile.units_hit) end
+									projectile:RemoveSelf()
+									break
+								end
 							end
 						end
 					end

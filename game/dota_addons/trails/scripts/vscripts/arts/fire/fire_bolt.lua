@@ -29,7 +29,7 @@ if IsServer() then
 		local ability = args.ability
 		local damage_scale = args.damage_scale
 		local damage_type = DAMAGE_TYPE_MAGICAL
-		local burn_duration = ability:GetSpecialValueFor("duration")
+		local burn_duration = ability:GetSpecialValueFor("burn_duration")
 
 		target:AddNewModifier(caster, ability, "modifier_burn", {duration = burn_duration})
 		dealScalingDamage(target, caster, damage_type, damage_scale, ability)
