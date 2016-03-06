@@ -68,7 +68,7 @@ ROUNDS_TO_WIN = 5
 ROUND_END_DELAY = 3
 ROUND_START_DELAY = 3
 
-BASE_GOLD_PER_ROUND = 1000
+BASE_GOLD_PER_ROUND = 500
 GOLD_INCREASE_PER_ROUND = 500
 SHOPPING_TIME = 60
 
@@ -378,7 +378,7 @@ function GameMode:OnHeroInGame(hero)
 		hero:AddNewModifier(hero, nil, "modifier_interround_invulnerability", {})
 		CustomHeroSelect:OnHeroInGame(hero)
 	else
-		if not self.round_started then -- to make testing easier
+		if not RoundManager.round_started then -- to make testing easier -- this should always be true in a real game
 			hero:AddNewModifier(hero, nil, "modifier_interround_invulnerability", {})
 		end
 		initializeStats(hero)
@@ -395,6 +395,8 @@ function GameMode:OnHeroInGame(hero)
 
 		
 		Timers:CreateTimer(1/30, function() -- have to wait a frame for GetAssignedHero() to actually work after hero is picked
+			FindClearSpaceForUnit(hero, RoundManager:GetSpawnPosition(hero, true), true)
+			hero:SetGold(BASE_GOLD_PER_ROUND, true)
 			if self:AllPlayersPickedHeroes() then
 				RoundManager:BeginRoundStartTimer()
 			end

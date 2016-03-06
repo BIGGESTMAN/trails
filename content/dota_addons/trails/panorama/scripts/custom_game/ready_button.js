@@ -6,7 +6,6 @@ function OnReadyButtonStart(msg) {
 }
 
 function OnReadyButtonUpdate(msg) {
-	$.Msg(msg)
 	$("#TimeToRoundStartText").text = "Round starting in " + msg.time + "..."
 }
 

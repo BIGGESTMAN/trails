@@ -31,7 +31,6 @@ end
 
 function RoundManager:BeginRoundStartTimer(time)
 	time = time or SHOPPING_TIME
-	print(self.time_until_round_start, time)
 	if not self.time_until_round_start or time < self.time_until_round_start then
 		self.time_until_round_start = time
 		CustomGameEventManager:Send_ServerToAllClients("ready_button_start", {})
@@ -40,7 +39,6 @@ function RoundManager:BeginRoundStartTimer(time)
 			endTime = 1,
 			callback = function()
 				self.time_until_round_start = self.time_until_round_start - 1
-				print(self.time_until_round_start)
 				CustomGameEventManager:Send_ServerToAllClients("ready_button_update", {time = self.time_until_round_start})
 				if self.time_until_round_start <= 0 then
 					self.round_started = true
@@ -116,7 +114,7 @@ function RoundManager:EndRound(winning_team)
 					modifyCP(hero, END_OF_ROUND_LOSER_CP)
 				end
 
-				hero:ModifyGold(BASE_GOLD_PER_ROUND + GOLD_INCREASE_PER_ROUND * self.current_round - 1, true, 17)
+				hero:ModifyGold(BASE_GOLD_PER_ROUND + GOLD_INCREASE_PER_ROUND * self.current_round, true, 17)
 			end
 		end
 
