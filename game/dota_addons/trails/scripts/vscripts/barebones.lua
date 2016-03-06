@@ -7,6 +7,7 @@ require "game_functions"
 require "custom_hero_select"
 require "turn_bonuses"
 require "round_recap"
+require "round_manager"
 
 LinkLuaModifier("modifier_interround_invulnerability", "modifier_interround_invulnerability.lua", LUA_MODIFIER_MOTION_NONE)
 
@@ -69,7 +70,7 @@ ROUND_START_DELAY = 3
 
 BASE_GOLD_PER_ROUND = 1000
 GOLD_INCREASE_PER_ROUND = 500
-SHOPPING_TIME = 15
+SHOPPING_TIME = 60
 
 
 
@@ -167,7 +168,7 @@ function GameMode:InitGameMode()
 	
 	CustomHeroSelect:Initialize()
 
-	GameMode:InitializeScore()
+	RoundManager:Initialize()
 
 	-- Commands can be registered for debugging purposes or as functions that can be called by the custom Scaleform UI
 	--Convars:RegisterCommand( "command_example", Dynamic_Wrap(dotacraft, 'ExampleConsoleCommand'), "A console command example", 0 )
@@ -189,7 +190,7 @@ function GameMode:OnPlayerChat(keys)
 	if text == "-die" then
 		hero:Kill(nil, hero)
 	elseif text == "-win" then
-		self:EndRound(hero:GetTeam())
+		RoundManager:EndRound(hero:GetTeam())
 	elseif text == "-togglemusic" then
 		if hero.music_playing == nil then
 			self:StartMusicForPlayer(player)
@@ -388,16 +389,28 @@ function GameMode:OnHeroInGame(hero)
 
 		-- Setup custom UI stuff
 		CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "infotext_start", {})
-		CustomGameEventManager:RegisterListener("infotext_ok", WrapMemberMethod(self.OnInfoTextOK, self))
-		-- CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "music_control_start", {})
-		-- CustomGameEventManager:RegisterListener("music_control_toggled", WrapMemberMethod(self.OnMusicControlToggled, self))
-		-- CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "stats_display_start", {})
 		self:UpdateStatsDisplay(hero)
 		CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "ability_bar_start", {heroIndex = hero:GetEntityIndex(), cpCosts = getAbilityCPCosts(hero)})
 		self:UpdateAbilityBars(hero)
 
-		CustomGameEventManager:RegisterListener("round_recap_ready", WrapMemberMethod(self.OnInfoTextOK, self))
+		
+		Timers:CreateTimer(1/30, function() -- have to wait a frame for GetAssignedHero() to actually work after hero is picked
+			if self:AllPlayersPickedHeroes() then
+				RoundManager:BeginRoundStartTimer()
+			end
+		end)
 	end
+end
+
+function GameMode:AllPlayersPickedHeroes()
+	local player_count = PlayerResource:GetPlayerCountForTeam(DOTA_TEAM_GOODGUYS) + PlayerResource:GetPlayerCountForTeam(DOTA_TEAM_BADGUYS)
+	for i = 0, player_count - 1 do
+		local player = PlayerResource:GetPlayer(i)
+		if not CustomHeroSelect:HasSelectedHero(player) then
+			return false
+		end
+	end
+	return true
 end
 
 function GameMode:UpdateStatsDisplay(hero)
@@ -463,7 +476,7 @@ function GameMode:StartMusicForPlayer(player)
 	Timers:CreateTimer("music_timer_"..player:GetPlayerID(), {
 		callback = function()
 			local music_string = "Trails.Dont_Be_Defeated"
-			if self.current_round == 8 then music_string = "Trails.Decisive_Collision" end
+			if RoundManager.current_round == 8 then music_string = "Trails.Decisive_Collision" end
 			EmitSoundOnClient(music_string, player)
 			hero.music_playing = music_string
 			return 135
@@ -476,24 +489,6 @@ function GameMode:StopMusicForPlayer(player)
 	Timers:RemoveTimer("music_timer_"..player:GetPlayerID())
 	player:StopSound(hero.music_playing)
 	hero.music_playing = nil
-end
-
-function GameMode:OnInfoTextOK(eventSourceIndex, args)
-	-- Why the fuck does this function run twice zzzzzzzzzzzzzzzzzzzzzz
-	print("OnInfoTextOK ---------------------------------------------------------------")
-	local player = EntIndexToHScript(eventSourceIndex)
-	local hero = player:GetAssignedHero()
-
-	hero.round_ready = true
-	if self:AreAllHeroesReady() and not self.round_started then
-		self.round_started = true
-		CustomGameEventManager:Send_ServerToAllClients("infotext_game_starting", {})
-		CustomGameEventManager:Send_ServerToAllClients("round_recap_remove", {})
-
-		self:StartCountdown(ROUND_START_DELAY, "quest_time_round_starting", function()
-			self:StartRound()
-		end)
-	end
 end
 
 function GameMode:StartCountdown(time, title, callback)
@@ -798,121 +793,9 @@ function GameMode:OnEntityKilled( keys )
 
 
 		if living_heroes[DOTA_TEAM_GOODGUYS] == 0 then
-			GameMode:EndRound(DOTA_TEAM_BADGUYS)
+			RoundManager:EndRound(DOTA_TEAM_BADGUYS)
 		elseif living_heroes[DOTA_TEAM_BADGUYS] == 0 then
-			GameMode:EndRound(DOTA_TEAM_GOODGUYS)
+			RoundManager:EndRound(DOTA_TEAM_GOODGUYS)
 		end
 	end
-end
-
-function GameMode:InitializeScore()
-	self.score = {}
-	self.score[DOTA_TEAM_GOODGUYS] = 0
-	self.score[DOTA_TEAM_BADGUYS] = 0
-	self.current_round = 0
-	self.round_started = false
-end
-
-function GameMode:StartRound()
-	print("Starting round --------------------------------------------")
-	for i=0, 9 do
-		local hero = PlayerResource:GetSelectedHeroEntity(i)
-		if hero then
-			hero:RemoveModifierByName("modifier_interround_invulnerability")
-			hero.round_ready = nil
-			if self.current_round == 0 then
-				self:AddStatusBars(hero)
-			end
-			if self.current_round == 8 and hero.music_playing then
-				self:StopMusicForPlayer(PlayerResource:GetPlayer(i))
-				self:StartMusicForPlayer(PlayerResource:GetPlayer(i))
-			end
-			FindClearSpaceForUnit(hero, self:GetSpawnPosition(hero, false), true)
-		end
-	end
-	Turn_Bonuses:StartRound(self.current_round)
-	Round_Recap:StartRound()
-end
-
-function GameMode:AddStatusBars(hero)
-	local playerid = hero:GetPlayerOwnerID()
-	local hero_index = hero:GetEntityIndex()
-	local player = PlayerResource:GetPlayer(playerid)
-	CustomGameEventManager:Send_ServerToAllClients("status_bars_start", {player=playerid})
-	CustomGameEventManager:Send_ServerToAllClients("unbalance_bars_start", {player=playerid})
-	Timers:CreateTimer(function()
-		if IsValidEntity(hero) then
-			CustomGameEventManager:Send_ServerToAllClients("status_bars_update", {player=playerid, hero=hero_index, cp=getCP(hero)})
-			local hero_unbalance = hero:FindModifierByName("modifier_unbalanced_level"):GetStackCount()
-			if hero:HasModifier("modifier_combat_link_unbalanced") then hero_unbalance = 100 end
-			CustomGameEventManager:Send_ServerToAllClients("unbalance_bars_update", {player=playerid, hero=hero_index, unbalance=hero_unbalance})
-		end
-		return 1/30
-	end)
-end
-
-function GameMode:EndRound(winning_team)
-	GameRules:SendCustomMessage("#Round_Winner_"..winning_team, 0, 0)
-	self.score[winning_team] = self.score[winning_team] + 1
-	self.current_round = self.current_round + 1
-	self.round_started = false
-	mode:SetTopBarTeamValue(DOTA_TEAM_GOODGUYS, self.score[DOTA_TEAM_GOODGUYS])
-	mode:SetTopBarTeamValue(DOTA_TEAM_BADGUYS, self.score[DOTA_TEAM_BADGUYS])
-	Turn_Bonuses:EndRound()
-
-	Timers:CreateTimer(ROUND_END_DELAY, function()
-		for i=0, 9 do
-			local hero = PlayerResource:GetSelectedHeroEntity(i)
-			if hero then
-				hero:SetRespawnPosition(GameMode:GetSpawnPosition(hero, true))
-				hero:RespawnHero(false, false, false)
-
-				hero:AddNewModifier(hero, nil, "modifier_interround_invulnerability", {})
-				
-				if hero:GetTeam() ~= winning_team then
-					modifyCP(hero, END_OF_ROUND_LOSER_CP)
-				end
-
-				hero:ModifyGold(BASE_GOLD_PER_ROUND + GOLD_INCREASE_PER_ROUND * self.current_round - 1, true, 17)
-			end
-		end
-
-		Round_Recap:EndRound()
-		
-		-- check for game win
-		if self.score[DOTA_TEAM_GOODGUYS] == ROUNDS_TO_WIN then
-			GameRules:SendCustomMessage("Radiant Victory!", 0, 0)
-			GameRules:SetSafeToLeave( true )
-			GameRules:SetGameWinner( DOTA_TEAM_GOODGUYS )
-		elseif self.score[DOTA_TEAM_BADGUYS] == ROUNDS_TO_WIN then
-			GameRules:SendCustomMessage("Dire Victory!", 0, 0)
-			GameRules:SetSafeToLeave( true )
-			GameRules:SetGameWinner( DOTA_TEAM_BADGUYS )
-		else
-			self:StartCountdown(SHOPPING_TIME, "quest_time_round_starting", function()
-				self:StartRound()
-			end)
-		end
-	end)
-end
-
-function GameMode:GetSpawnPosition(hero, shopping)
-	local swapped_spawns = self.current_round % 2 == 1
-	local spawn_location = nil
-	local team = hero:GetTeam()
-	if swapped_spawns then team = hero:GetOpposingTeamNumber() end
-	if not shopping then
-		if team == DOTA_TEAM_GOODGUYS then
-			spawn_location = Entities:FindByClassname(nil, "info_player_start_goodguys"):GetAbsOrigin()
-		elseif team == DOTA_TEAM_BADGUYS then
-			spawn_location = Entities:FindByClassname(nil, "info_player_start_badguys"):GetAbsOrigin()
-		end
-	else
-		if team == DOTA_TEAM_GOODGUYS then
-			spawn_location = Entities:FindByName(nil, "shop_spawn_radiant"):GetAbsOrigin()
-		elseif team == DOTA_TEAM_BADGUYS then
-			spawn_location = Entities:FindByName(nil, "shop_spawn_dire"):GetAbsOrigin()
-		end
-	end
-	return spawn_location
 end

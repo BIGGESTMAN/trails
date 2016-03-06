@@ -60,10 +60,10 @@ function CustomHeroSelect:OnHeroSelectPickedEvent(source, data)
 
 	local hero = player:GetAssignedHero()
 	if hero ~= nil and CustomHeroSelect:IsPlaceholderHero(hero) then
-		for k,v in pairs(CustomHeroSelect.pickedHeroes) do
-			print(k,v)
-		end
-		print(player:GetTeamNumber(), CustomHeroSelect.pickedHeroes[player:GetTeamNumber()], picked_hero_id)
+		-- for k,v in pairs(CustomHeroSelect.pickedHeroes) do
+			-- print(k,v)
+		-- end
+		-- print(player:GetTeamNumber(), CustomHeroSelect.pickedHeroes[player:GetTeamNumber()], picked_hero_id)
 		if not CustomHeroSelect.pickedHeroes[player:GetTeamNumber()][picked_hero_id] then
 			CustomHeroSelect.pickedHeroes[player:GetTeamNumber()][picked_hero_id] = true
 			CustomGameEventManager:Send_ServerToTeam(player:GetTeamNumber(), "heroselect_pick_other", { hero_id = picked_hero_id });

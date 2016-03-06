@@ -9,7 +9,7 @@
 	position: 0px 300px 0px;
 
 	transition-property: opacity, transform;
-    transition-duration: 1s;
+    transition-duration: 0.66s;
 	opacity: 0;
 }
 

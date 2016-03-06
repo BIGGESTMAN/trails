@@ -53,6 +53,7 @@
 	"infotext_ok"									"OK cool whatever reading sucks I want to play a video game"
 	"you_are_ready"									"Waiting for other players to ready up..."
 	"music_control_button"							"Toggle Music"
+	"ready_button"									"Ready"
 	"current_turn_bonus"							"Current Turn Bonus:"
 
 	"round_recap_header"							"Round Recap (Damage Dealt)"

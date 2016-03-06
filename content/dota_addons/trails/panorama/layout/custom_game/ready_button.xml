@@ -1,0 +1,17 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/custom_game/ready_button.css" />
+		<include src="s2r://panorama/styles/custom_game/shared.css" />
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+	</styles>
+	<scripts>
+		<include src="s2r://panorama/scripts/custom_game/ready_button.js" />
+	</scripts>
+	<Panel hittest="false" class="ReadyWindow TrailsGenericWindow">
+		<Label id="TimeToRoundStartText" class="Text"/>
+		<Button hittest="true" id="ReadyButton" class="ButtonBevel" onactivate="OnReadyButtonPressed()">
+			<Label id="ReadyButtonText" text="#ready_button" class="Text"/>
+		</Button>
+		<Label hittest="false" id="ReadyText" html="false" text="#you_are_ready" />
+	</Panel>
+</root>

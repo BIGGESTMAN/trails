@@ -35,11 +35,6 @@ function CreateAbilityPanel(ability, parent) {
 	icon.BLoadLayout("file://{resources}/layout/custom_game/round_recap_skill.xml", false, false);
 }
 
-function OnRoundRecapReadyClicked() {
-	$.GetContextPanel().SetHasClass("ReadiedUp", true);
-	GameEvents.SendCustomGameEventToServer("round_recap_ready", {} )
-}
-
 function OnRoundRecapRemove() {
 	$.GetContextPanel().SetHasClass("Visible", false);
 }

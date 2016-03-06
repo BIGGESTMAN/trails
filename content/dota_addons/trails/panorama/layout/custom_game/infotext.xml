@@ -36,11 +36,6 @@
 			<Label hittest="false" class="TrailspediaText" html="true" text="#trailspedia_deathblow" />
 			<Label hittest="false" class="TrailspediaText" html="true" text="#trailspedia_petrify" />
 			<Label hittest="false" class="TrailspediaText" html="true" text="#trailspedia_faint" />
-
-			<Button hittest="true" id="OKButton" class="ButtonBevel" onactivate="OnInfoTextOKClicked()">
-				<Label id="ReadyButtonText" text="#infotext_ok" />
-			</Button>
-			<Label hittest="false" id="ReadyText" html="false" text="#you_are_ready" />
 		</Panel>
 		<Button hittest="true" id="PageToggleButton" onactivate="OnInfoTextPageChanged()">
 			<Label hittest="false" id="PageToggleText" text="Status Effects"/>
