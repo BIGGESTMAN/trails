@@ -19,10 +19,10 @@ function OnTurnBonusDisplayUpdate(data) {
 	turn_bonus_display.Children()[1].text = data.current_bonus
 	turn_bonus_display.Children()[3].text = data.next_bonus
 	if (data.current_bonus_taken) {
-		turn_bonus_display.Children()[1].style.opacity = 0.25
+		$.GetContextPanel().SetHasClass("Active", false)
 	}
 	else {
-		turn_bonus_display.Children()[1].style.opacity = 1
+		$.GetContextPanel().SetHasClass("Active", true)
 		turn_bonus_display.Children()[2].text = "Next Bonus (" + data.time_until_next_bonus + "): "
 	}
 }

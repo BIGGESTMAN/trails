@@ -44,7 +44,7 @@ end
 
 function Turn_Bonuses:StartRound(round)
 	self.current_bonus = nil
-	self.current_bonus_taken = false
+	self.current_bonus_taken = true
 	self.time_until_next_bonus = self.spawn_interval
 	
 	CustomGameEventManager:Send_ServerToAllClients("turn_bonus_display_start", {})

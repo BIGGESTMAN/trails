@@ -9,7 +9,7 @@
 	</scripts>
 	<Panel hittest="true" class="TurnBonusDisplayWindow TrailsGenericWindow">
 		<Label hittest="false" class="SubHeader" text="#current_turn_bonus" />
-		<Label hittest="false" class="Text" html="true"/>
+		<Label hittest="false" id="CurrentBonusName" class="Text" html="true"/>
 		<Label hittest="false" class="SubHeader"/>
 		<Label hittest="false" class="Text" html="true"/>
 	</Panel>
