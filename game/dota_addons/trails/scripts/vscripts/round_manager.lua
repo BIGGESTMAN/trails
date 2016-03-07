@@ -41,11 +41,8 @@ function RoundManager:BeginRoundStartTimer(time)
 				self.time_until_round_start = self.time_until_round_start - 1
 				CustomGameEventManager:Send_ServerToAllClients("ready_button_update", {time = self.time_until_round_start})
 				if self.time_until_round_start <= 0 then
-					self.round_started = true
-					self:StartRound()
-					CustomGameEventManager:Send_ServerToAllClients("infotext_game_starting", {})
-					CustomGameEventManager:Send_ServerToAllClients("round_recap_remove", {})
 					self.time_until_round_start = nil
+					self:StartRound()
 				else
 					return 1
 				end
@@ -55,6 +52,9 @@ function RoundManager:BeginRoundStartTimer(time)
 end
 
 function RoundManager:StartRound()
+	self.round_started = true
+	CustomGameEventManager:Send_ServerToAllClients("infotext_game_starting", {})
+	CustomGameEventManager:Send_ServerToAllClients("round_recap_remove", {})
 	for i=0, 9 do
 		local hero = PlayerResource:GetSelectedHeroEntity(i)
 		if hero then
