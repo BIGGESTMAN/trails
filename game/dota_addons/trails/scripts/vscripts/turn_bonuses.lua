@@ -36,16 +36,17 @@ function Turn_Bonuses:Initialize()
 	self.hp_heal = 0.5
 	self.cp_heal = 50
 
-	self.current_bonus = nil
-	self.current_bonus_taken = false
 	self.next_bonus = nil
-	self.time_until_next_bonus = self.spawn_interval
 
 	local particle = ParticleManager:CreateParticle("particles/turn_bonuses/turn_bonus_zone.vpcf", PATTACH_CUSTOMORIGIN, nil)
 	ParticleManager:SetParticleControl(particle, 0, self.location)
 end
 
 function Turn_Bonuses:StartRound(round)
+	self.current_bonus = nil
+	self.current_bonus_taken = false
+	self.time_until_next_bonus = self.spawn_interval
+	
 	CustomGameEventManager:Send_ServerToAllClients("turn_bonus_display_start", {})
 	self.next_bonus = self:RandomBonus(round)
 	self:UpdateTurnBonusDisplay()
