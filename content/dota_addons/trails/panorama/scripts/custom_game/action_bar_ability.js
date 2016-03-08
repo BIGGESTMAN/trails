@@ -41,6 +41,7 @@ function UpdateAbility()
 	var hotkey = Abilities.GetKeybind( m_Ability, m_QueryUnit );
 	var unitMana = Entities.GetMana( m_QueryUnit );
 
+	$.GetContextPanel().SetHasClass( "EnhancedAvailable", IsEnhancedAvailable())
 	$.GetContextPanel().SetHasClass( "no_level", isDisabled );
 	$.GetContextPanel().SetHasClass( "is_passive", Abilities.IsPassive(m_Ability) );
 	// $.GetContextPanel().SetHasClass( "no_mana_cost", ( 0 == manaCost ) );
@@ -76,6 +77,22 @@ function UpdateAbility()
 		$("#CooldownOverlay").style.clip = "radial( 50% 50%, 0deg, " + (-1 * cooldownPercent * 360 / 100) + "deg )"
 	}
 	
+}
+
+function IsEnhancedAvailable()
+{
+	var enhancedAvailable = false
+	var nBuffs = Entities.GetNumBuffs( m_QueryUnit );
+	for ( var i = 0; i < nBuffs; ++i )
+	{
+		var buffSerial = Entities.GetBuff( m_QueryUnit, i );
+		var name = Buffs.GetName(m_QueryUnit, buffSerial)
+		if (name == "modifier_combat_link_followup_available") {
+			enhancedAvailable = true
+			break;
+		}
+	}
+	return enhancedAvailable;
 }
 
 function AbilityShowTooltip()

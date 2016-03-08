@@ -26,7 +26,7 @@ Modifiers
 ~ Petrify (modifier_petrify) : Disabled and immune to magic. Taking physical damage will break the disable early and deal pure damage equal to 20% of unit's missing health.
 ~ Faint (modifier_faint) : Disabled and taking 50%% more damage.
 ~ Turn Bonus: Critical (modifier_crit) : Next craft, art or basic attack will deal double damage or heal for double health.
-~ Turn Bonus: Zero-Arts (modifier_zero_arts) : Next art cast will be cast instantly and for free.
+~ Turn Bonus: Zero-Arts (modifier_zero_arts) : Next art will be cast instantly and for free.
 ~ Turn Bonus: Brute Force (modifier_brute_force) : Next offensive craft or basic attack will instantly unbalance the target.
 ~ Turn Bonus: Link Broken (modifier_link_broken) : Cannot form combat links with allies.
 ~ Turn Bonus: Unshatterable Bonds (modifier_unshatterable_bonds) : Combat links cannot be broken, and have full effect at all ranges.

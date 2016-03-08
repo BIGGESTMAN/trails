@@ -8,8 +8,8 @@
 
 		"precache"
 		{
-			"particle"					"particles/units/heroes/hero_wisp/wisp_tether.vpcf"
-			"particle"					"particles/units/heroes/hero_brewmaster/brewmaster_drunken_haze_debuff.vpcf"
+			"particle"					"particles/combat_links/link.vpcf"
+			"particle"					"particles/combat_links/enhanced_targetable_beam_continuous.vpcf"
 		}
 
 		"AbilityCastPoint"				"0"
