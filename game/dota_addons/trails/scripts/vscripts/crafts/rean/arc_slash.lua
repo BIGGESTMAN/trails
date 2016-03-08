@@ -17,6 +17,7 @@ function spellCast(keys)
 	local delay_inflicted = ability:GetSpecialValueFor("delay_inflicted")
 	local impactFunction = nil
 
+	local enhanced = false
 	if validEnhancedCraft(caster, target) then
 		caster:RemoveModifierByName("modifier_combat_link_followup_available")
 		target:RemoveModifierByName("modifier_combat_link_unbalanced")
@@ -24,6 +25,7 @@ function spellCast(keys)
 		damage_scale = ability:GetSpecialValueFor("unbalanced_damage_percent") / 100
 		delay_inflicted = ability:GetSpecialValueFor("unbalanced_delay_inflicted")
 		impactFunction = createWindPath
+		enhanced = true
 	end
 	
 	if caster:HasModifier("modifier_crit") then
@@ -42,14 +44,14 @@ function spellCast(keys)
 		iFlag = DOTA_UNIT_TARGET_FLAG_NONE,
 		iOrder = FIND_ANY_ORDER
 	}
-	ProjectileList:CreateLinearProjectile(caster, caster:GetAbsOrigin(), direction, speed, range, impactFunction, collisionRules, arcSlashHit, "particles/crafts/rean/arc_slash/arc_slash.vpcf", {damage_scale = damage_scale, delay_inflicted = delay_inflicted})
+	ProjectileList:CreateLinearProjectile(caster, caster:GetAbsOrigin(), direction, speed, range, impactFunction, collisionRules, arcSlashHit, "particles/crafts/rean/arc_slash/arc_slash.vpcf", {damage_scale = damage_scale, delay_inflicted = delay_inflicted, enhanced = enhanced})
 end
 
 function arcSlashHit(caster, unit, other_args)
 	local ability = caster:FindAbilityByName("arc_slash")
 	local damage_type = ability:GetAbilityDamageType()
 
-	dealScalingDamage(unit, caster, damage_type, other_args.damage_scale, ability, CRAFT_CP_GAIN_FACTOR)
+	dealScalingDamage(unit, caster, damage_type, other_args.damage_scale, ability, CRAFT_CP_GAIN_FACTOR, other_args.enhanced)
 	increaseUnbalance(caster, unit)
 	inflictDelay(unit, other_args.delay_inflicted)
 	applyGaleMark(caster, unit)

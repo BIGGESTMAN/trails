@@ -1,0 +1,33 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/custom_game/hero_select.css" />
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+	</styles>
+	<script>
+		function SkillShowTooltip() {
+			var quartz_name = "item_master_" + $.GetContextPanel().GetAttributeString("quartz_name", "");
+			$.DispatchEvent("DOTAShowAbilityTooltip", $.GetContextPanel(), quartz_name);
+		}
+		function SkillHideTooltip() {
+			$.DispatchEvent("DOTAHideAbilityTooltip");
+		}
+		(function () {
+			var quartz_name = $.GetContextPanel().GetAttributeString("quartz_name", "");
+
+			$("#Icon").style.backgroundImage = "url('file://{resources}/images/items/master_" + quartz_name + ".png')";
+			$("#AbilityName").text = $.Localize("DOTA_Tooltip_ability_item_master_" + quartz_name);
+			$("#AbilityDescription").text = $.Localize("masterquartz_description_" + quartz_name);
+		})();
+	</script>
+	<Panel class="HeroSelectQuartz">
+		<Button hittest="true" onmouseover="SkillShowTooltip()" onmouseout="SkillHideTooltip()" >
+			<Panel hittest="true" id="Icon" />
+		</Button>
+		<Panel id="AbilityInfo">
+			<Panel style="flow-children: right;">
+				<Label id="AbilityName" />
+			</Panel>
+			<Label id="AbilityDescription" />
+		</Panel>
+	</Panel>
+</root>

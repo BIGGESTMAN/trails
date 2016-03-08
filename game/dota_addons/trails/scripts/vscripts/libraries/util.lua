@@ -255,3 +255,10 @@ function findFirstUnitInLine(caster, origin, endpoint, width, target_team, targe
 	local targets = FindUnitsInLine(team, origin, endpoint, nil, width, iTeam, iType, iOrder)
 	return targets[1]
 end
+
+function pointIsBetweenPoints(point, comparison_point_1, comparison_point_2)
+	local origin = comparison_point_1 + (comparison_point_2 - comparison_point_1) / 2
+	local radius = (comparison_point_1 - comparison_point_2):Length2D() / 2
+	local distance = (point - origin):Length2D()
+	return distance <= radius
+end

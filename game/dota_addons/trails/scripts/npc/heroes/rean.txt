@@ -67,4 +67,5 @@
 		"Ats"	"80"
 		"Adf"	"100"
 		"Spd"	"0"
+		"MasterQuartz"	"force"
 	}

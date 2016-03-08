@@ -67,4 +67,5 @@
 		"Ats"	"70"
 		"Adf"	"100"
 		"Spd"	"0"
+		"MasterQuartz"	"cypher"
 	}

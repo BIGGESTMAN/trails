@@ -2,31 +2,7 @@
 
 
 
-var ALL_HEROES = {
-	"npc_dota_hero_ember_spirit": [
-		"autumn_leaf_cutter",
-		"motivate",
-		"arc_slash",
-		"gale",
-		"azure_flame_slash"
-	],
-	"npc_dota_hero_windrunner": [
-		"flamberge",
-		"blessed_arrow",
-		"molten_rain",
-		"heavenly_gift",
-		"judgment_arrow"
-	],
-	"npc_dota_hero_sniper": [
-		"rapid_volley",
-		"freezing_bullet",
-		"wild_card",
-		"chaos_trigger",
-		"cross_raven"
-	]
-}
-
-var teamId;
+var ALL_HEROES;
 var selectedHeroCard = null;
 var pickedHeroes = {}
 
@@ -40,8 +16,7 @@ function OnStart(msg) {
 	var container = $("#HeroListContainer");
 	container.RemoveAndDeleteChildren()
 
-	teamId = msg.team;
-
+	ALL_HEROES = msg.heroes
 	var firstHero = undefined
 	for (var i in ALL_HEROES) {
 		var card = $.CreatePanel("Panel", container, i);
@@ -73,18 +48,16 @@ function OnOtherPicked(msg) {
 	}
 }
 
-function CreateAbilityPanel(ability, parent) {
-	var ability_name = ability;
-	var is_ultimate = 0;
-	if (ability[0] == '*') {
-		ability_name = ability.substring(1);
-		is_ultimate = 1;
-	}
-
+function CreateAbilityPanel(ability_name, parent) {
 	var icon = $.CreatePanel("Panel", parent, ability_name);
 	icon.SetAttributeString("ability_name", ability_name);
-	icon.SetAttributeInt("ultimate", is_ultimate);
 	icon.BLoadLayout("file://{resources}/layout/custom_game/hero_select_skill.xml", false, false);
+}
+
+function CreateMasterQuartzPanel(quartz_name, parent) {
+	var icon = $.CreatePanel("Panel", parent, quartz_name);
+	icon.SetAttributeString("quartz_name", quartz_name);
+	icon.BLoadLayout("file://{resources}/layout/custom_game/hero_select_quartz.xml", false, false);
 }
 
 function OnPickButtonClicked() {
@@ -104,26 +77,26 @@ function SelectHero(hero_id) {
 	var figure = $.CreatePanel("Panel", figureContainer, "figure_" + hero_id);
 	figure.LoadLayoutFromStringAsync("<root><styles></styles><scripts></scripts><Panel><DOTAScenePanel style=\"width:100%;height:100%;\" unit=\"" + hero_id + "\" /></Panel></root>", false, false);
 
-	$("#HeroName").text = $.Localize(hero_id);
+	// $("#HeroName").text = $.Localize(hero_id);
 	$("#HeroDescription").text = $.Localize(hero_id + "_Lore");
+	$("#Str").text = "Strength: " + ALL_HEROES[hero_id].str
+	$("#Ats").text = "Arts Strength: " + ALL_HEROES[hero_id].ats
+	$("#Health").text = "Health: " + ALL_HEROES[hero_id].health
+	$("#Mana").text = "Mana: " + ALL_HEROES[hero_id].mana
 	$("#PickButtonLabel").SetDialogVariable("name", $.Localize(hero_id));
 
-	var skills = ALL_HEROES[hero_id];
+	var skills = ALL_HEROES[hero_id].abilities;
 	var skillsContainer = $("#HeroAbilityContainer");
-	// var passiveContainer = $("#HeroPassiveAbilityContainer");
 	var scraftContainer = $("#HeroScraftAbilityContainer");
+	var masterQuartzContainer = $("#HeroMasterQuartzContainer");
 	skillsContainer.RemoveAndDeleteChildren()
 	scraftContainer.RemoveAndDeleteChildren()
-	// passiveContainer.RemoveAndDeleteChildren()
+	masterQuartzContainer.RemoveAndDeleteChildren()
 
 	var first = true;
 	for (var i in skills)
 	{
-		// if (i == 0)
-		// {
-		// 	CreateAbilityPanel(skills[i], passiveContainer);
-		// }
-		/*else*/ if (i == 4)
+		if (i == 5)
 		{
 			CreateAbilityPanel(skills[i], scraftContainer);
 		}
@@ -132,6 +105,7 @@ function SelectHero(hero_id) {
 			CreateAbilityPanel(skills[i], skillsContainer);
 		}
 	}
+	CreateMasterQuartzPanel(ALL_HEROES[hero_id].masterquartz, masterQuartzContainer)
 
 	if (selectedHeroCard) {
 		selectedHeroCard.SetHasClass("Selected", false);
@@ -153,6 +127,12 @@ function ScraftShowTooltip() {
 }
 function ScraftHideTooltip() {
 	$("#ScraftTooltip").SetHasClass("Visible", false);
+}
+function MasterQuartzShowTooltip() {
+	$("#MasterQuartzTooltip").SetHasClass("Visible", true);
+}
+function MasterQuartzHideTooltip() {
+	$("#MasterQuartzTooltip").SetHasClass("Visible", false);
 }
 
 (function () {

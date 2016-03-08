@@ -14,11 +14,12 @@ function Turn_Bonuses:Initialize()
 		self.StatMax, -- +50% to a random stat (str, def, ats, adf, spd, mov) for 10 seconds
 		self.Crit,	 -- Next craft, art or basic attack in next 10 seconds deals double damage
 		self.HPHeal, -- Heal 50% of max HP
-		-- self.EPHeal, -- Heal 50% of max EP
+		self.EPHeal, -- Heal 50% of max EP
 		self.CPHeal, -- +50 CP
-		-- self.ZeroArts, -- Next art in next 10 seconds has no cast time and no EP cost
+		self.ZeroArts, -- Next art in next 10 seconds has no cast time and no EP cost
 		self.BruteForce, -- Next offensive craft, art or basic attack in next 10 seconds unbalances target(s)
-		self.LinkBreak -- Opponents cannot link for 10 seconds
+		self.LinkBreak, -- Opponents cannot link for 10 seconds
+		self.UnshatterableBonds -- Links cannot be broken and have no range scaling
 	}
 	self.higher_elements_bonuses = {
 		self.StatusAttack, -- Next offensive craft, art or basic attack in next 10 seconds inflicts a random status ailment
@@ -34,6 +35,7 @@ function Turn_Bonuses:Initialize()
 	self.effect_duration = 10
 	self.stat_max_percent = 50
 	self.hp_heal = 0.5
+	self.ep_heal = 0.5
 	self.cp_heal = 50
 
 	self.next_bonus = nil
@@ -109,7 +111,8 @@ function Turn_Bonuses:RandomBonus(round)
 	else
 		bonus = self.higher_elements_bonuses[RandomInt(1,#self.higher_elements_bonuses)]
 	end
-	return bonus
+	-- return bonus
+	return self.ZeroArts
 end
 
 function Turn_Bonuses:GetBonusName(bonus)
@@ -121,7 +124,7 @@ function Turn_Bonuses:GetBonusName(bonus)
 	elseif bonus == self.HPHeal then
 		name = "HP Heal"
 	elseif bonus == self.EPHeal then
-		name = "EP Heal"
+		name = "Mana Restore"
 	elseif bonus == self.CPHeal then
 		name = "CP Boost"
 	elseif bonus == self.ZeroArts then
@@ -136,6 +139,8 @@ function Turn_Bonuses:GetBonusName(bonus)
 		name = "Vanish Blow"
 	elseif bonus == self.CPMax then
 		name = "CP Max"
+	elseif bonus == self.UnshatterableBonds then
+		name = "Unshatterable Bonds"
 	end
 	return name
 end
@@ -187,10 +192,15 @@ function Turn_Bonuses:HPHeal(unit)
 end
 
 function Turn_Bonuses:EPHeal(unit)
+	unit:SetMana(unit:GetMana() + unit:GetMaxMana() * self.ep_heal)
 end
 
 function Turn_Bonuses:CPHeal(unit)
 	modifyCP(unit, self.cp_heal)
+end
+
+function Turn_Bonuses:ZeroArts(unit)
+	unit:AddNewModifier(unit, nil, "modifier_zero_arts", {duration = self.effect_duration})
 end
 
 function Turn_Bonuses:BruteForce(unit)
@@ -198,15 +208,18 @@ function Turn_Bonuses:BruteForce(unit)
 end
 
 function Turn_Bonuses:LinkBreak(unit)
-	local origin = unit:GetAbsOrigin()
-	local radius = 20100
-	local iTeam = DOTA_UNIT_TARGET_TEAM_ENEMY
-	local iType = DOTA_UNIT_TARGET_HERO
-	local iFlag = DOTA_UNIT_TARGET_FLAG_NONE
-	local iOrder = FIND_ANY_ORDER
-	local targets = FindUnitsInRadius(unit:GetTeamNumber(), origin, nil, radius, iTeam, iType, iFlag, iOrder, false)
-	for k,target in pairs(targets) do
-		target:AddNewModifier(unit, nil, "modifier_link_broken", {duration = self.effect_duration})
+	for k,target in pairs(getAllHeroes()) do
+		if target:GetTeamNumber() ~= unit:GetTeamNumber() then
+			target:AddNewModifier(unit, nil, "modifier_link_broken", {duration = self.effect_duration})
+		end
+	end
+end
+
+function Turn_Bonuses:UnshatterableBonds(unit)
+	for k,target in pairs(getAllHeroes()) do
+		if target:GetTeamNumber() == unit:GetTeamNumber() then
+			target:AddNewModifier(unit, nil, "modifier_unshatterable_bonds", {duration = self.effect_duration})
+		end
 	end
 end
 

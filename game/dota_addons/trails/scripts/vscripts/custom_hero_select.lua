@@ -1,3 +1,5 @@
+require "game_functions"
+
 if CustomHeroSelect == nil then
 	_G.CustomHeroSelect = { initialized = false }
 end
@@ -14,8 +16,31 @@ function CustomHeroSelect:Initialize()
 	self.pickedHeroes[DOTA_TEAM_GOODGUYS] = {}
 	self.pickedHeroes[DOTA_TEAM_BADGUYS] = {}
 	self.start_gold = 0
-	self.customHeroSelectData = LoadKeyValues("scripts/kv/herolist_custom.txt")
 	CustomGameEventManager:RegisterListener("heroselect_pick", WrapMemberMethod(self.OnHeroSelectPickedEvent, self))
+	self.heroesData = CustomHeroSelect:GetHeroData()
+end
+
+function CustomHeroSelect:GetHeroData()
+	local heroes = {}
+	local hero_keyvalues = LoadKeyValues("scripts/npc/npc_heroes_custom.txt")
+	for name,keyvalues in pairs(hero_keyvalues) do
+		name = getDotaHeroName(name)
+		heroes[name] = {}
+		heroes[name].abilities = {}
+		for i=1,16 do
+			if keyvalues["Ability"..i] and keyvalues["Ability"..i] ~= "" and keyvalues["Ability"..i] ~= "combat_link" and keyvalues["Ability"..i] ~= "cp_tracker" then
+				heroes[name].abilities[i] = keyvalues["Ability"..i]
+			else
+				break
+			end
+		end
+		heroes[name].str = keyvalues["Str"]
+		heroes[name].ats = keyvalues["Ats"]
+		heroes[name].health = keyvalues["StatusHealth"]
+		heroes[name].mana = keyvalues["StatusMana"]
+		heroes[name].masterquartz = keyvalues["MasterQuartz"]
+	end
+	return heroes
 end
 
 function CustomHeroSelect:SetStartingGold(gold)
@@ -47,11 +72,7 @@ function CustomHeroSelect:OnHeroInGame(hero)
 end
 
 function CustomHeroSelect:StartHeroSelectionFor(hero)
-	local teamKey = "GoodGuys"
-	if hero:GetTeamNumber() == DOTA_TEAM_BADGUYS then
-		teamKey = "BadGuys"
-	end
-	CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "heroselect_start", { team = teamKey })
+	CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "heroselect_start", { heroes = self.heroesData })
 end
 
 function CustomHeroSelect:OnHeroSelectPickedEvent(source, data)

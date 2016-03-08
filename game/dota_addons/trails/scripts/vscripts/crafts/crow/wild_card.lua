@@ -19,14 +19,7 @@ if IsServer() then
 		modifyCP(caster, getCPCost(ability) * -1)
 		applyDelayCooldowns(caster, ability)
 
-		local team = caster:GetTeamNumber()
-		local origin = caster:GetAbsOrigin()
-		local iTeam = DOTA_UNIT_TARGET_TEAM_BOTH
-		local iType = DOTA_UNIT_TARGET_HERO
-		local iFlag = DOTA_UNIT_TARGET_FLAG_NONE
-		local iOrder = FIND_ANY_ORDER
-		local targets = FindUnitsInRadius(team, origin, nil, 20100, iTeam, iType, iFlag, iOrder, false)
-
+		local targets = getAllHeroes()
 		if not enhanced then
 			local unit = targets[RandomInt(1, #targets)]
 			wildCardEffect(caster, unit)

@@ -13,9 +13,9 @@ function spellCast(keys)
 	local dash_speed = ability:GetSpecialValueFor("dash_speed")
 	local radius = ability:GetSpecialValueFor("radius")
 
-	local crit = false
+	local args = {crit = false, enhanced = false}
 	if caster:HasModifier("modifier_crit") then
-		crit = true
+		args.crit = true
 		caster:RemoveModifierByName("modifier_crit")
 	end
 
@@ -26,7 +26,8 @@ function spellCast(keys)
 		modifyCP(caster, getCPCost(ability) * -1)
 		applyDelayCooldowns(caster, ability)
 		ability:ApplyDataDrivenModifier(caster, caster, "modifier_autumn_leaf_cutter_dashing", {})
-		trackingDash(caster, target, dash_speed, secondaryDash, {crit = crit})
+		args.enhanced = true
+		trackingDash(caster, target, dash_speed, secondaryDash, args)
 	else
 		local team = caster:GetTeamNumber()
 		local origin = target_point
@@ -40,7 +41,7 @@ function spellCast(keys)
 			modifyCP(caster, getCPCost(ability) * -1)
 			applyDelayCooldowns(caster, ability)
 			ability:ApplyDataDrivenModifier(caster, caster, "modifier_autumn_leaf_cutter_dashing", {})
-			dash(caster, (target_point - caster:GetAbsOrigin()):Normalized(), dash_speed, (target_point - caster:GetAbsOrigin()):Length2D(), false, secondaryDash, {crit = crit})
+			dash(caster, (target_point - caster:GetAbsOrigin()):Normalized(), dash_speed, (target_point - caster:GetAbsOrigin()):Length2D(), false, secondaryDash, args)
 		else
 			Notifications:Bottom(keys.caster:GetPlayerOwner(), {text="Target Area Must Contain Enemies", duration=1, style={color="red"}})
 			ability:EndCooldown()
@@ -48,7 +49,7 @@ function spellCast(keys)
 	end
 end
 
-function secondaryDash(caster, direction, speed, range, find_clear_space, other_args)
+function secondaryDash(caster, direction, speed, other_args)
 	local ability = caster:FindAbilityByName("autumn_leaf_cutter")
 
 	local radius = ability:GetSpecialValueFor("radius")
@@ -61,7 +62,7 @@ function secondaryDash(caster, direction, speed, range, find_clear_space, other_
 
 	local unbalanced_knockback_duration = ability:GetSpecialValueFor("unbalanced_knockback_duration")
 	local unbalanced_knockback_distance = ability:GetSpecialValueFor("unbalanced_knockback_distance")
-	if caster.unbalanced_autumn_leaf_cutter_target then
+	if other_args.enhanced then
 		damage_scale = ability:GetSpecialValueFor("unbalanced_damage_percent") / 100
 		slow_modifier_name = "modifier_autumn_leaf_cutter_unbalanced_slow"
 	end
@@ -76,7 +77,7 @@ function secondaryDash(caster, direction, speed, range, find_clear_space, other_
 	local targets = FindUnitsInRadius(team, origin, nil, radius, iTeam, iType, iFlag, iOrder, false)
 
 	for k,unit in pairs(targets) do
-		dealScalingDamage(unit, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR)
+		dealScalingDamage(unit, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR, other_args.enhanced)
 		increaseUnbalance(caster, unit, bonus_unbalance)
 		ability:ApplyDataDrivenModifier(caster, unit, slow_modifier_name, {})
 		unit:Interrupt()
@@ -97,6 +98,8 @@ function secondaryDash(caster, direction, speed, range, find_clear_space, other_
 			end)
 		end
 	end
+
+	caster.unbalanced_autumn_leaf_cutter_target = nil
 
 	ParticleManager:CreateParticle("particles/econ/items/axe/axe_weapon_practos/axe_attack_blur_counterhelix_practos.vpcf", PATTACH_ABSORIGIN, caster)
 

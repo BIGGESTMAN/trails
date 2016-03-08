@@ -197,6 +197,8 @@ function GameMode:OnPlayerChat(keys)
 		else
 			self:StopMusicForPlayer(player)
 		end
+	elseif text == "-spawnbonus" then
+		Turn_Bonuses:SpawnBonus(RoundManager.current_round)
 	end
 end
 
@@ -346,21 +348,12 @@ function GameMode:OnHeroInGame(hero)
 	-- Store this hero handle in this table.
 	table.insert(self.vPlayers, hero)
 
-	-- hero:SetGold(625, false)
-
 	Timers:CreateTimer(0.03, function() -- Give illusions a frame to acquire the illusion modifier
 		if not hero:IsIllusion() then
-			if STARTING_ITEMS then
-				hero:AddItem(CreateItem("item_blink", hero, hero))
-				hero:AddItem(CreateItem("item_force_staff", hero, hero))
-			end
-
-			if MAX_ABILITY_LEVELS or true then
-				for i=0,15 do
-					local ability = hero:GetAbilityByIndex(i)
-					if ability then 
-						ability:SetLevel(ability:GetMaxLevel())
-					end
+			for i=0,15 do
+				local ability = hero:GetAbilityByIndex(i)
+				if ability then 
+					ability:SetLevel(ability:GetMaxLevel())
 				end
 			end
 		end
@@ -395,13 +388,22 @@ function GameMode:OnHeroInGame(hero)
 
 		
 		Timers:CreateTimer(1/30, function() -- have to wait a frame for GetAssignedHero() to actually work after hero is picked
-			FindClearSpaceForUnit(hero, RoundManager:GetSpawnPosition(hero, true), true)
-			hero:SetGold(BASE_GOLD_PER_ROUND, true)
-			if self:AllPlayersPickedHeroes() then
-				RoundManager:BeginRoundStartTimer()
+			if not RoundManager.round_started then
+				FindClearSpaceForUnit(hero, RoundManager:GetSpawnPosition(hero, true), true)
+				if self:AllPlayersPickedHeroes() then
+					RoundManager:BeginRoundStartTimer()
+				end
 			end
+			hero:SetGold(BASE_GOLD_PER_ROUND, true)
+			self:AddMasterQuartz(hero)
 		end)
 	end
+end
+
+function GameMode:AddMasterQuartz(hero)
+	local quartz_name = getHeroValueForKey(hero, "MasterQuartz")
+	local item = CreateItem("item_master_"..quartz_name, hero, hero)
+	hero:AddItem(item)
 end
 
 function GameMode:AllPlayersPickedHeroes()
@@ -418,15 +420,7 @@ end
 function GameMode:UpdateStatsDisplay(hero)
 	Timers:CreateTimer(0, function()
 		local stats = {}
-
-		local origin = Vector(0,0,0)
-		local radius = 20100
-		local iTeam = DOTA_UNIT_TARGET_TEAM_BOTH
-		local iType = DOTA_UNIT_TARGET_HERO
-		local iFlag = DOTA_UNIT_TARGET_FLAG_INVULNERABLE
-		local iOrder = FIND_ANY_ORDER
-		units = FindUnitsInRadius(DOTA_TEAM_GOODGUYS, origin, nil, radius, iTeam, iType, iFlag, iOrder, false)
-		for k,unit in pairs(units) do
+		for k,unit in pairs(getAllHeroes()) do
 			stats[unit:GetEntityIndex()] = getStats(unit)
 			stats[unit:GetEntityIndex()].mov = unit:GetIdealSpeed()
 		end

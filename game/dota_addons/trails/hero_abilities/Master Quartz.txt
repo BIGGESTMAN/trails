@@ -1,0 +1,12 @@
+Force
+Art - Impassion
+Thrill of Battle : You gain CP whenever an enemy within 350 range is unbalanced, and double that amount when you defeat an enemy.
+Cover : Reduces the damage your link partner takes and deals half of the damage reduced to you. Must be in between damage source and link partner.
+Finishing Blow : Enhanced crafts deal more damage against enemies with less than 20% of their max health.
+Heated Mind : You gain an increased amount of CP each second.
+Fighting Spirit : When you fall below 20% of your max health, you instantly gain a large amount of CP. Can occur only once per round.
+Thrill of Battle CP (thrill_of_battle_cp)
+%Cover Damage Reduction (cover_damage_reduction)
+%Finishing Blow Damage Bonus (finishing_blow_damage_bonus)
+Heated Mind CP Per Second (heated_mind_cp_regen)
+Fighting Spirit CP (fighting_spirit_cp)

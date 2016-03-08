@@ -1,4 +1,5 @@
 require "round_recap"
+require "libraries/util"
 
 STAT_STR = "modifier_str_up" -- Increases phys damage
 STAT_STR_DOWN = "modifier_str_down"
@@ -22,10 +23,15 @@ CRAFT_CP_GAIN_FACTOR = 0.25
 SCRAFT_CP_GAIN_FACTOR = 0.25
 TARGET_CP_GAIN_FACTOR = 1/3
 CP_BOOST_GAIN_FACTOR = 1.5
-
+PASSION_CP_PER_SECOND = 5
 FREEZE_COMMAND_DELAY = 0.6
 CRIT_DAMAGE_FACTOR = 2
 FAINT_DAMAGE_FACTOR = 1.5
+
+LINK_SKILL_SCALING_RANGE = 700
+LINK_SKILL_SCALING_FACTOR = 0.5
+
+LOW_HP_THRESHOLD_PERCENT = 20
 
 LinkLuaModifier("modifier_base_mov_buff", "modifier_base_mov_buff.lua", LUA_MODIFIER_MOTION_NONE)
 
@@ -55,13 +61,23 @@ LinkLuaModifier("modifier_cp_boost", "effect_modifiers.lua", LUA_MODIFIER_MOTION
 LinkLuaModifier("modifier_petrify", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_faint", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_crit", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_zero_arts", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_brute_force", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_link_broken", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_unshatterable_bonds", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 
 -- Notifications:Top((hero.combat_linked_to):GetPlayerOwner(), {text="Alisa: ", duration=2, style={color="white", ["font-size"]="26px"}})
 -- Notifications:Top((hero.combat_linked_to):GetPlayerOwner(), {text="I've Got You!", style={color="green", ["font-size"]="26px"}, continue = true})
 
-function dealDamage(target, attacker, damage, damage_type, ability, cp_gain_factor)
+function dealDamage(target, attacker, damage, damage_type, ability, cp_gain_factor, enhanced)
+	if target.combat_linked_to and target.combat_linked_to:HasModifier("modifier_master_force_passive") and pointIsBetweenPoints(target.combat_linked_to:GetAbsOrigin(), target:GetAbsOrigin(), attacker:GetAbsOrigin()) then
+		local cover_damage_percent = getMasterQuartzSpecialValue(target.combat_linked_to, "cover_damage_reduction") / 100
+		if cover_damage_percent > 0 then
+			dealDamage(target.combat_linked_to, attacker, cover_damage_percent * damage, damage_type, ability, cp_gain_factor)
+			damage = damage * (1 - cover_damage_percent)
+			target.combat_linked_to:FindModifierByName("modifier_master_force_passive"):CreateCoverParticles(attacker:GetAbsOrigin())
+		end
+	end
 	if target:HasModifier("modifier_insight") and target:FindModifierByName("modifier_insight").evasion_active and damage_type == DAMAGE_TYPE_PHYSICAL then
 		target:FindModifierByName("modifier_insight"):StartEvasionCooldown()
 		return
@@ -71,6 +87,9 @@ function dealDamage(target, attacker, damage, damage_type, ability, cp_gain_fact
 	end
 	if target:HasModifier("modifier_faint") then
 		damage = damage * FAINT_DAMAGE_FACTOR
+	end
+	if enhanced and attacker:HasModifier("modifier_master_force_passive") and target:GetHealthPercent() <= LOW_HP_THRESHOLD_PERCENT then
+		damage = damage * (1 + getMasterQuartzSpecialValue(attacker, "finishing_blow_damage_bonus") / 100)
 	end
 	if attacker then
 		if damage_type == DAMAGE_TYPE_PHYSICAL and attacker:HasModifier("modifier_azure_flame_slash_sword_inflamed") then
@@ -94,11 +113,11 @@ function dealDamage(target, attacker, damage, damage_type, ability, cp_gain_fact
 	Round_Recap:AddAbilityDamage(attacker, ability, damage)
 end
 
-function dealScalingDamage(target, attacker, damage_type, scale, ability, cp_gain_factor)
+function dealScalingDamage(target, attacker, damage_type, scale, ability, cp_gain_factor, enhanced)
 	if damage_type == DAMAGE_TYPE_PHYSICAL then
-		dealDamage(target, attacker, scale * getStats(attacker).str, damage_type, ability, cp_gain_factor)
+		dealDamage(target, attacker, scale * getStats(attacker).str, damage_type, ability, cp_gain_factor, enhanced)
 	elseif damage_type == DAMAGE_TYPE_MAGICAL then
-		dealDamage(target, attacker, scale * getStats(attacker).ats, damage_type, ability, cp_gain_factor)
+		dealDamage(target, attacker, scale * getStats(attacker).ats, damage_type, ability, cp_gain_factor, enhanced)
 	end
 end
 
@@ -114,6 +133,10 @@ function getDamageMultiplier(resist)
 end
 
 function dash(unit, direction, speed, range, find_clear_space, impactFunction, other_args)
+	other_args = other_args or {}
+	other_args.range = range
+	other_args.find_clear_space = find_clear_space
+
 	local update_interval = 1/30
 	speed = speed * update_interval
 
@@ -133,7 +156,7 @@ function dash(unit, direction, speed, range, find_clear_space, impactFunction, o
 				return update_interval
 			else
 				if find_clear_space then FindClearSpaceForUnit(unit, unit:GetAbsOrigin(), false) end
-				if impactFunction then impactFunction(unit, direction, speed / update_interval, range, find_clear_space, other_args) end
+				if impactFunction then impactFunction(unit, direction, speed / update_interval, other_args) end
 			end
 		end
 	end)
@@ -141,6 +164,7 @@ end
 
 function trackingDash(unit, target, speed, impactFunction, other_args)
 	other_args = other_args or {}
+	other_args.target = target
 
 	local update_interval = 1/30
 	speed = speed * update_interval
@@ -165,7 +189,7 @@ function trackingDash(unit, target, speed, impactFunction, other_args)
 				unit:SetAbsOrigin(unit_location + direction * speed)
 				return update_interval
 			else
-				impactFunction(unit, direction, speed / update_interval, target, other_args)
+				impactFunction(unit, direction, speed / update_interval, other_args)
 				FindClearSpaceForUnit(unit, unit:GetAbsOrigin(), false)
 			end
 		end
@@ -190,6 +214,18 @@ function getCustomHeroName(name)
 		custom_name = "npc_dota_hero_rean"
 	elseif name == "npc_dota_hero_sniper" then
 		custom_name = "npc_dota_hero_crow"
+	end
+	return custom_name
+end
+
+function getDotaHeroName(name)
+	local custom_name = nil
+	if name == "npc_dota_hero_alisa" then
+		custom_name = "npc_dota_hero_windrunner"
+	elseif name == "npc_dota_hero_rean" then
+		custom_name = "npc_dota_hero_ember_spirit"
+	elseif name == "npc_dota_hero_crow" then
+		custom_name = "npc_dota_hero_sniper"
 	end
 	return custom_name
 end
@@ -393,4 +429,62 @@ function getAbilityCPCosts(hero)
 		end
 	end
 	return cp_costs
+end
+
+function getAllHeroes()
+	local heroes = {}
+	local player_count = PlayerResource:GetPlayerCountForTeam(DOTA_TEAM_GOODGUYS) + PlayerResource:GetPlayerCountForTeam(DOTA_TEAM_BADGUYS)
+	for i = 0, player_count - 1 do
+		table.insert(heroes, PlayerResource:GetPlayer(i):GetAssignedHero())
+	end
+	return heroes
+end
+
+function triggerModifierEvent(event_name, args)
+	local modifier_function = nil
+
+	for k,hero in pairs(getAllHeroes()) do
+		for k,modifier in pairs(hero:FindAllModifiers()) do
+			if event_name == "unit_unbalanced" then
+				if modifier.UnitUnbalanced then
+					modifier:UnitUnbalanced(args)
+				end
+			elseif event_name == "round_started" then
+				if modifier.RoundStarted then
+					modifier:RoundStarted(args)
+				end
+			end
+		end
+	end
+end
+
+function getMasterQuartzSpecialValue(hero, value_name, master_quartz)
+	master_quartz = master_quartz or getMasterQuartz(hero)
+	local base_value = master_quartz:GetSpecialValueFor(value_name)
+	if hero.combat_linked_to then
+		base_value = base_value * getHeroLinkScaling(hero)
+	else
+		base_value = 0
+	end
+	return base_value
+end
+
+function getHeroLinkScaling(hero)
+	local distance = (hero:GetAbsOrigin() - hero.combat_linked_to:GetAbsOrigin()):Length2D()
+	if distance > LINK_SKILL_SCALING_RANGE and not hero:HasModifier("modifier_unshatterable_bonds") then
+		return LINK_SKILL_SCALING_FACTOR
+	else
+		return 1
+	end
+end
+
+function getMasterQuartz(hero)
+	local master_quartz = nil
+	for i=0, 5 do
+		if hero:GetItemInSlot(i) and not hero:GetItemInSlot(i):IsPurchasable() then
+			master_quartz = hero:GetItemInSlot(i)
+			break
+		end
+	end
+	return master_quartz
 end

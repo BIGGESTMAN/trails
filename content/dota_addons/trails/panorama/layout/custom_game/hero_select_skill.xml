@@ -23,10 +23,6 @@
 			$("#Icon").abilityname = aid;
 			$("#AbilityName").text = $.Localize("DOTA_Tooltip_ability_" + aid);
 			$("#AbilityDescription").text = summary;
-
-			if ($.GetContextPanel().GetAttributeInt("ultimate", 0) == 1) {
-				$("#AbilityUltimate").style.opacity = "1.0";
-			}
 		})();
 	</script>
 	<Panel class="HeroSelectSkill">
@@ -36,7 +32,6 @@
 		<Panel id="AbilityInfo">
 			<Panel style="flow-children: right;">
 				<Label id="AbilityName" />
-				<Image src="file://{resources}/images/icon_star.png" id="AbilityUltimate" style="opacity: 0.0; width: 16px; height: 16px; vertical-align: center;" />
 			</Panel>
 			<Label id="AbilityDescription" />
 		</Panel>

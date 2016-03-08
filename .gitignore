@@ -4,6 +4,7 @@ game/dota_addons/trails/materials/*
 game/dota_addons/trails/particles/*
 game/dota_addons/trails/resource/addon_english.txt
 game/dota_addons/trails/resource/tooltips/generated_tooltips.txt
+game/dota_addons/trails/resource/tooltips/master_quartz_tooltips.txt
 game/dota_addons/trails/resource/overviews/*
 game/dota_addons/trails/resource/images/*
 game/dota_addons/trails/soundevents/*

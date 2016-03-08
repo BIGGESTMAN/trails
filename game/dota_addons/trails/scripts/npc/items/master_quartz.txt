@@ -1,0 +1,51 @@
+	"item_master_force" {
+		"ID"	"2101"
+		"BaseClass"	"item_lua"
+		"ScriptFile"	"master_quartz/force"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
+		"Model"	"models/props_gameplay/red_box.vmdl"
+		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
+		"AbilityTextureName"	"item_master_force"
+		"AbilityCastAnimation"	"ACT_DOTA_TELEPORT"
+		"ItemAliases"	"force"
+		"AbilityCooldown"	"4"
+		"AbilityCastPoint"	"1.5"
+		"AbilityCastRange"	"600"
+		"AbilityManaCost"	"40"
+		"ItemCost"	"0"
+		"ItemDroppable"	"0"
+		"ItemSellable"	"0"
+		"ItemPurchasable" "0"
+		"ItemDeclarations"	"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemShareability"	"ITEM_NOT_SHAREABLE"
+		"MaxUpgradeLevel"	"5"
+		"ItemBaseLevel"		"1"
+		"AbilitySpecial" {
+			"00" {
+				"var_type"	"FIELD_INTEGER"
+				"thrill_of_battle_cp"	"3 6 9 12 15"
+			}
+			"00" {
+				"var_type"	"FIELD_INTEGER"
+				"thrill_of_battle_range"	"350"
+			}
+			"00" {
+				"var_type"	"FIELD_INTEGER"
+				"finishing_blow_damage_bonus"	"0 0 15 30 45"
+			}
+			"00" {
+				"var_type"	"FIELD_INTEGER"
+				"heated_mind_cp_regen"	"0 0 0 1 2"
+			}
+			"00" {
+				"var_type"	"FIELD_FLOAT"
+				"cover_damage_reduction"	"0 7.5 15 22.5 30"
+			}
+			"00" {
+				"var_type"	"FIELD_INTEGER"
+				"fighting_spirit_cp"	"0 0 0 0 100"
+			}
+		}
+	}

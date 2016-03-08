@@ -64,4 +64,5 @@
 		"Ats"	"105"
 		"Adf"	"100"
 		"Spd"	"0"
+		"MasterQuartz"	"angel"
 	}

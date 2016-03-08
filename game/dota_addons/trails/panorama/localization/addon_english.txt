@@ -80,7 +80,13 @@
 	"HeroSelect_Crafts_Tooltip"						"A hero's basic abilities, which cost Craft Points to cast. They are all learned at level 1."
 	"HeroSelect_Scraft"								"S-Craft"
 	"HeroSelect_Scraft_Tooltip"						"A hero's ultimate craft. Devastates enemies but costs all of a hero's CP."
+	"HeroSelect_MasterQuartz"						"Master Quartz"
+	"HeroSelect_MasterQuartz_Tooltip"				"A unique starting item that provides passive bonuses while linked and allows casting of a specific Art. Upgrades itself after each round."
 	"HeroSelect_Loading"							"Loading..."
+
+	"masterquartz_description_force"				"Provides well-rounded physical bonuses, specializing in rapid CP generation. Allows casting of Impassion."
+	"masterquartz_description_angel"				"angel description"
+	"masterquartz_description_cypher"				"cypher description"
 
 	//"npc_dota_hero_ember_spirit_Lore"				"The leader of Class VII. As a beginner in the Eight Leaves One Blade school of swordfighting, Rean uses powerful physical attacks to disrupt and elude enemies."
 	"npc_dota_hero_ember_spirit_Lore"				"Rean is a nimble, aggressive swordfighter who uses powerful physical attacks to disrupt and elude enemies."

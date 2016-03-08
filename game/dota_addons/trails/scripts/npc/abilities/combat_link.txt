@@ -26,7 +26,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"link_break_range"		"1500"
+				"link_break_range"		"1300"
 			}
 			"01"
 			{
@@ -46,7 +46,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"unbalance_duration"	"3.0"
+				"unbalance_duration"	"6.0"
 			}
 			"01"
 			{

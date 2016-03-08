@@ -11,7 +11,9 @@ function checkForLink(keys)
 	local link_break_range = ability:GetSpecialValueFor("link_break_range")
 
 	if caster.combat_linked_to then
-		if not IsValidEntity(caster.combat_linked_to) or (caster.combat_linked_to:GetAbsOrigin() - caster:GetAbsOrigin()):Length2D() > link_break_range or not caster.combat_linked_to:IsAlive() or caster:HasModifier("modifier_link_broken") or caster.combat_linked_to:HasModifier("modifier_link_broken") then
+		if not IsValidEntity(caster.combat_linked_to) or not caster.combat_linked_to:IsAlive() or
+		(((caster.combat_linked_to:GetAbsOrigin() - caster:GetAbsOrigin()):Length2D() > link_break_range or caster:HasModifier("modifier_link_broken") or caster.combat_linked_to:HasModifier("modifier_link_broken"))
+		and not caster:HasModifier("modifier_unshatterable_bonds")) then
 			if IsValidEntity(caster.combat_linked_to) then
 				removeLink(caster.combat_linked_to)
 			end
@@ -36,7 +38,7 @@ function checkForLink(keys)
 				ability:ApplyDataDrivenModifier(caster, caster, "modifier_combat_link_linked", {})
 				ability:ApplyDataDrivenModifier(target, target, "modifier_combat_link_linked", {})
 
-				caster.tether_particle = ParticleManager:CreateParticle("particles/units/heroes/hero_wisp/wisp_tether.vpcf", PATTACH_POINT_FOLLOW, caster)
+				caster.tether_particle = ParticleManager:CreateParticle("particles/combat_links/link.vpcf", PATTACH_POINT_FOLLOW, caster)
 				ParticleManager:SetParticleControlEnt(caster.tether_particle, 0, caster, PATTACH_POINT_FOLLOW, "attach_hitloc", caster:GetAbsOrigin(), true)
 				ParticleManager:SetParticleControlEnt(caster.tether_particle, 1, target, PATTACH_POINT_FOLLOW, "attach_hitloc", target:GetAbsOrigin(), true)
 				CustomGameEventManager:Send_ServerToPlayer(caster:GetOwner(), "ally_ability_bar_start", {heroIndex = target:GetEntityIndex(), cpCosts = getAbilityCPCosts(target)})
@@ -72,15 +74,21 @@ function increaseUnbalance(caster, target, bonus_increase)
 	if caster.combat_linked_to then
 		local modifier = target:FindModifierByName("modifier_unbalanced_level")
 		if modifier then -- to make script not crash when hitting creeps ~_~
-			modifier:IncreaseLevel(base_increase + bonus_increase)
+			local unbalance_increase = (base_increase + bonus_increase) * getHeroLinkScaling(hero)
+			modifier:IncreaseLevel(unbalance_increase)
 			if modifier:GetStackCount() >= unbalance_threshold or caster:HasModifier("modifier_brute_force") then
 				ability:ApplyDataDrivenModifier(caster, caster.combat_linked_to, "modifier_combat_link_followup_available", {})
 				ability:ApplyDataDrivenModifier(caster, target, "modifier_combat_link_unbalanced", {})
 				modifier:SetStackCount(0)
 				caster:RemoveModifierByName("modifier_brute_force")
+				triggerUnbalanceEvent(target)
 			end
 		end
 	end
+end
+
+function triggerUnbalanceEvent(target)
+	triggerModifierEvent("unit_unbalanced", {unit = target})
 end
 
 function followupAvailable(keys)

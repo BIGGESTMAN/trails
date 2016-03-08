@@ -160,17 +160,12 @@ modifier_passion = class({})
 if IsServer() then
 	function modifier_passion:OnCreated( kv )
 		self.cp_interval = 1/30
-		self.cp_per_second = kv.cp_per_second
-		self.accrued_cp = 0
+		self.cp_per_second = kv.cp_per_second or PASSION_CP_PER_SECOND
 		self:StartIntervalThink(self.cp_interval)
 	end
 
 	function modifier_passion:OnIntervalThink()
-		self.accrued_cp = self.accrued_cp + self.cp_per_second * self.cp_interval
-		if self.accrued_cp >= 1 then
-			modifyCP(self:GetParent(), math.floor(self.accrued_cp))
-			self.accrued_cp = self.accrued_cp - math.floor(self.accrued_cp)
-		end
+		modifyCP(self:GetParent(), self.cp_per_second * self.cp_interval)
 	end
 end
 
@@ -450,6 +445,45 @@ function modifier_crit:GetTexture()
 	return "phantom_assassin_arcana_phantom_strike"
 end
 
+modifier_zero_arts = class({})
+
+function modifier_zero_arts:GetEffectName()
+	return "particles/turn_bonuses/zero_arts_buff.vpcf"
+end
+
+function modifier_zero_arts:GetEffectAttachType()
+	return PATTACH_ABSORIGIN_FOLLOW
+end
+
+function modifier_zero_arts:GetTexture()
+	return "skywrath_mage_ancient_seal"
+end
+
+function modifier_zero_arts:DeclareFunctions()
+	return {MODIFIER_EVENT_ON_SPENT_MANA,
+			MODIFIER_EVENT_ON_ABILITY_START,
+			MODIFIER_EVENT_ON_ABILITY_EXECUTED }
+end
+
+function modifier_zero_arts:OnSpentMana(params)
+	params.ability:RefundManaCost()
+end
+
+function modifier_zero_arts:OnAbilityStart(params)
+	if params.unit == self:GetParent() and params.ability:GetManaCost(params.ability:GetLevel()) > 0 then
+		params.ability.normal_cast_point = params.ability:GetCastPoint()
+		params.ability:SetOverrideCastPoint(0)
+	end
+end
+
+function modifier_zero_arts:OnAbilityExecuted(params)
+	if params.unit == self:GetParent() and params.ability:GetManaCost(params.ability:GetLevel()) > 0 then
+		params.ability:SetOverrideCastPoint(params.ability.normal_cast_point)
+		params.ability.normal_cast_point = nil
+		self:Destroy()
+	end
+end
+
 modifier_brute_force = class({})
 
 function modifier_brute_force:GetTexture()
@@ -464,4 +498,18 @@ end
 
 function modifier_link_broken:IsDebuff()
 	return true
+end
+
+modifier_unshatterable_bonds = class({})
+
+function modifier_unshatterable_bonds:GetEffectName()
+	return "particles/units/heroes/hero_wisp/wisp_overcharge.vpcf"
+end
+
+function modifier_unshatterable_bonds:GetEffectAttachType()
+	return PATTACH_ABSORIGIN_FOLLOW
+end
+
+function modifier_unshatterable_bonds:GetTexture()
+	return "dark_seer_wall_of_replica"
 end

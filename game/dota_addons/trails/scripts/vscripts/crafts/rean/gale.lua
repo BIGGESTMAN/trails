@@ -19,7 +19,9 @@ function spellCast(keys)
 	local iFlag = DOTA_UNIT_TARGET_FLAG_NONE
 	local iOrder = FIND_ANY_ORDER
 	caster.gale_targets = FindUnitsInRadius(team, origin, nil, radius, iTeam, iType, iFlag, iOrder, false)
+	local enhanced = false
 	if validEnhancedCraft(caster, target) then
+		enhanced = true
 		caster:RemoveModifierByName("modifier_combat_link_followup_available")
 		target:RemoveModifierByName("modifier_combat_link_unbalanced")
 		caster.gale_secondary_targets = copyOfTable(caster.gale_targets)
@@ -54,7 +56,7 @@ function spellCast(keys)
 		modifyCP(caster, getCPCost(ability) * -1)
 		applyDelayCooldowns(caster, ability)
 		ability:ApplyDataDrivenModifier(caster, caster, "modifier_gale_dashing", {})
-		dashToNextTarget(caster, crit)
+		dashToNextTarget(caster, {crit = crit, enhanced = enhanced})
 	else
 		Notifications:Bottom(keys.caster:GetPlayerOwner(), {text="Target Area Must Contain Marked Enemies", duration=1, style={color="red"}})
 		ability:EndCooldown()
@@ -63,8 +65,9 @@ function spellCast(keys)
 	end
 end
 
-function hitTarget(caster, direction, speed, target, other_args)
+function hitTarget(caster, direction, speed, other_args)
 	local ability = caster:FindAbilityByName("gale")
+	local target = other_args.target
 
 	local damage_scale = ability:GetSpecialValueFor("damage_percent") / 100
 	local damage_type = ability:GetAbilityDamageType()
@@ -80,7 +83,7 @@ function hitTarget(caster, direction, speed, target, other_args)
 			target:AddNewModifier(caster, ability, "modifier_gale_slow", {duration = slow_duration})
 		end
 		if other_args.crit then damage_scale = damage_scale * 2 end
-		dealScalingDamage(target, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR)
+		dealScalingDamage(target, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR, other_args.enhanced)
 		increaseUnbalance(caster, target, bonus_unbalance)
 		target:AddNewModifier(caster, ability, "modifier_seal", {duration = seal_duration})
 		ParticleManager:CreateParticle("particles/units/heroes/hero_bounty_hunter/bounty_hunter_jinda_slow.vpcf", PATTACH_ABSORIGIN, target)
@@ -90,10 +93,10 @@ function hitTarget(caster, direction, speed, target, other_args)
 		caster.gale_secondary_phase = nil
 		caster.gale_original_target = nil
 	end
-	dash(caster, direction, dash_speed, dash_through_range, false, dashToNextTarget)
+	dash(caster, direction, dash_speed, dash_through_range, false, dashToNextTarget, other_args)
 end
 
-function dashToNextTarget(caster, crit)
+function dashToNextTarget(caster, args)
 	local ability = caster:FindAbilityByName("gale")
 	local dash_speed = ability:GetSpecialValueFor("dash_speed")
 
@@ -103,7 +106,7 @@ function dashToNextTarget(caster, crit)
 		table.remove(caster.gale_targets, target_index)
 		if IsValidAlive(dash_target) then
 			caster:SetForwardVector((dash_target:GetAbsOrigin() - caster:GetAbsOrigin()):Normalized())
-			trackingDash(caster, dash_target, dash_speed, hitTarget, {crit = crit})
+			trackingDash(caster, dash_target, dash_speed, hitTarget, args)
 		else
 			dashToNextTarget(caster)
 		end
@@ -115,7 +118,7 @@ function dashToNextTarget(caster, crit)
 	elseif caster.gale_secondary_phase and IsValidAlive(caster.gale_original_target) then -- Final slash against original unbalanced target
 		local dash_target = caster.gale_original_target
 		caster:SetForwardVector((dash_target:GetAbsOrigin() - caster:GetAbsOrigin()):Normalized())
-		trackingDash(caster, dash_target, dash_speed, hitTarget, {crit = crit})
+		trackingDash(caster, dash_target, dash_speed, hitTarget, args)
 	else -- Dash back to original location, or stay at unbalanced target's location
 		if caster.gale_original_location then
 			local original_location_vector = caster.gale_original_location - caster:GetAbsOrigin()

@@ -1,5 +1,6 @@
 require "round_recap"
 require "turn_bonuses"
+require "game_functions"
 
 if not RoundManager then
 	RoundManager = {}
@@ -70,6 +71,7 @@ function RoundManager:StartRound()
 			FindClearSpaceForUnit(hero, self:GetSpawnPosition(hero, false), true)
 		end
 	end
+	triggerModifierEvent("round_started")
 	Turn_Bonuses:StartRound(self.current_round)
 	Round_Recap:StartRound()
 	CustomGameEventManager:Send_ServerToAllClients("ready_button_hide", {})
@@ -97,8 +99,8 @@ function RoundManager:EndRound(winning_team)
 	self.score[winning_team] = self.score[winning_team] + 1
 	self.current_round = self.current_round + 1
 	self.round_started = false
-	mode:SetTopBarTeamValue(DOTA_TEAM_GOODGUYS, self.score[DOTA_TEAM_GOODGUYS])
-	mode:SetTopBarTeamValue(DOTA_TEAM_BADGUYS, self.score[DOTA_TEAM_BADGUYS])
+	GameRules:GetGameModeEntity():SetTopBarTeamValue(DOTA_TEAM_GOODGUYS, self.score[DOTA_TEAM_GOODGUYS])
+	GameRules:GetGameModeEntity():SetTopBarTeamValue(DOTA_TEAM_BADGUYS, self.score[DOTA_TEAM_BADGUYS])
 	Turn_Bonuses:EndRound()
 
 	Timers:CreateTimer(ROUND_END_DELAY, function()
@@ -115,6 +117,8 @@ function RoundManager:EndRound(winning_team)
 				end
 
 				hero:ModifyGold(BASE_GOLD_PER_ROUND + GOLD_INCREASE_PER_ROUND * self.current_round, true, 17)
+				getMasterQuartz(hero):SetLevel(getMasterQuartz(hero):GetLevel() + 1)
+				ParticleManager:CreateParticle("particles/generic_hero_status/hero_levelup.vpcf", PATTACH_ABSORIGIN_FOLLOW, hero)
 			end
 		end
 

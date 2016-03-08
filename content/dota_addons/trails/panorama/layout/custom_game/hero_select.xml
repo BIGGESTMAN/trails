@@ -23,8 +23,16 @@
 
 		<Panel id="HeroInfoContainer">
 			<Panel class="Inner">
-				<Label id="HeroName" text="" />
-				<Label id="HeroDescription" text="" />
+				<!-- <Label id="HeroName" text="" /> -->
+				<Panel id="DescriptionAndStatsContainer">
+					<Label id="HeroDescription" text="" />
+					<Panel id="StatsContainer">
+						<Label id="Str" class="Stat"/>
+						<Label id="Ats" class="Stat"/>
+						<Label id="Health" class="Stat"/>
+						<Label id="Mana" class="Stat"/>
+					</Panel>
+				</Panel>
 				<Panel class="HeaderContainer">
 					<Label id="CraftsHeader" class="Header" text="#HeroSelect_Abilities"/>
 					<Label id="CraftsTooltip" class="Tooltip" text="#HeroSelect_Crafts_Tooltip"/>
@@ -35,6 +43,11 @@
 					<Label id="ScraftTooltip" class="Tooltip" text="#HeroSelect_Scraft_Tooltip"/>
 				</Panel>
 				<Panel class="HeroAbilityContainer" id="HeroScraftAbilityContainer" onmouseover="ScraftShowTooltip()" onmouseout="ScraftHideTooltip()"/>
+				<Panel class="HeaderContainer">
+					<Label id="MasterQuartzHeader" class="Header" text="#HeroSelect_MasterQuartz"/>
+					<Label id="MasterQuartzTooltip" class="QuartzTooltip" text="#HeroSelect_MasterQuartz_Tooltip"/>
+				</Panel>
+				<Panel class="HeroAbilityContainer" id="HeroMasterQuartzContainer" onmouseover="MasterQuartzShowTooltip()" onmouseout="MasterQuartzHideTooltip()"/>
 			</Panel>
 		</Panel>
 
