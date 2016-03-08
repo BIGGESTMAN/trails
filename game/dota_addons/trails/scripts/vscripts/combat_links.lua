@@ -1,5 +1,4 @@
 require "game_functions"
-require "projectile_list"
 require "libraries/notifications"
 
 LinkLuaModifier("modifier_unbalanced_level", "modifier_unbalanced_level.lua", LUA_MODIFIER_MOTION_NONE)
@@ -74,9 +73,9 @@ function increaseUnbalance(caster, target, bonus_increase)
 	if caster.combat_linked_to then
 		local modifier = target:FindModifierByName("modifier_unbalanced_level")
 		if modifier then -- to make script not crash when hitting creeps ~_~
-			local unbalance_increase = (base_increase + bonus_increase) * getHeroLinkScaling(hero)
+			local unbalance_increase = (base_increase + bonus_increase) * getHeroLinkScaling(caster)
 			modifier:IncreaseLevel(unbalance_increase)
-			if modifier:GetStackCount() >= unbalance_threshold or caster:HasModifier("modifier_brute_force") then
+			if modifier:GetStackCount() >= unbalance_threshold or caster:HasModifier("modifier_brute_force") or true then
 				ability:ApplyDataDrivenModifier(caster, caster.combat_linked_to, "modifier_combat_link_followup_available", {})
 				ability:ApplyDataDrivenModifier(caster, target, "modifier_combat_link_unbalanced", {})
 				modifier:SetStackCount(0)
@@ -107,4 +106,17 @@ function createUnbalanceModifier(keys)
 	local ability = keys.ability
 
 	caster:AddNewModifier(caster, ability, "modifier_unbalanced_level", {})
+end
+
+function playUnbalancedParticle(keys)
+	local target = nil
+	for k,hero in pairs(getAllHeroes()) do
+		if hero:HasModifier("modifier_combat_link_followup_available") and hero:GetTeamNumber() ~= keys.target:GetTeamNumber() then
+			target = hero
+			break
+		end
+	end
+	if target then
+		ParticleManager:CreateParticleForPlayer("particles/combat_links/enhanced_targetable_beam.vpcf", PATTACH_ABSORIGIN_FOLLOW, keys.target, target:GetPlayerOwner())
+	end
 end

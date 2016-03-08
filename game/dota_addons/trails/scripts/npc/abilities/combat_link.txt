@@ -123,7 +123,7 @@
 
 				"IsDebuff"	"1"
 
-				"EffectName"		"particles/units/heroes/hero_brewmaster/brewmaster_drunken_haze_debuff.vpcf"
+				"EffectName"		"particles/combat_links/enhanced_targetable_beam_continuous.vpcf"
 				"EffectAttachType"	"follow_origin"
 			}
 		}

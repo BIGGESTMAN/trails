@@ -267,10 +267,10 @@
 }
 #HeroInfoContainer .QuartzTooltip {
 	height: 61px;
-	transform: translate3d(0px, 25px, 0px);
+	transform: translate3d(0px, 15px, 0px);
 }
 #HeroInfoContainer .QuartzTooltip.Visible {
-	transform: translate3d(0px, 15px, 0px);
+	transform: translate3d(0px, 5px, 0px);
 }
 
 
