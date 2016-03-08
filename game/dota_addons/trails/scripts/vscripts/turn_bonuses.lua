@@ -111,8 +111,7 @@ function Turn_Bonuses:RandomBonus(round)
 	else
 		bonus = self.higher_elements_bonuses[RandomInt(1,#self.higher_elements_bonuses)]
 	end
-	-- return bonus
-	return self.ZeroArts
+	return bonus
 end
 
 function Turn_Bonuses:GetBonusName(bonus)

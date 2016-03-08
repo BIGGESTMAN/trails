@@ -507,7 +507,7 @@ function modifier_unshatterable_bonds:GetEffectName()
 end
 
 function modifier_unshatterable_bonds:GetEffectAttachType()
-	return PATTACH_ABSORIGIN_FOLLOW
+	return PATTACH_POINT_FOLLOW
 end
 
 function modifier_unshatterable_bonds:GetTexture()
