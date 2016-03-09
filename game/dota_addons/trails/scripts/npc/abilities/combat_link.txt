@@ -123,8 +123,23 @@
 
 				"IsDebuff"	"1"
 
-				"EffectName"		"particles/combat_links/enhanced_targetable_beam_continuous.vpcf"
-				"EffectAttachType"	"follow_origin"
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"combat_links"
+						"Function"		"createUnbalancedParticle"
+					}
+				}
+
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"combat_links"
+						"Function"		"removeUnbalancedParticle"
+					}
+				}
 			}
 		}
 	}

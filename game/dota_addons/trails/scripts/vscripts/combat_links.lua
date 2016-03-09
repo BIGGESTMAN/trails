@@ -108,15 +108,23 @@ function createUnbalanceModifier(keys)
 	caster:AddNewModifier(caster, ability, "modifier_unbalanced_level", {})
 end
 
-function playUnbalancedParticle(keys)
-	local target = nil
+function createUnbalancedParticle(keys)
+	local particle_owners = nil
 	for k,hero in pairs(getAllHeroes()) do
 		if hero:HasModifier("modifier_combat_link_followup_available") and hero:GetTeamNumber() ~= keys.target:GetTeamNumber() then
-			target = hero
-			break
+			if not hero.unbalance_targetable_particles then hero.unbalance_targetable_particles = {} end
+			if not hero.unbalance_targetable_particles[keys.target] then
+				hero.unbalance_targetable_particles[keys.target] = ParticleManager:CreateParticleForPlayer("particles/combat_links/enhanced_targetable_beam_continuous.vpcf", PATTACH_ABSORIGIN_FOLLOW, keys.target, hero:GetPlayerOwner())
+			end
 		end
 	end
-	if target then
-		ParticleManager:CreateParticleForPlayer("particles/combat_links/enhanced_targetable_beam.vpcf", PATTACH_ABSORIGIN_FOLLOW, keys.target, target:GetPlayerOwner())
+end
+
+function removeUnbalancedParticle(keys)
+	for k,hero in pairs(getAllHeroes()) do
+		if hero.unbalance_targetable_particles and hero.unbalance_targetable_particles[keys.target] then
+			ParticleManager:DestroyParticle(hero.unbalance_targetable_particles[keys.target], false)
+			hero.unbalance_targetable_particles[keys.target] = nil
+		end
 	end
 end
