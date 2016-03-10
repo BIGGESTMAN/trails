@@ -87,12 +87,14 @@
 	"masterquartz_description_force"				"Provides well-rounded physical bonuses, specializing in rapid CP generation. Allows casting of Impassion."
 	"masterquartz_description_angel"				"angel description"
 	"masterquartz_description_cypher"				"cypher description"
+	"masterquartz_description_aegis"				"aegis description"
 
 	//"npc_dota_hero_ember_spirit_Lore"				"The leader of Class VII. As a beginner in the Eight Leaves One Blade school of swordfighting, Rean uses powerful physical attacks to disrupt and elude enemies."
 	"npc_dota_hero_ember_spirit_Lore"				"Rean is a nimble, aggressive swordfighter who uses powerful physical attacks to disrupt and elude enemies."
 	//"npc_dota_hero_windrunner_Lore"					"The heir to the Empire's largest industrial group, Alisa's technical knowledge and skill with the bow allow her to support her allies and devastate her enemies with wide-area magic effects."
 	"npc_dota_hero_windrunner_Lore"					"Alisa's technical knowledge and skill with the bow allow her to support her allies and devastate her enemies with wide-area magic effects."
 	"npc_dota_hero_sniper_Lore"						"Crow is a cocky, flexible gunslinger, adept in both physical combat and magic and fully comfortable leaving his and his enemies' fate up to chance."
+	"npc_dota_hero_omniknight_Lore"					"Millium devastates enemies in close range along with her robotic sidekick, Lammy."
 
 
 

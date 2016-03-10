@@ -1,0 +1,92 @@
+	"buster_arm"
+	{
+		"BaseClass"						"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT_TARGET | DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
+		"MaxLevel"						"1"
+
+		"AbilityTextureName"			"ember_spirit_sleight_of_fist"
+		"AbilityCastAnimation"			""
+
+		"precache"
+		{
+
+		}
+
+		"AbilityCastPoint"				"0.4"
+		"AbilityCooldown"				"4"
+		"AbilityManaCost"				"0"
+		"CPCost"						"30"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"radius"				"250"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"range"					"200"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"knockback_distance"	"500"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"knockback_duration"	"0.5"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"damage_percent"		"180"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"faint_duration"		"2"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"unbalanced_damage_percent"	"720"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"unbalanced_faint_duration"	"4"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"crafts/millium/buster_arm"
+				"Function"		"spellCast"
+				"Target"		"POINT"
+			}
+		}
+
+		"Modifiers"
+		{
+			"modifier_buster_arm_knockback"
+			{
+				"IsDebuff"		"1"
+
+				"Duration"		"%knockback_duration"
+
+				"States"
+				{
+					"MODIFIER_STATE_STUNNED"				"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_NO_UNIT_COLLISION"		"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+		}
+	}

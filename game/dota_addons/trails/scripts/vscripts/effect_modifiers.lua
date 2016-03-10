@@ -40,7 +40,7 @@ end
 modifier_faint = class({})
 
 function modifier_faint:GetEffectName()
-	return "particles/generic_gameplay/generic_stunned_old.vpcf"
+	return "particles/status_effects/faint/debuff.vpcf"
 end
 
 function modifier_faint:GetEffectAttachType()

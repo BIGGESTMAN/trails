@@ -26,7 +26,7 @@ with open(os.path.join(directoryname, filename), encoding="utf-8") as infile:
 			ability['desc'] = ability['desc'] + line
 			continue
 		if ":" in line and "(" not in line:
-			ability['desc'] = ability['desc'] + "\n" + line.replace(" :", ":")
+			ability['desc'] = ability['desc'] + "\n<font color='#FE9A2E'>" + line.replace(" :", ":</font>")
 			continue
 
 		if (not ability) or ("(" not in line):

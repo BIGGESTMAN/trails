@@ -1,0 +1,71 @@
+[Q] Buster Arm (buster_arm) : Lammy charges up and unleashes a forceful punch, dealing physical damage to and knocking back enemies. Knocked back enemies who hit solid terrain, trees or other units Faint. +20 to Unbalance.
+Enhanced : Deals more damage and causes all enemies hit to Faint for an increased duration.
+
+Cast Point : 0.4
+Delay : 4
+Physical Damage : 180%
+Faint Duration : 1.3
+Range : 250
+Radius : 250
+Enhanced Physical Damage : 270%
+Enhanced Faint Duration : 2.6
+CP Cost : 30
+
+[W] Ultimate Barrier (ultimate_barrier) : Lammy shields Millium, giving her Physical Guard.
+Enhanced : Lammy generates a force field around Millium as well, giving all allies inside constant Physical and Magical Guard. Actions other than moving cancel the force field.
+DevNotes - The enhanced version's force field generates a separate instance of unlimited Physical and Magical Guard that has the highest priority, meaning any other instances of Guard or Reflect can't activate and remain after the force field ends.
+
+Cast Point : 0.5
+Delay : 3
+Physical Guard Duration : 18
+Enhanced Force Field Duration : 3
+Enhanced Force Field Radius : 350
+CP Cost : 20
+
+[E] Megaton Press (megaton_press) : Lammy transforms into a wrecking ball that soars for 0.5 seconds, then crash lands on where the target enemy was, dealing physical damage split among all enemies hit. If only one enemy is hit, they Faint. If multiple enemies are hit, their MOV is reduced by 50% instead. +40 to Unbalance.
+Enhanced : Millium adds her weight to the ball, landing along with Lammy. Max damage is dealt to all enemies, and they are Fainted with their MOV reduced.
+DevNotes - Targets enemy, but AoE is centered on the enemy's location after the cast point and before the 0.5 second delay. For the enhanced version, Millium becomes untargetable but not invulnerable for the delay, then appears in the center of the AoE. 
+
+Cast Point : 0.3
+Delay : 6
+Total Physical Damage : 300%
+Faint Duration : 1.5
+MOV Reduction Duration : 2.5
+Cast Range : 700
+Radius : 350
+Enhanced MOV Reduction Duration : 4
+CP Cost : 40
+
+[D] Sledge Impact (sledge_impact) : Lammy transforms into a mallet that Millium drives into the ground, dealing physical damage around her and giving enemies Balance Down. Adds 10% to unbalance.
+Enhanced : Increases damage and radius, and also leaves a crater that reduces SPD and MOV by 50%.
+DevNotes - The unbalance doesn't benefit from Balance Down applied by the same instance of this ability. The crater debuff lingers for 0.5 seconds.
+
+Cast Point : 0.4
+Delay : 5
+Physical Damage : 240%
+Balance Down Duration : 8
+Radius : 400
+Enhanced Physical Damage : 300%
+Enhanced Crater Duration : 8
+Enhanced Damage & Crater Radius : 550
+CP Cost : 50
+
+[R] Gigant Breaker (gigant_breaker) : Lammy transforms into a rocket-powered hammer that boosts Millium in the targeted direction for 1 second while she knocks enemies aside. After a 0.5 second delay, she slams it into the ground, instantly dealing physical damage and causing an expanding shockwave that deals physical damage while reducing MOV and SPD by 100%.
+200 CP Bonus : Generates 3 shockwaves with a 0.5 second delay between each. Increases radius of slam and max radius of shockwaves.
+DevNotes - After 1 second of traveling, she flies into the air for 0.5 second before the slam. Shockwaves instantly hit enemies in 250 radius then expand.
+
+Cast Point : 0
+Delay : 10
+Slam Physical Damage : 375%
+Shockwave Physical Damage : 150%
+MOV & SPD Reduction Duration : 1
+Knockback Duration : 0.5
+Knockback Distance : 150
+Shockwave Width : 250
+Boost Travel Speed : 700
+Shockwave Travel Speed : 400
+Knockback Radius : 300
+Slam Radius : 600
+Shockwave Max Radius : 900
+200 CP Slam Radius : 1000
+200 CP Shockwave Max Radius : 1500
