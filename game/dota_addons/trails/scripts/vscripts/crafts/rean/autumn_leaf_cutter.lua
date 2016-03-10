@@ -58,13 +58,13 @@ function secondaryDash(caster, direction, speed, other_args)
 	local damage_type = ability:GetAbilityDamageType()
 	local bonus_unbalance = ability:GetSpecialValueFor("bonus_unbalance")
 	local slash_particle_instances = 10
-	local slow_modifier_name = "modifier_autumn_leaf_cutter_slow"
+	local slow_duration = ability:GetSpecialValueFor("slow_duration")
 
 	local unbalanced_knockback_duration = ability:GetSpecialValueFor("unbalanced_knockback_duration")
 	local unbalanced_knockback_distance = ability:GetSpecialValueFor("unbalanced_knockback_distance")
 	if other_args.enhanced then
 		damage_scale = ability:GetSpecialValueFor("unbalanced_damage_percent") / 100
-		slow_modifier_name = "modifier_autumn_leaf_cutter_unbalanced_slow"
+		slow_duration = ability:GetSpecialValueFor("unbalanced_slow_duration")
 	end
 	if other_args.crit then damage_scale = damage_scale * 2 end
 
@@ -79,7 +79,7 @@ function secondaryDash(caster, direction, speed, other_args)
 	for k,unit in pairs(targets) do
 		dealScalingDamage(unit, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR, other_args.enhanced)
 		increaseUnbalance(caster, unit, bonus_unbalance)
-		ability:ApplyDataDrivenModifier(caster, unit, slow_modifier_name, {})
+		ability:ApplyDataDrivenModifier(caster, unit, "modifier_autumn_leaf_cutter_slow", {duration = slow_duration})
 		unit:Interrupt()
 		applyGaleMark(caster, unit)
 

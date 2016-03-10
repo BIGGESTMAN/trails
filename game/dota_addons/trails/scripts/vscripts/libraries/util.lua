@@ -266,6 +266,5 @@ end
 function pointIsInFront(point, comparison_point, direction)
 	local direction_towards_origin = (comparison_point - point):Normalized()
 	local angle = direction:Dot(direction_towards_origin)
-	print(angle)
 	return angle <= 0
 end

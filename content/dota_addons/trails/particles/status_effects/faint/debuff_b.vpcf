@@ -53,8 +53,8 @@
 		},
 		{
 			_class = "C_INIT_RandomAlpha"
-			m_nAlphaMin = 9
-			m_nAlphaMax = 9
+			m_nAlphaMin = 18
+			m_nAlphaMax = 18
 		},
 		{
 			_class = "C_INIT_CreateFromParentParticles"

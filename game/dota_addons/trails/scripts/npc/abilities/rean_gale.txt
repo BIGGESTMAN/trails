@@ -58,7 +58,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"unbalanced_damage_percent"	"125"
+				"unbalanced_damage_percent"	"750"
 			}
 			"01"
 			{
@@ -73,7 +73,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"mark_duration"			"2"
+				"mark_duration"			"3"
 			}
 
 		}

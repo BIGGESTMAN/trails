@@ -1,5 +1,5 @@
 [Q] Autumn Leaf Cutter (autumn_leaf_cutter) : Rean dashes through enemies in target area, dealing physical damage, slowing and interrupting. +10 to Unbalance.
-Enhanced : Follows targeted enemy, deals more damage and applies a greater slow, and knocks enemies away from the target.
+Enhanced : Follows targeted enemy, deals more damage and slows for longer, and knocks enemies away from the target.
 
 Cast Point : 0.2
 Delay: 1
@@ -7,15 +7,15 @@ Delay: 1
 Slow Duration (slow_duration) : 1
 %Slow (slow) : 40
 Radius (radius) : 300
-%Enhanced Damage (unbalanced_damage_percent) : 225
-%Enhanced Slow (unbalanced_slow) : 60
+%Enhanced Damage (unbalanced_damage_percent) : 480
+%Enhanced Slow Duration (unbalanced_slow_duration) : 3
 Enhanced Knockback Duration : 0.5
 Enhanced Knockback Distance : 350
 Note0 (note0) : Can only be cast if there are enemies in the target area.
 CP Cost : 30
 
 [W] Motivate (motivate) : Rean lets forth an encouraging shout, increasing nearby allies' Physical Attack and granting them CP.
-Enhanced : Intimidates targeted enemy, decreasing their Physical Attack and CP, and increases allies' Physical Attack and CP by a greater amount.
+Enhanced : Intimidates targeted enemy, decreasing their Physical Attack and blocking CP generation, and increases allies' Physical Attack and CP by a greater amount.
 
 Cast Point : 0.2
 Delay: 3
@@ -29,7 +29,7 @@ Note0 (note0) : Increases Rean's Physical Attack, but doesn't grant him CP.
 CP Cost : 30
 
 [E] Arc Slash (arc_slash) : Rean unleashes a shockwave, dealing physical damage and Delaying enemies hit.
-Enhanced : Deals more damage, inflicts more Delay and leaves a path of wind behind the shockwave, increasing allies' attack and movement speeds while on it.
+Enhanced : Deals more damage, inflicts more Delay and leaves a path of wind behind the shockwave, increasing allies' SPD and MOV while on it.
 
 Cast Point : 0.2
 Delay: 1
@@ -37,15 +37,15 @@ Radius (radius) : 200
 %Physical Damage (damage_percent) : 50
 Range (range) : 1000
 Delay Inflicted (delay_inflicted) : 1
-%Enhanced Damage (unbalanced_damage_percent) : 170
+%Enhanced Damage (unbalanced_damage_percent) : 200
 Enhanced Delay Inflicted (unbalanced_delay_inflicted) : 6
 Enhanced Wind Duration (unbalanced_wind_duration) : 8
-%Enhanced Movespeed (unbalanced_bonus_movespeed) : 15
-Enhanced Attackspeed (unbalanced_bonus_attackspeed) : 40
+Enhanced MOV (unbalanced_bonus_mov) : 80
+Enhanced SPD (unbalanced_bonus_spd) : 50
 CP Cost : 15
 
 [D] Gale (gale) : Passively marks enemies each time they're hit by another of Rean's attacks, enabling targeting by Gale once they're marked twice. When cast, Rean rapidly slices through marked enemies in the area, dealing physical damage and Sealing them before returning to his starting location. +20 to Unbalance.
-Enhanced : Slices through each enemy twice, regardless of marks, with the second slash dealing reduced damage but heavily slowing. Always attacks the targeted enemy last, leaving Rean next to them afterwards.
+Enhanced : Slices through each enemy twice, with the second slash dealing increased damage and heavily slowing. Always attacks the targeted enemy last, leaving Rean next to them afterwards.
 
 Cast Point : 0.2
 Delay: 5
@@ -54,9 +54,10 @@ Radius (radius) : 400
 Dash Speed : 2000
 Seal Duration (disarm_duration) : 3
 Cast Range : 400
-%Enhanced Secondary Damage (unbalanced_damage_percent) : 125
+%Enhanced Secondary Damage (unbalanced_damage_percent) : 750
 %Enhanced Slow (unbalanced_slow) : 80
 Enhanced Slow Duration (unbalanced_slow_duration) : 3
+Mark Duration (mark_duration) : 3
 Note0 (note0) : Enhanced Gale's movespeed slow decays over the duration.
 CP Cost : 50
 
@@ -65,12 +66,12 @@ CP Cost : 50
 
 Delay: 10
 Radius (radius) : 250
-%Physical Damage (damage_percent) : 400
+%Physical Damage (damage_percent) : 450
 Range : 150
 Delay: 1.5
 Duration (duration) : 10
 Burn Duration (burn_duration) : 5
-%200 CP Physical Damage (max_cp_damage_percent) : 800
+%200 CP Physical Damage (max_cp_damage_percent) : 900
 200 CP Bonus Unbalance : 75
 Note0 (note0) : Will cancel if the target moves too far away during the delay.
 CP Cost : 100

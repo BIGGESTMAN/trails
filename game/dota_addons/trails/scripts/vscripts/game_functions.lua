@@ -60,6 +60,8 @@ LinkLuaModifier("modifier_deathblow", "effect_modifiers.lua", LUA_MODIFIER_MOTIO
 LinkLuaModifier("modifier_cp_boost", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_petrify", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_faint", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_intimidate", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
+
 LinkLuaModifier("modifier_crit", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_zero_arts", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_brute_force", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
@@ -250,6 +252,7 @@ function getStats(hero)
 	local stats = copyOfTable(hero.stats)
 	stats = getQuartzAdjustedStats(hero, stats)
 	stats = getModifierAdjustedStats(hero, stats)
+	stats = getDatadrivenModifierAdjustedStats(hero, stats)
 	return stats
 end
 
@@ -281,6 +284,21 @@ function getModifierAdjustedStats(hero, stats)
 	if hero:HasModifier(STAT_SPD_DOWN) then stats.spd = stats.spd - hero:FindModifierByName(STAT_SPD_DOWN):GetStackCount() end
 	if hero:HasModifier(STAT_MOV) then stats.mov = stats.mov * (1 + hero:FindModifierByName(STAT_MOV):GetStackCount() / 100) end
 	if hero:HasModifier(STAT_MOV_DOWN) then stats.mov = stats.mov * (1 - hero:FindModifierByName(STAT_SPD_DOWN):GetStackCount() / 100) end
+	return stats
+end
+
+function getDatadrivenModifierAdjustedStats(hero, stats)
+	for k,modifier in pairs(hero:FindAllModifiers()) do
+		local modifier_kvs = getDatadrivenModifierKVs(modifier)
+		if modifier_kvs then
+			stats.str = stats.str + (modifier_kvs["BonusStr"] or 0)
+			stats.def = stats.def + (modifier_kvs["BonusDef"] or 0)
+			stats.ats = stats.ats + (modifier_kvs["BonusAts"] or 0)
+			stats.adf = stats.adf + (modifier_kvs["BonusAdf"] or 0)
+			stats.spd = stats.spd + (modifier_kvs["BonusSpd"] or 0)
+			stats.mov = stats.mov + (modifier_kvs["BonusMov"] or 0)
+		end
+	end
 	return stats
 end
 
@@ -344,6 +362,8 @@ end
 function modifyCP(unit, amount)
 	if unit:HasAbility("cp_tracker") then
 		if unit:HasModifier("modifier_cp_boost") then amount = amount * CP_BOOST_GAIN_FACTOR end
+		if unit:HasModifier("modifier_intimidate") and amount > 0 then amount = 0 end
+		
 		local max_cp = unit:FindAbilityByName("cp_tracker"):GetSpecialValueFor("max_cp")
 
 		local modifier = unit:FindModifierByName("modifier_cp_tracker_cp")
@@ -371,7 +391,6 @@ function setCraftActivatedStatus(unit)
 	for i=0,unit:GetAbilityCount() - 1 do
 		local ability = unit:GetAbilityByIndex(i)
 		if ability and not ability:IsHidden() then
-			-- ability:SetActivated(true)
 			ability:SetActivated(getCP(unit) >= getCPCost(ability))
 		else
 			break
@@ -384,8 +403,8 @@ function validEnhancedCraft(caster, target)
 end
 
 function applyRandomDebuff(target, caster, duration, not_sleep_debuff)
-	local debuffs = 					{"modifier_burn", "modifier_freeze", "modifier_confuse", "modifier_deathblow", "modifier_petrify", "modifier_nightmare"}
-	if not_sleep_debuff then debuffs = 	{"modifier_burn", "modifier_freeze", "modifier_confuse", "modifier_deathblow", "modifier_petrify"} end
+	local debuffs = 					{"modifier_seal", "modifier_mute", "modifier_burn", "modifier_freeze", "modifier_confuse", "modifier_deathblow", "modifier_petrify", "modifier_faint", "modifier_intimidate", "modifier_nightmare"}
+	if not_sleep_debuff then debuffs = 	{"modifier_seal", "modifier_mute", "modifier_burn", "modifier_freeze", "modifier_confuse", "modifier_deathblow", "modifier_petrify", "modifier_faint", "modifier_intimidate"} end
 	local debuff = debuffs[RandomInt(1,#debuffs)]
 	target:AddNewModifier(caster, nil, debuff, {duration = duration})
 end
@@ -433,6 +452,23 @@ function getAbilityCPCosts(hero)
 		end
 	end
 	return cp_costs
+end
+
+function LoadModifierKeyValues()
+	local modifiers = {}
+	for k,ability in pairs(util_ability_keyvalues) do
+		if ability ~= 1 and ability["Modifiers"] then -- fucking "Version" "1"
+			for modifier_name, modifier in pairs(ability["Modifiers"]) do
+				modifiers[modifier_name] = modifier
+			end
+		end
+	end
+	return modifiers
+end
+
+if not gamefuncs_modifier_keyvalues then gamefuncs_modifier_keyvalues = LoadModifierKeyValues() end
+function getDatadrivenModifierKVs(modifier)
+	return gamefuncs_modifier_keyvalues[modifier:GetName()]
 end
 
 function getAllHeroes()

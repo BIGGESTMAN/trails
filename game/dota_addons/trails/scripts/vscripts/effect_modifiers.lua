@@ -439,6 +439,24 @@ function modifier_cp_boost:GetTexture()
 	return "earth_spirit_petrify"
 end
 
+modifier_intimidate = class({})
+
+function modifier_intimidate:GetEffectName()
+	return "particles/units/heroes/hero_oracle/oracle_fortune_purge_root_pnt.vpcf"
+end
+
+function modifier_intimidate:GetEffectAttachType()
+	return PATTACH_ABSORIGIN_FOLLOW
+end
+
+function modifier_intimidate:GetTexture()
+	return "beastmaster_primal_roar"
+end
+
+function modifier_intimidate:IsDebuff()
+	return true
+end
+
 modifier_crit = class({})
 
 function modifier_crit:GetTexture()

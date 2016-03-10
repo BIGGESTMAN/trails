@@ -63,12 +63,12 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"unbalanced_damage_percent"	"225"
+				"unbalanced_damage_percent"	"480"
 			}
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"unbalanced_slow"		"-60"
+				"unbalanced_slow_duration"	"3"
 			}
 			"01"
 			{
@@ -109,23 +109,9 @@
 			{
 				"IsDebuff"	"1"
 
-				"Duration"	"%slow_duration"
-
 				"Properties"
 				{
 					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE" "%slow"
-				}
-			}
-
-			"modifier_autumn_leaf_cutter_unbalanced_slow"
-			{
-				"IsDebuff"	"1"
-
-				"Duration"	"%slow_duration"
-
-				"Properties"
-				{
-					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE" "%unbalanced_slow"
 				}
 			}
 

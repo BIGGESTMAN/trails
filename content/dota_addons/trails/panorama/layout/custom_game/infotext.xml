@@ -36,6 +36,7 @@
 			<Label hittest="false" class="TrailspediaText" html="true" text="#trailspedia_deathblow" />
 			<Label hittest="false" class="TrailspediaText" html="true" text="#trailspedia_petrify" />
 			<Label hittest="false" class="TrailspediaText" html="true" text="#trailspedia_faint" />
+			<Label hittest="false" class="TrailspediaText" html="true" text="#trailspedia_intimidate" />
 		</Panel>
 		<Button hittest="true" id="PageToggleButton" onactivate="OnInfoTextPageChanged()">
 			<Label hittest="false" id="PageToggleText" text="Status Effects"/>

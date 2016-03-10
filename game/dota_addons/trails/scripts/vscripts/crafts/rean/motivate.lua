@@ -17,7 +17,7 @@ if IsServer() then
 			caster:RemoveModifierByName("modifier_combat_link_followup_available")
 			target:RemoveModifierByName("modifier_combat_link_unbalanced")
 			modifyStat(target, STAT_STR_DOWN, damage_increase_percent, damage_increase_duration)
-			modifyCP(target, bonus_cp * -1)
+			target:AddNewModifier(caster, ability, "modifier_intimidate", {duration = damage_increase_duration})
 
 			damage_increase_percent = ability:GetSpecialValueFor("unbalanced_damage_increase_percent")
 			bonus_cp = ability:GetSpecialValueFor("unbalanced_bonus_cp")

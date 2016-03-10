@@ -25,6 +25,7 @@ Modifiers
 ~ CP Boost (modifier_cp_boost) : CP gain increased by 50%%.
 ~ Petrify (modifier_petrify) : Disabled and immune to magic. Taking physical damage will break the disable early and deal pure damage equal to 20% of unit's missing health.
 ~ Faint (modifier_faint) : Disabled and taking 50%% more damage.
+~ Intimidate (modifier_intimidate) : Unable to generate CP.
 ~ Turn Bonus: Critical (modifier_crit) : Next craft, art or basic attack will deal double damage or heal for double health.
 ~ Turn Bonus: Zero-Arts (modifier_zero_arts) : Next art will be cast instantly and for free.
 ~ Turn Bonus: Brute Force (modifier_brute_force) : Next offensive craft or basic attack will instantly unbalance the target.
@@ -38,11 +39,11 @@ Modifiers
 ~ Unbalanced Level (modifier_unbalanced_level) : Beginning to become unbalanced -- at 100, will be vulnerable to Enhanced crafts. Rapidly decays if not increased for 8 seconds.
 ~ Unbalanced (modifier_combat_link_unbalanced) : Off-balance, and able to be targeted by Enhanced crafts.
 
-~ Autumn Leaf Cutter Slow (modifier_autumn_leaf_cutter_slow) : Movement slowed by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%.
-~ Autumn Leaf Cutter Slow (modifier_autumn_leaf_cutter_unbalanced_slow) : Movement slowed by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%.
+~ Autumn Leaf Cutter Slow (modifier_autumn_leaf_cutter_slow) : Movement slowed by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%%.
+~ Autumn Leaf Cutter Slow (modifier_autumn_leaf_cutter_unbalanced_slow) : Movement slowed by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%%.
 ~ Autumn Leaf Cutter Knockback (modifier_autumn_leaf_cutter_knockback) : Sent flying by Enhanced Autumn Leaf Cutter.
 ~ Arc Slash Stun (modifier_arc_slash_stun) : Unable to act.
-~ Wind Path Speed (modifier_arc_slash_speedbuff) : Attackspeed increased by %dMODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT% and movespeed increased by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%.
+~ Wind Path Speed (modifier_arc_slash_speedbuff) : SPD +50 and MOV +80.
 ~ Gale Disarm (modifier_gale_disarm) : Unable to attack.
 ~ Gale Mark (modifier_gale_mark) : Marked by Rean's attacks -- once marked twice, will be vulnerable to Gale.
 ~ Enhanced Gale Slow (modifier_gale_slow) : Movement slowed by 80%%, decaying over the duration.
@@ -59,7 +60,7 @@ Modifiers
 ~ Casting S-Craft (modifier_judgment_arrow_casting) : About to unleash Alisa's ultimate ability, Judgment Arrow.
 
 ~ Rapid Volley (modifier_rapid_volley_casting) : Barraging an area with bullets.
-~ Rapid Volley Slow (modifier_rapid_volley_area_slow) : Movement slowed by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%.
-~ Rapid Volley Slow (modifier_rapid_volley_bullet_slow) : Movement slowed by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%.
-~ Enhanced Rapid Volley (modifier_rapid_volley_enhanced_casting) : Rapidly barraging an area with bullets, and still able to move, although slowed by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%.
+~ Rapid Volley Slow (modifier_rapid_volley_area_slow) : Movement slowed by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%%.
+~ Rapid Volley Slow (modifier_rapid_volley_bullet_slow) : Movement slowed by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%%.
+~ Enhanced Rapid Volley (modifier_rapid_volley_enhanced_casting) : Rapidly barraging an area with bullets, and still able to move, although slowed by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%%.
 ~ Casting S-Craft (modifier_cross_raven_casting) : About to unleash Crow's ultimate ability, Cross Raven.

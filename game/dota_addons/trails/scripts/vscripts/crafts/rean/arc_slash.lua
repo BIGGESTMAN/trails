@@ -15,7 +15,6 @@ function spellCast(keys)
 	local radius = ability:GetSpecialValueFor("radius")
 	local damage_scale = ability:GetSpecialValueFor("damage_percent") / 100
 	local delay_inflicted = ability:GetSpecialValueFor("delay_inflicted")
-	local impactFunction = nil
 
 	local enhanced = false
 	if validEnhancedCraft(caster, target) then
@@ -24,8 +23,8 @@ function spellCast(keys)
 
 		damage_scale = ability:GetSpecialValueFor("unbalanced_damage_percent") / 100
 		delay_inflicted = ability:GetSpecialValueFor("unbalanced_delay_inflicted")
-		impactFunction = createWindPath
 		enhanced = true
+		createWindPath(caster, caster:GetAbsOrigin(), direction, range)
 	end
 	
 	if caster:HasModifier("modifier_crit") then
@@ -44,7 +43,7 @@ function spellCast(keys)
 		iFlag = DOTA_UNIT_TARGET_FLAG_NONE,
 		iOrder = FIND_ANY_ORDER
 	}
-	ProjectileList:CreateLinearProjectile(caster, caster:GetAbsOrigin(), direction, speed, range, impactFunction, collisionRules, arcSlashHit, "particles/crafts/rean/arc_slash/arc_slash.vpcf", {damage_scale = damage_scale, delay_inflicted = delay_inflicted, enhanced = enhanced})
+	ProjectileList:CreateLinearProjectile(caster, caster:GetAbsOrigin(), direction, speed, range, nil, collisionRules, arcSlashHit, "particles/crafts/rean/arc_slash/arc_slash.vpcf", {damage_scale = damage_scale, delay_inflicted = delay_inflicted, enhanced = enhanced})
 end
 
 function arcSlashHit(caster, unit, other_args)
@@ -57,7 +56,7 @@ function arcSlashHit(caster, unit, other_args)
 	applyGaleMark(caster, unit)
 end
 
-function createWindPath(caster, origin_location, direction, speed, range)
+function createWindPath(caster, origin_location, direction, range)
 	local ability = caster:FindAbilityByName("arc_slash")
 	local wind_path_duration = ability:GetSpecialValueFor("unbalanced_wind_duration")
 	local radius = ability:GetSpecialValueFor("radius")

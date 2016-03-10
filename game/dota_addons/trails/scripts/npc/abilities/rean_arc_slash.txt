@@ -52,7 +52,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"unbalanced_damage_percent"	"170"
+				"unbalanced_damage_percent"	"200"
 			}
 			"01"
 			{
@@ -67,12 +67,12 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"unbalanced_bonus_movespeed"	"15"
+				"unbalanced_bonus_mov"	"80"
 			}
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"unbalanced_bonus_attackspeed"	"40"
+				"unbalanced_bonus_spd"	"50"
 			}
 			"01"
 			{
@@ -97,11 +97,8 @@
 			{
 				"Duration"	"%unbalanced_buff_linger_time"
 
-				"Properties"
-				{
-					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%unbalanced_bonus_movespeed"
-					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%unbalanced_bonus_attackspeed"
-				}
+				"BonusMov"	"80"
+				"BonusSpd"	"50"
 			}
 		}
 	}
