@@ -178,7 +178,6 @@ end
 
 -- This function is called whenever any player sends a chat message to team or All
 function GameMode:OnPlayerChat(keys)
-	print("OnPlayerChat")
 	local teamonly = keys.teamonly
 	local userID = keys.userid
 	local playerID = self.vUserIds[userID]:GetPlayerID()
@@ -199,6 +198,8 @@ function GameMode:OnPlayerChat(keys)
 		end
 	elseif text == "-spawnbonus" then
 		Turn_Bonuses:SpawnBonus(RoundManager.current_round)
+	elseif text == "-maxcp" then
+		modifyCP(hero, 200)
 	end
 end
 
