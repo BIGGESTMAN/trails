@@ -77,26 +77,28 @@ function secondaryDash(caster, direction, speed, other_args)
 	local targets = FindUnitsInRadius(team, origin, nil, radius, iTeam, iType, iFlag, iOrder, false)
 
 	for k,unit in pairs(targets) do
-		dealScalingDamage(unit, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR, other_args.enhanced)
-		increaseUnbalance(caster, unit, bonus_unbalance)
-		ability:ApplyDataDrivenModifier(caster, unit, "modifier_autumn_leaf_cutter_slow", {duration = slow_duration})
-		unit:Interrupt()
-		applyGaleMark(caster, unit)
+		applyEffect(unit, damage_type, function()
+			dealScalingDamage(unit, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR, other_args.enhanced)
+			increaseUnbalance(caster, unit, bonus_unbalance)
+			ability:ApplyDataDrivenModifier(caster, unit, "modifier_autumn_leaf_cutter_slow", {duration = slow_duration})
+			unit:Interrupt()
+			applyGaleMark(caster, unit)
 
-		if caster.unbalanced_autumn_leaf_cutter_target and unit ~= caster.unbalanced_autumn_leaf_cutter_target then
-			ability:ApplyDataDrivenModifier(caster, unit, "modifier_autumn_leaf_cutter_knockback", {})
-			dash(unit, (unit:GetAbsOrigin() - caster:GetAbsOrigin()):Normalized(), unbalanced_knockback_distance / unbalanced_knockback_duration, unbalanced_knockback_distance, true)
-		end
+			if caster.unbalanced_autumn_leaf_cutter_target and unit ~= caster.unbalanced_autumn_leaf_cutter_target then
+				ability:ApplyDataDrivenModifier(caster, unit, "modifier_autumn_leaf_cutter_knockback", {})
+				dash(unit, (unit:GetAbsOrigin() - caster:GetAbsOrigin()):Normalized(), unbalanced_knockback_distance / unbalanced_knockback_duration, unbalanced_knockback_distance, true)
+			end
 
-		-- Slash particles
-		for i=1,slash_particle_instances do 
-			local slashFxIndex = ParticleManager:CreateParticle("particles/units/heroes/hero_ember_spirit/ember_spirit_sleightoffist_tgt.vpcf", PATTACH_ABSORIGIN_FOLLOW, unit)
-			Timers:CreateTimer( 0.1, function()
-				ParticleManager:DestroyParticle( slashFxIndex, false )
-				ParticleManager:ReleaseParticleIndex( slashFxIndex )
-				return nil
-			end)
-		end
+			-- Slash particles
+			for i=1,slash_particle_instances do 
+				local slashFxIndex = ParticleManager:CreateParticle("particles/units/heroes/hero_ember_spirit/ember_spirit_sleightoffist_tgt.vpcf", PATTACH_ABSORIGIN_FOLLOW, unit)
+				Timers:CreateTimer( 0.1, function()
+					ParticleManager:DestroyParticle( slashFxIndex, false )
+					ParticleManager:ReleaseParticleIndex( slashFxIndex )
+					return nil
+				end)
+			end
+		end)
 	end
 
 	caster.unbalanced_autumn_leaf_cutter_target = nil

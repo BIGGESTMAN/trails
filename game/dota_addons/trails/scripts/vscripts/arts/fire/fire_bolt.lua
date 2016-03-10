@@ -31,8 +31,10 @@ if IsServer() then
 		local damage_type = DAMAGE_TYPE_MAGICAL
 		local burn_duration = ability:GetSpecialValueFor("burn_duration")
 
-		target:AddNewModifier(caster, ability, "modifier_burn", {duration = burn_duration})
-		dealScalingDamage(target, caster, damage_type, damage_scale, ability)
+		applyEffect(target, damage_type, function()
+			target:AddNewModifier(caster, ability, "modifier_burn", {duration = burn_duration})
+			dealScalingDamage(target, caster, damage_type, damage_scale, ability)
+		end)
 	end
 
 	function item_fire_bolt:OnAbilityPhaseStart()

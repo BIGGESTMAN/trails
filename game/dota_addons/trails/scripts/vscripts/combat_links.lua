@@ -91,14 +91,16 @@ function triggerUnbalanceEvent(target)
 end
 
 function followupAvailable(keys)
-	if getCP(keys.target) >= SCRAFT_MINIMUM_CP then
+	if SCRAFTS_REQUIRE_UNBALANCE and getCP(keys.target) >= SCRAFT_MINIMUM_CP then
 		keys.target:GetAbilityByIndex(4):SetActivated(true)
 	end
 end
 
 function followupUnavailable(keys)
 	-- Disable s-crafts except as enhanced crafts
-	keys.target:GetAbilityByIndex(4):SetActivated(false)
+	if SCRAFTS_REQUIRE_UNBALANCE then
+		keys.target:GetAbilityByIndex(4):SetActivated(false)
+	end
 end
 
 function createUnbalanceModifier(keys)

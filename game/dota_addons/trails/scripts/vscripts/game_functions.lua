@@ -32,6 +32,7 @@ LINK_SKILL_SCALING_RANGE = 700
 LINK_SKILL_SCALING_FACTOR = 0.5
 
 LOW_HP_THRESHOLD_PERCENT = 20
+SCRAFTS_REQUIRE_UNBALANCE = false
 
 LinkLuaModifier("modifier_base_mov_buff", "modifier_base_mov_buff.lua", LUA_MODIFIER_MOTION_NONE)
 
@@ -61,6 +62,9 @@ LinkLuaModifier("modifier_cp_boost", "effect_modifiers.lua", LUA_MODIFIER_MOTION
 LinkLuaModifier("modifier_petrify", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_faint", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_intimidate", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_physical_guard", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_guard_high_priority", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_magical_guard", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 
 LinkLuaModifier("modifier_crit", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_zero_arts", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
@@ -70,6 +74,18 @@ LinkLuaModifier("modifier_unshatterable_bonds", "effect_modifiers.lua", LUA_MODI
 
 -- Notifications:Top((hero.combat_linked_to):GetPlayerOwner(), {text="Alisa: ", duration=2, style={color="white", ["font-size"]="26px"}})
 -- Notifications:Top((hero.combat_linked_to):GetPlayerOwner(), {text="I've Got You!", style={color="green", ["font-size"]="26px"}, continue = true})
+
+function applyEffect(target, damage_type, effect)
+	if target:HasModifier("modifier_guard_high_priority") and (damage_type == DAMAGE_TYPE_PHYSICAL or damage_type == DAMAGE_TYPE_MAGICAL) then
+		return
+	elseif target:HasModifier("modifier_physical_guard") and damage_type == DAMAGE_TYPE_PHYSICAL then
+		target:RemoveModifierByName("modifier_physical_guard")
+	elseif target:HasModifier("modifier_magical_guard") and damage_type == DAMAGE_TYPE_MAGICAL then
+		target:RemoveModifierByName("modifier_magical_guard")
+	else
+		effect()
+	end
+end
 
 function dealDamage(target, attacker, damage, damage_type, ability, cp_gain_factor, enhanced)
 	if target.combat_linked_to and target.combat_linked_to:HasModifier("modifier_master_force_passive") and pointIsBetweenPoints(target.combat_linked_to:GetAbsOrigin(), target:GetAbsOrigin(), attacker:GetAbsOrigin()) then

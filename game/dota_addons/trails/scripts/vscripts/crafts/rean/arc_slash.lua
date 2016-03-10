@@ -50,10 +50,12 @@ function arcSlashHit(caster, unit, other_args)
 	local ability = caster:FindAbilityByName("arc_slash")
 	local damage_type = ability:GetAbilityDamageType()
 
-	dealScalingDamage(unit, caster, damage_type, other_args.damage_scale, ability, CRAFT_CP_GAIN_FACTOR, other_args.enhanced)
-	increaseUnbalance(caster, unit)
-	inflictDelay(unit, other_args.delay_inflicted)
-	applyGaleMark(caster, unit)
+	applyEffect(unit, damage_type, function()
+		dealScalingDamage(unit, caster, damage_type, other_args.damage_scale, ability, CRAFT_CP_GAIN_FACTOR, other_args.enhanced)
+		increaseUnbalance(caster, unit)
+		inflictDelay(unit, other_args.delay_inflicted)
+		applyGaleMark(caster, unit)
+	end)
 end
 
 function createWindPath(caster, origin_location, direction, range)

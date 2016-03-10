@@ -56,10 +56,12 @@ function flambergeHit(caster, unit, other_args)
 
 	if other_args.crit then damage_scale = damage_scale * 2 end
 
-	dealScalingDamage(unit, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR)
-	increaseUnbalance(caster, unit, bonus_unbalance)
-	unit:AddNewModifier(caster, ability, "modifier_burn", {duration = duration})
-	unit:Interrupt()
+	applyEffect(unit, damage_type, function()
+		dealScalingDamage(unit, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR)
+		increaseUnbalance(caster, unit, bonus_unbalance)
+		unit:AddNewModifier(caster, ability, "modifier_burn", {duration = duration})
+		unit:Interrupt()
+	end)
 end
 
 function explode(caster, origin_location, direction, speed, range, collisionRules, collisionFunction, other_args, units_hit)

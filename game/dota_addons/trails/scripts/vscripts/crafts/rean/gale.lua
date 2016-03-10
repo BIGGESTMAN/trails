@@ -83,10 +83,12 @@ function hitTarget(caster, direction, speed, other_args)
 			target:AddNewModifier(caster, ability, "modifier_gale_slow", {duration = slow_duration})
 		end
 		if other_args.crit then damage_scale = damage_scale * 2 end
-		dealScalingDamage(target, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR, other_args.enhanced)
-		increaseUnbalance(caster, target, bonus_unbalance)
-		target:AddNewModifier(caster, ability, "modifier_seal", {duration = seal_duration})
-		ParticleManager:CreateParticle("particles/units/heroes/hero_bounty_hunter/bounty_hunter_jinda_slow.vpcf", PATTACH_ABSORIGIN, target)
+		applyEffect(target, damage_type, function()
+			dealScalingDamage(target, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR, other_args.enhanced)
+			increaseUnbalance(caster, target, bonus_unbalance)
+			target:AddNewModifier(caster, ability, "modifier_seal", {duration = seal_duration})
+			ParticleManager:CreateParticle("particles/units/heroes/hero_bounty_hunter/bounty_hunter_jinda_slow.vpcf", PATTACH_ABSORIGIN, target)
+		end)
 	end
 
 	if target == caster.gale_original_target and caster.gale_secondary_phase then

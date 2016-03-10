@@ -86,11 +86,13 @@ function fireShot(caster, area_center, damage_scale, quadrant)
 	local iOrder = FIND_ANY_ORDER
 	local targets = FindUnitsInRadius(team, target_point, nil, damage_radius, iTeam, iType, iFlag, iOrder, false)
 	for k,unit in pairs(targets) do
-		dealScalingDamage(unit, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR)
-		increaseUnbalance(caster, unit)
-		if not caster.rapid_volley_targets_hit[unit] then
-			ability:ApplyDataDrivenModifier(caster, unit, "modifier_rapid_volley_bullet_slow", {})
-		end
+		applyEffect(unit, damage_type, function()
+			dealScalingDamage(unit, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR)
+			increaseUnbalance(caster, unit)
+			if not caster.rapid_volley_targets_hit[unit] then
+				ability:ApplyDataDrivenModifier(caster, unit, "modifier_rapid_volley_bullet_slow", {})
+			end
+		end)
 	end
 
 	local particle = ParticleManager:CreateParticle("particles/crafts/crow/rapid_volley_crater.vpcf", PATTACH_CUSTOMORIGIN, nil)

@@ -22,8 +22,10 @@ if IsServer() then
 
 		applyArtsDelayCooldowns(caster, ability)
 
-		dealScalingDamage(target, caster, damage_type, damage_scale, ability)
-		createSoulBlurIllusion(caster, ability, target, illusion_duration)
+		applyEffect(target, damage_type, function()
+			dealScalingDamage(target, caster, damage_type, damage_scale, ability)
+			createSoulBlurIllusion(caster, ability, target, illusion_duration)
+		end)
 
 		local particle = ParticleManager:CreateParticle("particles/units/heroes/hero_terrorblade/terrorblade_reflection_cast.vpcf", PATTACH_POINT_FOLLOW, caster)
 		ParticleManager:SetParticleControlEnt(particle, 0, caster, PATTACH_POINT_FOLLOW, "attach_hitloc", target:GetAbsOrigin(), true)

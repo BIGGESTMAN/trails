@@ -457,6 +457,48 @@ function modifier_intimidate:IsDebuff()
 	return true
 end
 
+modifier_physical_guard = class({})
+
+function modifier_physical_guard:GetEffectName()
+	return "particles/status_effects/physical_guard/shield.vpcf"
+end
+
+function modifier_physical_guard:GetEffectAttachType()
+	return PATTACH_ABSORIGIN_FOLLOW
+end
+
+function modifier_physical_guard:GetTexture()
+	return "millium_ultimate_barrier"
+end
+
+modifier_guard_high_priority = class({})
+
+function modifier_guard_high_priority:GetEffectName()
+	return "particles/status_effects/physical_guard/shield.vpcf"
+end
+
+function modifier_guard_high_priority:GetEffectAttachType()
+	return PATTACH_ABSORIGIN_FOLLOW
+end
+
+function modifier_guard_high_priority:GetTexture()
+	return "millium_ultimate_barrier"
+end
+
+modifier_magical_guard = class({})
+
+function modifier_magical_guard:GetEffectName()
+	return "particles/items3_fx/lotus_orb_shield.vpcf"
+end
+
+function modifier_magical_guard:GetEffectAttachType()
+	return PATTACH_ABSORIGIN_FOLLOW
+end
+
+function modifier_magical_guard:GetTexture()
+	return "millium_ultimate_barrier"
+end
+
 modifier_crit = class({})
 
 function modifier_crit:GetTexture()

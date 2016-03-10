@@ -54,33 +54,35 @@ function busterArmHit(caster, unit, damage_scale, faint_duration, enhanced)
 	direction.z = 0
 	local velocity = direction * knockback_distance / knockback_duration
 
-	dealScalingDamage(unit, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR)
-	increaseUnbalance(caster, unit)
-	ability:ApplyDataDrivenModifier(caster, unit, "modifier_buster_arm_knockback", {})
-	unit:SetForwardVector(direction * -1)
-	unit.buster_arm_faint_duration = faint_duration
+	applyEffect(unit, damage_type, function()
+		dealScalingDamage(unit, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR)
+		increaseUnbalance(caster, unit)
+		ability:ApplyDataDrivenModifier(caster, unit, "modifier_buster_arm_knockback", {})
+		unit:SetForwardVector(direction * -1)
+		unit.buster_arm_faint_duration = faint_duration
 
-	Physics:Unit(unit)
-	unit:SetPhysicsVelocity(velocity)
-	unit:SetPhysicsFriction(0)
-	unit:SetGroundBehavior(PHYSICS_GROUND_NOTHING)
-	unit:SetAutoUnstuck(false)
+		Physics:Unit(unit)
+		unit:SetPhysicsVelocity(velocity)
+		unit:SetPhysicsFriction(0)
+		unit:SetGroundBehavior(PHYSICS_GROUND_NOTHING)
+		unit:SetAutoUnstuck(false)
 
-	unit:FollowNavMesh(true)
-	unit:SetNavCollisionType(PHYSICS_NAV_BOUNCE)
-	unit:SetBounceMultiplier(0)
-	unit:OnPreBounce(function()
-		unit:RemoveModifierByName("modifier_buster_arm_knockback")
-		unit:AddNewModifier(caster, ability, "modifier_faint", {duration = faint_duration})
-		unit.buster_arm_faint_duration = nil
-		unit:OnPhysicsFrame(nil)
-	end)
-	unit:OnPhysicsFrame(checkForUnitCollision)
+		unit:FollowNavMesh(true)
+		unit:SetNavCollisionType(PHYSICS_NAV_BOUNCE)
+		unit:SetBounceMultiplier(0)
+		unit:OnPreBounce(function()
+			unit:RemoveModifierByName("modifier_buster_arm_knockback")
+			unit:AddNewModifier(caster, ability, "modifier_faint", {duration = faint_duration})
+			unit.buster_arm_faint_duration = nil
+			unit:OnPhysicsFrame(nil)
+		end)
+		unit:OnPhysicsFrame(checkForUnitCollision)
 
-	Timers:CreateTimer(knockback_duration, function()
-		unit:SetPhysicsVelocity(Vector(0,0,0))
-		if enhanced then unit:AddNewModifier(caster, ability, "modifier_faint", {duration = faint_duration}) end
-		unit.buster_arm_faint_duration = nil
+		Timers:CreateTimer(knockback_duration, function()
+			unit:SetPhysicsVelocity(Vector(0,0,0))
+			if enhanced then unit:AddNewModifier(caster, ability, "modifier_faint", {duration = faint_duration}) end
+			unit.buster_arm_faint_duration = nil
+		end)
 	end)
 end
 

@@ -53,7 +53,9 @@ if IsServer() then
 		local targets = FindUnitsInRadius(team, origin, nil, spike_radius, iTeam, iType, iFlag, iOrder, false)
 		for k,unit in pairs(targets) do
 			if not ability.targets_hit[unit] then
-				dealScalingDamage(target, caster, damage_type, damage_scale, ability)
+				applyEffect(unit, damage_type, function()
+					dealScalingDamage(target, caster, damage_type, damage_scale, ability)
+				end)
 				ability.targets_hit[unit] = 0
 			end
 			ability.targets_hit[unit] = ability.targets_hit[unit] + 1

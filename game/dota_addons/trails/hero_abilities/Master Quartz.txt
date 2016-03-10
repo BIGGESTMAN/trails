@@ -10,3 +10,11 @@ Thrill of Battle CP (thrill_of_battle_cp)
 %Finishing Blow Damage Bonus (finishing_blow_damage_bonus)
 Heated Mind CP Per Second (heated_mind_cp_regen)
 Fighting Spirit CP (fighting_spirit_cp)
+
+Aegis
+Art - Earth Pulse
+Vanguard : You start each round with Physical and Magical Guard. Whenever you block with Physical (or Magical) Guard or Reflect, your DEF (or ADF) is increased by 25% for 6/7/8/9/10 seconds. From level 4, upgrades any instance of Guard on your allies to Reflect (450 Radius).
+Counterattack : Whenever your link partner takes 0/400/350/300/250 damage (450 Radius), you hit the attacker for 0/120/150/180/210% physical damage the next time your partner takes damage (350 Radius). If they take lethal damage, you counter regardless of damage taken with a critical strike.
+Last Bastion : When you fall below 20% of your max health, gives you Physical and Magical Guard. Happens only once per round.
+Lively Yell : Whenever your link partner is unbalanced, heals them for 0/0/0/10/16% of their max health and gives them 0/0/0/20/25 CP (450 Radius).
+Earth Mastery : Halves the delay from casting Earth Arts.

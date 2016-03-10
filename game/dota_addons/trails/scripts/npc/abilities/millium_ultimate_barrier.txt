@@ -1,0 +1,42 @@
+	"ultimate_barrier"
+	{
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"crafts/millium/ultimate_barrier"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"MaxLevel"						"1"
+
+		"AbilityTextureName"			"millium_ultimate_barrier"
+
+		"precache"
+		{
+
+		}
+
+		"AbilityCastPoint"				"0"
+		"AbilityCooldown"				"5"
+		"AbilityManaCost"				"0"
+		"AbilityCastRange"				"800"
+		"AOERadius"						"0"
+		"CPCost"						"20"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"duration"				"18"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"unbalanced_field_duration"	"10"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"unbalanced_field_radius"	"350"
+			}
+		}
+	}

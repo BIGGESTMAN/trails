@@ -18,10 +18,13 @@ end
 function attackLanded(keys)
 	local attacker = keys.attacker
 	local damage_scale = 1
+	local damage_type = DAMAGE_TYPE_PHYSICAL
 	if attacker:HasModifier("modifier_crit") then
 		damage_scale = damage_scale * 2
 		attacker:RemoveModifierByName("modifier_crit")
 	end
 
-	dealScalingDamage(keys.target, attacker, DAMAGE_TYPE_PHYSICAL, damage_scale, nil)
+	applyEffect(keys.target, damage_type, function()
+		dealScalingDamage(keys.target, attacker, DAMAGE_TYPE_PHYSICAL, damage_scale, nil)
+	end)
 end

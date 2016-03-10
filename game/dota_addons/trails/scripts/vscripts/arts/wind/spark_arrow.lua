@@ -50,8 +50,10 @@ if IsServer() then
 		local jump_radius = args.jump_radius
 		local jump_interval = args.jump_interval
 
-		target:AddNewModifier(caster, ability, "modifier_seal", {duration = seal_duration})
-		dealScalingDamage(target, caster, damage_type, damage_scale, ability)
+		applyEffect(target, damage_type, function()
+			target:AddNewModifier(caster, ability, "modifier_seal", {duration = seal_duration})
+			dealScalingDamage(target, caster, damage_type, damage_scale, ability)
+		end)
 
 		if args.jumps > 0 then
 			Timers:CreateTimer(jump_interval, function()

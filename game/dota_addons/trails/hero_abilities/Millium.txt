@@ -3,23 +3,24 @@ Enhanced : Deals more damage and causes all enemies hit to Faint for an increase
 
 Cast Point : 0.4
 Delay : 4
-Physical Damage : 180%
-Faint Duration : 1.3
-Range : 250
-Radius : 250
-Enhanced Physical Damage : 270%
-Enhanced Faint Duration : 2.6
+Physical Damage (damage_percent) : 180%
+Faint Duration (faint_duration) : 2
+Punch Range : 200
+Punch Width (radius) : 250
+Enhanced Physical Damage (unbalanced_damage_percent) : 720%
+Enhanced Faint Duration (unbalanced_faint_duration) : 4
 CP Cost : 30
+Note0 (note0) : Hits enemies up to 450 distance away from Millium.
 
 [W] Ultimate Barrier (ultimate_barrier) : Lammy shields Millium, giving her Physical Guard.
 Enhanced : Lammy generates a force field around Millium as well, giving all allies inside constant Physical and Magical Guard. Actions other than moving cancel the force field.
 DevNotes - The enhanced version's force field generates a separate instance of unlimited Physical and Magical Guard that has the highest priority, meaning any other instances of Guard or Reflect can't activate and remain after the force field ends.
 
-Cast Point : 0.5
-Delay : 3
-Physical Guard Duration : 18
-Enhanced Force Field Duration : 3
-Enhanced Force Field Radius : 350
+Cast Point : 0
+Delay : 5
+Physical Guard Duration (duration) : 18
+Enhanced Force Field Duration (unbalanced_field_duration) : 10
+Enhanced Force Field Radius (unbalanced_field_radius) : 350
 CP Cost : 20
 
 [E] Megaton Press (megaton_press) : Lammy transforms into a wrecking ball that soars for 0.5 seconds, then crash lands on where the target enemy was, dealing physical damage split among all enemies hit. If only one enemy is hit, they Faint. If multiple enemies are hit, their MOV is reduced by 50% instead. +40 to Unbalance.

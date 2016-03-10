@@ -30,7 +30,9 @@ if IsServer() then
 		local iOrder = FIND_ANY_ORDER
 		local targets = FindUnitsInLine(team, caster:GetAbsOrigin(), end_point, nil, radius, iTeam, iType, iOrder)
 		for k,unit in pairs(targets) do
-			dealScalingDamage(unit, caster, damage_type, damage_scale, ability)
+			applyEffect(unit, damage_type, function()
+				dealScalingDamage(unit, caster, damage_type, damage_scale, ability)
+			end)
 		end
 
 		local particle = ParticleManager:CreateParticle("particles/arts/mirage/luminous_ray/beam.vpcf", PATTACH_CUSTOMORIGIN, nil)

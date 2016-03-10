@@ -94,13 +94,15 @@ function arrowImpact(caster, origin_location, direction, speed, range, collision
 	local iOrder = FIND_ANY_ORDER
 	local targets = FindUnitsInRadius(team, target_point, nil, arrow_radius, iTeam, iType, iFlag, iOrder, false)
 	for k,unit in pairs(targets) do
-		dealScalingDamage(unit, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR)
-		increaseUnbalance(caster, unit)
-		ability:ApplyDataDrivenModifier(caster, unit, "modifier_molten_rain_slow", {})
-		if other_args.enhanced then
-			unit:AddNewModifier(caster, ability, "modifier_burn", {duration = burn_duration})
-			modifyStat(unit, STAT_ADF_DOWN, adf_reduction, adf_reduction_duration)
-		end
+		applyEffect(unit, damage_type, function()
+			dealScalingDamage(unit, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR)
+			increaseUnbalance(caster, unit)
+			ability:ApplyDataDrivenModifier(caster, unit, "modifier_molten_rain_slow", {})
+			if other_args.enhanced then
+				unit:AddNewModifier(caster, ability, "modifier_burn", {duration = burn_duration})
+				modifyStat(unit, STAT_ADF_DOWN, adf_reduction, adf_reduction_duration)
+			end
+		end)
 	end
 	-- DebugDrawCircle(target_point, Vector(255,0,0), 0.5, arrow_radius, true, 1)
 end

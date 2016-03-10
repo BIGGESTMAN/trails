@@ -54,10 +54,12 @@ function arrowHit(caster, unit, other_args, projectile)
 	local damage_type = ability:GetAbilityDamageType()
 	local mute_duration = ability:GetSpecialValueFor("silence_duration")
 
-	dealScalingDamage(unit, caster, damage_type, damage_scale, ability, SCRAFT_CP_GAIN_FACTOR)
-	increaseUnbalance(caster, unit)
-	unit:AddNewModifier(caster, ability, "modifier_mute", {duration = mute_duration})
-	pullUnit(caster, unit, projectile, other_args.max_cp)
+	applyEffect(unit, damage_type, function()
+		dealScalingDamage(unit, caster, damage_type, damage_scale, ability, SCRAFT_CP_GAIN_FACTOR)
+		increaseUnbalance(caster, unit)
+		unit:AddNewModifier(caster, ability, "modifier_mute", {duration = mute_duration})
+		pullUnit(caster, unit, projectile, other_args.max_cp)
+	end)
 end
 
 function pullUnit(caster, unit, projectile, max_cp)

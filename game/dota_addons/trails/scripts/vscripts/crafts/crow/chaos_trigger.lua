@@ -65,13 +65,15 @@ function fireShots(caster, targets)
 	for unit,aimtime in pairs(targets) do
 		if unit:HasModifier("modifier_chaos_trigger_locked_on") then
 			unit:RemoveModifierByName("modifier_chaos_trigger_locked_on")
-			dealScalingDamage(unit, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR)
-			increaseUnbalance(caster, unit)
-			if tableContains(units_in_front, unit) then
-				unit:AddNewModifier(caster, ability, "modifier_confuse", {duration = debuff_duration})
-			else
-				unit:AddNewModifier(caster, ability, "modifier_nightmare", {duration = debuff_duration})
-			end
+			applyEffect(unit, damage_type, function()
+				dealScalingDamage(unit, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR)
+				increaseUnbalance(caster, unit)
+				if tableContains(units_in_front, unit) then
+					unit:AddNewModifier(caster, ability, "modifier_confuse", {duration = debuff_duration})
+				else
+					unit:AddNewModifier(caster, ability, "modifier_nightmare", {duration = debuff_duration})
+				end
+			end)
 
 			ProjectileList:CreateTrackingProjectile(caster, unit, 2000, function() end, "particles/units/heroes/hero_bane/bane_projectile.vpcf")
 		end
@@ -133,9 +135,11 @@ function secondaryAimingEnded(keys)
 	if caster.chaos_trigger_enhanced then
 		caster.chaos_trigger_enhanced = nil
 		for k,unit in pairs(findUnitsInFront(caster)) do
-			dealScalingDamage(unit, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR)
-			increaseUnbalance(caster, unit)
-			unit:AddNewModifier(caster, ability, "modifier_confuse", {duration = debuff_duration})
+			applyEffect(unit, damage_type, function()
+				dealScalingDamage(unit, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR)
+				increaseUnbalance(caster, unit)
+				unit:AddNewModifier(caster, ability, "modifier_confuse", {duration = debuff_duration})
+			end)
 		end
 		StartAnimation(caster, {duration = 1, activity = ACT_DOTA_ATTACK, rate = 1})
 	end

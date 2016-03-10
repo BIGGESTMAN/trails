@@ -25,11 +25,11 @@ with open(os.path.join(directoryname, filename), encoding="utf-8") as infile:
 		if '-' in line:
 			ability['desc'] = ability['desc'] + line
 			continue
-		if ":" in line and "(" not in line:
+		if ":" in line and line[-1:] != ")":
 			ability['desc'] = ability['desc'] + "\n<font color='#FE9A2E'>" + line.replace(" :", ":</font>")
 			continue
 
-		if (not ability) or ("(" not in line):
+		if (not ability) or ("(" not in line) or (line[-1:] != ")"):
 			continue
 
 		effect, value = line.split(')')

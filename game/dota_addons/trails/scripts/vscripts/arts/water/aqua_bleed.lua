@@ -50,9 +50,11 @@ if IsServer() then
 		local knockback_distance = 90
 		local damage_type = DAMAGE_TYPE_MAGICAL
 
-		dealScalingDamage(target, caster, damage_type, damage_scale, ability)
-		target:AddNewModifier(caster, ability, "modifier_aqua_bleed_knockback", {duration = knockback_duration})
-		dash(target, knockback_direction, knockback_distance / knockback_duration, knockback_distance, true)
+		applyEffect(target, damage_type, function()
+			dealScalingDamage(target, caster, damage_type, damage_scale, ability)
+			target:AddNewModifier(caster, ability, "modifier_aqua_bleed_knockback", {duration = knockback_duration})
+			dash(target, knockback_direction, knockback_distance / knockback_duration, knockback_distance, true)
+		end)
 	end
 
 	function item_aqua_bleed:OnChannelFinish( bInterrupted )
