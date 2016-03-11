@@ -21,7 +21,7 @@ function spellCast(keys)
 	applyDelayCooldowns(caster, ability)
 
 	local enhanced = false
-	if validEnhancedCraft(caster, target) or target then
+	if validEnhancedCraft(caster, target) then
 		caster:RemoveModifierByName("modifier_combat_link_followup_available")
 		target:RemoveModifierByName("modifier_combat_link_unbalanced")
 		damage_scale = ability:GetSpecialValueFor("unbalanced_damage_percent") / 100
@@ -51,10 +51,12 @@ function spellCast(keys)
 	local iFlag = DOTA_UNIT_TARGET_FLAG_NONE
 	local iOrder = FIND_ANY_ORDER
 	Timers:CreateTimer(flight_time, function()
-		caster:RemoveModifierByName("modifier_megaton_press_untargetable")
-		caster:SetPhysicsVelocity(Vector(0,0,0))
-		caster:SetPhysicsAcceleration(Vector(0,0,0))
-		FindClearSpaceForUnit(caster, target_point, true)
+		if enhanced then
+			caster:RemoveModifierByName("modifier_megaton_press_untargetable")
+			caster:SetPhysicsVelocity(Vector(0,0,0))
+			caster:SetPhysicsAcceleration(Vector(0,0,0))
+			FindClearSpaceForUnit(caster, target_point, true)
+		end
 
 		local targets = FindUnitsInRadius(team, target_point, nil, radius, iTeam, iType, iFlag, iOrder, false)
 		for k,unit in pairs(targets) do

@@ -78,8 +78,8 @@
 		},
 		{
 			_class = "C_INIT_RandomTrailLength"
-			m_flMinLength = 5.000000
-			m_flMaxLength = 5.000000
+			m_flMinLength = 4.250000
+			m_flMaxLength = 4.250000
 			m_flLengthRandExponent = 0.000000
 		},
 	]
