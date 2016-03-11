@@ -44,12 +44,12 @@ DevNotes - The unbalance doesn't benefit from Balance Down applied by the same i
 
 Cast Point : 0.4
 Delay : 5
-Physical Damage : 240%
-Balance Down Duration : 8
-Radius : 400
-Enhanced Physical Damage : 300%
-Enhanced Crater Duration : 8
-Enhanced Damage & Crater Radius : 550
+%Physical Damage (damage_percent) : 240%
+Balance Down Duration (balance_down_duration) : 8
+Radius (radius) : 400
+%Enhanced Physical Damage (unbalanced_damage_percent) : 700%
+Enhanced Crater Duration (unbalanced_crater_duration) : 8
+Enhanced Damage & Crater Radius (unbalanced_radius) : 550
 CP Cost : 50
 
 [R] Gigant Breaker (gigant_breaker) : Lammy transforms into a rocket-powered hammer that boosts Millium in the targeted direction for 1 second while she knocks enemies aside. After a 0.5 second delay, she slams it into the ground, instantly dealing physical damage and causing an expanding shockwave that deals physical damage while reducing MOV and SPD by 100%.

@@ -74,6 +74,7 @@ function increaseUnbalance(caster, target, bonus_increase)
 		local modifier = target:FindModifierByName("modifier_unbalanced_level")
 		if modifier then -- to make script not crash when hitting creeps ~_~
 			local unbalance_increase = (base_increase + bonus_increase) * getHeroLinkScaling(caster)
+			if target:HasModifier("modifier_balance_down") then unbalance_increase = unbalance_increase * BALANCE_DOWN_UNBALANCE_FACTOR end
 			modifier:IncreaseLevel(unbalance_increase)
 			if modifier:GetStackCount() >= unbalance_threshold or caster:HasModifier("modifier_brute_force") then
 				ability:ApplyDataDrivenModifier(caster, caster.combat_linked_to, "modifier_combat_link_followup_available", {})

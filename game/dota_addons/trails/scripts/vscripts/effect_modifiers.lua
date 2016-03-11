@@ -457,6 +457,24 @@ function modifier_intimidate:IsDebuff()
 	return true
 end
 
+modifier_balance_down = class({})
+
+function modifier_balance_down:GetEffectName()
+	return "particles/units/heroes/hero_brewmaster/brewmaster_drunken_haze_debuff.vpcf"
+end
+
+function modifier_balance_down:GetEffectAttachType()
+	return PATTACH_ABSORIGIN_FOLLOW
+end
+
+function modifier_balance_down:GetTexture()
+	return "brewmaster_drunken_haze"
+end
+
+function modifier_balance_down:IsDebuff()
+	return true
+end
+
 modifier_physical_guard = class({})
 
 function modifier_physical_guard:GetEffectName()

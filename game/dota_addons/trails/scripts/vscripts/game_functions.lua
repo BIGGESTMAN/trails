@@ -1,6 +1,11 @@
 require "round_recap"
 require "libraries/util"
 
+HERO_NAMES = {{"npc_dota_hero_windrunner", "npc_dota_hero_alisa"},
+				{"npc_dota_hero_ember_spirit", "npc_dota_hero_rean"},
+				{"npc_dota_hero_sniper", "npc_dota_hero_crow"},
+				{"npc_dota_hero_omniknight", "npc_dota_hero_millium"}}
+
 STAT_STR = "modifier_str_up" -- Increases phys damage
 STAT_STR_DOWN = "modifier_str_down"
 STAT_ATS = "modifier_ats_up" -- Increases magic damage
@@ -24,9 +29,11 @@ SCRAFT_CP_GAIN_FACTOR = 0.25
 TARGET_CP_GAIN_FACTOR = 1/3
 CP_BOOST_GAIN_FACTOR = 1.5
 PASSION_CP_PER_SECOND = 5
+
 FREEZE_COMMAND_DELAY = 0.6
 CRIT_DAMAGE_FACTOR = 2
 FAINT_DAMAGE_FACTOR = 1.5
+BALANCE_DOWN_UNBALANCE_FACTOR = 1.5
 
 LINK_SKILL_SCALING_RANGE = 700
 LINK_SKILL_SCALING_FACTOR = 0.5
@@ -62,9 +69,10 @@ LinkLuaModifier("modifier_cp_boost", "effect_modifiers.lua", LUA_MODIFIER_MOTION
 LinkLuaModifier("modifier_petrify", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_faint", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_intimidate", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_balance_down", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_physical_guard", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
-LinkLuaModifier("modifier_guard_high_priority", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_magical_guard", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_guard_high_priority", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 
 LinkLuaModifier("modifier_crit", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_zero_arts", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
@@ -225,31 +233,21 @@ function getHeroValueForKey(hero, key)
 end
 
 function getCustomHeroName(name)
-	local custom_name = nil
-	if name == "npc_dota_hero_windrunner" then
-		custom_name = "npc_dota_hero_alisa"
-	elseif name == "npc_dota_hero_ember_spirit" then
-		custom_name = "npc_dota_hero_rean"
-	elseif name == "npc_dota_hero_sniper" then
-		custom_name = "npc_dota_hero_crow"
-	elseif name == "npc_dota_hero_omniknight" then
-		custom_name = "npc_dota_hero_millium"
+	for k,names in pairs(HERO_NAMES) do
+		if names[1] == name then
+			return names[2]
+		end
 	end
-	return custom_name
+	return nil
 end
 
 function getDotaHeroName(name)
-	local custom_name = nil
-	if name == "npc_dota_hero_alisa" then
-		custom_name = "npc_dota_hero_windrunner"
-	elseif name == "npc_dota_hero_rean" then
-		custom_name = "npc_dota_hero_ember_spirit"
-	elseif name == "npc_dota_hero_crow" then
-		custom_name = "npc_dota_hero_sniper"
-	elseif name == "npc_dota_hero_millium" then
-		custom_name = "npc_dota_hero_omniknight"
+	for k,names in pairs(HERO_NAMES) do
+		if names[2] == name then
+			return names[1]
+		end
 	end
-	return custom_name
+	return nil
 end
 
 function initializeStats(hero)
@@ -269,6 +267,7 @@ function getStats(hero)
 	stats = getQuartzAdjustedStats(hero, stats)
 	stats = getModifierAdjustedStats(hero, stats)
 	stats = getDatadrivenModifierAdjustedStats(hero, stats)
+	stats = getLuaModifierAdjustedStats(hero, stats)
 	return stats
 end
 
@@ -313,6 +312,21 @@ function getDatadrivenModifierAdjustedStats(hero, stats)
 			stats.adf = stats.adf + (modifier_kvs["BonusAdf"] or 0)
 			stats.spd = stats.spd + (modifier_kvs["BonusSpd"] or 0)
 			stats.mov = stats.mov + (modifier_kvs["BonusMov"] or 0)
+		end
+	end
+	return stats
+end
+
+function getLuaModifierAdjustedStats(hero, stats)
+	for k,modifier in pairs(hero:FindAllModifiers()) do
+		if modifier.GetUniqueStatModifiers then
+			local stat_modifiers = modifier:GetUniqueStatModifiers()
+			stats.str = stats.str + (stat_modifiers["BonusStr"] or 0)
+			stats.def = stats.def + (stat_modifiers["BonusDef"] or 0)
+			stats.ats = stats.ats + (stat_modifiers["BonusAts"] or 0)
+			stats.adf = stats.adf + (stat_modifiers["BonusAdf"] or 0)
+			stats.spd = stats.spd + (stat_modifiers["BonusSpd"] or 0)
+			stats.mov = stats.mov + (stat_modifiers["BonusMov"] or 0)
 		end
 	end
 	return stats

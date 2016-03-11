@@ -199,7 +199,9 @@ function GameMode:OnPlayerChat(keys)
 	elseif text == "-spawnbonus" then
 		Turn_Bonuses:SpawnBonus(RoundManager.current_round)
 	elseif text == "-maxcp" then
-		modifyCP(hero, 200)
+		for k,unit in pairs(getAllHeroes()) do
+			modifyCP(unit, 200)
+		end
 	end
 end
 
