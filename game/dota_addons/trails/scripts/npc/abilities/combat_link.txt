@@ -51,7 +51,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"base_unbalance_increase"	"15"
+				"base_unbalance_increase"	"10"
 			}
 		}
 

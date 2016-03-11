@@ -68,4 +68,5 @@ Modifiers
 ~ Enhanced Rapid Volley (modifier_rapid_volley_enhanced_casting) : Rapidly barraging an area with bullets, and still able to move, although slowed by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%%.
 ~ Casting S-Craft (modifier_cross_raven_casting) : About to unleash Crow's ultimate ability, Cross Raven.
 
+~ Buster Arm Knockback (modifier_buster_arm_knockback) : Sent flying by Buster Arm.
 ~ Force Field (modifier_ultimate_barrier_force_field) : Lammy is generating a force field around Millium, protecting all allies inside from harm.

@@ -1,0 +1,144 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
+{
+	_class = "CParticleSystemDefinition"
+	m_Operators =
+	[
+		{
+			_class = "C_OP_PositionLock"
+			m_bLockRot = true
+			m_bDisableOperator = true
+		},
+		{
+			_class = "C_OP_EndCapTimedDecay"
+			m_bDisableOperator = true
+		},
+		{
+			_class = "C_OP_Decay"
+		},
+		{
+			_class = "C_OP_RemapCPOrientationToRotations"
+			m_bDisableOperator = true
+		},
+		{
+			_class = "C_OP_MaintainSequentialPath"
+			m_flNumToAssign = 38.000000
+			m_PathParams =
+			{
+				m_nStartControlPointNumber = 1
+				m_nEndControlPointNumber = 2
+				m_nBulgeControl = 4
+				m_flBulge = 3.000000
+			}
+			m_bLoop = false
+		},
+		{
+			_class = "C_OP_SetSingleControlPointPosition"
+			m_vecCP1Pos =
+			[
+				300.000000,
+				300.000000,
+				0.000000,
+			]
+			m_bDisableOperator = true
+		},
+		{
+			_class = "C_OP_BasicMovement"
+		},
+		{
+			_class = "C_OP_SetSingleControlPointPosition"
+			m_nCP1 = 3
+			m_vecCP1Pos =
+			[
+				0.000000,
+				0.000000,
+				900.000000,
+			]
+			m_nHeadLocation = 1
+			m_bDisableOperator = true
+		},
+		{
+			_class = "C_OP_SetCPOrientationToPointAtCP"
+			m_nInputCP = 3
+			m_nOutputCP = 1
+		},
+		{
+			_class = "C_OP_SetCPOrientationToPointAtCP"
+			m_nInputCP = 2
+		},
+	]
+	m_Renderers =
+	[
+		{
+			_class = "C_OP_RenderModels"
+			m_ActivityName = "ACT_DOTA_CAST_ABILITY_3"
+			m_ModelList =
+			[
+				{
+					m_model = resource:"models/creeps/neutral_creeps/n_creep_golem_a/neutral_creep_golem_a.vmdl"
+				},
+			]
+			m_bManualAnimFrame = true
+			m_nAnimationField = 19
+			m_nManualFrameField = 10
+			m_bIgnoreNormal = true
+			m_nAnimationScaleField = 19
+			m_nBodyGroupField = 19
+			m_nSubModelField = 19
+		},
+	]
+	m_Initializers =
+	[
+		{
+			_class = "C_INIT_RandomLifeTime"
+			m_fLifetimeMin = 0.500000
+			m_fLifetimeMax = 0.500000
+		},
+		{
+			_class = "C_INIT_RandomAlpha"
+			m_nAlphaMin = 80
+			m_nAlphaMax = 80
+		},
+		{
+			_class = "C_INIT_RandomRadius"
+			m_flRadiusMin = 1.500000
+			m_flRadiusMax = 1.500000
+		},
+		{
+			_class = "C_INIT_RandomColor"
+		},
+		{
+			_class = "C_INIT_CreateWithinSphere"
+			m_nControlPointNumber = 1
+		},
+		{
+			_class = "C_INIT_PositionOffset"
+			m_OffsetMin =
+			[
+				-175.000000,
+				0.000000,
+				0.000000,
+			]
+			m_OffsetMax =
+			[
+				-175.000000,
+				0.000000,
+				0.000000,
+			]
+			m_bLocalCoords = true
+			m_bDisableOperator = true
+		},
+		{
+			_class = "C_INIT_RandomTrailLength"
+			m_flMinLength = 1.000000
+			m_flMaxLength = 24.000000
+			m_flLengthRandExponent = 0.000000
+		},
+	]
+	m_Emitters =
+	[
+		{
+			_class = "C_OP_InstantaneousEmitter"
+			m_nParticlesToEmit = 1
+		},
+	]
+}

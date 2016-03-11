@@ -1,0 +1,100 @@
+	"megaton_press"
+	{
+		"BaseClass"						"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT_TARGET | DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
+		"MaxLevel"						"1"
+
+		"AbilityTextureName"			"chen_test_of_faith_teleport"
+		"AbilityCastAnimation"			""
+
+		"precache"
+		{
+			"particle"					"particles/crafts/millium/megaton_press/lammy_flying.vpcf"
+		}
+
+		"AbilityCastPoint"				"0.3"
+		"AbilityCastRange"				"700"
+		"AbilityCooldown"				"6"
+		"AbilityManaCost"				"0"
+		"AOERadius"						"350"
+		"CPCost"						"40"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"radius"				"350"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"mov_down_duration"		"2.5"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"faint_duration"		"1.5"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"flight_duration"		"0.5"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"damage_percent"		"300"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"unbalanced_damage_percent"	"600"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"unbalanced_mov_down_duration"	"4"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"bonus_unbalance"		"30"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"mov_down"				"50"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"crafts/millium/megaton_press"
+				"Function"		"spellCast"
+				"Target"		"POINT"
+			}
+		}
+
+		"Modifiers"
+		{
+			"modifier_megaton_press_untargetable"
+			{
+				"IsHidden"	"1"
+
+				"Duration"	"%flight_duration"
+
+				"States"
+				{
+					"MODIFIER_STATE_UNSELECTABLE"		"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_NO_UNIT_COLLISION"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_STUNNED"			"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+		}
+	}

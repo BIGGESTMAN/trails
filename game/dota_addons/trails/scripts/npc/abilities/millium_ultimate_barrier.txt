@@ -11,7 +11,7 @@
 
 		"precache"
 		{
-
+			"particle"					"particles/crafts/millium/ultimate_barrier/force_field.vpcf"
 		}
 
 		"AbilityCastPoint"				"0"

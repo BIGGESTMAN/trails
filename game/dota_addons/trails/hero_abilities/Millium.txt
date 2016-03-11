@@ -3,11 +3,11 @@ Enhanced : Deals more damage and causes all enemies hit to Faint for an increase
 
 Cast Point : 0.4
 Delay : 4
-Physical Damage (damage_percent) : 180%
+%Physical Damage (damage_percent) : 180%
 Faint Duration (faint_duration) : 2
 Punch Range : 200
 Punch Width (radius) : 250
-Enhanced Physical Damage (unbalanced_damage_percent) : 720%
+%Enhanced Physical Damage (unbalanced_damage_percent) : 720%
 Enhanced Faint Duration (unbalanced_faint_duration) : 4
 CP Cost : 30
 Note0 (note0) : Hits enemies up to 450 distance away from Millium.
@@ -23,18 +23,19 @@ Enhanced Force Field Duration (unbalanced_field_duration) : 10
 Enhanced Force Field Radius (unbalanced_field_radius) : 350
 CP Cost : 20
 
-[E] Megaton Press (megaton_press) : Lammy transforms into a wrecking ball that soars for 0.5 seconds, then crash lands on where the target enemy was, dealing physical damage split among all enemies hit. If only one enemy is hit, they Faint. If multiple enemies are hit, their MOV is reduced by 50% instead. +40 to Unbalance.
-Enhanced : Millium adds her weight to the ball, landing along with Lammy. Max damage is dealt to all enemies, and they are Fainted with their MOV reduced.
-DevNotes - Targets enemy, but AoE is centered on the enemy's location after the cast point and before the 0.5 second delay. For the enhanced version, Millium becomes untargetable but not invulnerable for the delay, then appears in the center of the AoE. 
+[E] Megaton Press (megaton_press) : Lammy transforms into a wrecking ball that soars into the air before crash landing, dealing physical damage split among all enemies hit. If only one enemy is hit, they Faint. If multiple enemies are hit, their MOV is reduced by 50% instead. +30 to Unbalance.
+Enhanced : Millium adds her weight to the ball, landing along with Lammy. Damage is increased and not split, and enemies hit are both Fainted and have their MOV reduced.
+DevNotes - For the enhanced version, Millium becomes untargetable but not invulnerable for the delay, then appears in the center of the AoE. 
 
 Cast Point : 0.3
 Delay : 6
-Total Physical Damage : 300%
-Faint Duration : 1.5
-MOV Reduction Duration : 2.5
+%Total Physical Damage (damage_percent) : 300%
+Faint Duration (faint_duration) : 1.5
+MOV Reduction Duration (mov_down_duration) : 2.5
 Cast Range : 700
-Radius : 350
-Enhanced MOV Reduction Duration : 4
+Radius (radius) : 350
+%Enhanced Physical Damage (unbalanced_damage_percent) : 600%
+Enhanced MOV Reduction Duration (unbalanced_mov_down_duration) : 4
 CP Cost : 40
 
 [D] Sledge Impact (sledge_impact) : Lammy transforms into a mallet that Millium drives into the ground, dealing physical damage around her and giving enemies Balance Down. Adds 10% to unbalance.

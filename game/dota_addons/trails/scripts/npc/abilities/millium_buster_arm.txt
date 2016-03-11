@@ -12,7 +12,7 @@
 
 		"precache"
 		{
-
+			"particle"					"particles/crafts/millium/buster_arm/lammy_punching.vpcf"
 		}
 
 		"AbilityCastPoint"				"0.4"
@@ -61,6 +61,29 @@
 			{
 				"var_type"				"FIELD_INTEGER"
 				"unbalanced_faint_duration"	"4"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"bonus_unbalance"		"20"
+			}
+		}
+
+		"OnAbilityPhaseStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"crafts/millium/buster_arm"
+				"Function"		"abilityPhaseStart"
+			}
+		}
+
+		"OnAbilityPhaseInterrupted"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"crafts/millium/buster_arm"
+				"Function"		"abilityPhaseInterrupted"
 			}
 		}
 

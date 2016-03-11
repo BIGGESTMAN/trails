@@ -299,7 +299,7 @@ function getModifierAdjustedStats(hero, stats)
 	if hero:HasModifier(STAT_SPD) then stats.spd = stats.spd + hero:FindModifierByName(STAT_SPD):GetStackCount() end
 	if hero:HasModifier(STAT_SPD_DOWN) then stats.spd = stats.spd - hero:FindModifierByName(STAT_SPD_DOWN):GetStackCount() end
 	if hero:HasModifier(STAT_MOV) then stats.mov = stats.mov * (1 + hero:FindModifierByName(STAT_MOV):GetStackCount() / 100) end
-	if hero:HasModifier(STAT_MOV_DOWN) then stats.mov = stats.mov * (1 - hero:FindModifierByName(STAT_SPD_DOWN):GetStackCount() / 100) end
+	if hero:HasModifier(STAT_MOV_DOWN) then stats.mov = stats.mov * (1 - hero:FindModifierByName(STAT_MOV_DOWN):GetStackCount() / 100) end
 	return stats
 end
 

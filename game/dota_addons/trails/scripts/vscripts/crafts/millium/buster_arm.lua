@@ -43,10 +43,14 @@ function spellCast(keys)
 			busterArmHit(caster, unit, damage_scale, faint_duration, enhanced)
 		end
 	end
+
+	ParticleManager:DestroyParticle(caster.buster_arm_casting_particle, false)
+	caster.buster_arm_casting_particle = nil
 end
 
 function busterArmHit(caster, unit, damage_scale, faint_duration, enhanced)
 	local ability = caster:FindAbilityByName("buster_arm")
+	local bonus_unbalance = ability:GetSpecialValueFor("bonus_unbalance")
 	local damage_type = ability:GetAbilityDamageType()
 	local knockback_distance = ability:GetSpecialValueFor("knockback_distance")
 	local knockback_duration = ability:GetSpecialValueFor("knockback_duration") / 2
@@ -56,7 +60,7 @@ function busterArmHit(caster, unit, damage_scale, faint_duration, enhanced)
 
 	applyEffect(unit, damage_type, function()
 		dealScalingDamage(unit, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR)
-		increaseUnbalance(caster, unit)
+		increaseUnbalance(caster, unit, bonus_unbalance)
 		ability:ApplyDataDrivenModifier(caster, unit, "modifier_buster_arm_knockback", {})
 		unit:SetForwardVector(direction * -1)
 		unit.buster_arm_faint_duration = faint_duration
@@ -104,5 +108,18 @@ function checkForUnitCollision(unit)
 		unit:AddNewModifier(caster, ability, "modifier_faint", {duration = faint_duration})
 		unit:RemoveModifierByName("modifier_buster_arm_knockback")
 		unit:SetPhysicsVelocity(Vector(0,0,0))
+	end
+end
+
+function abilityPhaseStart(keys)
+	local caster = keys.caster
+	caster.buster_arm_casting_particle = ParticleManager:CreateParticle("particles/crafts/millium/buster_arm/lammy_punching.vpcf", PATTACH_ABSORIGIN_FOLLOW, caster)
+end
+
+function abilityPhaseInterrupted(keys)
+	local caster = keys.caster
+	if caster.buster_arm_casting_particle then
+		ParticleManager:DestroyParticle(caster.buster_arm_casting_particle, true)
+		caster.buster_arm_casting_particle = nil
 	end
 end
