@@ -260,6 +260,7 @@ function initializeStats(hero)
 		mov = hero:GetBaseMoveSpeed()
 	}
 	hero:AddNewModifier(hero, nil, "modifier_base_mov_buff", {})
+	game_mode:initializeStats(hero)
 end
 
 function getStats(hero)
@@ -557,4 +558,13 @@ function getMasterQuartz(hero)
 		end
 	end
 	return master_quartz
+end
+
+function getOpposingTeam(team)
+	if team == DOTA_TEAM_GOODGUYS then
+		return DOTA_TEAM_BADGUYS
+	elseif team == DOTA_TEAM_BADGUYS then
+		return DOTA_TEAM_GOODGUYS
+	end
+	return nil
 end

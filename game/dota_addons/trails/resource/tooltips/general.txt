@@ -28,3 +28,9 @@
 
 		"Round_Winner_2"	"The Radiant have won the round!"
 		"Round_Winner_3"	"The Dire have won the round!"
+		"Tetracyclic_Defenders_Win"			"The defenders win the round -- all attackers have been killed."
+		"Tetracyclic_Defenders_Win_Timeout"	"Time has run out -- Liberl's defenders win the round by default."
+		"Tetracyclic_Attackers_Win"			"The attackers have won the round, seizing a tetracyclic tower."
+		"Tetracyclic_Attackers_Win_Kills"	"All defenders have been killed -- the attackers have 15 seconds to end the round by capturing a tower."
+
+		"RoundTimer"		"Defenders win in %quest_current_value% seconds"

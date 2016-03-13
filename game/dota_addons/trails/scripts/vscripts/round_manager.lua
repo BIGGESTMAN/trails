@@ -1,5 +1,4 @@
 require "round_recap"
-require "turn_bonuses"
 require "game_functions"
 
 if not RoundManager then
@@ -42,7 +41,6 @@ function RoundManager:BeginRoundStartTimer(time)
 				self.time_until_round_start = self.time_until_round_start - 1
 				CustomGameEventManager:Send_ServerToAllClients("ready_button_update", {time = self.time_until_round_start})
 				if self.time_until_round_start <= 0 then
-					self.time_until_round_start = nil
 					self:StartRound()
 				else
 					return 1
@@ -53,6 +51,10 @@ function RoundManager:BeginRoundStartTimer(time)
 end
 
 function RoundManager:StartRound()
+	-- for testing/use of -startround
+	Timers:RemoveTimer("round_start_countdown")
+	
+	self.time_until_round_start = nil
 	self.round_started = true
 	CustomGameEventManager:Send_ServerToAllClients("infotext_game_starting", {})
 	CustomGameEventManager:Send_ServerToAllClients("round_recap_remove", {})
@@ -72,7 +74,7 @@ function RoundManager:StartRound()
 		end
 	end
 	triggerModifierEvent("round_started")
-	Turn_Bonuses:StartRound(self.current_round)
+	game_mode:StartRound(self.current_round)
 	Round_Recap:StartRound()
 	CustomGameEventManager:Send_ServerToAllClients("ready_button_hide", {})
 end
@@ -95,13 +97,11 @@ function RoundManager:AddStatusBars(hero)
 end
 
 function RoundManager:EndRound(winning_team)
-	GameRules:SendCustomMessage("#Round_Winner_"..winning_team, 0, 0)
-	self.score[winning_team] = self.score[winning_team] + 1
 	self.current_round = self.current_round + 1
 	self.round_started = false
+	game_mode:EndRound(winning_team)
 	GameRules:GetGameModeEntity():SetTopBarTeamValue(DOTA_TEAM_GOODGUYS, self.score[DOTA_TEAM_GOODGUYS])
 	GameRules:GetGameModeEntity():SetTopBarTeamValue(DOTA_TEAM_BADGUYS, self.score[DOTA_TEAM_BADGUYS])
-	Turn_Bonuses:EndRound()
 
 	Timers:CreateTimer(ROUND_END_DELAY, function()
 		for i=0, 9 do
@@ -125,11 +125,12 @@ function RoundManager:EndRound(winning_team)
 		Round_Recap:EndRound()
 		
 		-- check for game win
-		if self.score[DOTA_TEAM_GOODGUYS] == ROUNDS_TO_WIN then
+		local game_winner = self:GetGameWinner()
+		if game_winner == DOTA_TEAM_GOODGUYS then
 			GameRules:SendCustomMessage("Radiant Victory!", 0, 0)
 			GameRules:SetSafeToLeave( true )
 			GameRules:SetGameWinner( DOTA_TEAM_GOODGUYS )
-		elseif self.score[DOTA_TEAM_BADGUYS] == ROUNDS_TO_WIN then
+		elseif game_winner == DOTA_TEAM_BADGUYS then
 			GameRules:SendCustomMessage("Dire Victory!", 0, 0)
 			GameRules:SetSafeToLeave( true )
 			GameRules:SetGameWinner( DOTA_TEAM_BADGUYS )
@@ -137,6 +138,10 @@ function RoundManager:EndRound(winning_team)
 			self:BeginRoundStartTimer()
 		end
 	end)
+end
+
+function RoundManager:GetGameWinner()
+	return game_mode:GetGameWinner()
 end
 
 function RoundManager:GetSpawnPosition(hero, shopping)

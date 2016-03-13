@@ -8,6 +8,8 @@ require "custom_hero_select"
 require "turn_bonuses"
 require "round_recap"
 require "round_manager"
+require "gamemodes/tetracyclic_towers"
+require "gamemodes/arena"
 
 LinkLuaModifier("modifier_interround_invulnerability", "modifier_interround_invulnerability.lua", LUA_MODIFIER_MOTION_NONE)
 
@@ -18,7 +20,7 @@ ENABLE_HERO_RESPAWN = false              -- Should the heroes automatically resp
 ALLOW_SAME_HERO_SELECTION = true        -- Should we let people select the same hero as each other
 
 HERO_SELECTION_TIME = 1.0              -- How long should we let people select their hero?
-PRE_GAME_TIME = 120.0                    -- How long after people select their heroes should the horn blow and the game start?
+PRE_GAME_TIME = 0                    -- How long after people select their heroes should the horn blow and the game start?
 POST_GAME_TIME = 60.0                   -- How long should we let people look at the scoreboard before closing the server automatically?
 TREE_REGROW_TIME = 60.0                 -- How long should it take individual trees to respawn after being cut down/destroyed?
 
@@ -53,18 +55,10 @@ KILLS_TO_END_GAME_FOR_TEAM = 50         -- How many kills for a team should sign
 USE_CUSTOM_HERO_LEVELS = false           -- Should we allow heroes to have custom levels?
 MAX_LEVEL = 1                          -- What level should we let heroes get to?
 
-CHEATY_STUFF = GetMapName() ~= "dota"
-
-MAX_ABILITY_LEVELS = CHEATY_STUFF
-STARTING_ITEMS = false
-FREEEEEEEE_MONEY = CHEATY_STUFF
 UNIVERSAL_SHOP_MODE = false             -- Should the main shop contain Secret Shop items as well as regular items
 GOLD_PER_TICK = 0                 		    -- How much gold should players get per tick?
-USE_CUSTOM_XP_VALUES = CHEATY_STUFF             -- Should we use custom XP values to level up heroes, or the default Dota numbers?
+USE_CUSTOM_XP_VALUES = true             -- Should we use custom XP values to level up heroes, or the default Dota numbers?
 
-MUSIC = false
-
-ROUNDS_TO_WIN = 5
 ROUND_END_DELAY = 3
 ROUND_START_DELAY = 3
 
@@ -72,15 +66,10 @@ BASE_GOLD_PER_ROUND = 500
 GOLD_INCREASE_PER_ROUND = 500
 SHOPPING_TIME = 60
 
-
-
--- Fill this table up with the required XP per level if you want to change it
-if CHEATY_STUFF then
-	XP_PER_LEVEL_TABLE = {}
-	for i=1,MAX_LEVEL do
-		XP_PER_LEVEL_TABLE[i] = i * 100
-	end
-end
+game_modes = {}
+game_modes["practical_exam"] = Gamemode_Arena
+game_modes["liberl"] = Gamemode_Tetracyclic
+game_mode = game_modes[GetMapName()]
 
 -- Generated from template
 if GameMode == nil then
@@ -99,19 +88,11 @@ function GameMode:InitGameMode()
 	GameRules:SetUseUniversalShopMode( UNIVERSAL_SHOP_MODE )
 	GameRules:SetSameHeroSelectionEnabled( ALLOW_SAME_HERO_SELECTION )
 	GameRules:SetHeroSelectionTime( HERO_SELECTION_TIME )
-	if CHEATY_STUFF then
-		GameRules:SetPreGameTime(0)
-	else
-		GameRules:SetPreGameTime(PRE_GAME_TIME)
-	end
+	GameRules:SetPreGameTime(PRE_GAME_TIME)
 	GameRules:SetPostGameTime( POST_GAME_TIME )
 	GameRules:SetTreeRegrowTime( TREE_REGROW_TIME )
 	GameRules:SetUseCustomHeroXPValues ( USE_CUSTOM_XP_VALUES )
-	if FREEEEEEEE_MONEY then
-		GameRules:SetGoldPerTick(GOLD_PER_TICK)
-	else
-		GameRules:SetGoldPerTick(1)
-	end
+	GameRules:SetGoldPerTick(GOLD_PER_TICK)
 	GameRules:SetGoldTickTime(GOLD_TICK_TIME)
 	GameRules:SetRuneSpawnTime(RUNE_SPAWN_TIME)
 	GameRules:SetUseBaseGoldBountyOnHeroes(USE_STANDARD_HERO_GOLD_BOUNTY)
@@ -196,12 +177,14 @@ function GameMode:OnPlayerChat(keys)
 		else
 			self:StopMusicForPlayer(player)
 		end
-	elseif text == "-spawnbonus" then
+	elseif text == "-spawnbonus" and game_mode == Gamemode_Arena then
 		Turn_Bonuses:SpawnBonus(RoundManager.current_round)
 	elseif text == "-maxcp" then
 		for k,unit in pairs(getAllHeroes()) do
 			modifyCP(unit, 200)
 		end
+	elseif text == "-startround" then
+		RoundManager:StartRound()
 	end
 end
 
@@ -259,7 +242,6 @@ function GameMode:CaptureGameMode()
 		mode:SetTopBarTeamValuesVisible( TOP_BAR_VISIBLE )
 		mode:SetUseCustomHeroLevels ( USE_CUSTOM_HERO_LEVELS )
 		mode:SetCustomHeroMaxLevel ( MAX_LEVEL )
-		mode:SetCustomXPRequiredToReachNextLevel( XP_PER_LEVEL_TABLE )
 
 		--mode:SetBotThinkingEnabled( USE_STANDARD_DOTA_BOT_THINKING )
 		mode:SetTowerBackdoorProtectionEnabled( ENABLE_TOWER_BACKDOOR_PROTECTION )
@@ -522,7 +504,7 @@ end
 function GameMode:OnGameInProgress()
 	print("[BAREBONES] The game has officially begun")
 
-	Turn_Bonuses:Initialize()
+	game_mode:Initialize()
 end
 
 -- Cleanup a player when they leave
@@ -612,6 +594,7 @@ function GameMode:OnEntityHurt(keys)
 	--DeepPrintTable(keys)
 	if keys.entindex_attacker then local entCause = EntIndexToHScript(keys.entindex_attacker) end
 	local entVictim = EntIndexToHScript(keys.entindex_killed)
+	game_mode:OnEntityHurt(keys)
 end
 
 -- An item was picked up off the ground
@@ -760,9 +743,6 @@ function GameMode:OnTeamKillCredit(keys)
 	local victimPlayer = PlayerResource:GetPlayer(keys.victim_userid)
 	local numKills = keys.herokills
 	local killerTeamNumber = keys.teamnumber
-	-- if numKills >= 10 and not CHEATY_STUFF then
-	-- 	GameRules:SetGameWinner(killerTeamNumber)
-	-- end
 end
 
 -- An entity died
@@ -779,22 +759,5 @@ function GameMode:OnEntityKilled( keys )
 		killerEntity = EntIndexToHScript( keys.entindex_attacker )
 	end
 
-	if killedUnit:IsRealHero() then
-		local living_heroes = {}
-		living_heroes[DOTA_TEAM_GOODGUYS] = 0
-		living_heroes[DOTA_TEAM_BADGUYS] = 0
-		for i=0, 9 do
-			local hero = PlayerResource:GetSelectedHeroEntity(i)
-			if hero and hero:IsAlive() then
-				living_heroes[hero:GetTeam()] = living_heroes[hero:GetTeam()] + 1
-			end
-		end
-
-
-		if living_heroes[DOTA_TEAM_GOODGUYS] == 0 then
-			RoundManager:EndRound(DOTA_TEAM_BADGUYS)
-		elseif living_heroes[DOTA_TEAM_BADGUYS] == 0 then
-			RoundManager:EndRound(DOTA_TEAM_GOODGUYS)
-		end
-	end
+	game_mode:OnEntityKilled(keys)
 end

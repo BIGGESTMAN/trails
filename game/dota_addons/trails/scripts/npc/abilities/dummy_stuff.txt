@@ -1,10 +1,10 @@
 	"reflex_dummy_unit"
 	{
-		"AbilityBehavior" 				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
-		"BaseClass" 					"ability_datadriven"
-		"AbilityTextureName"            "rubick_empty1"
-		"MaxLevel"                      "1"
+		"BaseClass"						"ability_datadriven"
+		"AbilityTextureName"			"rubick_empty1"
+		"MaxLevel"						"1"
 
 		"Modifiers"
 		{
@@ -22,14 +22,34 @@
 			}
 		}
 	}
-  
-    "reflex_empty1"
+
+	"tetracyclic_tower_passive"
 	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		//"ID"							"5343"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
-		"MaxLevel"						"0"
-		"BaseClass" 					"ability_datadriven"
-		"AbilityTextureName"            "rubick_empty1"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"ability_datadriven"
+		"MaxLevel"						"1"
+
+		"Modifiers"
+		{
+			"modifier_tetracyclic_tower_passive"
+			{
+				"Passive"	"1"
+				"States"
+				{
+					"MODIFIER_STATE_UNSELECTABLE"		"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_INVULNERABLE"		"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_NO_HEALTH_BAR"		"MODIFIER_STATE_VALUE_ENABLED"
+				}
+
+				"ThinkInterval"  ".03"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"gamemodes/tetracyclic_towers"
+						"Function"		"onTowerThink"
+					}
+				}
+			}
+		}
 	}

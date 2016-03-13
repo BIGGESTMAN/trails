@@ -37,6 +37,7 @@ Modifiers
 ~ Turn Bonus: Unshatterable Bonds (modifier_unshatterable_bonds) : Combat links cannot be broken, and have full effect at all ranges.
 
 ~ CP (modifier_cp_tracker_cp) : Amount of CP available for crafts. Increased by dealing and recieving damage, and gained slowly over time.
+~ Capture Blocked (modifier_capture_blocked) : Has been damaged recently and cannot capture towers.
 
 ~ Combat Link (modifier_combat_link_linked) : Linked with an ally, enabling unbalancing of enemies and special link techniques.
 ~ Enhanced Crafts Ready (modifier_combat_link_followup_available) : An enemy has been knocked off-balance by an ally, rendering them vulnerable to Enhanced crafts.
