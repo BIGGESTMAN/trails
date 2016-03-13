@@ -163,6 +163,11 @@ function dash(unit, direction, speed, range, find_clear_space, impactFunction, o
 	other_args.range = range
 	other_args.find_clear_space = find_clear_space
 
+	local collision_rules = other_args.collision_rules
+	local collisionFunction = other_args.collisionFunction
+	local cannot_collide_with = other_args.cannot_collide_with or {}
+	local units_hit = {}
+
 	local update_interval = 1/30
 	speed = speed * update_interval
 
@@ -179,6 +184,18 @@ function dash(unit, direction, speed, range, find_clear_space, impactFunction, o
 					unit:SetAbsOrigin(unit:GetAbsOrigin() + direction * distance)
 				end
 				distance_traveled = distance_traveled + speed
+
+				-- Check for unit collisions
+				if collisionFunction and collision_rules then
+					collision_rules["origin"] = unit:GetAbsOrigin()
+					local targets = FindUnitsInRadiusTable(collision_rules)
+					for k,target in pairs(targets) do
+						if target ~= unit and not cannot_collide_with[target] and not units_hit[target] then
+							collisionFunction(target, unit, direction, other_args)
+							units_hit[target] = true
+						end
+					end
+				end
 				return update_interval
 			else
 				if find_clear_space then FindClearSpaceForUnit(unit, unit:GetAbsOrigin(), false) end
@@ -335,7 +352,9 @@ end
 
 function modifyStat(unit, stat, percent, duration)
 	if not unit:HasModifier(stat) and not unit:HasModifier(getInverseStat(stat)) then
-		unit:AddNewModifier(unit, nil, stat, {duration = duration}):SetStackCount(percent)
+		local modifier = unit:AddNewModifier(unit, nil, stat, {duration = duration})
+		modifier:SetStackCount(percent)
+		if modifier:GetStackCount() > STAT_MAX_INCREASE then modifier:SetStackCount(STAT_MAX_INCREASE) end
 	else
 		local modifier = unit:FindModifierByName(stat)
 		local inverse_modifier = unit:FindModifierByName(getInverseStat(stat))
@@ -351,7 +370,9 @@ function modifyStat(unit, stat, percent, duration)
 			else
 				inverse_modifier:Destroy()
 				if new_percent < 0 then
-					unit:AddNewModifier(unit, nil, getInverseStat(stat), {duration = duration}):SetStackCount(new_percent)
+					local modifier = unit:AddNewModifier(unit, nil, getInverseStat(stat), {duration = duration})
+					modifier:SetStackCount(new_percent)
+					if modifier:GetStackCount() > STAT_MAX_INCREASE then modifier:SetStackCount(STAT_MAX_INCREASE) end
 				end
 			end
 		end

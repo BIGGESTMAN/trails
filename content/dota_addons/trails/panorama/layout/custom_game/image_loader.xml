@@ -22,6 +22,7 @@
 			<Image id="image_loader" src="file://{images}/spellicons/crow_freezing_bullet.png" hittest="false" />
 			<Image id="image_loader" src="file://{images}/spellicons/millium_ultimate_barrier.png" hittest="false" />
 			<Image id="image_loader" src="file://{images}/spellicons/millium_sledge_impact.png" hittest="false" />
+			<Image id="image_loader" src="file://{images}/spellicons/millium_gigant_breaker.png" hittest="false" />
 
 			<Image id="image_loader" src="file://{images}/items/quartz_earth_1.png" hittest="false" />
 			<Image id="image_loader" src="file://{images}/items/quartz_earth_2.png" hittest="false" />

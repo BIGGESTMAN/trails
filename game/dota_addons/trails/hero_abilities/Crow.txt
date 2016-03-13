@@ -1,4 +1,4 @@
-[Q] Rapid Volley (rapid_volley) : Crow riddles the ground with bullet holes, randomly dealing physical damage over 2 seconds. Enemy MOV is reduced in the area, and they suffer a lingering MOV reduction the first time they take damage from this ability.
+[Q] Rapid Volley (rapid_volley) : Crow riddles the ground with bullet holes, randomly dealing physical damage around the target enemy over 4 seconds. Crow can move during the ability, but it's interrupted if the target moves too far away or Crow takes damage. Crow's firerate increases over the course of the ability.
 Enhanced : Max number of shots increased. Crow can move while shooting with his MOV reduced by 15%, but other actions cancel this ability.
 DevNotes - The two slows fully stack. Fires 1 shot at the start, then the rest in 0.2/0.1 second intervals. The area radius is divided into four 90° segments. The first shot damages within the north-east segment of the circle. The next occurs in the north-west segment, proceeding counterclockwise.
 
@@ -16,7 +16,7 @@ Damage Spawn Radius : 75-200
 Enhanced Max Shots (unbalanced_shots) : 21
 CP Cost : 20
 
-[W] Freezing Bullet (freezing_bullet) : Crow fires a shot imbued with the power of ice, dealing magical damage to enemies and Freezing them.
+[W] Freezing Bullet (freezing_bullet) : Crow fires a shot imbued with the power of ice, leaving a trail of frost in its path. After 1 second, the trail coalesces into a solid wall of ice, blocking all movement. The wall can be destroyed by any damaging ability from Crow or allies, shattering it and dealing magical damage to enemies on the far side of the wall.
 Enhanced : No cast point. Increases Freeze duration.
 DevNotes - Cancels all the target's commands at the start of the Freeze.
 
@@ -41,7 +41,7 @@ Confuse & Deathblow Duration (debuff_duration) : 3
 Radius : Global
 CP Cost : 5
 
-[D] Chaos Trigger (chaos_trigger) : Crow takes aim with a bullet of pure insanity, locking on to enemies that remain in his sight. After 1.5 seconds, he deals physical damage to them, Confusing enemies closer to Crow and putting those at a distance in a Nightmare.
+[D] Chaos Trigger (chaos_trigger) : Crow takes aim, locking on to enemies in a line in front of him. After locking on to an enemy for 2 seconds, he fires a piercing shot which deals physical damage to enemies hit. The first enemy hit is Nightmared, and any other enemies hit are Confused. Crow can turn while aiming, but taking damage cancels the ability.
 Enhanced : Increases the damage of the first shot. Fires a second shot that also causes Confuse and Nightmare but deals reduced damage in the same trajectory after 2 seconds. All other actions cancel this.
 DevNotes - 50% chance to Confuse, 50% chance to Nightmare.
 

@@ -52,22 +52,22 @@ Enhanced Crater Duration (unbalanced_crater_duration) : 8
 Enhanced Damage & Crater Radius (unbalanced_radius) : 550
 CP Cost : 50
 
-[R] Gigant Breaker (gigant_breaker) : Lammy transforms into a rocket-powered hammer that boosts Millium in the targeted direction for 1 second while she knocks enemies aside. After a 0.5 second delay, she slams it into the ground, instantly dealing physical damage and causing an expanding shockwave that deals physical damage while reducing MOV and SPD by 100%.
+[R] Gigant Breaker (gigant_breaker) : S-Craft: Lammy transforms into a rocket-powered hammer that boosts Millium in the targeted direction for 1 second while she knocks enemies aside. After a 0.5 second delay, she slams it into the ground, instantly dealing physical damage and causing an expanding shockwave that deals physical damage while reducing MOV and SPD by 75%.
 200 CP Bonus : Generates 3 shockwaves with a 0.5 second delay between each. Increases radius of slam and max radius of shockwaves.
 DevNotes - After 1 second of traveling, she flies into the air for 0.5 second before the slam. Shockwaves instantly hit enemies in 250 radius then expand.
 
 Cast Point : 0
 Delay : 10
-Slam Physical Damage : 375%
-Shockwave Physical Damage : 150%
-MOV & SPD Reduction Duration : 1
+%Slam Physical Damage (slam_damage_percent) : 375%
+%Shockwave Physical Damage (shockwave_damage_percent) : 150%
+MOV & SPD Reduction Duration (stat_reduction_duration) : 1
 Knockback Duration : 0.5
 Knockback Distance : 150
 Shockwave Width : 250
 Boost Travel Speed : 700
 Shockwave Travel Speed : 400
 Knockback Radius : 300
-Slam Radius : 600
-Shockwave Max Radius : 900
-200 CP Slam Radius : 1000
-200 CP Shockwave Max Radius : 1500
+Slam Radius (slam_radius) : 600
+Shockwave Max Radius (shockwave_end_radius) : 900
+200 CP Slam Radius (max_cp_slam_radius) : 1000
+200 CP Shockwave Max Radius (max_cp_shockwave_end_radius) : 1500

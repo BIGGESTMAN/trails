@@ -18,3 +18,11 @@ Counterattack : Whenever your link partner takes 0/400/350/300/250 damage (450 R
 Last Bastion : When you fall below 20% of your max health, gives you Physical and Magical Guard. Happens only once per round.
 Lively Yell : Whenever your link partner is unbalanced, heals them for 0/0/0/10/16% of their max health and gives them 0/0/0/20/25 CP (450 Radius).
 Earth Mastery : Halves the delay from casting Earth Arts.
+
+Cypher
+Art - Phantom Phobia
+Gambling Strike : Whenever you deal 450/400/350/300/250 physical damage, your next instance of physical damage reduces ATS, ADF, or SPD by 25% for 8/9/10/11/12 seconds.
+Counterattack : Whenever your link partner takes 0/400/350/300/250 damage (450 Radius), you hit the attacker for 0/100/120/140/160% physical damage the next time your partner takes damage (600 Radius). If they take lethal damage, you counter regardless of damage taken with a critical strike. 
+Gambling Magic : Whenever you deal 0/0/350/300/250 magical damage, your next instance of magical damage reduces STR, DEF, or MOV by 25% for 0/0/8/10/12 seconds.
+Auto-charge : Once per 0/0/0/10/6 seconds, whenever your link partner casts an Art, 0/0/0/15/20% of their max EP is restored (450 Radius).
+Reaper : Whenever you deal 0/0/0/0/250 damage, your next instance of damage inflicts Deathblow for 5 seconds.
