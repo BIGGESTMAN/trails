@@ -95,7 +95,7 @@ function applyEffect(target, damage_type, effect)
 	end
 end
 
-function dealDamage(target, attacker, damage, damage_type, ability, cp_gain_factor, enhanced)
+function dealDamage(target, attacker, damage, damage_type, ability, cp_gain_factor, enhanced, status)
 	if target.combat_linked_to and target.combat_linked_to:HasModifier("modifier_master_force_passive") and pointIsBetweenPoints(target.combat_linked_to:GetAbsOrigin(), target:GetAbsOrigin(), attacker:GetAbsOrigin()) then
 		local cover_damage_percent = getMasterQuartzSpecialValue(target.combat_linked_to, "cover_damage_reduction") / 100
 		if cover_damage_percent > 0 then
@@ -130,6 +130,9 @@ function dealDamage(target, attacker, damage, damage_type, ability, cp_gain_fact
 		elseif damage_type == DAMAGE_TYPE_MAGICAL then
 			damage = damage * getDamageMultiplier(getStats(target).adf)
 		end
+	end
+	if target:HasModifier("modifier_rapid_volley_casting") and ability and not status then
+		target:RemoveModifierByName("modifier_rapid_volley_casting")
 	end
 	if attacker and attacker ~= target then
 		grantDamageCP(damage, attacker, target, cp_gain_factor)

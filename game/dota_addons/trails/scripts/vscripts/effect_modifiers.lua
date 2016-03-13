@@ -17,7 +17,7 @@ if IsServer() then
 		local damage_percent = 3
 		local damage = target:GetMaxHealth() * damage_percent * self.damage_interval / 100
 		local damage_type = DAMAGE_TYPE_PURE
-		dealDamage(target, caster, damage, damage_type, self:GetAbility(), 0)
+		dealDamage(target, caster, damage, damage_type, self:GetAbility(), 0, false, true)
 	end
 end
 
@@ -188,7 +188,7 @@ if IsServer() then
 		local damage_percent = 10
 		local damage = target:GetMaxHealth() * damage_percent / 100
 		local damage_type = DAMAGE_TYPE_PURE
-		dealDamage(target, caster, damage, damage_type, self:GetAbility(), 0)
+		dealDamage(target, caster, damage, damage_type, self:GetAbility(), 0, false, true)
 	end
 end
 
@@ -344,7 +344,7 @@ if IsServer() then
 				local damage_percent = 20
 				local damage = self:GetParent():GetHealthDeficit() * damage_percent / 100
 				local damage_type = DAMAGE_TYPE_PURE
-				dealDamage(self:GetParent(), caster, damage, damage_type, self:GetAbility(), 0)
+				dealDamage(self:GetParent(), caster, damage, damage_type, self:GetAbility(), 0, false, true)
 			end
 		end
 	end

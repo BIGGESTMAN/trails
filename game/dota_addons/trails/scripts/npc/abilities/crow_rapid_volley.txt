@@ -1,7 +1,7 @@
 	"rapid_volley"
 	{
 		"BaseClass"						"ability_datadriven"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
@@ -18,8 +18,8 @@
 		"AbilityCastPoint"				"0.3"
 		"AbilityCooldown"				"4"
 		"AbilityManaCost"				"0"
-		"AbilityCastRange"				"800"
-		"AOERadius"						"275"
+		"AbilityCastRange"				"500"
+		"AOERadius"						"325"
 		"CPCost"						"20"
 
 		"AbilitySpecial"
@@ -42,52 +42,52 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"damage_radius"			"100"
+				"damage_radius"			"125"
 			}
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"area_slow_radius"		"275"
+				"duration"				"3"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"shot_interval"			"0.25"
 			}
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"area_slow_duration"	"0.06"
+				"max_range"				"750"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"shot_interval_reduction"	"0.05"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"unbalanced_shot_interval"	"0.2"
 			}
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"area_slow"				"-25"
+				"unbalanced_max_range"	"900"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"unbalanced_delay"		"0.2"
 			}
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"bullet_slow_duration"	"3"
+				"unbalanced_knockback_distance"	"75"
 			}
 			"01"
 			{
-				"var_type"				"FIELD_INTEGER"
-				"bullet_slow"			"-25"
-			}
-			"01"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"duration"				"2"
-			}
-			"01"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"shots"					"11"
-			}
-			"01"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"unbalanced_shots"		"21"
-			}
-			"01"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"unbalanced_self_slow"	"-15"
+				"var_type"				"FIELD_FLOAT"
+				"unbalanced_knockback_duration"	"0.15"
 			}
 		}
 
@@ -97,7 +97,6 @@
 			{
 				"ScriptFile"	"crafts/crow/rapid_volley"
 				"Function"		"spellCast"
-				"Target"		"POINT"
 			}
 		}
 
@@ -106,60 +105,18 @@
 			"modifier_rapid_volley_casting"
 			{
 				"Duration"		"%duration"
+			}
+
+			"modifier_rapid_volley_knockback"
+			{
+				"IsDebuff"		"1"
+
+				"Duration"		"%unbalanced_knockback_duration"
 
 				"States"
 				{
-					"MODIFIER_STATE_COMMAND_RESTRICTED"		"MODIFIER_STATE_VALUE_ENABLED"
-				}
-			}
-
-			"modifier_rapid_volley_area_slow"
-			{
-				"IsDebuff"	"1"
-
-				"Properties"
-				{
-					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE" "%area_slow"
-				}
-			}
-
-			"modifier_rapid_volley_bullet_slow"
-			{
-				"IsDebuff"	"1"
-
-				"Duration"	"%bullet_slow_duration"
-
-				"Properties"
-				{
-					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE" "%bullet_slow"
-				}
-			}
-
-			"modifier_rapid_volley_enhanced_casting"
-			{
-				"Duration"		"%duration"
-
-				"Properties"
-				{
-					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE" "%unbalanced_self_slow"
-				}
-
-				"OnAttackStart"
-				{
-					"RunScript"
-					{
-						"ScriptFile"	"crafts/crow/rapid_volley"
-						"Function"		"endVolley"
-					}
-				}
-
-				"OnAbilityStart"
-				{
-					"RunScript"
-					{
-						"ScriptFile"	"crafts/crow/rapid_volley"
-						"Function"		"endVolley"
-					}
+					"MODIFIER_STATE_STUNNED"				"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_NO_UNIT_COLLISION"		"MODIFIER_STATE_VALUE_ENABLED"
 				}
 			}
 		}

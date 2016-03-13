@@ -6,23 +6,23 @@ require "libraries/util"
 function spellCast(keys)
 	local caster = keys.caster
 	local ability = keys.ability
-	local target_point = keys.target_points[1]
 	local target = keys.target
 
-	local total_shots = ability:GetSpecialValueFor("shots")
 	local total_duration = ability:GetSpecialValueFor("duration")
 	local damage_scale = ability:GetSpecialValueFor("damage_percent") / 100
+	local max_range = ability:GetSpecialValueFor("max_range")
+	local shot_interval = ability:GetSpecialValueFor("shot_interval")
+	local shot_interval_reduction = ability:GetSpecialValueFor("shot_interval_reduction")
+	local update_interval = 1/30
 
+	local enhanced = false
 	if validEnhancedCraft(caster, target) then
 		caster:RemoveModifierByName("modifier_combat_link_followup_available")
 		target:RemoveModifierByName("modifier_combat_link_unbalanced")
-		total_shots = ability:GetSpecialValueFor("unbalanced_shots")
-		ability:ApplyDataDrivenModifier(caster, caster, "modifier_rapid_volley_enhanced_casting", {})
-	else
-		ability:ApplyDataDrivenModifier(caster, caster, "modifier_rapid_volley_casting", {})
+		shot_interval = ability:GetSpecialValueFor("unbalanced_shot_interval")
+		max_range = ability:GetSpecialValueFor("unbalanced_max_range")
+		enhanced = true
 	end
-
-	local shot_interval = total_duration / (total_shots - 1)
 
 	if caster:HasModifier("modifier_crit") then
 		damage_scale = damage_scale * 2
@@ -31,53 +31,46 @@ function spellCast(keys)
 
 	modifyCP(caster, getCPCost(ability) * -1)
 	applyDelayCooldowns(caster, ability)
-	
-	local shots_fired = 0
+
 	local last_shot_fired_quadrant = 0
-	caster.rapid_volley_targets_hit = {}
+	-- local shots_fired = 0
+	ability:ApplyDataDrivenModifier(caster, caster, "modifier_rapid_volley_casting", {})
+	local time_since_last_shot = shot_interval
 
 	Timers:CreateTimer(0, function()
-		if caster:HasModifier("modifier_rapid_volley_casting") or caster:HasModifier("modifier_rapid_volley_enhanced_casting") then
-			last_shot_fired_quadrant = last_shot_fired_quadrant + 1
-			if last_shot_fired_quadrant > 4 then last_shot_fired_quadrant = 1 end
-			fireShot(caster, target_point, damage_scale, last_shot_fired_quadrant)
-			slowUnitsInArea(caster, target_point, shot_interval)
-			StartAnimation(caster, {duration = shot_interval, activity = ACT_DOTA_ATTACK, rate = 30/shot_interval})
-			shots_fired = shots_fired + 1
-			if shots_fired < total_shots then
-				return shot_interval
-			else
-				caster.rapid_volley_targets_hit = nil
+		if caster:HasModifier("modifier_rapid_volley_casting") then
+			local distance = (caster:GetAbsOrigin() - target:GetAbsOrigin()):Length2D()
+			if distance > max_range then
 				caster:RemoveModifierByName("modifier_rapid_volley_casting")
-				caster:RemoveModifierByName("modifier_rapid_volley_enhanced_casting")
+			else
+				shot_interval = shot_interval - shot_interval_reduction * update_interval
+				if time_since_last_shot >= shot_interval then
+					last_shot_fired_quadrant = last_shot_fired_quadrant + 1
+					if last_shot_fired_quadrant > 4 then last_shot_fired_quadrant = 1 end
+					fireShot(caster, target, damage_scale, last_shot_fired_quadrant, enhanced)
+					StartAnimation(caster, {duration = shot_interval, activity = ACT_DOTA_ATTACK, rate = 30/shot_interval})
+
+					time_since_last_shot = time_since_last_shot - shot_interval
+					-- shots_fired = shots_fired + 1
+					-- print(shots_fired, shot_interval)
+				else
+					time_since_last_shot = time_since_last_shot + update_interval
+				end
+				return update_interval
 			end
 		end
 	end)
 end
 
-function slowUnitsInArea(caster, area_center, duration)
-	local ability = caster:FindAbilityByName("rapid_volley")
-	local radius = ability:GetSpecialValueFor("area_slow_radius")
-
-	local team = caster:GetTeamNumber()
-	local iTeam = DOTA_UNIT_TARGET_TEAM_ENEMY
-	local iType = DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC + DOTA_UNIT_TARGET_MECHANICAL
-	local iFlag = DOTA_UNIT_TARGET_FLAG_NONE
-	local iOrder = FIND_ANY_ORDER
-	local targets = FindUnitsInRadius(team, area_center, nil, radius, iTeam, iType, iFlag, iOrder, false)
-	for k,unit in pairs(targets) do
-		ability:ApplyDataDrivenModifier(caster, unit, "modifier_rapid_volley_area_slow", {duration = duration + 1/30})
-	end
-end
-
-function fireShot(caster, area_center, damage_scale, quadrant)
+function fireShot(caster, target, damage_scale, quadrant, enhanced)
 	local ability = caster:FindAbilityByName("rapid_volley")
 	local bullet_min_spawn_radius = ability:GetSpecialValueFor("bullet_min_spawn_radius")
 	local bullet_max_spawn_radius = ability:GetSpecialValueFor("bullet_max_spawn_radius")
 	local damage_type = ability:GetAbilityDamageType()
 	local damage_radius = ability:GetSpecialValueFor("damage_radius")
+	local delay = ability:GetSpecialValueFor("unbalanced_delay")
 
-	local target_point = randomShotLocation(area_center, bullet_min_spawn_radius, bullet_max_spawn_radius, quadrant)
+	local target_point = randomShotLocation(target:GetAbsOrigin(), bullet_min_spawn_radius, bullet_max_spawn_radius, quadrant)
 
 	local team = caster:GetTeamNumber()
 	local iTeam = DOTA_UNIT_TARGET_TEAM_ENEMY
@@ -89,8 +82,9 @@ function fireShot(caster, area_center, damage_scale, quadrant)
 		applyEffect(unit, damage_type, function()
 			dealScalingDamage(unit, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR)
 			increaseUnbalance(caster, unit)
-			if not caster.rapid_volley_targets_hit[unit] then
-				ability:ApplyDataDrivenModifier(caster, unit, "modifier_rapid_volley_bullet_slow", {})
+			if enhanced then
+				knockback(caster, target)
+				inflictDelay(target, delay)
 			end
 		end)
 	end
@@ -98,7 +92,7 @@ function fireShot(caster, area_center, damage_scale, quadrant)
 	local particle = ParticleManager:CreateParticle("particles/crafts/crow/rapid_volley_crater.vpcf", PATTACH_CUSTOMORIGIN, nil)
 	ParticleManager:SetParticleControl(particle, 3, target_point)
 
-	-- DebugDrawCircle(target_point, Vector(255,0,0), 0.5, 100, true, 0.2)
+	DebugDrawCircle(target_point, Vector(255,0,0), 0.5, damage_radius, true, 0.2)
 end
 
 function randomShotLocation(area_center, min_radius, max_radius, quadrant)
@@ -131,6 +125,13 @@ function shotLocationInQuadrant(area_center, location, quadrant)
 	return in_quadrant
 end
 
-function endVolley(keys)
-	keys.caster:RemoveModifierByName("modifier_rapid_volley_enhanced_casting")
+function knockback(caster, target)
+	local ability = caster:FindAbilityByName("rapid_volley")
+	local knockback_distance = ability:GetSpecialValueFor("unbalanced_knockback_distance")
+	local knockback_speed = knockback_distance / ability:GetSpecialValueFor("unbalanced_knockback_duration")
+	local direction = (target:GetAbsOrigin() - caster:GetAbsOrigin()):Normalized()
+	direction.z = 0
+
+	ability:ApplyDataDrivenModifier(caster, target, "modifier_rapid_volley_knockback", {})
+	dash(target, direction, knockback_speed, knockback_distance, true)
 end

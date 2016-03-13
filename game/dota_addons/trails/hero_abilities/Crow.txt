@@ -1,39 +1,44 @@
-[Q] Rapid Volley (rapid_volley) : Crow riddles the ground with bullet holes, randomly dealing physical damage around the target enemy over 4 seconds. Crow can move during the ability, but it's interrupted if the target moves too far away or Crow takes damage. Crow's firerate increases over the course of the ability.
-Enhanced : Max number of shots increased. Crow can move while shooting with his MOV reduced by 15%, but other actions cancel this ability.
-DevNotes - The two slows fully stack. Fires 1 shot at the start, then the rest in 0.2/0.1 second intervals. The area radius is divided into four 90° segments. The first shot damages within the north-east segment of the circle. The next occurs in the north-west segment, proceeding counterclockwise.
+[Q] Rapid Volley (rapid_volley) : Crow delivers suppressive fire, randomly dealing physical damage around an enemy for 3 seconds. Crow can move while shooting, but is interrupted on taking damage from a craft or art or when the target is too far away. The rate of fire increases over time.
+Enhanced : Increases base rate of fire and maximum range. Each hit knocks enemies back and inflicts delay for 0.2 seconds.
+DevNotes - Fires 1 shot at the start, then in 0.25 second intervals, reduced by 0.05 each second. The enhanced version starts at 0.2 second intervals. The area radius is divided into four 90° segments. The first shot damages within the north-east segment of the circle. The next occurs in the north-west segment, proceeding counterclockwise.
 
 Cast Point : 0.3
 Delay : 4
-Max Shots (shots) : 11
+Max Shots (shots) : 17
 %Physical Damage per Shot (damage_percent) : 45%
-%Area Move Speed Slow (area_slow) : 25%
-%Damage Move Speed Slow (bullet_slow) : 25%
-Damage Move Speed Slow Duration (bullet_slow_duration) : 3
-Cast Range : 800
+Cast Range : 500
+Maximum Range : 750
 Area Radius (area_slow_radius) : 275
-Damage Radius : 100
+Damage Radius : 125
 Damage Spawn Radius : 75-200
-Enhanced Max Shots (unbalanced_shots) : 21
+Enhanced Max Shots (unbalanced_shots) : 23
+Enhanced Maximum Range : 900
+Enhanced Knockback Distance : 75
 CP Cost : 20
 
-[W] Freezing Bullet (freezing_bullet) : Crow fires a shot imbued with the power of ice, leaving a trail of frost in its path. After 1 second, the trail coalesces into a solid wall of ice, blocking all movement. The wall can be destroyed by any damaging ability from Crow or allies, shattering it and dealing magical damage to enemies on the far side of the wall.
-Enhanced : No cast point. Increases Freeze duration.
-DevNotes - Cancels all the target's commands at the start of the Freeze.
+[W] Freezing Bullet (freezing_bullet) : Crow fires a shot that leaves a trail of frost in its path. After 1 second, the trail coalesces into a wall of ice that blocks movement. The wall can be shattered by any damaging craft or art from an ally, dealing magical damage to enemies on the other side. The trail and wall Freezes each enemy the first time they approach it.
+Enhanced : The wall forms as the shot travels and deals magical damage to enemies within Freeze radius. The shatter damage is also increased.
+DevNotes - The cast range is trail/wall length. The trail becomes a wall after the shot completes traveling, which means the real delay is 1.4 seconds. Each trail/wall only Freezes each enemy once and ends previous instances of Freeze, dealing its pure damage. The damage is dealt in a 500 x 800 box, on the opposite side of the hero that shattered the wall. The wall just melts if it reaches max duration.
 
-Cast Point : 0.6
+Cast Point : 0.4
 Delay : 5
-%Magical Damage (damage_percent) : 140%
+Max Wall Duration : 15
+%Magical Damage (damage_percent) : 160%
 Freeze Duration (freeze_duration) : 3
-Cast Range (range) : 700
-Travel Speed : 1700
-Radius (radius) : 250
-Enhanced Freeze Duration (unbalanced_freeze_duration) : 5
+Cast Range (range) : 800
+Travel Speed : 2000
+Wall Width : 225
+Trail Freeze Radius : 75
+Wall Freeze Radius : 150
+Shatter Damage Radius : 500
+Enhanced Wall Magical Damage : 320%
+Enhanced Shatter Magical Damage : 320%
 CP Cost : 30
 
 [E] Wild Card (wild_card) : Crow draws a card to aid or hinder a random hero. If it's an ally, it increases their STR or DEF and ADF or gives them CP Boost. If it's an enemy, they are Confused or suffer a Deathblow.
 Enhanced : Draws a card for all heroes.
 
-Cast Point : 0.6
+Cast Point : 0.4
 Delay : 4
 %Stat Increase (stat_increase_percent) : 50%
 Stat Increase & CP Boost Duration (stat_increase_duration) : 9
@@ -41,20 +46,18 @@ Confuse & Deathblow Duration (debuff_duration) : 3
 Radius : Global
 CP Cost : 5
 
-[D] Chaos Trigger (chaos_trigger) : Crow takes aim, locking on to enemies in a line in front of him. After locking on to an enemy for 2 seconds, he fires a piercing shot which deals physical damage to enemies hit. The first enemy hit is Nightmared, and any other enemies hit are Confused. Crow can turn while aiming, but taking damage cancels the ability.
-Enhanced : Increases the damage of the first shot. Fires a second shot that also causes Confuse and Nightmare but deals reduced damage in the same trajectory after 2 seconds. All other actions cancel this.
-DevNotes - 50% chance to Confuse, 50% chance to Nightmare.
+[D] Chaos Trigger (chaos_trigger) : Crow takes aim with a bullet of pure insanity for 2 seconds, locking on to enemies within a line. He takes the shot immediately after locking on, dealing physical damage to enemies hit. The first enemy hit is Nightmared, and any other enemies hit are Confused. Crow can turn at a reduced rate while aiming, but is interrupted on taking damage from a craft or art.
+Enhanced : The aim duration is tripled. Crow continues to aim after firing, but the additional shots don't apply Nightmare or Confuse.
+DevNotes - The shot is instant, hitting the locked-on enemy and any others standing on the line Crow and the target form.
 
 Cast Point : 0
 Delay : 6
+Aim Turn Rate : 0.02
 Lockon Time (lockon_time) : 0.9
 %Physical Damage (damage_percent) : 250%
 Confuse & Nightmare Duration (debuff_duration) : 3
-Range (range) : 1100
+Range (range) : 1200
 Aim Width (width) : 225
-Confuse Range (confuse_range) : 600
-%Enhanced First Shot Damage (unbalanced_damage_percent) : 300%
-%Enhanced Second Shot Damage (unbalanced_secondary_damage_percent) : 125%
 CP Cost : 45
 
 [R] Cross Raven (cross_raven) : S-Craft: Crow unleashes bullets in all directions, which home into an area after a delay and detonate to deal physical damage. Enemies away from the center take decreased damage. Can be cast again up to 2 times to alter their destination, their travel speed increasing over time.
