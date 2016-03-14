@@ -82,6 +82,7 @@ function increaseUnbalance(caster, target, bonus_increase)
 				modifier:SetStackCount(0)
 				caster:RemoveModifierByName("modifier_brute_force")
 				triggerUnbalanceEvent(target)
+				EmitSoundOn("Trails.Unbalanced", target)
 			end
 		end
 	end
