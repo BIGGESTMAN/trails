@@ -76,7 +76,7 @@ function increaseUnbalance(caster, target, bonus_increase)
 			local unbalance_increase = (base_increase + bonus_increase) * getHeroLinkScaling(caster)
 			if target:HasModifier("modifier_balance_down") then unbalance_increase = unbalance_increase * BALANCE_DOWN_UNBALANCE_FACTOR end
 			modifier:IncreaseLevel(unbalance_increase)
-			if modifier:GetStackCount() >= unbalance_threshold or caster:HasModifier("modifier_brute_force") then
+			if modifier:GetStackCount() >= unbalance_threshold or caster:HasModifier("modifier_brute_force") or ONE_HIT_UNBALANCE then
 				ability:ApplyDataDrivenModifier(caster, caster.combat_linked_to, "modifier_combat_link_followup_available", {})
 				ability:ApplyDataDrivenModifier(caster, target, "modifier_combat_link_unbalanced", {})
 				modifier:SetStackCount(0)

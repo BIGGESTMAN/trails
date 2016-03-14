@@ -185,6 +185,8 @@ function GameMode:OnPlayerChat(keys)
 		end
 	elseif text == "-startround" then
 		RoundManager:StartRound()
+	elseif text == "-debugunbalance" then
+		ONE_HIT_UNBALANCE = not ONE_HIT_UNBALANCE
 	end
 end
 

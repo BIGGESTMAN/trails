@@ -20,6 +20,8 @@ STAT_MOV = "modifier_mov_up" -- Increases MS
 STAT_MOV_DOWN = "modifier_mov_down"
 STAT_MAX_INCREASE = 50
 
+ONE_HIT_UNBALANCE = false
+
 SCRAFT_MINIMUM_CP = 100
 MAX_CP = 200
 END_OF_ROUND_LOSER_CP = 50
