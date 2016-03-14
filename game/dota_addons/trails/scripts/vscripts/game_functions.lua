@@ -546,6 +546,16 @@ function getAllHeroes()
 	return heroes
 end
 
+function getAllLivingHeroes()
+	local living_heroes = {}
+	for k,hero in pairs(getAllHeroes()) do
+		if hero:IsAlive() then
+			table.insert(living_heroes, hero)
+		end
+	end
+	return living_heroes
+end
+
 function triggerModifierEvent(event_name, args)
 	local modifier_function = nil
 

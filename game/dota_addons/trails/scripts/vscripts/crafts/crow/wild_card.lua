@@ -19,7 +19,7 @@ if IsServer() then
 		modifyCP(caster, getCPCost(ability) * -1)
 		applyDelayCooldowns(caster, ability)
 
-		local targets = getAllHeroes()
+		local targets = getAllLivingHeroes()
 		if not enhanced then
 			local unit = targets[RandomInt(1, #targets)]
 			wildCardEffect(caster, unit)
