@@ -71,3 +71,5 @@ Modifiers
 ~ Buster Arm Knockback (modifier_buster_arm_knockback) : Sent flying by Buster Arm.
 ~ Force Field (modifier_ultimate_barrier_force_field) : Lammy is generating a force field around Millium, protecting all allies inside from harm.
 ~ Sledge Impact Slow (modifier_sledge_impact_slow) : SPD and MOV reduced by 50%%.
+
+~ Teleporting (modifier_tower_teleporting) : Teleporting to a controlled Tetracyclic Tower.

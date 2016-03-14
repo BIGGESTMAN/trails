@@ -85,7 +85,7 @@ function createWall(caster, origin, endpoint, args)
 
 	local distance = (endpoint - origin):Length2D()
 	local direction = (endpoint - origin):Normalized()
-	local wall_segments = distance / 100
+	local wall_segments = distance / 40
 	local wall_entities = {}
 	local wall_dummies = {}
 
@@ -162,7 +162,7 @@ function shatterWall(self, dummy, shattering_unit)
 	for k,entity in pairs(wall.entities) do
 		local origin = entity:GetAbsOrigin()
 		local end_point = origin + direction * range
-		local radius = (800 / 8) / 2 + 10
+		local radius = (800 / 20) / 2 + 10
 
 		local team = caster:GetTeamNumber()
 		local iTeam = DOTA_UNIT_TARGET_TEAM_ENEMY

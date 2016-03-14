@@ -55,6 +55,11 @@
 	"music_control_button"							"Toggle Music"
 	"ready_button"									"Ready"
 	"current_turn_bonus"							"Current Turn Bonus:"
+	"teleport_window_header"						"Teleport To Tower"
+	"teleport_to_tower_1"							"Esmelas Tower"
+	"teleport_to_tower_2"							"Amberl Tower"
+	"teleport_to_tower_3"							"Carnelia Tower"
+	"teleport_to_tower_4"							"Sapphirl Tower"
 
 	"round_recap_header"							"Round Recap (Damage Dealt)"
 	"round_recap_close"								"Close"
@@ -102,15 +107,4 @@
 	
 	"quest_counter"									"({d:count}/{d:max})"
 	"quest_timer"									"{s:title} in {d:time}..."
-	"quest_boss"									"A strong enemy has appeared! Take it down!"
-	"quest_postboss_cleanup"						"Defeat remaining invaders!"
-
-	"quest_megaboss_begin"							"The portal is open! Enter when you are ready..."
-
-
-	"wave_complete"									"Wave Complete"
-
-	"wave_kobolds"									"Round 1: Woodland Critters"
-	"wave_ogres"									"Round 2: Ogres & Trolls"
-	"wave_unknown"									"Round ?: ???"
 }

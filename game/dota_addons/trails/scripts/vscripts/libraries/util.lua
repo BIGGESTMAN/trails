@@ -276,3 +276,7 @@ end
 function distanceBetween(point1, point2)
 	return (point1 - point2):Length2D()
 end
+
+function colorHexToVector(hexString)
+	return Vector(tonumber("0x"..hexString:sub(1,2)) / 255, tonumber("0x"..hexString:sub(3,4)) / 255, tonumber("0x"..hexString:sub(5,6)) / 255)
+end

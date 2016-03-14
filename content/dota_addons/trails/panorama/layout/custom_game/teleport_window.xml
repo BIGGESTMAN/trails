@@ -1,0 +1,25 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/custom_game/teleport_window.css" />
+		<include src="s2r://panorama/styles/custom_game/shared.css" />
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+	</styles>
+	<scripts>
+		<include src="s2r://panorama/scripts/custom_game/teleport_window.js" />
+	</scripts>
+	<Panel hittest="false" class="TeleportWindow">
+		<Label id="WindowTitle" class="Header" text="#teleport_window_header"/>
+		<Button hittest="true" id="Button1" class="ButtonBevel   TeleportButton Esmelas" onactivate="OnTeleportButtonPressed(1)">
+			<Label text="#teleport_to_tower_1" class="Text"/>
+		</Button>
+		<Button hittest="true" id="Button2" class="ButtonBevel   TeleportButton Amberl" onactivate="OnTeleportButtonPressed(2)">
+			<Label text="#teleport_to_tower_2" class="Text"/>
+		</Button>
+		<Button hittest="true" id="Button3" class="ButtonBevel   TeleportButton Carnelia" onactivate="OnTeleportButtonPressed(3)">
+			<Label text="#teleport_to_tower_3" class="Text"/>
+		</Button>
+		<Button hittest="true" id="Button4" class="ButtonBevel   TeleportButton Sapphirl" onactivate="OnTeleportButtonPressed(4)">
+			<Label text="#teleport_to_tower_4" class="Text"/>
+		</Button>
+	</Panel>
+</root>

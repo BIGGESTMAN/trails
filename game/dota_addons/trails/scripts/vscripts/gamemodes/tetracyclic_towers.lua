@@ -1,11 +1,15 @@
 require "round_manager"
 require "game_functions"
+require "libraries/util"
 
 ROUND_TIME = 90
 ATTACKER_VICTORY_CAPTURE_TIME = 15
+TELEPORT_TIME = 4
+TELEPORT_RADIUS = 500
 
 LinkLuaModifier("modifier_capture_blocked", "gamemodes/tetracyclic_towers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_base_vision_buff", "gamemodes/modifier_base_vision_buff.lua", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_tower_teleporting", "gamemodes/modifier_tower_teleporting.lua", LUA_MODIFIER_MOTION_NONE)
 
 if not Gamemode_Tetracyclic then
 	Gamemode_Tetracyclic = {}
@@ -18,22 +22,67 @@ function Gamemode_Tetracyclic:Initialize()
 	self.capture_radius = 400
 	self.tower_capture_time = 4
 	self.damage_capture_delay = 3
+	self.can_teleport = {}
 	self:CreateTowers()
+	CustomGameEventManager:RegisterListener("teleport_button_pressed", WrapMemberMethod(self.OnTeleportButtonPressed, self))
 end
 
 function Gamemode_Tetracyclic:CreateTowers()
 	local tower_locations = Entities:FindAllByName("tetracyclic_tower")
 	for k,entity in pairs(tower_locations) do
 		self.towers[k] = CreateUnitByName("tetracyclic_tower", entity:GetAbsOrigin(), false, nil, nil, DOTA_TEAM_GOODGUYS)
+		self.towers[k].tower_id = entity:GetIntAttr("tower_id")
 		self.towers[k]:FindAbilityByName("tetracyclic_tower_passive"):SetLevel(1)
 		self.towers[k].capture_progress = 0
 		self.towers[k].captured_by = {}
 		self.towers[k].being_captured_by = nil
+		local color = self:GetColorForTower(self.towers[k])
+		self.towers[k]:SetRenderColor(color.x * 255, color.y * 255, color.z * 255)
+	end
+end
+
+function Gamemode_Tetracyclic:OnTeleportButtonPressed(eventSourceIndex, args)
+	local tower_id = args.towerIndex
+	local target_tower = self:GetTowerById(tower_id)
+	local player = EntIndexToHScript(eventSourceIndex)
+	local hero = player:GetAssignedHero()
+
+	if self.can_teleport[hero] and hero:GetTeam() == target_tower:GetTeam() then
+		hero:AddNewModifier(hero, nil, "modifier_tower_teleporting", {duration = TELEPORT_TIME})
+		hero:FindModifierByName("modifier_tower_teleporting"):SetTeleportDestination(self:GetTeleportDestination(target_tower), self:GetColorForTower(target_tower))
+		CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "teleport_window_hide", {})
+		self.can_teleport[hero] = false
+	end
+end
+
+function Gamemode_Tetracyclic:GetTeleportDestination(tower)
+	return randomPointInCircle(tower:GetAbsOrigin(), TELEPORT_RADIUS)
+end
+
+function Gamemode_Tetracyclic:GetTowerById(tower_id)
+	for k,tower in pairs(self.towers) do
+		if tower.tower_id == tower_id then
+			return tower
+		end
 	end
 end
 
 function Gamemode_Tetracyclic:StartRound(round)
 	self:StartRoundTimer(ROUND_TIME)
+	for k,hero in pairs(getAllHeroes()) do
+		CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "teleport_window_start", {towersOwned = self:GetTowersOwned(hero:GetTeamNumber())})
+		self.can_teleport[hero] = true
+	end
+end
+
+function Gamemode_Tetracyclic:GetTowersOwned(team)
+	local towers_owned = {}
+	for k,tower in pairs(self.towers) do
+		if tower:GetTeamNumber() == team then
+			towers_owned[tower.tower_id] = true
+		end
+	end
+	return towers_owned
 end
 
 function Gamemode_Tetracyclic:StartRoundTimer(time)
@@ -98,6 +147,7 @@ function Gamemode_Tetracyclic:EndRound(winning_team)
 	end
 
 	self:EndRoundTimer()
+	CustomGameEventManager:Send_ServerToAllClients("teleport_window_hide", {})
 end
 
 function onTowerThink(keys)
@@ -248,6 +298,18 @@ end
 
 function Gamemode_Tetracyclic:GetDefendingTeam()
 	return (RoundManager.current_round % 2) + 2
+end
+
+function Gamemode_Tetracyclic:GetColorForTower(tower)
+	if tower.tower_id == 1 then
+		return colorHexToVector("50c878")
+	elseif tower.tower_id == 2 then
+		return colorHexToVector("ffc200")
+	elseif tower.tower_id == 3 then
+		return colorHexToVector("B31B1B")
+	elseif tower.tower_id == 4 then
+		return colorHexToVector("0F52BA")
+	end
 end
 
 modifier_capture_blocked = class({})

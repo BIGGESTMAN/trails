@@ -63,5 +63,6 @@
 		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/action_bar_container.xml" />
 		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/round_recap.xml" />
 		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/ready_button.xml" />
+		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/teleport_window.xml" />
 	</Panel>
 </root>
