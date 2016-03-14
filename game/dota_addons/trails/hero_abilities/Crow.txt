@@ -4,35 +4,34 @@ DevNotes - Fires 1 shot at the start, then in 0.25 second intervals, reduced by 
 
 Cast Point : 0.3
 Delay : 4
-Max Shots (shots) : 17
+Max Shots (tooltip_shots) : 17
 %Physical Damage per Shot (damage_percent) : 45%
 Cast Range : 500
 Maximum Range : 750
-Area Radius (area_slow_radius) : 275
 Damage Radius : 125
 Damage Spawn Radius : 75-200
-Enhanced Max Shots (unbalanced_shots) : 23
+Enhanced Max Shots (tooltip_unbalanced_shots) : 23
 Enhanced Maximum Range : 900
 Enhanced Knockback Distance : 75
 CP Cost : 20
 
 [W] Freezing Bullet (freezing_bullet) : Crow fires a shot that leaves a trail of frost in its path. After 1 second, the trail coalesces into a wall of ice that blocks movement. The wall can be shattered by any damaging craft or art from an ally, dealing magical damage to enemies on the other side. The trail and wall Freezes each enemy the first time they approach it.
-Enhanced : The wall forms as the shot travels and deals magical damage to enemies within Freeze radius. The shatter damage is also increased.
+Enhanced : The wall forms immediately and deals magical damage to enemies when Freezing them. The shatter damage is also increased.
 DevNotes - The cast range is trail/wall length. The trail becomes a wall after the shot completes traveling, which means the real delay is 1.4 seconds. Each trail/wall only Freezes each enemy once and ends previous instances of Freeze, dealing its pure damage. The damage is dealt in a 500 x 800 box, on the opposite side of the hero that shattered the wall. The wall just melts if it reaches max duration.
 
 Cast Point : 0.4
 Delay : 5
-Max Wall Duration : 15
-%Magical Damage (damage_percent) : 160%
+Max Wall Duration (wall_duration) : 15
+%Magical Damage (shatter_damage_percent) : 160%
 Freeze Duration (freeze_duration) : 3
-Cast Range (range) : 800
+Range (range) : 800
 Travel Speed : 2000
 Wall Width : 225
 Trail Freeze Radius : 75
 Wall Freeze Radius : 150
 Shatter Damage Radius : 500
-Enhanced Wall Magical Damage : 320%
-Enhanced Shatter Magical Damage : 320%
+Enhanced Wall Magical Damage (unbalanced_freeze_damage_percent) : 320%
+Enhanced Shatter Magical Damage (unbalanced_shatter_damage_percent) : 320%
 CP Cost : 30
 
 [E] Wild Card (wild_card) : Crow draws a card to aid or hinder a random hero. If it's an ally, it increases their STR or DEF and ADF or gives them CP Boost. If it's an enemy, they are Confused or suffer a Deathblow.

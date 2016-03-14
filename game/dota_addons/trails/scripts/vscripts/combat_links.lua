@@ -70,7 +70,7 @@ function increaseUnbalance(caster, target, bonus_increase)
 	local unbalance_threshold = ability:GetSpecialValueFor("unbalance_threshold")
 	bonus_increase = bonus_increase or 0
 
-	if caster.combat_linked_to then
+	if caster.combat_linked_to and IsValidAlive(target) then
 		local modifier = target:FindModifierByName("modifier_unbalanced_level")
 		if modifier then -- to make script not crash when hitting creeps ~_~
 			local unbalance_increase = (base_increase + bonus_increase) * getHeroLinkScaling(caster)

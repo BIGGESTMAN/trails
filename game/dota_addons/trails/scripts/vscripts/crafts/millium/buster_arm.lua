@@ -91,23 +91,25 @@ function busterArmHit(caster, unit, damage_scale, faint_duration, enhanced)
 end
 
 function checkForUnitCollision(unit)
-	local collision_radius = unit:GetModelRadius()
-	local caster = unit:FindModifierByName("modifier_buster_arm_knockback"):GetCaster()
-	local ability = caster:FindAbilityByName("buster_arm")
-	local faint_duration = unit.buster_arm_faint_duration
-	unit.buster_arm_faint_duration = nil
+	if IsValidAlive(unit) then
+		local collision_radius = unit:GetModelRadius()
+		local caster = unit:FindModifierByName("modifier_buster_arm_knockback"):GetCaster()
+		local ability = caster:FindAbilityByName("buster_arm")
+		local faint_duration = unit.buster_arm_faint_duration
+		unit.buster_arm_faint_duration = nil
 
-	local team = unit:GetTeamNumber()
-	local origin = unit:GetAbsOrigin()
-	local iTeam = DOTA_UNIT_TARGET_TEAM_BOTH
-	local iType = DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC + DOTA_UNIT_TARGET_MECHANICAL
-	local iFlag = DOTA_UNIT_TARGET_FLAG_NONE
-	local iOrder = FIND_ANY_ORDER
-	local targets = FindUnitsInRadius(team, origin, nil, collision_radius, iTeam, iType, iFlag, iOrder, false)
-	if #targets > 1 then
-		unit:AddNewModifier(caster, ability, "modifier_faint", {duration = faint_duration})
-		unit:RemoveModifierByName("modifier_buster_arm_knockback")
-		unit:SetPhysicsVelocity(Vector(0,0,0))
+		local team = unit:GetTeamNumber()
+		local origin = unit:GetAbsOrigin()
+		local iTeam = DOTA_UNIT_TARGET_TEAM_BOTH
+		local iType = DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC + DOTA_UNIT_TARGET_MECHANICAL
+		local iFlag = DOTA_UNIT_TARGET_FLAG_NONE
+		local iOrder = FIND_ANY_ORDER
+		local targets = FindUnitsInRadius(team, origin, nil, collision_radius, iTeam, iType, iFlag, iOrder, false)
+		if #targets > 1 then
+			unit:AddNewModifier(caster, ability, "modifier_faint", {duration = faint_duration})
+			unit:RemoveModifierByName("modifier_buster_arm_knockback")
+			unit:SetPhysicsVelocity(Vector(0,0,0))
+		end
 	end
 end
 

@@ -89,6 +89,16 @@
 				"var_type"				"FIELD_FLOAT"
 				"unbalanced_knockback_duration"	"0.15"
 			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"tooltip_shots"			"17"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"tooltip_unbalanced_shots"	"22"
+			}
 		}
 
 		"OnSpellStart"

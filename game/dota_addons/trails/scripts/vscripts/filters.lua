@@ -30,18 +30,18 @@ function Filters:ExecuteOrderFilter(event)
 			if EntIndexToHScript(unit_index):HasModifier("modifier_confuse") then
 				return false
 			end
-			if EntIndexToHScript(unit_index):HasModifier("modifier_freeze") then
-				local delayed_order = {
-					UnitIndex = unit_index,
-					OrderType = event.order_type + 100,
-					TargetIndex = event.entindex_target,
-					AbilityIndex = event.entindex_ability,
-					Position = Vector(event.position_x, event.position_y, event.position_z),
-					Queue = event.queue
-				}
-				Timers:CreateTimer(FREEZE_COMMAND_DELAY, function() ExecuteOrderFromTable(delayed_order) end)
-				return false
-			end
+			-- if EntIndexToHScript(unit_index):HasModifier("modifier_freeze") then
+			-- 	local delayed_order = {
+			-- 		UnitIndex = unit_index,
+			-- 		OrderType = event.order_type + 100,
+			-- 		TargetIndex = event.entindex_target,
+			-- 		AbilityIndex = event.entindex_ability,
+			-- 		Position = Vector(event.position_x, event.position_y, event.position_z),
+			-- 		Queue = event.queue
+			-- 	}
+			-- 	Timers:CreateTimer(FREEZE_COMMAND_DELAY, function() ExecuteOrderFromTable(delayed_order) end)
+			-- 	return false
+			-- end
 		end
 	else
 		event.order_type = event.order_type - 100

@@ -560,8 +560,10 @@ function GameMode:OnNPCSpawned(keys)
 		GameMode:OnHeroInGame(npc)
 	end
 
-	if npc:HasAbility("reflex_dummy_unit") then
-		npc:FindAbilityByName("reflex_dummy_unit"):SetLevel(1)
+	if npc:HasAbility("dummy_unit") then npc:FindAbilityByName("dummy_unit"):SetLevel(1) end
+	if npc:HasAbility("dummy_unit_vulnerable") then
+		npc:FindAbilityByName("dummy_unit_vulnerable"):SetLevel(1)
+		npc.AddNewModifier = function() end -- make dummies immune to recieving buffs/debuffs
 	end
 
 	local imported_model = false
@@ -747,8 +749,8 @@ end
 
 -- An entity died
 function GameMode:OnEntityKilled( keys )
-	--print( '[BAREBONES] OnEntityKilled Called' )
-	--DeepPrintTable( keys )
+	-- print( '[BAREBONES] OnEntityKilled Called' )
+	-- DeepPrintTable( keys )
 
 	-- The Unit that was Killed
 	local killedUnit = EntIndexToHScript( keys.entindex_killed )

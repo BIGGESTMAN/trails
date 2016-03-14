@@ -84,18 +84,24 @@ LinkLuaModifier("modifier_unshatterable_bonds", "effect_modifiers.lua", LUA_MODI
 -- Notifications:Top((hero.combat_linked_to):GetPlayerOwner(), {text="I've Got You!", style={color="green", ["font-size"]="26px"}, continue = true})
 
 function applyEffect(target, damage_type, effect)
-	if target:HasModifier("modifier_guard_high_priority") and (damage_type == DAMAGE_TYPE_PHYSICAL or damage_type == DAMAGE_TYPE_MAGICAL) then
-		return
-	elseif target:HasModifier("modifier_physical_guard") and damage_type == DAMAGE_TYPE_PHYSICAL then
-		target:RemoveModifierByName("modifier_physical_guard")
-	elseif target:HasModifier("modifier_magical_guard") and damage_type == DAMAGE_TYPE_MAGICAL then
-		target:RemoveModifierByName("modifier_magical_guard")
-	else
-		effect()
+	if IsValidAlive(target) then
+		if target:HasModifier("modifier_guard_high_priority") and (damage_type == DAMAGE_TYPE_PHYSICAL or damage_type == DAMAGE_TYPE_MAGICAL) then
+			return
+		elseif target:HasModifier("modifier_physical_guard") and damage_type == DAMAGE_TYPE_PHYSICAL then
+			target:RemoveModifierByName("modifier_physical_guard")
+		elseif target:HasModifier("modifier_magical_guard") and damage_type == DAMAGE_TYPE_MAGICAL then
+			target:RemoveModifierByName("modifier_magical_guard")
+		else
+			effect()
+		end
 	end
 end
 
 function dealDamage(target, attacker, damage, damage_type, ability, cp_gain_factor, enhanced, status)
+	if target:GetUnitName() == "npc_dummy_unit_vulnerable" then
+		if not status and target.freezingBulletWallShatter then target:freezingBulletWallShatter(target, attacker) end
+		return
+	end
 	if target.combat_linked_to and target.combat_linked_to:HasModifier("modifier_master_force_passive") and pointIsBetweenPoints(target.combat_linked_to:GetAbsOrigin(), target:GetAbsOrigin(), attacker:GetAbsOrigin()) then
 		local cover_damage_percent = getMasterQuartzSpecialValue(target.combat_linked_to, "cover_damage_reduction") / 100
 		if cover_damage_percent > 0 then

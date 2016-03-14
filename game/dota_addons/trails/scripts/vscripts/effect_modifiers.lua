@@ -176,11 +176,6 @@ end
 modifier_freeze = class({})
 
 if IsServer() then
-	function modifier_freeze:OnCreated( kv )
-		self:GetParent():Interrupt()
-		self:GetParent():Stop()
-	end
-
 	function modifier_freeze:OnDestroy()
 		local caster = self:GetCaster()
 		local target = self:GetParent()
@@ -192,12 +187,8 @@ if IsServer() then
 	end
 end
 
-function modifier_freeze:GetEffectName()
-	return "particles/units/heroes/hero_crystalmaiden/maiden_frostbite_buff.vpcf"
-end
-
-function modifier_freeze:GetEffectAttachType()
-	return PATTACH_ABSORIGIN_FOLLOW
+function modifier_freeze:OnRefresh(params)
+	self:OnDestroy()
 end
 
 function modifier_freeze:GetTexture()
@@ -206,6 +197,22 @@ end
 
 function modifier_freeze:IsDebuff()
 	return true
+end
+
+function modifier_freeze:GetStatusEffectName()
+	return "particles/status_fx/status_effect_iceblast.vpcf"
+end
+
+function modifier_freeze:HeroEffectPriority()
+	return 10
+end
+
+function modifier_freeze:GetModifierTurnRate_Percentage()
+	return -80
+end
+
+function modifier_freeze:DeclareFunctions()
+	return {MODIFIER_PROPERTY_TURN_RATE_PERCENTAGE}
 end
 
 modifier_confuse = class({})

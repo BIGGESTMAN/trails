@@ -268,3 +268,7 @@ function pointIsInFront(point, comparison_point, direction)
 	local angle = direction:Dot(direction_towards_origin)
 	return angle <= 0
 end
+
+function midpoint(point1, point2)
+	return (point2 - point1) / 2 + point1
+end
