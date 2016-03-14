@@ -45,14 +45,15 @@ Confuse & Deathblow Duration (debuff_duration) : 3
 Radius : Global
 CP Cost : 5
 
-[D] Chaos Trigger (chaos_trigger) : Crow takes aim with a bullet of pure insanity for 2 seconds, locking on to enemies within a line. He takes the shot immediately after locking on, dealing physical damage to enemies hit. The first enemy hit is Nightmared, and any other enemies hit are Confused. Crow can turn at a reduced rate while aiming, but is interrupted on taking damage from a craft or art.
-Enhanced : The aim duration is tripled. Crow continues to aim after firing, but the additional shots don't apply Nightmare or Confuse.
+[D] Chaos Trigger (chaos_trigger) : Crow takes aim with a bullet of pure insanity, locking on to enemies within a line. He fires a piercing shot at the first enemy he locks on to, dealing physical damage to enemies hit. The first enemy hit is Nightmared, and any other enemies hit are Confused. Crow can turn at a reduced rate while aiming, but is interrupted on taking damage from a craft or art.
+Enhanced : The aiming period is tripled. Crow continues to aim after firing, but the additional shots don't apply Nightmare or Confuse.
 DevNotes - The shot is instant, hitting the locked-on enemy and any others standing on the line Crow and the target form.
 
 Cast Point : 0
 Delay : 6
+Aim Period (aim_period) : 2.5
 Aim Turn Rate : 0.02
-Lockon Time (lockon_time) : 0.9
+Lockon Time (lockon_time) : 1.5
 %Physical Damage (damage_percent) : 250%
 Confuse & Nightmare Duration (debuff_duration) : 3
 Range (range) : 1200

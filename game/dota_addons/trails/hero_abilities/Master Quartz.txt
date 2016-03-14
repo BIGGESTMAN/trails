@@ -26,3 +26,11 @@ Counterattack : Whenever your link partner takes 0/400/350/300/250 damage (450 R
 Gambling Magic : Whenever you deal 0/0/350/300/250 magical damage, your next instance of magical damage reduces STR, DEF, or MOV by 25% for 0/0/8/10/12 seconds.
 Auto-charge : Once per 0/0/0/10/6 seconds, whenever your link partner casts an Art, 0/0/0/15/20% of their max EP is restored (450 Radius).
 Reaper : Whenever you deal 0/0/0/0/250 damage, your next instance of damage inflicts Deathblow for 5 seconds.
+
+Angel
+Art - Thelas -> Seraphim Ring (Lv.5)
+Guardian : On taking lethal damage, resurrects you with 10/20/30/40/50% of your max health and EP and 0/14/26/38/50 CP. Amounts are doubled if your link partner is nearby (450 Radius). Happens only once per round.
+Lively Yell : Whenever your link partner is unbalanced, heals them for 0/7/10/13/16% of their max health and gives them 0/10/15/20/25 CP (450 Radius).
+Belief : When you fall below 20% of your max health, heals you for 0/0/50/75/100% of your max health over 10 seconds. Happens only once per round. 
+Quick Thelas : When your link partner falls, they are resurrected at 0/0/0/10/15% of their max health instead. Happens only once per round (450 Radius).
+Space Mastery : Halves the delay after casting Space Arts.

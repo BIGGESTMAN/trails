@@ -1,7 +1,7 @@
 	"chaos_trigger"
 	{
 		"BaseClass"						"ability_datadriven"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT_TARGET | DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT_TARGET | DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
@@ -9,11 +9,11 @@
 
 		"AbilityTextureName"			"sniper_assassinate"
 		"AbilityCastAnimation"			""
-		"AnimationPlaybackRate" 		"1.5"
+		"AnimationPlaybackRate" 		"0.9"
 
 		"precache"
 		{
-			"particle"					"particles/units/heroes/hero_bane/bane_projectile.vpcf"
+			"particle"					"particles/crafts/crow/chaos_trigger/bullet.vpcf"
 			"particle"					"particles/crafts/crow/chaos_trigger/lockon.vpcf"
 			"particle"					"particles/crafts/crow/chaos_trigger/aim_area.vpcf"
 		}
@@ -21,7 +21,6 @@
 		"AbilityCastPoint"				"0"
 		"AbilityCooldown"				"6"
 		"AbilityManaCost"				"0"
-		"AbilityChannelTime"			"1.5"
 		"CPCost"						"45"
 
 		"AbilitySpecial"
@@ -29,7 +28,17 @@
 			"01"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"lockon_time"			"0.9"
+				"aim_period"			"2.5"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"turn_rate"				"0.02"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"lockon_time"			"1.5"
 			}
 			"01"
 			{
@@ -44,7 +53,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"range"					"1100"
+				"range"					"1200"
 			}
 			"01"
 			{
@@ -53,18 +62,8 @@
 			}
 			"01"
 			{
-				"var_type"				"FIELD_INTEGER"
-				"unbalanced_shot_delay"	"2"
-			}
-			"01"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"unbalanced_damage_percent"	"300"
-			}
-			"01"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"unbalanced_secondary_damage_percent"	"125"
+				"var_type"				"FIELD_FLOAT"
+				"unbalanced_aim_period"	"7.5"
 			}
 		}
 
@@ -78,33 +77,10 @@
 			}
 		}
 
-		"OnChannelFinish"
-		{
-			"RunScript"
-			{
-				"ScriptFile"	"crafts/crow/chaos_trigger"
-				"Function"		"channelFinish"
-			}
-		}
-
-		"OnChannelSucceeded"
-		{
-			"RunScript"
-			{
-				"ScriptFile"	"crafts/crow/chaos_trigger"
-				"Function"		"channelSucceeded"
-			}
-		}
-
 		"Modifiers"
 		{
 			"modifier_chaos_trigger_casting"
 			{
-				"States"
-				{
-					"MODIFIER_STATE_COMMAND_RESTRICTED"		"MODIFIER_STATE_VALUE_ENABLED"
-				}
-
 				"ThinkInterval"  "0.03"
 				"OnIntervalThink"
 				{
@@ -114,42 +90,22 @@
 						"Function"		"aim"
 					}
 				}
-			}
-
-			"modifier_chaos_trigger_locked_on"
-			{
-				"IsDebuff"	"1"
-			}
-
-			"modifier_chaos_trigger_casting_secondary"
-			{
-				"Duration"	"%unbalanced_shot_delay"
-
-				"OnAbilityStart"
-				{
-					"RunScript"
-					{
-						"ScriptFile"	"crafts/crow/chaos_trigger"
-						"Function"		"endSecondaryShot"
-					}
-				}
-
-				"OnAttackStart"
-				{
-					"RunScript"
-					{
-						"ScriptFile"	"crafts/crow/chaos_trigger"
-						"Function"		"endSecondaryShot"
-					}
-				}
 
 				"OnDestroy"
 				{
 					"RunScript"
 					{
 						"ScriptFile"	"crafts/crow/chaos_trigger"
-						"Function"		"secondaryAimingEnded"
+						"Function"		"aimingFinished"
 					}
+				}
+
+				"States"
+				{
+					"MODIFIER_STATE_MUTED"			"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_DISARMED"		"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_SILENCED"		"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_ROOTED"			"MODIFIER_STATE_VALUE_ENABLED"
 				}
 			}
 		}

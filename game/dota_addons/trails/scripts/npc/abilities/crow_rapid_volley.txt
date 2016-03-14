@@ -115,6 +115,13 @@
 			"modifier_rapid_volley_casting"
 			{
 				"Duration"		"%duration"
+
+				"States"
+				{
+					"MODIFIER_STATE_MUTED"			"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_DISARMED"		"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_SILENCED"		"MODIFIER_STATE_VALUE_ENABLED"
+				}
 			}
 
 			"modifier_rapid_volley_knockback"

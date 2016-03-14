@@ -140,6 +140,9 @@ function dealDamage(target, attacker, damage, damage_type, ability, cp_gain_fact
 	if target:HasModifier("modifier_rapid_volley_casting") and ability and not status then
 		target:RemoveModifierByName("modifier_rapid_volley_casting")
 	end
+	if target:HasModifier("modifier_chaos_trigger_casting") and ability and not status then
+		target:RemoveModifierByName("modifier_chaos_trigger_casting")
+	end
 	if attacker and attacker ~= target then
 		grantDamageCP(damage, attacker, target, cp_gain_factor)
 	end

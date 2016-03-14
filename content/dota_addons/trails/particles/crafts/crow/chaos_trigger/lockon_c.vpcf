@@ -65,9 +65,9 @@
 		},
 		{
 			_class = "C_OP_LerpScalar"
-			m_flOutput = 0.805300
+			m_flOutput = 0.785000
 			m_nFieldOutput = 4
-			m_flEndTime = 1.260000
+			m_flEndTime = 1.400000
 		},
 		{
 			_class = "C_OP_SetToCP"

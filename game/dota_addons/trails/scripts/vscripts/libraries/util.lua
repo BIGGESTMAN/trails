@@ -272,3 +272,7 @@ end
 function midpoint(point1, point2)
 	return (point2 - point1) / 2 + point1
 end
+
+function distanceBetween(point1, point2)
+	return (point1 - point2):Length2D()
+end

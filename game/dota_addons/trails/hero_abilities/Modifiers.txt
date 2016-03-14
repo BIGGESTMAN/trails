@@ -18,7 +18,7 @@ Modifiers
 ~ Burned (modifier_burn) : On fire, losing 3%% of max HP each second.
 ~ Insight (modifier_insight) : Evading physical attacks, up to once per second.
 ~ Passion (modifier_passion) : Rapidly gaining CP.
-~ Frozen (modifier_freeze) : All actions are delayed by 0.6 seconds, and will lose 10%% of max HP when the freeze ends.
+~ Frozen (modifier_freeze) : Turn speed reduced by 80%%, and will lose 10%% of max HP when the freeze ends.
 ~ Confused (modifier_confuse) : Uncontrollable, and randomly attacking nearby units.
 ~ Nightmare (modifier_nightmare) : Disabled and unable to act; when the nightmare ends, a random non-sleep debuff will be applied for 3 seconds. Ends early if damage is taken.
 ~ Deathblow (modifier_deathblow) : Will die instantly if unit falls below 15%% of max HP.
@@ -65,9 +65,7 @@ Modifiers
 ~ Casting S-Craft (modifier_judgment_arrow_casting) : About to unleash Alisa's ultimate ability, Judgment Arrow.
 
 ~ Rapid Volley (modifier_rapid_volley_casting) : Barraging an area with bullets.
-~ Rapid Volley Slow (modifier_rapid_volley_area_slow) : Movement slowed by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%%.
-~ Rapid Volley Slow (modifier_rapid_volley_bullet_slow) : Movement slowed by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%%.
-~ Enhanced Rapid Volley (modifier_rapid_volley_enhanced_casting) : Rapidly barraging an area with bullets, and still able to move, although slowed by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%%.
+~ Chaos Trigger (modifier_chaos_trigger_casting) : Crow is preparing to unleash a bullet of pure insanity.
 ~ Casting S-Craft (modifier_cross_raven_casting) : About to unleash Crow's ultimate ability, Cross Raven.
 
 ~ Buster Arm Knockback (modifier_buster_arm_knockback) : Sent flying by Buster Arm.

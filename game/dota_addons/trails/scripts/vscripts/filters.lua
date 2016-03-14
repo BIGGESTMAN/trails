@@ -23,6 +23,8 @@ function Filters:ModifyGoldFilter(event)
 end
 
 function Filters:ExecuteOrderFilter(event)
+	local unit = nil
+	if event.units['0'] then unit = EntIndexToHScript(event.units['0']) end
 	if event.order_type >= 200 then
 		event.order_type = event.order_type - 200
 	elseif event.order_type < 100 then
@@ -45,6 +47,16 @@ function Filters:ExecuteOrderFilter(event)
 		end
 	else
 		event.order_type = event.order_type - 100
+	end
+	if unit:HasModifier("modifier_chaos_trigger_casting") and event.order_type == DOTA_UNIT_ORDER_STOP then
+		local target_point = unit:GetAbsOrigin() + unit:GetForwardVector()
+		local self_move_order = {
+			UnitIndex = event.units['0'],
+			OrderType = DOTA_UNIT_ORDER_MOVE_TO_POSITION,
+			Position = target_point,
+		}
+		ExecuteOrderFromTable(self_move_order)
+		return false
 	end
 	return true
 end

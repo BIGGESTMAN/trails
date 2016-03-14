@@ -63,11 +63,7 @@
 		},
 		{
 			_class = "C_OP_PositionLock"
-			m_nControlPointNumber = 3
-			m_flStartTime_min = 0.100000
-			m_flStartTime_max = 0.100000
-			m_flEndTime_min = 0.200000
-			m_flEndTime_max = 0.200000
+			m_bLockRot = true
 		},
 		{
 			_class = "C_OP_Orient2DRelToCP"
@@ -78,25 +74,25 @@
 			m_vecCP1Pos =
 			[
 				1100.000000,
-				225.000000,
+				112.500000,
 				0.000000,
 			]
 			m_vecCP2Pos =
 			[
 				1100.000000,
-				-225.000000,
+				-112.500000,
 				0.000000,
 			]
 			m_vecCP3Pos =
 			[
 				0.000000,
-				225.000000,
+				112.500000,
 				0.000000,
 			]
 			m_vecCP4Pos =
 			[
 				0.000000,
-				-225.000000,
+				-112.500000,
 				0.000000,
 			]
 		},
