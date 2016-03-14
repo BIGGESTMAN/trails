@@ -19,6 +19,19 @@ function spellCast(keys)
 	local iFlag = DOTA_UNIT_TARGET_FLAG_NONE
 	local iOrder = FIND_ANY_ORDER
 	caster.gale_targets = FindUnitsInRadius(team, origin, nil, radius, iTeam, iType, iFlag, iOrder, false)
+
+	local invalid_targets = {}
+	for k,unit in pairs(caster.gale_targets) do
+		if not (unit:HasModifier("modifier_gale_mark") and unit:FindModifierByName("modifier_gale_mark"):GetStackCount() == 2) then
+			table.insert(invalid_targets, unit)
+		else
+			unit:RemoveModifierByName("modifier_gale_mark")
+		end
+	end
+	for k,unit in pairs(invalid_targets) do
+		removeElementFromTable(caster.gale_targets, unit)
+	end
+
 	local enhanced = false
 	if validEnhancedCraft(caster, target) then
 		enhanced = true
@@ -33,17 +46,6 @@ function spellCast(keys)
 		end
 	else
 		caster.gale_original_location = caster:GetAbsOrigin()
-		local invalid_targets = {}
-		for k,unit in pairs(caster.gale_targets) do
-			if not (unit:HasModifier("modifier_gale_mark") and unit:FindModifierByName("modifier_gale_mark"):GetStackCount() == 2) then
-				table.insert(invalid_targets, unit)
-			else
-				unit:RemoveModifierByName("modifier_gale_mark")
-			end
-		end
-		for k,unit in pairs(invalid_targets) do
-			removeElementFromTable(caster.gale_targets, unit)
-		end
 	end
 
 	local crit = false
@@ -52,16 +54,18 @@ function spellCast(keys)
 		caster:RemoveModifierByName("modifier_crit")
 	end
 
-	if #caster.gale_targets > 0 or caster.gale_original_target then
+	if #caster.gale_targets > 0 then
 		modifyCP(caster, getCPCost(ability) * -1)
 		applyDelayCooldowns(caster, ability)
 		ability:ApplyDataDrivenModifier(caster, caster, "modifier_gale_dashing", {})
-		dashToNextTarget(caster, {crit = crit, enhanced = enhanced})
+		dashToNextTarget(caster, nil, nil, {crit = crit, enhanced = enhanced})
 	else
 		Notifications:Bottom(keys.caster:GetPlayerOwner(), {text="Target Area Must Contain Marked Enemies", duration=1, style={color="red"}})
 		ability:EndCooldown()
 		caster.gale_original_location = nil
 		caster.gale_targets = nil
+		caster.gale_secondary_targets = nil
+		caster.gale_original_target = nil
 	end
 end
 
@@ -98,7 +102,7 @@ function hitTarget(caster, direction, speed, other_args)
 	dash(caster, direction, dash_speed, dash_through_range, false, dashToNextTarget, other_args)
 end
 
-function dashToNextTarget(caster, args)
+function dashToNextTarget(caster, direction, speed, args)
 	local ability = caster:FindAbilityByName("gale")
 	local dash_speed = ability:GetSpecialValueFor("dash_speed")
 
@@ -110,13 +114,13 @@ function dashToNextTarget(caster, args)
 			caster:SetForwardVector((dash_target:GetAbsOrigin() - caster:GetAbsOrigin()):Normalized())
 			trackingDash(caster, dash_target, dash_speed, hitTarget, args)
 		else
-			dashToNextTarget(caster)
+			dashToNextTarget(caster, direction, speed, args)
 		end
 	elseif caster.gale_secondary_targets then -- Secondary slashes
 		caster.gale_targets = caster.gale_secondary_targets
 		caster.gale_secondary_targets = nil
 		caster.gale_secondary_phase = true
-		dashToNextTarget(caster)
+		dashToNextTarget(caster, direction, speed, args)
 	elseif caster.gale_secondary_phase and IsValidAlive(caster.gale_original_target) then -- Final slash against original unbalanced target
 		local dash_target = caster.gale_original_target
 		caster:SetForwardVector((dash_target:GetAbsOrigin() - caster:GetAbsOrigin()):Normalized())
