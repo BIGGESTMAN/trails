@@ -47,8 +47,8 @@
 			}
 			"01"
 			{
-				"var_type"				"FIELD_FLOAT"
-				"sear_duration"			"2.5"
+				"var_type"				"FIELD_INTEGER"
+				"sear_duration"			"4"
 			}
 			"01"
 			{
