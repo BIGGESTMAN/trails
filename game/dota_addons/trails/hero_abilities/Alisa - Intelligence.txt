@@ -20,11 +20,12 @@ CP Cost : 25
 Enhanced : Heals for more, grants more CP and places Mischievous Blessing on the target, causing Alisa and allies to heal and gain bonus CP when attacking them.
 
 Cast Point : 0.3
-Delay: 4
+Delay: 6
 Cast Range : 800
 Radius (radius) : 300
-%Healing (healing_percent) : 250
-CP (bonus_cp) : 40
+%Percent of Missing HP Healed (healing) : 25
+Delay (cp_delay) : 1.5
+%Percent of Healing to CP (bonus_cp_per_healing) : 10
 %Enhanced Healing (unbalanced_healing_percent) : 400
 Enhanced CP (unbalanced_bonus_cp) : 70
 Enhanced Debuff Duration (unbalanced_mischievous_duration) : 10

@@ -10,7 +10,7 @@ function spellCast(keys)
 	local arrow_travel_time = ability:GetSpecialValueFor("arrow_travel_time")
 	local range = (arrow_destination - caster:GetAbsOrigin()):Length()
 	local travel_speed = range / arrow_travel_time
-	local healing = getStats(caster).ats * ability:GetSpecialValueFor("healing_percent") / 100
+	local healing = ability:GetSpecialValueFor("healing") / 100
 	local bonus_cp = ability:GetSpecialValueFor("bonus_cp")
 	local args = {non_flat = true, healing = healing, bonus_cp = bonus_cp}
 
@@ -39,10 +39,12 @@ end
 
 function blessedArrowExplode(caster, origin_location, direction, speed, range, collisionRules, collisionFunction, other_args)
 	local ability = caster:FindAbilityByName("blessed_arrow")
-	local healing = other_args.healing
+	local healing_percent = other_args.healing
 	local bonus_cp = other_args.bonus_cp
 	local radius = ability:GetSpecialValueFor("radius")
+	local cp_delay = ability:GetSpecialValueFor("cp_delay")
 	local target_point = origin_location + direction * range
+	local total_healing = 0
 
 	local team = caster:GetTeamNumber()
 	local iTeam = DOTA_UNIT_TARGET_TEAM_FRIENDLY
@@ -51,14 +53,36 @@ function blessedArrowExplode(caster, origin_location, direction, speed, range, c
 	local iOrder = FIND_ANY_ORDER
 	local targets = FindUnitsInRadius(team, target_point, nil, radius, iTeam, iType, iFlag, iOrder, false)
 	for k,unit in pairs(targets) do
-		if unit ~= caster then
-			unit:Heal(healing, caster)
-			modifyCP(unit, bonus_cp)
-		end
+		local heal = healing_percent * unit:GetHealthDeficit()
+		unit:Heal(heal, caster)
+		total_healing = total_healing + heal
 	end
+
+	local cp_particle = ParticleManager:CreateParticle("particles/crafts/alisa/blessed_arrow/cp_restoration.vpcf", PATTACH_CUSTOMORIGIN, nil)
+	ParticleManager:SetParticleControl(cp_particle, 0, GetGroundPosition(target_point, caster))
+
+	Timers:CreateTimer(cp_delay, function()
+		grantCP(caster, target_point, total_healing)
+	end)
 
 	if other_args.apply_debuff_to then
 		ability:ApplyDataDrivenModifier(caster, other_args.apply_debuff_to, "modifier_blessed_arrow_mischievous_blessing", {})
+	end
+end
+
+function grantCP(caster, target_point, total_healing)
+	local ability = caster:FindAbilityByName("blessed_arrow")
+	local radius = ability:GetSpecialValueFor("radius")
+	local bonus_cp_percent = ability:GetSpecialValueFor("bonus_cp_per_healing") / 100
+
+	local team = caster:GetTeamNumber()
+	local iTeam = DOTA_UNIT_TARGET_TEAM_FRIENDLY
+	local iType = DOTA_UNIT_TARGET_HERO
+	local iFlag = DOTA_UNIT_TARGET_FLAG_NONE
+	local iOrder = FIND_ANY_ORDER
+	local targets = FindUnitsInRadius(team, target_point, nil, radius, iTeam, iType, iFlag, iOrder, false)
+	for k,unit in pairs(targets) do
+		modifyCP(unit, total_healing * bonus_cp_percent)
 	end
 end
 

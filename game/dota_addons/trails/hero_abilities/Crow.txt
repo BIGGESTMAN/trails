@@ -4,14 +4,14 @@ DevNotes - Fires 1 shot at the start, then in 0.25 second intervals, reduced by 
 
 Cast Point : 0.3
 Delay : 4
-Max Shots (tooltip_shots) : 17
+Max Shots (tooltip_shots) : 16
 %Physical Damage per Shot (damage_percent) : 45%
 Cast Range : 500
-Maximum Range : 750
+Maximum Range (max_range) : 750
 Damage Radius : 125
 Damage Spawn Radius : 75-200
-Enhanced Max Shots (tooltip_unbalanced_shots) : 23
-Enhanced Maximum Range : 900
+Enhanced Max Shots (tooltip_unbalanced_shots) : 22
+Enhanced Maximum Range (unbalanced_max_range) : 900
 Enhanced Knockback Distance : 75
 CP Cost : 20
 

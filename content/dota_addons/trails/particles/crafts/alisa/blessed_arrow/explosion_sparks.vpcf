@@ -136,7 +136,7 @@
 			m_flEmitRate = 360.000000
 			m_nScaleControlPointField = -1
 			m_flOpEndFadeOutTime = 1.000000
-			m_flEmissionDuration = 1.000000
+			m_flEmissionDuration = 1.500000
 			m_flEmissionScale = 1.000000
 			m_bScalePerParticle = true
 		},

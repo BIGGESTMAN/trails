@@ -92,7 +92,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"tooltip_shots"			"17"
+				"tooltip_shots"			"16"
 			}
 			"01"
 			{
