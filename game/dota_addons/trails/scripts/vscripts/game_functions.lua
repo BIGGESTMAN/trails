@@ -41,6 +41,7 @@ SCRAFT_CP_GAIN_FACTOR = 0.25
 TARGET_CP_GAIN_FACTOR = 1/3
 CP_BOOST_GAIN_FACTOR = 1.5
 PASSION_CP_PER_SECOND = 5
+HP_REGEN_HEALTH_PERCENT_PER_SECOND = 3
 
 CRIT_DAMAGE_FACTOR = 2
 FAINT_DAMAGE_FACTOR = 1.5
@@ -72,6 +73,7 @@ LinkLuaModifier("modifier_mute", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NON
 LinkLuaModifier("modifier_burn", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_insight", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_passion", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_hp_regen", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_freeze", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_confuse", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_nightmare", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)

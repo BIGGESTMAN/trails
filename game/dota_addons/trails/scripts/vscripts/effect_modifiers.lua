@@ -4,8 +4,6 @@ modifier_burn = class({})
 
 if IsServer() then
 	function modifier_burn:OnCreated( kv )
-		local ability = self:GetAbility()
-
 		self.damage_interval = 0.5
 		self:StartIntervalThink(self.damage_interval)
 	end
@@ -153,6 +151,33 @@ end
 
 function modifier_insight:GetTexture()
 	return "windrunner_windrun"
+end
+
+modifier_hp_regen = class({})
+
+if IsServer() then
+	function modifier_hp_regen:OnCreated( kv )
+		self.heal_interval = 0.5
+		self:StartIntervalThink(self.heal_interval)
+	end
+
+	function modifier_hp_regen:OnIntervalThink()
+		local heal_percent = HP_REGEN_HEALTH_PERCENT_PER_SECOND
+		local healing = self:GetParent():GetMaxHealth() * heal_percent * self.heal_interval / 100
+		self:GetParent():Heal(healing, self:GetCaster())
+	end
+end
+
+function modifier_hp_regen:GetTexture()
+	return "enchantress_natures_attendants"
+end
+
+function modifier_hp_regen:GetEffectName()
+	return "particles/units/heroes/hero_oracle/oracle_purifyingflames.vpcf"
+end
+
+function modifier_hp_regen:GetEffectAttachType()
+	return PATTACH_ABSORIGIN_FOLLOW
 end
 
 modifier_passion = class({})

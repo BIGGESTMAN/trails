@@ -29,6 +29,7 @@
 			<Label hittest="false" class="TrailspediaText" html="true" text="#trailspedia_insight" />
 			<Label hittest="false" class="TrailspediaText" html="true" text="#trailspedia_passion" />
 			<Label hittest="false" class="TrailspediaText" html="true" text="#trailspedia_cp_boost" />
+			<Label hittest="false" class="TrailspediaText" html="true" text="#trailspedia_hp_regen" />
 			<Label hittest="false" class="TrailspediaText" html="true" text="#trailspedia_burn" />
 			<Label hittest="false" class="TrailspediaText" html="true" text="#trailspedia_freeze" />
 			<Label hittest="false" class="TrailspediaText" html="true" text="#trailspedia_confuse" />
