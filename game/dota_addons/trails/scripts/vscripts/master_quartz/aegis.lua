@@ -99,14 +99,23 @@ function modifier_master_aegis_passive:GuardTriggered(args)
 	modifyStat(self:GetParent(), STAT_MOV, getMasterQuartzSpecialValue(self:GetParent(), "vanguard_stat_increase"), ability:GetSpecialValueFor("vanguard_stat_increase_duration"))
 end
 
--- function modifier_master_aegis_passive:CreateCoverParticles(damage_origin)
--- 	local caster = self:GetParent()
--- 	local ally = caster.combat_linked_to
--- 	local arc_particle = ParticleManager:CreateParticle("particles/master_quartz/force/cover_shield_arc.vpcf", PATTACH_CUSTOMORIGIN, caster)
--- 	ParticleManager:SetParticleControl(arc_particle, 0, caster:GetAbsOrigin())
--- 	ParticleManager:SetParticleControlForward(arc_particle, 0, (damage_origin - caster:GetAbsOrigin()):Normalized())
--- 	local ally_particle = ParticleManager:CreateParticle("particles/master_quartz/force/cover_shield_sphere.vpcf", PATTACH_POINT_FOLLOW, ally)
--- end
+function modifier_master_aegis_passive:UnitUnbalanced(args)
+	local hero = self:GetParent()
+	local target = args.unit
+	if target == hero.combat_linked_to then
+		modifyCP(hero, getMasterQuartzSpecialValue(hero, "lively_yell_cp"))
+		modifyCP(hero.combat_linked_to, getMasterQuartzSpecialValue(hero, "lively_yell_cp"))
+	end
+end
+
+function modifier_master_aegis_passive:GetArtDelayMultiplier(element)
+	print(element)
+	if element == ELEMENT_EARTH then
+		return 1 - getMasterQuartzSpecialValue(self:GetParent(), "earth_mastery_delay_reduction") / 100
+	else
+		return 1
+	end
+end
 
 modifier_aegis_counterattack = class({})
 

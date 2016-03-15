@@ -96,8 +96,8 @@
 		},
 		{
 			_class = "C_OP_DistanceBetweenCPsToCP"
-			m_flInputMin = 700.000000
-			m_flInputMax = 701.000000
+			m_flInputMin = 600.000000
+			m_flInputMax = 601.000000
 			m_flOutputMin = 1.000000
 			m_flOutputMax = 0.000000
 		},

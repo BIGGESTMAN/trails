@@ -51,16 +51,16 @@
 			_class = "C_OP_DistanceBetweenCPs"
 			m_nFieldOutput = 16
 			m_bScaleInitialRange = true
-			m_flInputMax = 701.000000
-			m_flInputMin = 700.000000
+			m_flInputMax = 601.000000
+			m_flInputMin = 600.000000
 			m_nOpEndCapState = 0
 			m_flOutputMin = 1.000000
 			m_flOutputMax = 0.500000
 		},
 		{
 			_class = "C_OP_DistanceBetweenCPs"
-			m_flInputMin = 700.000000
-			m_flInputMax = 701.000000
+			m_flInputMin = 600.000000
+			m_flInputMax = 601.000000
 			m_bScaleInitialRange = true
 			m_flOutputMin = 1.000000
 			m_flOutputMax = 0.500000

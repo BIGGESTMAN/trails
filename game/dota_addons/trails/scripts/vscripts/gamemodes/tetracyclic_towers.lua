@@ -74,8 +74,10 @@ end
 function Gamemode_Tetracyclic:StartRound(round)
 	self:StartRoundTimer(ROUND_TIME)
 	for k,hero in pairs(getAllHeroes()) do
-		CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "teleport_window_start", {towersOwned = self:GetTowersOwned(hero:GetTeamNumber())})
-		self.can_teleport[hero] = true
+		if #self:GetTowersOwned(hero:GetTeam()) > 0 then
+			CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "teleport_window_start", {towersOwned = self:GetTowersOwned(hero:GetTeamNumber())})
+			self.can_teleport[hero] = true
+		end
 	end
 end
 
@@ -281,6 +283,9 @@ function Gamemode_Tetracyclic:OnEntityKilled(keys)
 	local attacking_team = getOpposingTeam(defending_team)
 
 	if unit:IsRealHero() then
+		CustomGameEventManager:Send_ServerToPlayer(unit:GetOwner(), "teleport_window_hide", {})
+		self.can_teleport[unit] = false
+
 		local living_heroes = {}
 		living_heroes[DOTA_TEAM_GOODGUYS] = 0
 		living_heroes[DOTA_TEAM_BADGUYS] = 0

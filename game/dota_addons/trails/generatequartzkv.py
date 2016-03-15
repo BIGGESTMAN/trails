@@ -8,6 +8,7 @@ filenames = os.listdir(directoryname)
 target_type_strings = {'U' : "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET", 'A' : "DOTA_ABILITY_BEHAVIOR_POINT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE", 'N' : "DOTA_ABILITY_BEHAVIOR_NO_TARGET"}
 target_team_strings = {'F' : "DOTA_UNIT_TARGET_TEAM_FRIENDLY", 'E' : "DOTA_UNIT_TARGET_TEAM_ENEMY", 'B' : "DOTA_UNIT_TARGET_TEAM_BOTH"}
 element_strings = {'F' : "fire", 'E' : "earth", 'W' : "water", 'I' : "wind", 'T' : "time", 'S' : "space", 'M' : "mirage"}
+element_indices = ["F", "E", "W", "I", "T", "S", "M"]
 
 shop_category_names = {('F', "consumables"), ('E', "attributes"), ('W', "weapons_armor"), ('I', "misc"), ('T', "basics"), ('S', "support"), ('M', "magics")}
 
@@ -103,6 +104,8 @@ items_written = 0
 with open('scripts/npc/items/generated_items.txt', mode='w', encoding='utf-8') as outfile:
 	outfile.write("\n")
 	for item in items:
+		item['effects'].append(("element", str(element_indices.index(item['element']))))
+
 		outfile.write('\t"{}{}" {{\n'.format(name_prefix, item['internal_name']))
 		outfile.write('\t\t"ID"\t"{}"\n'.format(2001 + items_written))
 		outfile.write('\t\t"BaseClass"\t"item_lua"\n')
@@ -139,7 +142,7 @@ with open('scripts/npc/items/generated_items.txt', mode='w', encoding='utf-8') a
 			if not (float(value) % 1 == 0):
 				field_string = "FIELD_FLOAT"
 			outfile.write('\t\t\t"00" {{\n'.format())
-			outfile.write('\t\t\t\t"var_type"\t"{}"\n'.format("field_string"))
+			outfile.write('\t\t\t\t"var_type"\t"{}"\n'.format(field_string))
 			outfile.write('\t\t\t\t"{}"\t"{}"\n'.format(key, value))
 			outfile.write('\t\t\t}\n')
 		outfile.write('\t\t}\n')
@@ -167,6 +170,7 @@ with open('scripts/npc/items/generated_masterquartz_items.txt', mode='w', encodi
 			if normalquartz['internal_name'] == item['art']:
 				inheritedItem = normalquartz
 				break
+		item['effects'].append(("element", str(element_indices.index(inheritedItem['element']))))
 		for i in range(1,6):
 			outfile.write("\n")
 			outfile.write('\t"{}{}_{}" {{\n'.format(master_name_prefix, item['internal_name'], i))

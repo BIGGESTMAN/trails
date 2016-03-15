@@ -50,8 +50,8 @@
 		{
 			_class = "C_OP_DistanceBetweenCPs"
 			m_nOpEndCapState = 0
-			m_flInputMin = 725.000000
-			m_flInputMax = 750.000000
+			m_flInputMin = 600.000000
+			m_flInputMax = 601.000000
 			m_bScaleInitialRange = true
 			m_nFieldOutput = 16
 		},

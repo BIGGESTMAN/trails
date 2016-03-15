@@ -21,11 +21,17 @@ Counterattack : Whenever your link partner takes 30% of their max HP in damage f
 Last Bastion : When you fall below 20% of your max health, gives you unlimited Physical and Magical Guard for a short time. Can occur only once per round.
 Lively Yell : Whenever your link partner is unbalanced, grants both them and you CP.
 Earth Mastery : Halves the delay from casting Earth Arts.
-Vanguard Guard Cooldown (vanguard_cooldown)
-Vanguard Stat Buff Duration (vanguard_stat_increase_duration)
-%Counterattack Damage Bonus (counterattack_damage_bonus)
-Last Bastion Duration (last_bastion_duration)
-Lively Yell CP (lively_yell_cp)
+Vanguard Guard Cooldown (vanguard_cooldown) : 14/12/10/8/6
+~Vanguard Stat Increase (vanguard_stat_increase) : 25
+Vanguard Stat Buff Duration (vanguard_stat_increase_duration) : 3/4/5/6/7
+~Counterattack Damage Threshold (counterattack_damage_threshold_percent) : 30
+~Counterattack Range (counterattack_range) : 350
+%Counterattack Damage Bonus (counterattack_damage_bonus) : 0/15/25/35/45
+~Counterattack Damage Bonus Duration (counterattack_damage_bonus_duration) : 3
+~Counterattack Delay Reduction (counterattack_delay_reduction) : 2
+Last Bastion Duration (last_bastion_duration) : 0/0/2.5/3/3.5
+Lively Yell CP (lively_yell_cp) : 0/0/0/30/45
+~Earth Mastery Delay Reduction (earth_mastery_delay_reduction) : 50
 
 Cypher
 Art - Phantom Phobia

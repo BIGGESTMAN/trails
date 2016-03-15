@@ -264,6 +264,7 @@
 .HeroSelectQuartz #AbilityDescription {
 	font-size: 16px;
 	text-overflow: clip;
+	height: fill-parent-flow(1);
 }
 #HeroInfoContainer .QuartzTooltip {
 	height: 61px;
