@@ -4,6 +4,9 @@ require "libraries/util"
 
 ROUND_TIME = 90
 ATTACKER_VICTORY_CAPTURE_TIME = 15
+TOWER_CAPTURE_TIME = 10
+TOWER_CAPTURE_DAMAGE_DELAY = 3
+TOWER_CAPTURE_GRACE_PERIOD = 5
 TELEPORT_TIME = 4
 TELEPORT_RADIUS = 500
 
@@ -20,8 +23,8 @@ function Gamemode_Tetracyclic:Initialize()
 	self.towers = {}
 	self.tower_vision_radius = 700
 	self.capture_radius = 400
-	self.tower_capture_time = 4
-	self.damage_capture_delay = 3
+	self.tower_capture_time = TOWER_CAPTURE_TIME
+	self.damage_capture_delay = TOWER_CAPTURE_DAMAGE_DELAY
 	self.can_teleport = {}
 	self:CreateTowers()
 	CustomGameEventManager:RegisterListener("teleport_button_pressed", WrapMemberMethod(self.OnTeleportButtonPressed, self))
@@ -34,6 +37,7 @@ function Gamemode_Tetracyclic:CreateTowers()
 		self.towers[k].tower_id = entity:GetIntAttr("tower_id")
 		self.towers[k]:FindAbilityByName("tetracyclic_tower_passive"):SetLevel(1)
 		self.towers[k].capture_progress = 0
+		self.towers[k].time_since_progress_increased = 0
 		self.towers[k].captured_by = {}
 		self.towers[k].being_captured_by = nil
 		local color = self:GetColorForTower(self.towers[k])
@@ -196,12 +200,16 @@ end
 function Gamemode_Tetracyclic:UpdateTowerCaptureProgress(tower, update_interval)
 	if tower.being_captured_by then
 		tower.capture_progress = tower.capture_progress + update_interval
+		tower.time_since_progress_increased = 0
 		if tower.capture_progress >= self.tower_capture_time then
 			self:CaptureTower(tower)
 		end
 	else
-		tower.capture_progress = tower.capture_progress - update_interval
-		if tower.capture_progress < 0 then tower.capture_progress = 0 end
+		tower.time_since_progress_increased = tower.time_since_progress_increased + update_interval
+		if tower.time_since_progress_increased > TOWER_CAPTURE_GRACE_PERIOD then
+			tower.capture_progress = tower.capture_progress - update_interval
+			if tower.capture_progress < 0 then tower.capture_progress = 0 end
+		end
 	end
 end
 
