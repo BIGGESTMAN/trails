@@ -71,6 +71,7 @@ LinkLuaModifier("modifier_cp_boost", "effect_modifiers.lua", LUA_MODIFIER_MOTION
 LinkLuaModifier("modifier_petrify", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_faint", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_intimidate", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_sear", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_balance_down", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_physical_guard", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_magical_guard", "effect_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
@@ -145,6 +146,9 @@ function dealDamage(target, attacker, damage, damage_type, ability, cp_gain_fact
 	if target:HasModifier("modifier_chaos_trigger_casting") and ability and not status then
 		target:RemoveModifierByName("modifier_chaos_trigger_casting")
 	end
+	if target:HasModifier("modifier_sear") and not status then
+		target:FindModifierByName("modifier_sear"):DealSearDamage()
+	end
 	if attacker and attacker ~= target then
 		grantDamageCP(damage, attacker, target, cp_gain_factor)
 	end
@@ -153,11 +157,11 @@ function dealDamage(target, attacker, damage, damage_type, ability, cp_gain_fact
 	Round_Recap:AddAbilityDamage(attacker, ability, damage)
 end
 
-function dealScalingDamage(target, attacker, damage_type, scale, ability, cp_gain_factor, enhanced)
+function dealScalingDamage(target, attacker, damage_type, scale, ability, cp_gain_factor, enhanced, status)
 	if damage_type == DAMAGE_TYPE_PHYSICAL then
-		dealDamage(target, attacker, scale * getStats(attacker).str, damage_type, ability, cp_gain_factor, enhanced)
+		dealDamage(target, attacker, scale * getStats(attacker).str, damage_type, ability, cp_gain_factor, enhanced, status)
 	elseif damage_type == DAMAGE_TYPE_MAGICAL then
-		dealDamage(target, attacker, scale * getStats(attacker).ats, damage_type, ability, cp_gain_factor, enhanced)
+		dealDamage(target, attacker, scale * getStats(attacker).ats, damage_type, ability, cp_gain_factor, enhanced, status)
 	end
 end
 
@@ -469,8 +473,8 @@ function validEnhancedCraft(caster, target)
 end
 
 function applyRandomDebuff(target, caster, duration, not_sleep_debuff)
-	local debuffs = 					{"modifier_seal", "modifier_mute", "modifier_burn", "modifier_freeze", "modifier_confuse", "modifier_deathblow", "modifier_petrify", "modifier_faint", "modifier_intimidate", "modifier_nightmare"}
-	if not_sleep_debuff then debuffs = 	{"modifier_seal", "modifier_mute", "modifier_burn", "modifier_freeze", "modifier_confuse", "modifier_deathblow", "modifier_petrify", "modifier_faint", "modifier_intimidate"} end
+	local debuffs = 					{"modifier_seal", "modifier_mute", "modifier_burn", "modifier_freeze", "modifier_confuse", "modifier_deathblow", "modifier_petrify", "modifier_faint", "modifier_intimidate", "modifier_sear", "modifier_nightmare"}
+	if not_sleep_debuff then debuffs = 	{"modifier_seal", "modifier_mute", "modifier_burn", "modifier_freeze", "modifier_confuse", "modifier_deathblow", "modifier_petrify", "modifier_faint", "modifier_intimidate", "modifier_sear"} end
 	local debuff = debuffs[RandomInt(1,#debuffs)]
 	target:AddNewModifier(caster, nil, debuff, {duration = duration})
 end

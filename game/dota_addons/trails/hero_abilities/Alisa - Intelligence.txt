@@ -41,9 +41,9 @@ Delay: 5
 Cast Range : 800
 Radius (radius) : 500
 Arrow Radius : 150
-%Magical Damage (damage_percent) : 100
-%Slow (slow) : 50
-Slow Duration (slow_duration) : 1.5
+%Magical Damage (damage_percent) : 80
+%Sear Magical Damage (sear_damage_percent) : 20
+Sear Duration (sear_duration) : 2.5
 Duration : 3
 Total Arrows : 20
 %Enhanced Magical Damage (unbalanced_damage_percent) : 150

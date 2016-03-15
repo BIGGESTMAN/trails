@@ -38,17 +38,17 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"damage_percent"		"100"
+				"damage_percent"		"80"
 			}
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"slow"					"-50"
+				"sear_damage_percent"	"20"
 			}
 			"01"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"slow_duration"			"1.5"
+				"sear_duration"			"2.5"
 			}
 			"01"
 			{
@@ -99,16 +99,6 @@
 
 		"Modifiers"
 		{
-			"modifier_molten_rain_slow"
-			{
-				"IsDebuff"		"1"
 
-				"Duration"		"%slow_duration"
-
-				"Properties"
-				{
-				    "MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE" "%slow" 
-				}
-			}
 		}
 	}

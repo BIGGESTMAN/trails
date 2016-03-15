@@ -482,6 +482,46 @@ function modifier_balance_down:IsDebuff()
 	return true
 end
 
+modifier_sear = class({})
+
+function modifier_sear:DealSearDamage()
+	print("?")
+	local caster = self:GetCaster()
+	local ability = self:GetAbility()
+	local damage_scale = ability:GetSpecialValueFor("sear_damage_percent") / 100
+	dealScalingDamage(self:GetParent(), caster, DAMAGE_TYPE_MAGICAL, damage_scale, ability, 0, false, true)
+
+	ParticleManager:CreateParticle("particles/status_effects/sear/damage_effect.vpcf", PATTACH_ABSORIGIN_FOLLOW, self:GetParent())
+end
+
+function modifier_sear:DeclareFunctions()
+	return {MODIFIER_EVENT_ON_TAKEDAMAGE}
+end
+
+function modifier_sear:GetStatusEffectName()
+	return "particles/status_fx/status_effect_stickynapalm.vpcf"
+end
+
+function modifier_sear:HeroEffectPriority()
+	return 10
+end
+
+function modifier_sear:GetEffectName()
+	return "particles/units/heroes/hero_batrider/batrider_stickynapalm_debuff.vpcf"
+end
+
+function modifier_sear:GetEffectAttachType()
+	return PATTACH_ABSORIGIN_FOLLOW
+end
+
+function modifier_sear:GetTexture()
+	return "dragon_knight_breathe_fire"
+end
+
+function modifier_sear:IsDebuff()
+	return true
+end
+
 modifier_physical_guard = class({})
 
 function modifier_physical_guard:GetEffectName()

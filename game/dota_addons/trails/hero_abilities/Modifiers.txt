@@ -26,6 +26,7 @@ Modifiers
 ~ Petrify (modifier_petrify) : Disabled and immune to magic. Taking physical damage will break the disable early and deal pure damage equal to 20% of unit's missing health.
 ~ Faint (modifier_faint) : Disabled and taking 50%% more damage.
 ~ Intimidate (modifier_intimidate) : Unable to generate CP.
+~ Seared (modifier_sear) : Taking additional damage every time damage is taken.
 ~ Balance Down (modifier_balance_down) : Unbalance increased 50%% faster.
 ~ Physical Guard (modifier_physical_guard) : Blocks a single instance of enemy physical damage along with any associated effects.
 ~ Magical Guard (modifier_magical_guard) : Blocks a single instance of enemy magical damage along with any associated effects.

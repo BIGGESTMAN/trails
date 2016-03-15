@@ -78,6 +78,7 @@ function arrowImpact(caster, origin_location, direction, speed, range, collision
 	local arrow_radius = ability:GetSpecialValueFor("arrow_radius")
 	local damage_scale = ability:GetSpecialValueFor("damage_percent") / 100
 	local damage_type = ability:GetAbilityDamageType()
+	local sear_duration = ability:GetSpecialValueFor("sear_duration")
 	local burn_duration = ability:GetSpecialValueFor("unbalanced_burn_duration")
 	local adf_reduction = ability:GetSpecialValueFor("unbalanced_adf_down")
 	local adf_reduction_duration = ability:GetSpecialValueFor("unbalanced_adf_down_duration")
@@ -97,7 +98,7 @@ function arrowImpact(caster, origin_location, direction, speed, range, collision
 		applyEffect(unit, damage_type, function()
 			dealScalingDamage(unit, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR)
 			increaseUnbalance(caster, unit)
-			ability:ApplyDataDrivenModifier(caster, unit, "modifier_molten_rain_slow", {})
+			unit:AddNewModifier(caster, ability, "modifier_sear", {duration = sear_duration})
 			if other_args.enhanced then
 				unit:AddNewModifier(caster, ability, "modifier_burn", {duration = burn_duration})
 				modifyStat(unit, STAT_ADF_DOWN, adf_reduction, adf_reduction_duration)
