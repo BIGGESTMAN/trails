@@ -34,7 +34,7 @@ function spellCast(keys)
 	dash(caster, direction, dash_speed, range, true, jump, args)
 	ability:ApplyDataDrivenModifier(caster, caster, "modifier_gigant_breaker_dashing", {})
 
-	modifyCP(caster, getCP(caster) * -1)
+	spendCP(caster, ability)
 	applyDelayCooldowns(caster, ability)
 end
 

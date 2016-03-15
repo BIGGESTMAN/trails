@@ -23,7 +23,7 @@ function spellCast(keys)
 		end
 	end)
 
-	modifyCP(caster, getCP(caster) * -1)
+	spendCP(caster, ability)
 	applyDelayCooldowns(caster, ability)
 end
 

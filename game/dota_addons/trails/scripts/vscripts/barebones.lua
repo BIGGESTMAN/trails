@@ -187,6 +187,12 @@ function GameMode:OnPlayerChat(keys)
 		RoundManager:StartRound()
 	elseif text == "-debugunbalance" then
 		ONE_HIT_UNBALANCE = not ONE_HIT_UNBALANCE
+	elseif text:find("-cpmode") then
+		local new_mode = text:sub(string.len("-cpmode ")) - 1
+		print(new_mode)
+		if new_mode == CP_COSTS_MODE_NORMAL or new_mode == CP_COSTS_MODE_NONE or new_mode == CP_COSTS_MODE_DECAYING then
+			CP_COSTS_MODE = new_mode
+		end
 	end
 end
 
@@ -372,6 +378,7 @@ function GameMode:OnHeroInGame(hero)
 		self:UpdateStatsDisplay(hero)
 		CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "ability_bar_start", {heroIndex = hero:GetEntityIndex(), cpCosts = getAbilityCPCosts(hero)})
 		self:UpdateAbilityBars(hero)
+		self:UpdateCPCosts(hero)
 
 		
 		Timers:CreateTimer(1/30, function() -- have to wait a frame for GetAssignedHero() to actually work after hero is picked
@@ -430,6 +437,24 @@ function GameMode:UpdateAbilityBars(hero)
 		end
 
 		CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "resource_bars_update", {unitValues = values})
+		return 1/30
+	end)
+end
+
+function GameMode:UpdateCPCosts(hero)
+	Timers:CreateTimer(0, function()
+		local costs = {}
+		local units = {hero}
+		if hero.combat_linked_to then units[2] = hero.combat_linked_to end
+
+		for k,unit in pairs(units) do
+			costs[unit:GetEntityIndex()] = {}
+			for k,ability in pairs(getAllActiveAbilities(unit)) do
+				costs[unit:GetEntityIndex()][ability:GetEntityIndex()] = getCPCost(ability)
+			end
+		end
+
+		CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "cp_costs_update", {cpCosts = costs})
 		return 1/30
 	end)
 end

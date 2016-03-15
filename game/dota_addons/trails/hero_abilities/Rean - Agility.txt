@@ -25,7 +25,6 @@ Duration (damage_increase_duration) : 15
 CP (bonus_cp) : 25
 %Enhanced Physical Attack Increase (unbalanced_damage_increase_percent) : 50
 Enhanced CP (unbalanced_bonus_cp) : 50
-Note0 (note0) : Increases Rean's Physical Attack, but doesn't grant him CP.
 CP Cost : 30
 
 [E] Arc Slash (arc_slash) : Rean unleashes a shockwave, dealing physical damage and Delaying enemies hit.

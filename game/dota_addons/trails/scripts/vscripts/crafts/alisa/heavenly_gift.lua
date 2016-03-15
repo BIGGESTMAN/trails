@@ -12,7 +12,7 @@ function spellCast(keys)
 	local travel_speed = range / arrow_travel_time
 	local args = {non_flat = true}
 
-	modifyCP(caster, getCPCost(ability) * -1)
+	spendCP(caster, ability)
 	applyDelayCooldowns(caster, ability)
 
 	if validEnhancedCraft(caster, target) then
@@ -78,7 +78,6 @@ function restoreCPTick(keys)
 		local iFlag = DOTA_UNIT_TARGET_FLAG_NONE
 		local iOrder = FIND_ANY_ORDER
 		local targets = FindUnitsInRadius(team, caster:GetAbsOrigin(), nil, radius, iTeam, iType, iFlag, iOrder, false)
-		print(#targets)
 		for k,unit in pairs(targets) do
 			modifyCP(unit, math.floor(caster.enhanced_heavenly_gift_accrued_cp))
 		end

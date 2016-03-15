@@ -16,7 +16,7 @@ end
 function channelSucceeded(keys)
 	local caster = keys.caster
 	fireArrow(caster, getCP(caster) == MAX_CP)
-	modifyCP(caster, getCP(caster) * -1)
+	spendCP(caster, keys.ability)
 	applyDelayCooldowns(caster, keys.ability)
 end
 

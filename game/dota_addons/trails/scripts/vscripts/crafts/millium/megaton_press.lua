@@ -17,7 +17,7 @@ function spellCast(keys)
 	local flight_time = ability:GetSpecialValueFor("flight_duration")
 	local mov_down = ability:GetSpecialValueFor("mov_down")
 
-	modifyCP(caster, getCPCost(ability) * -1)
+	spendCP(caster, ability)
 	applyDelayCooldowns(caster, ability)
 
 	local enhanced = false

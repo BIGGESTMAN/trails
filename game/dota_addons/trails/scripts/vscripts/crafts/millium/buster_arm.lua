@@ -13,7 +13,7 @@ function spellCast(keys)
 	local damage_scale = ability:GetSpecialValueFor("damage_percent") / 100
 	local faint_duration = ability:GetSpecialValueFor("faint_duration")
 
-	modifyCP(caster, getCPCost(ability) * -1)
+	spendCP(caster, ability)
 	applyDelayCooldowns(caster, ability)
 
 	local enhanced = false

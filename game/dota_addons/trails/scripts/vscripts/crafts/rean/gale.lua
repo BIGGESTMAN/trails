@@ -55,7 +55,7 @@ function spellCast(keys)
 	end
 
 	if #caster.gale_targets > 0 then
-		modifyCP(caster, getCPCost(ability) * -1)
+		spendCP(caster, ability)
 		applyDelayCooldowns(caster, ability)
 		ability:ApplyDataDrivenModifier(caster, caster, "modifier_gale_dashing", {})
 		dashToNextTarget(caster, nil, nil, {crit = crit, enhanced = enhanced})

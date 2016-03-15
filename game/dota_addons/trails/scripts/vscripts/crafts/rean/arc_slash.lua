@@ -32,7 +32,7 @@ function spellCast(keys)
 		caster:RemoveModifierByName("modifier_crit")
 	end
 
-	modifyCP(caster, getCPCost(ability) * -1)
+	spendCP(caster, ability)
 	applyDelayCooldowns(caster, ability)
 
 	collisionRules = {

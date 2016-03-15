@@ -21,7 +21,7 @@ function spellCast(keys)
 	ability:ApplyDataDrivenModifier(caster, caster, "modifier_chaos_trigger_casting", {duration = aim_period})
 	caster.chaos_trigger_targets = {}
 
-	modifyCP(caster, getCPCost(ability) * -1)
+	spendCP(caster, ability)
 	applyDelayCooldowns(caster, ability)
 
 	if caster:HasModifier("modifier_crit") then

@@ -29,7 +29,7 @@ function spellCast(keys)
 		caster:RemoveModifierByName("modifier_crit")
 	end
 
-	modifyCP(caster, getCPCost(ability) * -1)
+	spendCP(caster, ability)
 	applyDelayCooldowns(caster, ability)
 
 	local last_shot_fired_quadrant = 0

@@ -22,6 +22,12 @@ STAT_MAX_INCREASE = 50
 
 ONE_HIT_UNBALANCE = false
 
+CP_COSTS_MODE_NORMAL = 0
+CP_COSTS_MODE_NONE = 1
+CP_COSTS_MODE_DECAYING = 2
+CP_COSTS_MODE = CP_COSTS_MODE_DECAYING
+CP_COSTS_DECAY_TIME = 10
+
 SCRAFT_MINIMUM_CP = 100
 MAX_CP = 200
 END_OF_ROUND_LOSER_CP = 50
@@ -32,7 +38,6 @@ TARGET_CP_GAIN_FACTOR = 1/3
 CP_BOOST_GAIN_FACTOR = 1.5
 PASSION_CP_PER_SECOND = 5
 
-FREEZE_COMMAND_DELAY = 0.6
 CRIT_DAMAGE_FACTOR = 2
 FAINT_DAMAGE_FACTOR = 1.5
 BALANCE_DOWN_UNBALANCE_FACTOR = 1.5
@@ -449,6 +454,13 @@ function modifyCP(unit, amount)
 	end
 end
 
+function spendCP(unit, ability)
+	modifyCP(unit, getCPCost(ability) * -1)
+	if CP_COSTS_MODE == CP_COSTS_MODE_DECAYING then
+		ability.current_cp_cost = ability.max_cp_cost
+	end
+end
+
 function grantDamageCP(damage, attacker, target, multiplier)
 	local multiplier = multiplier or 1
 	local attacker_cp = damage * DAMAGE_CP_GAIN_FACTOR * multiplier
@@ -461,7 +473,7 @@ function setCraftActivatedStatus(unit)
 	for i=0,unit:GetAbilityCount() - 1 do
 		local ability = unit:GetAbilityByIndex(i)
 		if ability and not ability:IsHidden() then
-			ability:SetActivated(getCP(unit) >= getCPCost(ability))
+			ability:SetActivated(getCP(unit) >= getCPCost(ability) and getCP(unit) >= getAbilityValueForKey(ability, "CPCost"))
 		else
 			break
 		end
@@ -508,20 +520,38 @@ function getAbilityValueForKey(ability, key)
 end
 
 function getCPCost(ability)
-	return getAbilityValueForKey(ability, "CPCost")
+	local cost = 0
+	if CP_COSTS_MODE == CP_COSTS_MODE_NORMAL then
+		cost = getAbilityValueForKey(ability, "CPCost")
+	elseif CP_COSTS_MODE == CP_COSTS_MODE_DECAYING then
+		cost = ability.current_cp_cost
+	end
+
+	if ability:GetAbilityType() == 1 then
+		cost = math.max(SCRAFT_MINIMUM_CP, getCP(ability:GetCaster()))
+	end
+	return cost
 end
 
 function getAbilityCPCosts(hero)
 	local cp_costs = {}
+	for k,ability in pairs(getAllActiveAbilities(hero)) do
+		cp_costs[k] = getCPCost(ability)
+	end
+	return cp_costs
+end
+
+function getAllActiveAbilities(hero)
+	local abilities = {}
 	for i=0,hero:GetAbilityCount() - 1 do
 		local ability = hero:GetAbilityByIndex(i)
 		if ability and not ability:IsHidden() then
-			cp_costs[i] = getCPCost(ability)
+			abilities[i] = ability
 		else
 			break
 		end
 	end
-	return cp_costs
+	return abilities
 end
 
 function LoadModifierKeyValues()

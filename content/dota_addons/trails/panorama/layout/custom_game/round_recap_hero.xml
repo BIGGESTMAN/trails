@@ -18,7 +18,7 @@
 
 			<!-- $("#HeroName").text = $.Localize(hero_name); -->
 			$("#PlayerName").text = player_name
-			$.Msg(hero_name,",",player_index, ",", player_name, ",", player_color)
+			<!-- $.Msg(hero_name,",",player_index, ",", player_name, ",", player_color) -->
 			$("#PlayerName").style.color = player_color
 			$("#Portrait").style.backgroundImage = "url('file://{resources}/images/heroes/" + hero_name + ".png')"
 		})();

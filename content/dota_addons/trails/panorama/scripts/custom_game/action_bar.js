@@ -114,6 +114,24 @@ function OnResourceBarsUpdate(data) {
 	}
 }
 
+function OnCPCostsUpdate(data) {
+	var cpCosts = data.cpCosts
+	var heroIndex = $.GetContextPanel().heroIndex
+
+	for ( var i = 0; i < Entities.GetAbilityCount( heroIndex ); ++i )
+	{
+		var ability = Entities.GetAbility( heroIndex, i );
+		if ( ability == -1 )
+			continue;
+
+		if ( !Abilities.IsDisplayedAbility(ability) )
+			continue;
+
+		$("#ability_list").Children()[i].cpCost = Math.floor(cpCosts[heroIndex][ability])
+		// $.Msg(heroIndex, ", ", ability, ", ", cpCosts[heroIndex][ability])
+	}
+}
+
 (function()
 {
     // $.RegisterForUnhandledEvent( "DOTAAbility_LearnModeToggled", OnAbilityLearnModeToggled);
@@ -125,6 +143,7 @@ function OnResourceBarsUpdate(data) {
 	GameEvents.Subscribe( "dota_hero_ability_points_changed", UpdateAbilityList );
 
 	GameEvents.Subscribe("resource_bars_update", OnResourceBarsUpdate);
+	GameEvents.Subscribe("cp_costs_update", OnCPCostsUpdate);
 	
 	UpdateAbilityList(); // initial update
 })();

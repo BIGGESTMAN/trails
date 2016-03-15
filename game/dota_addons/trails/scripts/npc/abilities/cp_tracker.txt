@@ -24,8 +24,8 @@
 			}
 			"01"
 			{
-				"var_type"				"FIELD_INTEGER"
-				"passive_cp_interval"	"1"
+				"var_type"				"FIELD_FLOAT"
+				"update_interval"		"0.03"
 			}
 			"01"
 			{
@@ -50,7 +50,7 @@
 					}
 				}
 
-				"ThinkInterval"  "%passive_cp_interval"
+				"ThinkInterval"  "%update_interval"
 				"OnIntervalThink"
 				{
 					"RunScript"

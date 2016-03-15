@@ -14,7 +14,7 @@ function spellCast(keys)
 	local arrow_origin_offset = (caster:GetAbsOrigin() - target_point) / 2 + Vector(0,0,600)
 	local enhanced = false
 
-	modifyCP(caster, getCPCost(ability) * -1)
+	spendCP(caster, ability)
 	applyDelayCooldowns(caster, ability)
 
 	if validEnhancedCraft(caster, target) then

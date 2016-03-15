@@ -2,7 +2,7 @@
 Enhanced : The arrow travels much faster and explodes on reaching the target, dealing greater damage and leaving a burning field that deals magic damage over time and Silences.
  
 Cast Point : 0.3
-Delay: 4
+Delay: 2.5
 Radius: 100
 %Magical Damage (damage_percent) : 100
 Max Burn Duration (burn_duration) : 3
@@ -43,7 +43,7 @@ Radius (radius) : 500
 Arrow Radius : 150
 %Magical Damage (damage_percent) : 80
 %Sear Magical Damage (sear_damage_percent) : 20
-Sear Duration (sear_duration) : 2.5
+Sear Duration (sear_duration) : 4
 Duration : 3
 Total Arrows : 20
 %Enhanced Magical Damage (unbalanced_damage_percent) : 150
@@ -54,7 +54,7 @@ Note0 (note0) : Rains 20 total arrows down over 3 seconds.
 Note1 (note1) : Arrow impacts have 150 radius.
 CP Cost : 40
 
-[D] Heavenly Gift (heavenly_gift) : Alisa grants allies in an area Insight and Passion.\n\nIf in the area of effect, Alisa gains Insight but not Passion.
+[D] Heavenly Gift (heavenly_gift) : Alisa blesses an area with heavenly light, granting allies in the area Insight. A portion of CP expended by enemies within the area is granted to Alisa and her link partner.
 Enhanced : Instantly drains the target's CP in order to gradually restore CP of allies around Alisa.
 
 Cast Point : 0.3

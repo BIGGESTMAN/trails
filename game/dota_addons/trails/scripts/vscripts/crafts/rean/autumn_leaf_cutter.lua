@@ -23,7 +23,7 @@ function spellCast(keys)
 		caster:RemoveModifierByName("modifier_combat_link_followup_available")
 		target:RemoveModifierByName("modifier_combat_link_unbalanced")
 		caster.unbalanced_autumn_leaf_cutter_target = target
-		modifyCP(caster, getCPCost(ability) * -1)
+		spendCP(caster, ability)
 		applyDelayCooldowns(caster, ability)
 		ability:ApplyDataDrivenModifier(caster, caster, "modifier_autumn_leaf_cutter_dashing", {})
 		args.enhanced = true
@@ -38,7 +38,7 @@ function spellCast(keys)
 		local targets = FindUnitsInRadius(team, origin, nil, radius, iTeam, iType, iFlag, iOrder, false)
 
 		if #targets > 0 then
-			modifyCP(caster, getCPCost(ability) * -1)
+			spendCP(caster, ability)
 			applyDelayCooldowns(caster, ability)
 			ability:ApplyDataDrivenModifier(caster, caster, "modifier_autumn_leaf_cutter_dashing", {})
 			dash(caster, (target_point - caster:GetAbsOrigin()):Normalized(), dash_speed, (target_point - caster:GetAbsOrigin()):Length2D(), false, secondaryDash, args)

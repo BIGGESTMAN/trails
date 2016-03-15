@@ -26,7 +26,7 @@ function spellCast(keys)
 		enhanced = true
 	end
 
-	modifyCP(caster, getCPCost(ability) * -1)
+	spendCP(caster, ability)
 	applyDelayCooldowns(caster, ability)
 
 	if caster:HasModifier("modifier_crit") then

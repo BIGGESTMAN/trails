@@ -23,7 +23,7 @@ if IsServer() then
 			bonus_cp = ability:GetSpecialValueFor("unbalanced_bonus_cp")
 		end
 
-		modifyCP(caster, getCPCost(ability) * -1)
+		spendCP(caster, ability)
 		applyDelayCooldowns(caster, ability)
 
 		local team = caster:GetTeamNumber()
@@ -36,7 +36,7 @@ if IsServer() then
 
 		for k,unit in pairs(targets) do
 			modifyStat(unit, STAT_STR, damage_increase_percent, damage_increase_duration)
-			if unit ~= caster then modifyCP(unit, bonus_cp) end
+			modifyCP(unit, bonus_cp)
 		end
 
 		ParticleManager:CreateParticle("particles/econ/items/sven/sven_cyclopean_marauder/sven_cyclopean_warcry.vpcf", PATTACH_ABSORIGIN, caster)

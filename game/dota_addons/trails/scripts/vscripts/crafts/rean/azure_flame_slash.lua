@@ -39,7 +39,7 @@ function channelSucceeded(keys)
 		local target = caster.azure_flame_slash_target
 		caster.azure_flame_slash_target = nil
 		executeSlash(caster, target, getCP(caster) == MAX_CP)
-		modifyCP(caster, getCP(caster) * -1)
+		spendCP(caster, keys.ability)
 		applyDelayCooldowns(caster, keys.ability)
 	end
 end

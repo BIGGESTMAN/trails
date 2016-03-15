@@ -18,7 +18,7 @@ if IsServer() then
 			caster:AddNewModifier(caster, ability, "modifier_ultimate_barrier_force_field", {duration = force_field_duration})
 		end
 
-		modifyCP(caster, getCPCost(ability) * -1)
+		spendCP(caster, ability)
 		applyDelayCooldowns(caster, ability)
 
 		caster:AddNewModifier(caster, ability, "modifier_physical_guard", {duration = guard_duration})

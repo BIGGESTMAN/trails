@@ -65,7 +65,7 @@ function spellCast(keys)
 	local direction = (target_point - caster:GetAbsOrigin()):Normalized()
 	caster.flamberge_direction = direction
 
-	modifyCP(caster, getCPCost(ability) * -1)
+	spendCP(caster, ability)
 	applyDelayCooldowns(caster, ability)
 end
 

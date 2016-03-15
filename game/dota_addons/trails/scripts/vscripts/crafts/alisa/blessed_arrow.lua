@@ -14,7 +14,7 @@ function spellCast(keys)
 	local bonus_cp = ability:GetSpecialValueFor("bonus_cp")
 	local args = {non_flat = true, healing = healing, bonus_cp = bonus_cp}
 
-	modifyCP(caster, getCPCost(ability) * -1)
+	spendCP(caster, ability)
 	applyDelayCooldowns(caster, ability)
 
 	if validEnhancedCraft(caster, target) then

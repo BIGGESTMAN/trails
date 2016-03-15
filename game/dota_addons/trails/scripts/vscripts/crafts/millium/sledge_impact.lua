@@ -28,7 +28,7 @@ if IsServer() then
 			enhanced = true
 		end
 
-		modifyCP(caster, getCPCost(ability) * -1)
+		spendCP(caster, ability)
 		applyDelayCooldowns(caster, ability)
 
 		local team = caster:GetTeamNumber()
