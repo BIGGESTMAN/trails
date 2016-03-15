@@ -578,7 +578,7 @@ end
 modifier_magical_guard = class({})
 
 function modifier_magical_guard:GetEffectName()
-	return "particles/items3_fx/lotus_orb_shield.vpcf"
+	return "particles/status_effects/magical_guard/shield.vpcf"
 end
 
 function modifier_magical_guard:GetEffectAttachType()

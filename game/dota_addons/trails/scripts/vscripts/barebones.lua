@@ -402,7 +402,7 @@ end
 
 function GameMode:AddMasterQuartz(hero)
 	local quartz_name = getHeroValueForKey(hero, "MasterQuartz")
-	local item = CreateItem("item_master_"..quartz_name, hero, hero)
+	local item = CreateItem("item_master_"..quartz_name.."_1", hero, hero)
 	hero:AddItem(item)
 end
 

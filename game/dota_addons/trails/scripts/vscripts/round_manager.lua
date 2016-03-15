@@ -73,7 +73,7 @@ function RoundManager:StartRound()
 			FindClearSpaceForUnit(hero, self:GetSpawnPosition(hero, false), true)
 		end
 	end
-	triggerModifierEvent("round_started")
+	triggerModifierEventOnAll("round_started")
 	game_mode:StartRound(self.current_round)
 	Round_Recap:StartRound()
 	CustomGameEventManager:Send_ServerToAllClients("ready_button_hide", {})
@@ -117,7 +117,7 @@ function RoundManager:EndRound(winning_team)
 				end
 
 				hero:ModifyGold(BASE_GOLD_PER_ROUND + GOLD_INCREASE_PER_ROUND * self.current_round, true, 17)
-				getMasterQuartz(hero):SetLevel(getMasterQuartz(hero):GetLevel() + 1)
+				upgradeMasterQuartz(hero)
 				ParticleManager:CreateParticle("particles/generic_hero_status/hero_levelup.vpcf", PATTACH_ABSORIGIN_FOLLOW, hero)
 			end
 		end

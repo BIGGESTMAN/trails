@@ -20,7 +20,7 @@ HP (bonus_health) : 300
 DEF (bonus_def) : 15
 Cast Point : 1.5
 Delay : 3
-HP Regeneration Duration (duration) : 10
+HP Regeneration Duration (duration) : 15
 Range (tooltip_cast_range) : 600
 Cast Range : 600
 EP Cost : 30

@@ -1,0 +1,640 @@
+
+	"item_master_force_1" {
+		"ID"	"2101"
+		"BaseClass"	"item_lua"
+		"ScriptFile"	"master_quartz/force"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"Model"	"models/props_gameplay/red_box.vmdl"
+		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
+		"AbilityTextureName"	"item_master_force"
+		"AbilityCooldown"	"4"
+		"AbilityCastPoint"	"1.5"
+		"AbilityCastRange"	"600"
+		"AbilityManaCost"	"40"
+		"ItemCost"	"0"
+		"ItemDroppable"	"0"
+		"ItemSellable"	"0"
+		"ItemPurchasable"	"0"
+		"ItemDeclarations"	"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemShareability"	"ITEM_NOT_SHAREABLE"
+		"MaxUpgradeLevel"	"5"
+		"ItemBaseLevel"	"1"
+		"AbilitySpecial" {
+			"00" {
+				"var_type"	"FIELD_INTEGER"
+				"thrill_of_battle_cp"	"3 6 9 12 15"
+			}
+			"00" {
+				"var_type"	"FIELD_FLOAT"
+				"cover_damage_reduction"	"0 7.5 15 22.5 30"
+			}
+			"00" {
+				"var_type"	"FIELD_INTEGER"
+				"finishing_blow_damage_bonus"	"0 0 15 30 45"
+			}
+			"00" {
+				"var_type"	"FIELD_INTEGER"
+				"heated_mind_cp_regen"	"0 0 0 1 2"
+			}
+			"00" {
+				"var_type"	"FIELD_INTEGER"
+				"fighting_spirit_cp"	"0 0 0 0 100"
+			}
+			"00" {
+				"var_type"	"FIELD_INTEGER"
+				"thrill_of_battle_range"	"350"
+			}
+		}
+	}
+
+	"item_master_force_2" {
+		"ID"	"2102"
+		"BaseClass"	"item_lua"
+		"ScriptFile"	"master_quartz/force"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"Model"	"models/props_gameplay/red_box.vmdl"
+		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
+		"AbilityTextureName"	"item_master_force"
+		"AbilityCooldown"	"4"
+		"AbilityCastPoint"	"1.5"
+		"AbilityCastRange"	"600"
+		"AbilityManaCost"	"40"
+		"ItemCost"	"0"
+		"ItemDroppable"	"0"
+		"ItemSellable"	"0"
+		"ItemPurchasable"	"0"
+		"ItemDeclarations"	"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemShareability"	"ITEM_NOT_SHAREABLE"
+		"MaxUpgradeLevel"	"5"
+		"ItemBaseLevel"	"2"
+		"AbilitySpecial" {
+			"00" {
+				"var_type"	"FIELD_INTEGER"
+				"thrill_of_battle_cp"	"3 6 9 12 15"
+			}
+			"00" {
+				"var_type"	"FIELD_FLOAT"
+				"cover_damage_reduction"	"0 7.5 15 22.5 30"
+			}
+			"00" {
+				"var_type"	"FIELD_INTEGER"
+				"finishing_blow_damage_bonus"	"0 0 15 30 45"
+			}
+			"00" {
+				"var_type"	"FIELD_INTEGER"
+				"heated_mind_cp_regen"	"0 0 0 1 2"
+			}
+			"00" {
+				"var_type"	"FIELD_INTEGER"
+				"fighting_spirit_cp"	"0 0 0 0 100"
+			}
+			"00" {
+				"var_type"	"FIELD_INTEGER"
+				"thrill_of_battle_range"	"350"
+			}
+		}
+	}
+
+	"item_master_force_3" {
+		"ID"	"2103"
+		"BaseClass"	"item_lua"
+		"ScriptFile"	"master_quartz/force"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"Model"	"models/props_gameplay/red_box.vmdl"
+		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
+		"AbilityTextureName"	"item_master_force"
+		"AbilityCooldown"	"4"
+		"AbilityCastPoint"	"1.5"
+		"AbilityCastRange"	"600"
+		"AbilityManaCost"	"40"
+		"ItemCost"	"0"
+		"ItemDroppable"	"0"
+		"ItemSellable"	"0"
+		"ItemPurchasable"	"0"
+		"ItemDeclarations"	"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemShareability"	"ITEM_NOT_SHAREABLE"
+		"MaxUpgradeLevel"	"5"
+		"ItemBaseLevel"	"3"
+		"AbilitySpecial" {
+			"00" {
+				"var_type"	"FIELD_INTEGER"
+				"thrill_of_battle_cp"	"3 6 9 12 15"
+			}
+			"00" {
+				"var_type"	"FIELD_FLOAT"
+				"cover_damage_reduction"	"0 7.5 15 22.5 30"
+			}
+			"00" {
+				"var_type"	"FIELD_INTEGER"
+				"finishing_blow_damage_bonus"	"0 0 15 30 45"
+			}
+			"00" {
+				"var_type"	"FIELD_INTEGER"
+				"heated_mind_cp_regen"	"0 0 0 1 2"
+			}
+			"00" {
+				"var_type"	"FIELD_INTEGER"
+				"fighting_spirit_cp"	"0 0 0 0 100"
+			}
+			"00" {
+				"var_type"	"FIELD_INTEGER"
+				"thrill_of_battle_range"	"350"
+			}
+		}
+	}
+
+	"item_master_force_4" {
+		"ID"	"2104"
+		"BaseClass"	"item_lua"
+		"ScriptFile"	"master_quartz/force"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"Model"	"models/props_gameplay/red_box.vmdl"
+		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
+		"AbilityTextureName"	"item_master_force"
+		"AbilityCooldown"	"4"
+		"AbilityCastPoint"	"1.5"
+		"AbilityCastRange"	"600"
+		"AbilityManaCost"	"40"
+		"ItemCost"	"0"
+		"ItemDroppable"	"0"
+		"ItemSellable"	"0"
+		"ItemPurchasable"	"0"
+		"ItemDeclarations"	"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemShareability"	"ITEM_NOT_SHAREABLE"
+		"MaxUpgradeLevel"	"5"
+		"ItemBaseLevel"	"4"
+		"AbilitySpecial" {
+			"00" {
+				"var_type"	"FIELD_INTEGER"
+				"thrill_of_battle_cp"	"3 6 9 12 15"
+			}
+			"00" {
+				"var_type"	"FIELD_FLOAT"
+				"cover_damage_reduction"	"0 7.5 15 22.5 30"
+			}
+			"00" {
+				"var_type"	"FIELD_INTEGER"
+				"finishing_blow_damage_bonus"	"0 0 15 30 45"
+			}
+			"00" {
+				"var_type"	"FIELD_INTEGER"
+				"heated_mind_cp_regen"	"0 0 0 1 2"
+			}
+			"00" {
+				"var_type"	"FIELD_INTEGER"
+				"fighting_spirit_cp"	"0 0 0 0 100"
+			}
+			"00" {
+				"var_type"	"FIELD_INTEGER"
+				"thrill_of_battle_range"	"350"
+			}
+		}
+	}
+
+	"item_master_force_5" {
+		"ID"	"2105"
+		"BaseClass"	"item_lua"
+		"ScriptFile"	"master_quartz/force"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"Model"	"models/props_gameplay/red_box.vmdl"
+		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
+		"AbilityTextureName"	"item_master_force"
+		"AbilityCooldown"	"4"
+		"AbilityCastPoint"	"1.5"
+		"AbilityCastRange"	"600"
+		"AbilityManaCost"	"40"
+		"ItemCost"	"0"
+		"ItemDroppable"	"0"
+		"ItemSellable"	"0"
+		"ItemPurchasable"	"0"
+		"ItemDeclarations"	"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemShareability"	"ITEM_NOT_SHAREABLE"
+		"MaxUpgradeLevel"	"5"
+		"ItemBaseLevel"	"5"
+		"AbilitySpecial" {
+			"00" {
+				"var_type"	"FIELD_INTEGER"
+				"thrill_of_battle_cp"	"3 6 9 12 15"
+			}
+			"00" {
+				"var_type"	"FIELD_FLOAT"
+				"cover_damage_reduction"	"0 7.5 15 22.5 30"
+			}
+			"00" {
+				"var_type"	"FIELD_INTEGER"
+				"finishing_blow_damage_bonus"	"0 0 15 30 45"
+			}
+			"00" {
+				"var_type"	"FIELD_INTEGER"
+				"heated_mind_cp_regen"	"0 0 0 1 2"
+			}
+			"00" {
+				"var_type"	"FIELD_INTEGER"
+				"fighting_spirit_cp"	"0 0 0 0 100"
+			}
+			"00" {
+				"var_type"	"FIELD_INTEGER"
+				"thrill_of_battle_range"	"350"
+			}
+		}
+	}
+
+	"item_master_aegis_1" {
+		"ID"	"2106"
+		"BaseClass"	"item_lua"
+		"ScriptFile"	"master_quartz/aegis"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"Model"	"models/props_gameplay/red_box.vmdl"
+		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
+		"AbilityTextureName"	"item_master_aegis"
+		"AbilityCooldown"	"3"
+		"AbilityCastPoint"	"1.5"
+		"AbilityCastRange"	"600"
+		"AbilityManaCost"	"30"
+		"ItemCost"	"0"
+		"ItemDroppable"	"0"
+		"ItemSellable"	"0"
+		"ItemPurchasable"	"0"
+		"ItemDeclarations"	"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemShareability"	"ITEM_NOT_SHAREABLE"
+		"MaxUpgradeLevel"	"5"
+		"ItemBaseLevel"	"1"
+		"AbilitySpecial" {
+		}
+	}
+
+	"item_master_aegis_2" {
+		"ID"	"2107"
+		"BaseClass"	"item_lua"
+		"ScriptFile"	"master_quartz/aegis"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"Model"	"models/props_gameplay/red_box.vmdl"
+		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
+		"AbilityTextureName"	"item_master_aegis"
+		"AbilityCooldown"	"3"
+		"AbilityCastPoint"	"1.5"
+		"AbilityCastRange"	"600"
+		"AbilityManaCost"	"30"
+		"ItemCost"	"0"
+		"ItemDroppable"	"0"
+		"ItemSellable"	"0"
+		"ItemPurchasable"	"0"
+		"ItemDeclarations"	"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemShareability"	"ITEM_NOT_SHAREABLE"
+		"MaxUpgradeLevel"	"5"
+		"ItemBaseLevel"	"2"
+		"AbilitySpecial" {
+		}
+	}
+
+	"item_master_aegis_3" {
+		"ID"	"2108"
+		"BaseClass"	"item_lua"
+		"ScriptFile"	"master_quartz/aegis"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"Model"	"models/props_gameplay/red_box.vmdl"
+		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
+		"AbilityTextureName"	"item_master_aegis"
+		"AbilityCooldown"	"3"
+		"AbilityCastPoint"	"1.5"
+		"AbilityCastRange"	"600"
+		"AbilityManaCost"	"30"
+		"ItemCost"	"0"
+		"ItemDroppable"	"0"
+		"ItemSellable"	"0"
+		"ItemPurchasable"	"0"
+		"ItemDeclarations"	"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemShareability"	"ITEM_NOT_SHAREABLE"
+		"MaxUpgradeLevel"	"5"
+		"ItemBaseLevel"	"3"
+		"AbilitySpecial" {
+		}
+	}
+
+	"item_master_aegis_4" {
+		"ID"	"2109"
+		"BaseClass"	"item_lua"
+		"ScriptFile"	"master_quartz/aegis"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"Model"	"models/props_gameplay/red_box.vmdl"
+		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
+		"AbilityTextureName"	"item_master_aegis"
+		"AbilityCooldown"	"3"
+		"AbilityCastPoint"	"1.5"
+		"AbilityCastRange"	"600"
+		"AbilityManaCost"	"30"
+		"ItemCost"	"0"
+		"ItemDroppable"	"0"
+		"ItemSellable"	"0"
+		"ItemPurchasable"	"0"
+		"ItemDeclarations"	"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemShareability"	"ITEM_NOT_SHAREABLE"
+		"MaxUpgradeLevel"	"5"
+		"ItemBaseLevel"	"4"
+		"AbilitySpecial" {
+		}
+	}
+
+	"item_master_aegis_5" {
+		"ID"	"2110"
+		"BaseClass"	"item_lua"
+		"ScriptFile"	"master_quartz/aegis"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"Model"	"models/props_gameplay/red_box.vmdl"
+		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
+		"AbilityTextureName"	"item_master_aegis"
+		"AbilityCooldown"	"3"
+		"AbilityCastPoint"	"1.5"
+		"AbilityCastRange"	"600"
+		"AbilityManaCost"	"30"
+		"ItemCost"	"0"
+		"ItemDroppable"	"0"
+		"ItemSellable"	"0"
+		"ItemPurchasable"	"0"
+		"ItemDeclarations"	"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemShareability"	"ITEM_NOT_SHAREABLE"
+		"MaxUpgradeLevel"	"5"
+		"ItemBaseLevel"	"5"
+		"AbilitySpecial" {
+		}
+	}
+
+	"item_master_cypher_1" {
+		"ID"	"2111"
+		"BaseClass"	"item_lua"
+		"ScriptFile"	"master_quartz/cypher"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"Model"	"models/props_gameplay/red_box.vmdl"
+		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
+		"AbilityTextureName"	"item_master_cypher"
+		"AbilityCooldown"	"6"
+		"AbilityCastPoint"	"2"
+		"AbilityCastRange"	"600"
+		"AbilityManaCost"	"200"
+		"ItemCost"	"0"
+		"ItemDroppable"	"0"
+		"ItemSellable"	"0"
+		"ItemPurchasable"	"0"
+		"ItemDeclarations"	"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemShareability"	"ITEM_NOT_SHAREABLE"
+		"MaxUpgradeLevel"	"5"
+		"ItemBaseLevel"	"1"
+		"AbilitySpecial" {
+		}
+	}
+
+	"item_master_cypher_2" {
+		"ID"	"2112"
+		"BaseClass"	"item_lua"
+		"ScriptFile"	"master_quartz/cypher"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"Model"	"models/props_gameplay/red_box.vmdl"
+		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
+		"AbilityTextureName"	"item_master_cypher"
+		"AbilityCooldown"	"6"
+		"AbilityCastPoint"	"2"
+		"AbilityCastRange"	"600"
+		"AbilityManaCost"	"200"
+		"ItemCost"	"0"
+		"ItemDroppable"	"0"
+		"ItemSellable"	"0"
+		"ItemPurchasable"	"0"
+		"ItemDeclarations"	"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemShareability"	"ITEM_NOT_SHAREABLE"
+		"MaxUpgradeLevel"	"5"
+		"ItemBaseLevel"	"2"
+		"AbilitySpecial" {
+		}
+	}
+
+	"item_master_cypher_3" {
+		"ID"	"2113"
+		"BaseClass"	"item_lua"
+		"ScriptFile"	"master_quartz/cypher"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"Model"	"models/props_gameplay/red_box.vmdl"
+		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
+		"AbilityTextureName"	"item_master_cypher"
+		"AbilityCooldown"	"6"
+		"AbilityCastPoint"	"2"
+		"AbilityCastRange"	"600"
+		"AbilityManaCost"	"200"
+		"ItemCost"	"0"
+		"ItemDroppable"	"0"
+		"ItemSellable"	"0"
+		"ItemPurchasable"	"0"
+		"ItemDeclarations"	"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemShareability"	"ITEM_NOT_SHAREABLE"
+		"MaxUpgradeLevel"	"5"
+		"ItemBaseLevel"	"3"
+		"AbilitySpecial" {
+		}
+	}
+
+	"item_master_cypher_4" {
+		"ID"	"2114"
+		"BaseClass"	"item_lua"
+		"ScriptFile"	"master_quartz/cypher"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"Model"	"models/props_gameplay/red_box.vmdl"
+		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
+		"AbilityTextureName"	"item_master_cypher"
+		"AbilityCooldown"	"6"
+		"AbilityCastPoint"	"2"
+		"AbilityCastRange"	"600"
+		"AbilityManaCost"	"200"
+		"ItemCost"	"0"
+		"ItemDroppable"	"0"
+		"ItemSellable"	"0"
+		"ItemPurchasable"	"0"
+		"ItemDeclarations"	"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemShareability"	"ITEM_NOT_SHAREABLE"
+		"MaxUpgradeLevel"	"5"
+		"ItemBaseLevel"	"4"
+		"AbilitySpecial" {
+		}
+	}
+
+	"item_master_cypher_5" {
+		"ID"	"2115"
+		"BaseClass"	"item_lua"
+		"ScriptFile"	"master_quartz/cypher"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"Model"	"models/props_gameplay/red_box.vmdl"
+		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
+		"AbilityTextureName"	"item_master_cypher"
+		"AbilityCooldown"	"6"
+		"AbilityCastPoint"	"2"
+		"AbilityCastRange"	"600"
+		"AbilityManaCost"	"200"
+		"ItemCost"	"0"
+		"ItemDroppable"	"0"
+		"ItemSellable"	"0"
+		"ItemPurchasable"	"0"
+		"ItemDeclarations"	"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemShareability"	"ITEM_NOT_SHAREABLE"
+		"MaxUpgradeLevel"	"5"
+		"ItemBaseLevel"	"5"
+		"AbilitySpecial" {
+		}
+	}
+
+	"item_master_angel_1" {
+		"ID"	"2116"
+		"BaseClass"	"item_lua"
+		"ScriptFile"	"master_quartz/angel"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"Model"	"models/props_gameplay/red_box.vmdl"
+		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
+		"AbilityTextureName"	"item_master_angel"
+		"AbilityCooldown"	"6"
+		"AbilityCastPoint"	"2"
+		"AbilityCastRange"	"600"
+		"AbilityManaCost"	"200"
+		"ItemCost"	"0"
+		"ItemDroppable"	"0"
+		"ItemSellable"	"0"
+		"ItemPurchasable"	"0"
+		"ItemDeclarations"	"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemShareability"	"ITEM_NOT_SHAREABLE"
+		"MaxUpgradeLevel"	"5"
+		"ItemBaseLevel"	"1"
+		"AbilitySpecial" {
+		}
+	}
+
+	"item_master_angel_2" {
+		"ID"	"2117"
+		"BaseClass"	"item_lua"
+		"ScriptFile"	"master_quartz/angel"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"Model"	"models/props_gameplay/red_box.vmdl"
+		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
+		"AbilityTextureName"	"item_master_angel"
+		"AbilityCooldown"	"6"
+		"AbilityCastPoint"	"2"
+		"AbilityCastRange"	"600"
+		"AbilityManaCost"	"200"
+		"ItemCost"	"0"
+		"ItemDroppable"	"0"
+		"ItemSellable"	"0"
+		"ItemPurchasable"	"0"
+		"ItemDeclarations"	"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemShareability"	"ITEM_NOT_SHAREABLE"
+		"MaxUpgradeLevel"	"5"
+		"ItemBaseLevel"	"2"
+		"AbilitySpecial" {
+		}
+	}
+
+	"item_master_angel_3" {
+		"ID"	"2118"
+		"BaseClass"	"item_lua"
+		"ScriptFile"	"master_quartz/angel"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"Model"	"models/props_gameplay/red_box.vmdl"
+		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
+		"AbilityTextureName"	"item_master_angel"
+		"AbilityCooldown"	"6"
+		"AbilityCastPoint"	"2"
+		"AbilityCastRange"	"600"
+		"AbilityManaCost"	"200"
+		"ItemCost"	"0"
+		"ItemDroppable"	"0"
+		"ItemSellable"	"0"
+		"ItemPurchasable"	"0"
+		"ItemDeclarations"	"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemShareability"	"ITEM_NOT_SHAREABLE"
+		"MaxUpgradeLevel"	"5"
+		"ItemBaseLevel"	"3"
+		"AbilitySpecial" {
+		}
+	}
+
+	"item_master_angel_4" {
+		"ID"	"2119"
+		"BaseClass"	"item_lua"
+		"ScriptFile"	"master_quartz/angel"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"Model"	"models/props_gameplay/red_box.vmdl"
+		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
+		"AbilityTextureName"	"item_master_angel"
+		"AbilityCooldown"	"6"
+		"AbilityCastPoint"	"2"
+		"AbilityCastRange"	"600"
+		"AbilityManaCost"	"200"
+		"ItemCost"	"0"
+		"ItemDroppable"	"0"
+		"ItemSellable"	"0"
+		"ItemPurchasable"	"0"
+		"ItemDeclarations"	"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemShareability"	"ITEM_NOT_SHAREABLE"
+		"MaxUpgradeLevel"	"5"
+		"ItemBaseLevel"	"4"
+		"AbilitySpecial" {
+		}
+	}
+
+	"item_master_angel_5" {
+		"ID"	"2120"
+		"BaseClass"	"item_lua"
+		"ScriptFile"	"master_quartz/angel"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"Model"	"models/props_gameplay/red_box.vmdl"
+		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
+		"AbilityTextureName"	"item_master_angel"
+		"AbilityCooldown"	"6"
+		"AbilityCastPoint"	"2"
+		"AbilityCastRange"	"600"
+		"AbilityManaCost"	"200"
+		"ItemCost"	"0"
+		"ItemDroppable"	"0"
+		"ItemSellable"	"0"
+		"ItemPurchasable"	"0"
+		"ItemDeclarations"	"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemShareability"	"ITEM_NOT_SHAREABLE"
+		"MaxUpgradeLevel"	"5"
+		"ItemBaseLevel"	"5"
+		"AbilitySpecial" {
+		}
+	}

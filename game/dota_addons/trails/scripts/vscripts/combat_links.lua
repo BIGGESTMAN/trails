@@ -89,7 +89,7 @@ function increaseUnbalance(caster, target, bonus_increase)
 end
 
 function triggerUnbalanceEvent(target)
-	triggerModifierEvent("unit_unbalanced", {unit = target})
+	triggerModifierEventOnAll("unit_unbalanced", {unit = target})
 end
 
 function followupAvailable(keys)

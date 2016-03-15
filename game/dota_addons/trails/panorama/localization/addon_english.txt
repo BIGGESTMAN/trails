@@ -55,6 +55,7 @@
 	"music_control_button"							"Toggle Music"
 	"ready_button"									"Ready"
 	"current_turn_bonus"							"Current Turn Bonus:"
+	
 	"teleport_window_header"						"Teleport To Tower"
 	"teleport_to_tower_1"							"Esmelas Tower"
 	"teleport_to_tower_2"							"Amberl Tower"
@@ -90,9 +91,9 @@
 	"HeroSelect_Loading"							"Loading..."
 
 	"masterquartz_description_force"				"Provides well-rounded physical bonuses, specializing in rapid CP generation. Allows casting of Impassion."
-	"masterquartz_description_angel"				"angel description"
-	"masterquartz_description_cypher"				"cypher description"
-	"masterquartz_description_aegis"				"aegis description"
+	"masterquartz_description_angel"				"Bestows the gift of resurrection, ensuring the survival of allies against all odds. Allows casting of Thelas, upgraded to Seraphim Ring at level 5."
+	"masterquartz_description_cypher"				"Weaving physical and magical attacks weakens foes, bringing them closer to death with each blow. Allows casting of Phantom Phobia."
+	"masterquartz_description_aegis"				"Powerful defensive bonuses let the user jump into the fray without hesitation. Allows casting of Earth Pulse."
 
 	//"npc_dota_hero_ember_spirit_Lore"				"The leader of Class VII. As a beginner in the Eight Leaves One Blade school of swordfighting, Rean uses powerful physical attacks to disrupt and elude enemies."
 	"npc_dota_hero_ember_spirit_Lore"				"Rean is a nimble, aggressive swordfighter who uses powerful physical attacks to disrupt and elude enemies."

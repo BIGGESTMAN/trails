@@ -6,10 +6,17 @@ item_master_force = class({})
 item_master_force.OnSpellStart = item_impassion.OnSpellStart
 item_master_force.OnAbilityPhaseStart = item_impassion.OnAbilityPhaseStart
 item_master_force.OnAbilityPhaseInterrupted = item_impassion.OnAbilityPhaseInterrupted
+item_master_force.GetCastAnimation = item_impassion.GetCastAnimation
 
 function item_master_force:GetIntrinsicModifierName()
 	return "modifier_master_force_passive"
 end
+
+item_master_force_1 = item_master_force
+item_master_force_2 = item_master_force
+item_master_force_3 = item_master_force
+item_master_force_4 = item_master_force
+item_master_force_5 = item_master_force
 
 modifier_master_force_passive = class({})
 

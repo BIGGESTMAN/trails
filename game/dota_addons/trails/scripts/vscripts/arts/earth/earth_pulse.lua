@@ -26,4 +26,8 @@ if IsServer() then
 	function item_earth_pulse:OnAbilityPhaseInterrupted()
 		endCastParticle(self:GetCaster())
 	end
+
+	function item_earth_pulse:GetCastAnimation()
+		return ACT_DOTA_TELEPORT
+	end
 end

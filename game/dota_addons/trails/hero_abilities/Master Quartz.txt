@@ -1,3 +1,5 @@
+Master Quartz
+
 Force
 Art - Impassion
 Thrill of Battle : You gain CP whenever an enemy within 350 range is unbalanced, and double that amount when you defeat an enemy.
@@ -5,19 +7,25 @@ Cover : Reduces the damage your link partner takes and deals half of the damage 
 Finishing Blow : Enhanced crafts deal more damage against enemies with less than 20% of their max health.
 Heated Mind : You gain an increased amount of CP each second.
 Fighting Spirit : When you fall below 20% of your max health, you instantly gain a large amount of CP. Can occur only once per round.
-Thrill of Battle CP (thrill_of_battle_cp)
-%Cover Damage Reduction (cover_damage_reduction)
-%Finishing Blow Damage Bonus (finishing_blow_damage_bonus)
-Heated Mind CP Per Second (heated_mind_cp_regen)
-Fighting Spirit CP (fighting_spirit_cp)
+Thrill of Battle CP (thrill_of_battle_cp) : 3/6/9/12/15
+%Cover Damage Reduction (cover_damage_reduction) : 0/7.5/15/22.5/30
+%Finishing Blow Damage Bonus (finishing_blow_damage_bonus) : 0/0/15/30/45
+Heated Mind CP Per Second (heated_mind_cp_regen) : 0/0/0/1/2
+Fighting Spirit CP (fighting_spirit_cp) : 0/0/0/0/100
+~Thrill of Battle Range (thrill_of_battle_range) : 350
 
 Aegis
 Art - Earth Pulse
-Vanguard : You start each round with Physical and Magical Guard. Whenever you block with Physical (or Magical) Guard or Reflect, your DEF (or ADF) is increased by 25% for 6/7/8/9/10 seconds. From level 4, upgrades any instance of Guard on your allies to Reflect (450 Radius).
-Counterattack : Whenever your link partner takes 0/400/350/300/250 damage (450 Radius), you hit the attacker for 0/120/150/180/210% physical damage the next time your partner takes damage (350 Radius). If they take lethal damage, you counter regardless of damage taken with a critical strike.
-Last Bastion : When you fall below 20% of your max health, gives you Physical and Magical Guard. Happens only once per round.
-Lively Yell : Whenever your link partner is unbalanced, heals them for 0/0/0/10/16% of their max health and gives them 0/0/0/20/25 CP (450 Radius).
+Vanguard : You gain Physical and Magical Guard after not taking damage for a time. Whenever you block with a Guard or Reflect effect, your STR and MOV are increased by 25%.
+Counterattack : Whenever your link partner takes 30% of their max HP in damage from an enemy within 350 range of you, you deal increased damage against the attacker for 3 seconds and your Delay is reduced by 2. If your link partner takes lethal damage, the damage increase lasts until the end of the round and all Delay is removed.
+Last Bastion : When you fall below 20% of your max health, gives you unlimited Physical and Magical Guard for a short time. Can occur only once per round.
+Lively Yell : Whenever your link partner is unbalanced, grants both them and you CP.
 Earth Mastery : Halves the delay from casting Earth Arts.
+Vanguard Guard Cooldown (vanguard_cooldown)
+Vanguard Stat Buff Duration (vanguard_stat_increase_duration)
+%Counterattack Damage Bonus (counterattack_damage_bonus)
+Last Bastion Duration (last_bastion_duration)
+Lively Yell CP (lively_yell_cp)
 
 Cypher
 Art - Phantom Phobia

@@ -45,9 +45,14 @@
 			<Image id="image_loader" src="file://{images}/items/quartz_mirage_1.png" hittest="false" />
 			<Image id="image_loader" src="file://{images}/items/quartz_mirage_2.png" hittest="false" />
 			<Image id="image_loader" src="file://{images}/items/quartz_mirage_3.png" hittest="false" />
+
 			<Image id="image_loader" src="file://{images}/items/master_force.png" hittest="false" />
 			<Image id="image_loader" src="file://{images}/items/master_angel.png" hittest="false" />
 			<Image id="image_loader" src="file://{images}/items/master_cypher.png" hittest="false" />
+			<Image id="image_loader" src="file://{images}/items/master_aegis.png" hittest="false" />
+			<Image id="image_loader" src="file://{images}/items/master_vermillion.png" hittest="false" />
+			<Image id="image_loader" src="file://{images}/items/master_mirage.png" hittest="false" />
+			<Image id="image_loader" src="file://{images}/items/master_raven.png" hittest="false" />
 		</Panel>
 	</Panel>
 </root>

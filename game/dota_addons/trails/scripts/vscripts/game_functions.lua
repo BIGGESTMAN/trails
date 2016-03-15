@@ -47,7 +47,7 @@ CRIT_DAMAGE_FACTOR = 2
 FAINT_DAMAGE_FACTOR = 1.5
 BALANCE_DOWN_UNBALANCE_FACTOR = 1.5
 
-LINK_SKILL_SCALING_RANGE = 700
+LINK_SKILL_SCALING_RANGE = 600
 LINK_SKILL_SCALING_FACTOR = 0.5
 
 LOW_HP_THRESHOLD_PERCENT = 20
@@ -99,11 +99,14 @@ LinkLuaModifier("modifier_unshatterable_bonds", "effect_modifiers.lua", LUA_MODI
 
 function applyEffect(target, damage_type, effect)
 	if IsValidAlive(target) then
-		if target:HasModifier("modifier_guard_high_priority") and (damage_type == DAMAGE_TYPE_PHYSICAL or damage_type == DAMAGE_TYPE_MAGICAL) then
+		if (target:HasModifier("modifier_guard_high_priority") or target:HasModifier("modifier_aegis_last_bastion")) and (damage_type == DAMAGE_TYPE_PHYSICAL or damage_type == DAMAGE_TYPE_MAGICAL) then
+			triggerModifierEvent(target, "guard_triggered", {})
 			return
 		elseif target:HasModifier("modifier_physical_guard") and damage_type == DAMAGE_TYPE_PHYSICAL then
+			triggerModifierEvent(target, "guard_triggered", {})
 			target:RemoveModifierByName("modifier_physical_guard")
 		elseif target:HasModifier("modifier_magical_guard") and damage_type == DAMAGE_TYPE_MAGICAL then
+			triggerModifierEvent(target, "guard_triggered", {})
 			target:RemoveModifierByName("modifier_magical_guard")
 		else
 			effect()
@@ -133,6 +136,9 @@ function dealDamage(target, attacker, damage, damage_type, ability, cp_gain_fact
 	end
 	if target:HasModifier("modifier_faint") then
 		damage = damage * FAINT_DAMAGE_FACTOR
+	end
+	if target:HasModifier("modifier_aegis_counterattack") and attacker == target:FindModifierByName("modifier_aegis_counterattack"):GetCaster() then
+		damage = damage * (1 + getMasterQuartzSpecialValue(attacker, "counterattack_damage_bonus") / 100)
 	end
 	if enhanced and attacker:HasModifier("modifier_master_force_passive") and target:GetHealthPercent() <= LOW_HP_THRESHOLD_PERCENT then
 		damage = damage * (1 + getMasterQuartzSpecialValue(attacker, "finishing_blow_damage_bonus") / 100)
@@ -476,13 +482,8 @@ function grantDamageCP(damage, attacker, target, multiplier)
 end
 
 function setCraftActivatedStatus(unit)
-	for i=0,unit:GetAbilityCount() - 1 do
-		local ability = unit:GetAbilityByIndex(i)
-		if ability and not ability:IsHidden() then
-			ability:SetActivated(getCP(unit) >= getCPCost(ability) and getCP(unit) >= getAbilityValueForKey(ability, "CPCost"))
-		else
-			break
-		end
+	for k,ability in pairs(getAllActiveAbilities(unit)) do
+		ability:SetActivated(getCP(unit) >= getCPCost(ability) and getCP(unit) >= getAbilityValueForKey(ability, "CPCost"))
 	end
 end
 
@@ -500,13 +501,24 @@ end
 function inflictDelay(unit, amount)
 	local amount = amount * (1 - getStats(unit).spd / 100)
 
-	for i=0,unit:GetAbilityCount() - 1 do
-		local ability = unit:GetAbilityByIndex(i)
-		if ability and not ability:IsHidden() then
-			ability:StartCooldown(amount + ability:GetCooldownTimeRemaining())
+	for k,ability in pairs(getAllActiveAbilities(unit)) do
+		ability:StartCooldown(amount + ability:GetCooldownTimeRemaining())
+	end
+end
+
+function reduceDelay(unit, amount)
+	for k,ability in pairs(getAllActiveAbilities(unit)) do
+		if ability:GetCooldownTimeRemaining() >= amount then
+			ability:StartCooldown(ability:GetCooldownTimeRemaining() - amount)
 		else
-			break
+			ability:EndCooldown()
 		end
+	end
+end
+
+function removeDelay(unit)
+	for k,ability in pairs(getAllActiveAbilities(unit)) do
+		ability:EndCooldown()
 	end
 end
 
@@ -598,42 +610,56 @@ function getAllLivingHeroes()
 	return living_heroes
 end
 
-function triggerModifierEvent(event_name, args)
-	local modifier_function = nil
-
-	for k,hero in pairs(getAllHeroes()) do
-		for k,modifier in pairs(hero:FindAllModifiers()) do
-			if event_name == "unit_unbalanced" then
-				if modifier.UnitUnbalanced then
-					modifier:UnitUnbalanced(args)
-				end
-			elseif event_name == "round_started" then
-				if modifier.RoundStarted then
-					modifier:RoundStarted(args)
-				end
+function triggerModifierEvent(hero, event_name, args)
+	for k,modifier in pairs(hero:FindAllModifiers()) do
+		if event_name == "unit_unbalanced" then
+			if modifier.UnitUnbalanced then
+				modifier:UnitUnbalanced(args)
+			end
+		elseif event_name == "round_started" then
+			if modifier.RoundStarted then
+				modifier:RoundStarted(args)
+			end
+		elseif event_name == "guard_triggered" then
+			if modifier.GuardTriggered then
+				modifier:GuardTriggered(args)
 			end
 		end
 	end
 end
 
-function getMasterQuartzSpecialValue(hero, value_name, master_quartz)
+function triggerModifierEventOnAll(event_name, args)
+	for k,hero in pairs(getAllHeroes()) do
+		triggerModifierEvent(hero, event_name, args)
+	end
+end
+
+function getMasterQuartzSpecialValue(hero, value_name, master_quartz, inverse_scaling)
 	master_quartz = master_quartz or getMasterQuartz(hero)
 	local base_value = master_quartz:GetSpecialValueFor(value_name)
-	if hero.combat_linked_to then
+	if not inverse_scaling then
 		base_value = base_value * getHeroLinkScaling(hero)
 	else
-		base_value = 0
+		if getHeroLinkScaling(hero) > 0 then
+			base_value = base_value / getHeroLinkScaling(hero)
+		else
+			base_value = 0
+		end
 	end
 	return base_value
 end
 
 function getHeroLinkScaling(hero)
-	local distance = (hero:GetAbsOrigin() - hero.combat_linked_to:GetAbsOrigin()):Length2D()
-	if distance > LINK_SKILL_SCALING_RANGE and not hero:HasModifier("modifier_unshatterable_bonds") then
-		return LINK_SKILL_SCALING_FACTOR
-	else
-		return 1
+	local scaling = 0
+	if hero.combat_linked_to then
+		local distance = (hero:GetAbsOrigin() - hero.combat_linked_to:GetAbsOrigin()):Length2D()
+		if distance > LINK_SKILL_SCALING_RANGE and not hero:HasModifier("modifier_unshatterable_bonds") then
+			scaling = LINK_SKILL_SCALING_FACTOR
+		else
+			scaling = 1
+		end
 	end
+	return scaling
 end
 
 function getMasterQuartz(hero)
@@ -645,6 +671,18 @@ function getMasterQuartz(hero)
 		end
 	end
 	return master_quartz
+end
+
+function upgradeMasterQuartz(hero)
+	local existing_quartz = getMasterQuartz(hero)
+	local slot = getSlotOfItem(existing_quartz, hero)
+	local level = existing_quartz:GetLevel()
+	hero:RemoveItem(existing_quartz)
+
+	local quartz_name = getHeroValueForKey(hero, "MasterQuartz")
+	local new_quartz = CreateItem("item_master_"..quartz_name.."_"..(level + 1), hero, hero)
+	hero:AddItem(new_quartz)
+	hero:SwapItems(getSlotOfItem(new_quartz, hero), slot)
 end
 
 function getOpposingTeam(team)
