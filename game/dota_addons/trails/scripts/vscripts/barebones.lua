@@ -189,9 +189,15 @@ function GameMode:OnPlayerChat(keys)
 		ONE_HIT_UNBALANCE = not ONE_HIT_UNBALANCE
 	elseif text:find("-cpmode") then
 		local new_mode = text:sub(string.len("-cpmode ")) - 1
-		print(new_mode)
 		if new_mode == CP_COSTS_MODE_NORMAL or new_mode == CP_COSTS_MODE_NONE or new_mode == CP_COSTS_MODE_DECAYING then
 			CP_COSTS_MODE = new_mode
+			GameRules:SendCustomMessage("CP mode changed", 0, 0)
+		end
+	elseif text:find("-cdmode") then
+		local new_mode = text:sub(string.len("-cdmode ")) - 1
+		if new_mode == COOLDOWNS_MODE_SHARED or new_mode == COOLDOWNS_MODE_INDIVIDUAL then
+			COOLDOWNS_MODE = new_mode
+			GameRules:SendCustomMessage("Cooldown mode changed", 0, 0)
 		end
 	end
 end

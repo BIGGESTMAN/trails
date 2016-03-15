@@ -28,6 +28,10 @@ CP_COSTS_MODE_DECAYING = 2
 CP_COSTS_MODE = CP_COSTS_MODE_DECAYING
 CP_COSTS_DECAY_TIME = 10
 
+COOLDOWNS_MODE_SHARED = 0
+COOLDOWNS_MODE_INDIVIDUAL = 1
+COOLDOWNS_MODE = COOLDOWNS_MODE_SHARED
+
 SCRAFT_MINIMUM_CP = 100
 MAX_CP = 200
 END_OF_ROUND_LOSER_CP = 50
@@ -505,8 +509,10 @@ function inflictDelay(unit, amount)
 end
 
 function applyDelayCooldowns(unit, ability)
-	ability:EndCooldown()
-	inflictDelay(unit, ability:GetCooldown(ability:GetLevel()))
+	if COOLDOWNS_MODE == COOLDOWNS_MODE_SHARED then
+		ability:EndCooldown()
+		inflictDelay(unit, ability:GetCooldown(ability:GetLevel()))
+	end
 end
 
 if not util_ability_keyvalues then util_ability_keyvalues = LoadKeyValues("scripts/npc/npc_abilities_custom.txt") end
