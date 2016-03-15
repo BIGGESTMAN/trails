@@ -46,7 +46,7 @@
 		"MovementSpeed"				"335"									// Speed.
 		"MovementTurnRate"			".65"									// Turning rate.
 
-		"StatusHealth"				"1400"									// Base health.
+		"StatusHealth"				"1200"									// Base health.
 		"StatusHealthRegen"			"0"										// Health regeneration rate.
 		"StatusMana"				"150"										// Base mana.
 		"StatusManaRegen"			"0"										// Mana regeneration rate.
@@ -62,9 +62,9 @@
 		//"ProjectileModel"			"melee_hero"							// Particle system model for projectile.
 		//"ProjectileSpeed"			"900"									// Speed of projectile.
 
-		"Str"	"80"
+		"Str"	"40"
 		"Def"	"100"
-		"Ats"	"80"
+		"Ats"	"40"
 		"Adf"	"100"
 		"Spd"	"0"
 		"MasterQuartz"	"force"
