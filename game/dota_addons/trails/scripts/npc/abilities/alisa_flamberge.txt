@@ -1,7 +1,7 @@
 	"flamberge"
 	{
 		"BaseClass"						"ability_datadriven"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT_TARGET | DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT_TARGET | DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
@@ -16,9 +16,10 @@
 			"particle"					"particles/crafts/alisa/flamberge/fire_field.vpcf"
 		}
 
-		"AbilityCastPoint"				"0.3"
-		"AbilityCooldown"				"2"
+		"AbilityCastPoint"				"0.0"
+		"AbilityCooldown"				"4"
 		"AbilityManaCost"				"0"
+		"AbilityChannelTime"			"2"
 		"CPCost"						"25"
 
 		"AbilitySpecial"
@@ -31,27 +32,27 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"damage_percent"		"140"
+				"damage_percent"		"100"
 			}
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"bonus_unbalance"		"20"
+				"bonus_unbalance"		"10"
 			}
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"travel_speed"			"1200"
+				"travel_speed"			"2000"
 			}
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"range"					"1000"
+				"range"					"1500"
 			}
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"burn_duration"			"5"
+				"burn_duration"			"3"
 			}
 			"01"
 			{
@@ -87,6 +88,15 @@
 			{
 				"var_type"				"FIELD_FLOAT"
 				"silence_linger_duration"	"0.25"
+			}
+		}
+
+		"OnChannelFinish"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"crafts/alisa/flamberge"
+				"Function"		"channelFinished"
 			}
 		}
 

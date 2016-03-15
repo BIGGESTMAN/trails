@@ -2,20 +2,31 @@ require "projectile_list"
 require "combat_links"
 require "game_functions"
 
-function spellCast(keys)
+function channelFinished(keys)
 	local caster = keys.caster
 	local ability = keys.ability
-	local target_point = keys.target_points[1]
 	local target = keys.target
 
+	local min_multiplier = 0.3
+	local submax_chargetime_multiplier = 0.7
 	local radius = ability:GetSpecialValueFor("radius")
 	local range = ability:GetSpecialValueFor("range")
 	local travel_speed = ability:GetSpecialValueFor("travel_speed")
 	local damage_scale = ability:GetSpecialValueFor("damage_percent") / 100
+	local burn_duration = ability:GetSpecialValueFor("burn_duration")
 	local impactFunction = nil
 
-	modifyCP(caster, getCPCost(ability) * -1)
-	applyDelayCooldowns(caster, ability)
+	local strength_multiplier = 0.3
+	local channel_time_percent = (GameRules:GetGameTime() - ability:GetChannelStartTime()) / ability:GetChannelTime()
+	if channel_time_percent < 1 then
+		strength_multiplier = channel_time_percent * (submax_chargetime_multiplier - min_multiplier) + min_multiplier
+	else
+		strength_multiplier = 1
+	end
+
+	range = range * strength_multiplier
+	travel_speed = travel_speed * strength_multiplier
+	burn_duration = burn_duration * strength_multiplier
 
 	if validEnhancedCraft(caster, target) then
 		caster:RemoveModifierByName("modifier_combat_link_followup_available")
@@ -41,10 +52,21 @@ function spellCast(keys)
 		iFlag = DOTA_UNIT_TARGET_FLAG_NONE,
 		iOrder = FIND_ANY_ORDER
 	}
-	local direction = (target_point - caster:GetAbsOrigin()):Normalized()
 	local origin_location = caster:GetAbsOrigin()
 
-	ProjectileList:CreateLinearProjectile(caster, origin_location, direction, travel_speed, range, impactFunction, collisionRules, flambergeHit, "particles/crafts/alisa/flamberge/flamberge.vpcf", {damage_scale = damage_scale, crit = crit})
+	ProjectileList:CreateLinearProjectile(caster, origin_location, caster.flamberge_direction, travel_speed, range, impactFunction, collisionRules, flambergeHit, "particles/crafts/alisa/flamberge/flamberge.vpcf", {damage_scale = damage_scale, crit = crit, burn_duration = burn_duration})
+	caster.flamberge_direction = nil
+end
+
+function spellCast(keys)
+	local caster = keys.caster
+	local ability = keys.ability
+	local target_point = keys.target_points[1]
+	local direction = (target_point - caster:GetAbsOrigin()):Normalized()
+	caster.flamberge_direction = direction
+
+	modifyCP(caster, getCPCost(ability) * -1)
+	applyDelayCooldowns(caster, ability)
 end
 
 function flambergeHit(caster, unit, other_args)
@@ -52,14 +74,13 @@ function flambergeHit(caster, unit, other_args)
 	local damage_scale = other_args.damage_scale
 	local damage_type = ability:GetAbilityDamageType()
 	local bonus_unbalance = ability:GetSpecialValueFor("bonus_unbalance")
-	local duration = ability:GetSpecialValueFor("burn_duration")
 
 	if other_args.crit then damage_scale = damage_scale * 2 end
 
 	applyEffect(unit, damage_type, function()
 		dealScalingDamage(unit, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR)
 		increaseUnbalance(caster, unit, bonus_unbalance)
-		unit:AddNewModifier(caster, ability, "modifier_burn", {duration = duration})
+		unit:AddNewModifier(caster, ability, "modifier_burn", {duration = other_args.burn_duration})
 		unit:Interrupt()
 	end)
 end

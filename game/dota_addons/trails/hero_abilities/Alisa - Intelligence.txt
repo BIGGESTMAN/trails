@@ -1,27 +1,28 @@
-[Q] Flamberge (flamberge) : Alisa fires a piercing fire arrow, interrupting, Burning and dealing magic damage to enemies hit. +20 to Unbalance.
+[Q] Flamberge (flamberge) : Alisa charges for up to 2 seconds before firing a piercing fire arrow, interrupting, Burning and dealing magic damage to enemies hit. The arrow's speed, range, and burn duration increase with charge time. +10 to Unbalance.
 Enhanced : The arrow travels much faster and explodes on reaching the target, dealing greater damage and leaving a burning field that deals magic damage over time and Silences.
  
 Cast Point : 0.3
-Delay: 2
+Delay: 4
 Radius: 100
-%Magical Damage (damage_percent) : 140
-Burn Duration (burn_duration) : 5
-Range (range) : 1000
-Travel Speed : 1200
+%Magical Damage (damage_percent) : 100
+Max Burn Duration (burn_duration) : 3
+Max Range (range) : 1500
+Max Travel Speed : 1500
 Enhanced Travel Speed : 1300
 %Enhanced Magical Damage (unbalanced_damage_percent) : 200
 Enhanced Explosion Radius (unbalanced_explosion_radius) : 200
 %Enhanced Damage Per Second (unbalanced_field_damage_percent) : 40
 Enhanced Field Duration (unbalanced_field_duration) : 5
+Note0 (note0) : Scales from 30% to 70% speed, range and burn duration linearly based on charge time, before reaching 100% at full charge time.
 CP Cost : 25
 
-[W] Blessed Arrow (blessed_arrow) : Alisa fires a blessed arrow into the air, healing allies in an area and granting them CP. Doesn't affect Alisa herself.
+[W] Blessed Arrow (blessed_arrow) : Alisa fires a blessed arrow into the air, immediately healing allies in an area for a portion of their missing health. After a delay, grants all allies in the area CP based on the total amount of healing.
 Enhanced : Heals for more, grants more CP and places Mischievous Blessing on the target, causing Alisa and allies to heal and gain bonus CP when attacking them.
 
 Cast Point : 0.3
 Delay: 4
 Cast Range : 800
-Radius (radius) : 500
+Radius (radius) : 300
 %Healing (healing_percent) : 250
 CP (bonus_cp) : 40
 %Enhanced Healing (unbalanced_healing_percent) : 400
@@ -31,7 +32,7 @@ Enhanced Debuff Duration (unbalanced_mischievous_duration) : 10
 Enhanced Debuff CP (unbalanced_mischievous_bonus_cp) : 10
 CP Cost : 40
 
-[E] Molten Rain (molten_rain) : Alisa rains burning arrows onto enemies, dealing magic damage and slowing in a large area.
+[E] Molten Rain (molten_rain) : Alisa rains burning arrows onto enemies, dealing magic damage and Searing enemies in a large area. Seared enemies take additional damage from each damage instance they recieve.
 Enhanced : Deals more damage, Burns enemies hit and reduces enemies' Magic Defense.
 
 Cast Point : 0.3
