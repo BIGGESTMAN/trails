@@ -28,20 +28,19 @@ function UpdateBuff( buffPanel, queryUnit, buffSerial )
 	var buffTexture = Buffs.GetTexture( queryUnit, buffSerial );
 	// $.Msg(buffTexture)
 
+	if ( itemImage ) itemImage.itemname = "";
+	buffPanel.SetHasClass( "item_buff", false );
+	buffPanel.SetHasClass( "ability_buff", true );
 	var itemIdx = buffTexture.indexOf( "item_" );
 	if ( itemIdx === -1 )
 	{
-		if ( itemImage ) itemImage.itemname = "";
 		if ( abilityImage ) abilityImage.style.backgroundImage = "url('file://{resources}/images/spellicons/" + buffTexture + ".png')";
-		buffPanel.SetHasClass( "item_buff", false );
-		buffPanel.SetHasClass( "ability_buff", true );
+		abilityImage.style.backgroundSize = "100% 100%"
 	}
 	else
 	{
-		if ( itemImage ) itemImage.itemname = buffTexture;
-		if ( abilityImage ) abilityImage.abilityname = "";
-		buffPanel.SetHasClass( "item_buff", true );
-		buffPanel.SetHasClass( "ability_buff", false );
+		if ( abilityImage ) abilityImage.style.backgroundImage = "url('file://{resources}/images/items/" + buffTexture.substr(5) + ".png')";
+		abilityImage.style.backgroundSize = "auto 100%"
 	}
 
 	var totalDuration = Buffs.GetDuration(queryUnit, buffSerial)

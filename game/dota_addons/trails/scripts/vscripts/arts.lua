@@ -30,17 +30,37 @@ function getArtDelayMultiplier(caster, ability)
 			multiplier = multiplier * modifier:GetArtDelayMultiplier(ability:GetSpecialValueFor("element"))
 		end
 	end
-	print(multiplier)
 	return multiplier
 end
 
 function inflictArtsDelay(unit, amount)
 	local amount = amount * (1 - getStats(unit).spd / 100)
+	local arts_delayed = {}
 
 	for i=0,5 do
 		local art = unit:GetItemInSlot(i)
-		if art then
+		if art and not arts_delayed[art:GetAbilityName()] then
 			art:StartCooldown(amount + art:GetCooldownTimeRemaining())
+			arts_delayed[art:GetAbilityName()] = true
 		end
 	end
 end
+
+-- if not arts_item_keyvalues then arts_item_keyvalues = LoadKeyValues("scripts/npc/npc_items_custom.txt") end
+-- function GetInheritedSpecialValueFor(ability, value_name)
+-- 	local value = 0
+-- 	DeepPrintTable(arts_item_keyvalues["item_"..ability.inherited_art_name]["AbilitySpecial"])
+-- 	print(ability.inherited_art_name, value_name, arts_item_keyvalues["item_"..ability.inherited_art_name]["AbilitySpecial"][value_name], arts_item_keyvalues[ability:GetAbilityName()]["AbilitySpecial"][value_name])
+-- 	if ability.inherited_art_name and arts_item_keyvalues["item_"..ability.inherited_art_name]["AbilitySpecial"][value_name] then
+-- 		value = arts_item_keyvalues["item_"..ability.inherited_art_name]["AbilitySpecial"][value_name]
+-- 		print(value_name, value)
+-- 	elseif arts_item_keyvalues[ability:GetAbilityName()]["AbilitySpecial"][value_name] then
+-- 		value = arts_item_keyvalues[ability:GetAbilityName()]["AbilitySpecial"][value_name]
+-- 		print(value_name, value)
+-- 	end
+-- 	return value
+-- end
+
+-- function GetAbilitySpecial(ability_name, value_name)
+
+-- end

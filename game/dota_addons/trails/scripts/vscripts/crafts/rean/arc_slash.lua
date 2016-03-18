@@ -18,8 +18,7 @@ function spellCast(keys)
 
 	local enhanced = false
 	if validEnhancedCraft(caster, target) then
-		caster:RemoveModifierByName("modifier_combat_link_followup_available")
-		target:RemoveModifierByName("modifier_combat_link_unbalanced")
+		executeEnhancedCraft(caster, target)
 
 		damage_scale = ability:GetSpecialValueFor("unbalanced_damage_percent") / 100
 		delay_inflicted = ability:GetSpecialValueFor("unbalanced_delay_inflicted")

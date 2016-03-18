@@ -1,14 +1,13 @@
 	"flamberge"
 	{
-		"BaseClass"						"ability_datadriven"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT_TARGET | DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"crafts/alisa/flamberge"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"MaxLevel"						"1"
 
 		"AbilityTextureName"			"clinkz_searing_arrows"
-		"AbilityCastAnimation"			""
 
 		"precache"
 		{
@@ -19,7 +18,6 @@
 		"AbilityCastPoint"				"0.0"
 		"AbilityCooldown"				"2.5"
 		"AbilityManaCost"				"0"
-		"AbilityChannelTime"			"2"
 		"CPCost"						"25"
 
 		"AbilitySpecial"
@@ -57,74 +55,37 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"unbalanced_travel_speed"	"1800"
+				"unbalanced_burn_duration"	"10"
 			}
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"unbalanced_damage_percent"	"200"
+				"unbalanced_trail_duration"	"8"
 			}
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"unbalanced_explosion_radius"	"200"
+				"unbalanced_trail_radius"	"250"
 			}
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"unbalanced_field_damage_percent"	"40"
-			}
-			"01"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"unbalanced_field_duration"			"5"
+				"unbalanced_damage_percent"	"150"
 			}
 			"01"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"unbalanced_field_damage_interval"	"0.25"
+				"unbalanced_trail_damage_interval"	"0.25"
 			}
 			"01"
 			{
-				"var_type"				"FIELD_FLOAT"
-				"silence_linger_duration"	"0.25"
+				"var_type"				"FIELD_INTEGER"
+				"normal_channel_time"	"2"
 			}
-		}
-
-		"OnChannelFinish"
-		{
-			"RunScript"
+			"01"
 			{
-				"ScriptFile"	"crafts/alisa/flamberge"
-				"Function"		"channelFinished"
-			}
-		}
-
-		"OnSpellStart"
-		{
-			"RunScript"
-			{
-				"ScriptFile"	"crafts/alisa/flamberge"
-				"Function"		"spellCast"
-				"Target"		"POINT"
-			}
-		}
-
-		"Modifiers"
-		{
-			"modifier_flamberge_silence"
-			{
-				"IsDebuff"		"1"
-
-				"Duration"		"%silence_linger_duration"
-
-				"States"
-				{
-					"MODIFIER_STATE_SILENCED"	"MODIFIER_STATE_VALUE_ENABLED"
-				}
-
-				"EffectName"		"particles/generic_gameplay/generic_silence.vpcf"
-				"EffectAttachType"	"follow_overhead"
+				"var_type"				"FIELD_INTEGER"
+				"unbalanced_channel_time"	"5"
 			}
 		}
 	}

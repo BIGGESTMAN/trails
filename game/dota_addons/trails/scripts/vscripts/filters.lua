@@ -58,5 +58,8 @@ function Filters:ExecuteOrderFilter(event)
 		ExecuteOrderFromTable(self_move_order)
 		return false
 	end
+	if unit:HasModifier("modifier_angel_guardian_reviving") and event.order_type == DOTA_UNIT_ORDER_STOP then
+		unit:RemoveModifierByName("modifier_angel_guardian_reviving")
+	end
 	return true
 end

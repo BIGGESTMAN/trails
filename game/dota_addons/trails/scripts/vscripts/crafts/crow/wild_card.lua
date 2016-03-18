@@ -11,8 +11,7 @@ if IsServer() then
 		local enhanced = false
 
 		if validEnhancedCraft(caster, target) then
-			caster:RemoveModifierByName("modifier_combat_link_followup_available")
-			target:RemoveModifierByName("modifier_combat_link_unbalanced")
+			executeEnhancedCraft(caster, target)
 			enhanced = true
 		end
 

@@ -16,12 +16,10 @@ function spellCast(keys)
 	local range = ability:GetSpecialValueFor("range")
 	local travel_speed = ability:GetSpecialValueFor("travel_speed")
 	local shatter_damage_scale = ability:GetSpecialValueFor("shatter_damage_percent") / 100
-	local freeze_duration = ability:GetSpecialValueFor("freeze_duration")
 
 	local enhanced = false
 	if validEnhancedCraft(caster, target) then
-		caster:RemoveModifierByName("modifier_combat_link_followup_available")
-		target:RemoveModifierByName("modifier_combat_link_unbalanced")
+		executeEnhancedCraft(caster, target)
 		shatter_damage_scale = ability:GetSpecialValueFor("unbalanced_shatter_damage_percent") / 100
 		enhanced = true
 	end
@@ -46,8 +44,6 @@ function createFrostTrail(caster, origin, direction, speed, range, collisionRule
 	local wall_formation_delay = ability:GetSpecialValueFor("wall_formation_delay")
 	if args.enhanced then wall_formation_delay = 0 end
 	local radius = ability:GetSpecialValueFor("trail_width")
-	local freeze_duration = ability:GetSpecialValueFor("freeze_duration")
-	local damage_type = ability:GetAbilityDamageType()
 
 	local particle = ParticleManager:CreateParticle("particles/crafts/crow/freezing_bullet/frost_trail.vpcf", PATTACH_CUSTOMORIGIN, nil)
 	ParticleManager:SetParticleControl(particle, 0, origin)
@@ -80,8 +76,6 @@ function createWall(caster, origin, endpoint, args)
 	local ability = caster:FindAbilityByName("freezing_bullet")
 	local freeze_radius = ability:GetSpecialValueFor("wall_freeze_radius")
 	local wall_duration = ability:GetSpecialValueFor("wall_duration")
-	local freeze_duration = ability:GetSpecialValueFor("freeze_duration")
-	local damage_type = ability:GetAbilityDamageType()
 
 	local distance = (endpoint - origin):Length2D()
 	local direction = (endpoint - origin):Normalized()

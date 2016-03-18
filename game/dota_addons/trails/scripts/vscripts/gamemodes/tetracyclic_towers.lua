@@ -290,7 +290,7 @@ function Gamemode_Tetracyclic:OnEntityKilled(keys)
 		living_heroes[DOTA_TEAM_GOODGUYS] = 0
 		living_heroes[DOTA_TEAM_BADGUYS] = 0
 		for k,hero in pairs(getAllHeroes()) do
-			if hero and hero:IsAlive() then
+			if hero:IsAlive() or hero.reviving then
 				living_heroes[hero:GetTeam()] = living_heroes[hero:GetTeam()] + 1
 			end
 		end

@@ -33,18 +33,43 @@ Last Bastion Duration (last_bastion_duration) : 0/0/2.5/3/3.5
 Lively Yell CP (lively_yell_cp) : 0/0/0/30/45
 ~Earth Mastery Delay Reduction (earth_mastery_delay_reduction) : 50
 
+Angel
+Art - Thelas/Thelas/Thelas/Thelas/Seraphic Ring
+Guardian : On taking lethal damage, resurrects you and restores your mana over 10 seconds. Alisa can interrupt the revival in order to revive immediately with less health and mana. Can occur only once per round.
+Cheer : Whenever your link partner uses an Enhanced craft, they're healed for a percent of their missing health.
+Belief : Whenever you spend mana, heal yourself and your link partner over 10 seconds. This healing is broken if the recipient takes damage.
+Quick Thelas : When your link partner falls, they are resurrected at 15% of their max health instead. Can occur only once per round.
+Space Mastery : Halves the delay after casting Space Arts. Enhances Quick Thelas to also grant your partner a 50% bonus to healing recieved for 8 seconds. Upgrades Angel's Art to Seraphic Ring.
+%Guardian Health and Mana (guardian_hp_and_mana_percent) : 40/55/70/85/100
+~Guardian Duration (guardian_duration) : 10
+%Cheer Health (cheer_missing_health_percent) : 0/12/15/18/21
+Belief Healing Per EP (belief_healing_per_ep) : 0/0/10/13/16
+~Belief Duration (belief_duration) : 10
+~Quick Thelas Health (quick_thelas_health) : 0/0/0/15/15
+~Quick Thelas Healing Increase (quick_thelas_healing_increase_percent) : 50
+~Quick Thelas Healing Increase Duration (quick_thelas_healing_increase_duration) : 0/0/0/0/8
+~Space Mastery Delay Reduction (space_mastery_delay_reduction) : 50
+
 Cypher
 Art - Phantom Phobia
-Gambling Strike : Whenever you deal 450/400/350/300/250 physical damage, your next instance of physical damage reduces ATS, ADF, or SPD by 25% for 8/9/10/11/12 seconds.
+Gambling Strike : Whenever you deal 450/400/350/300/250 physical damage, your next instance of art damage reduces ATS, ADF, or SPD by 25% for 8/9/10/11/12 seconds.
 Counterattack : Whenever your link partner takes 0/400/350/300/250 damage (450 Radius), you hit the attacker for 0/100/120/140/160% physical damage the next time your partner takes damage (600 Radius). If they take lethal damage, you counter regardless of damage taken with a critical strike. 
-Gambling Magic : Whenever you deal 0/0/350/300/250 magical damage, your next instance of magical damage reduces STR, DEF, or MOV by 25% for 0/0/8/10/12 seconds.
+Gambling Magic : Whenever you deal 0/0/350/300/250 magical damage, your next instance of craft damage reduces STR, DEF, or MOV by 25% for 0/0/8/10/12 seconds.
 Auto-charge : Once per 0/0/0/10/6 seconds, whenever your link partner casts an Art, 0/0/0/15/20% of their max EP is restored (450 Radius).
 Reaper : Whenever you deal 0/0/0/0/250 damage, your next instance of damage inflicts Deathblow for 5 seconds.
 
-Angel
-Art - Thelas -> Seraphim Ring (Lv.5)
-Guardian : On taking lethal damage, resurrects you with 10/20/30/40/50% of your max health and EP and 0/14/26/38/50 CP. Amounts are doubled if your link partner is nearby (450 Radius). Happens only once per round.
-Lively Yell : Whenever your link partner is unbalanced, heals them for 0/7/10/13/16% of their max health and gives them 0/10/15/20/25 CP (450 Radius).
-Belief : When you fall below 20% of your max health, heals you for 0/0/50/75/100% of your max health over 10 seconds. Happens only once per round. 
-Quick Thelas : When your link partner falls, they are resurrected at 0/0/0/10/15% of their max health instead. Happens only once per round (450 Radius).
-Space Mastery : Halves the delay after casting Space Arts.
+Mirage
+Art - Luminous Ray
+Battlemage : You gain 30/40/50/60/70 EP whenever a unit is unbalanced (450 Radius), and double that amount when you defeat an enemy.
+Auto-Curia : Once per 0/12/10/8/6 seconds, whenever your link partner is afflicted with a status effect or stat reduction, they are cleansed and healed for 0/7/10/13/16% of their max health (450 Radius).
+Mystic Veil : You and your link partner dodge an instance of magical damage every 0/10/8/6/4 seconds (350 Radius).
+Auto-charge : Once per 0/0/0/10/6 seconds, whenever your link partner casts an Art, 0/0/0/15/20% of their max EP is restored (450 Radius).
+Witching Hour : When you fall below 20% of your max health, your ATS is increased by 25% for 0/0/0/0/10 seconds. Happens only once per round.
+
+Vermillion
+Art - Recuria
+Sophisticated Fight : Increases your physical damage by 1% for every 4/3.5/3/2.5/2% of health you have.
+Cover : Reduces the damage your link partner takes and deals half of the damage reduced to you. Must be in between damage source and link partner.
+Combination : Once per 0/0/20/16/12 seconds, your next damaging craft marks enemies hit for 3 seconds. When your link partner hits a marked enemy with a craft, it unbalances more and changes the mark to make your craft unbalance more while refreshing its duration.  
+Invigorate : You gain 0/0/100/175/250 health whenever an enemy within 350 range is unbalanced, and double that amount when you defeat an enemy.
+Fiery Bond : Once per 0/0/0/0/8 seconds, your link Burns the first enemy it touches for 2 seconds.

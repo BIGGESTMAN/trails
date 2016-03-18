@@ -58,13 +58,13 @@ Cast Range : 600
 Intercept Radius : 125
 EP Cost : 20
 
-[W1UF] Thelas (thelas) : Blessed water resurrects a fallen ally and heals them for a small amount.
+[W1AF] Thelas (thelas) : Blessed water resurrects a fallen ally and heals them for a small amount.
 
 Price : 1000
-EP (bonus_ep) : 50
+Mana (bonus_ep) : 50
 Cast Point : 2
 Delay : 7
-Heal : 150%
+Heal (healing_percent) : 300%
 Range (tooltip_cast_range) : 600
 Cast Range : 600
 EP Cost : 50
@@ -252,7 +252,7 @@ DevNotes - Reduces one out of STR, DEF, ATS, ADF, SPD, and MOV. Deals 25% damage
 
 Price : 2000
 ATS (bonus_ats) : 30
-EP (bonus_ep) : 70
+Mana (bonus_ep) : 70
 Cast Point : 2
 Delay : 6
 Damage & Stat Reduction Duration (duration) : 9

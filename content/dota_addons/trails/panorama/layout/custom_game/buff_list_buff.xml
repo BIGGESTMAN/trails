@@ -33,7 +33,7 @@
 							>
 			<Panel id="BuffImage">
 				<Panel id="AbilityImage" />
-				<DOTAItemImage id="ItemImage" scaling="stretch-to-fit-y-preserve-aspect" />
+				<Panel id="ItemImage" scaling="stretch-to-fit-y-preserve-aspect" />
 				<Panel id="DurationOverlay" />
 			</Panel>
 			<Label id="StackCount" />

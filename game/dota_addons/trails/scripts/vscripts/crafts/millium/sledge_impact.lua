@@ -20,8 +20,7 @@ if IsServer() then
 
 		local enhanced = false
 		if validEnhancedCraft(caster, target) then
-			caster:RemoveModifierByName("modifier_combat_link_followup_available")
-			target:RemoveModifierByName("modifier_combat_link_unbalanced")
+			executeEnhancedCraft(caster, target)
 			damage_scale = ability:GetSpecialValueFor("unbalanced_damage_percent") / 100
 			radius = ability:GetSpecialValueFor("unbalanced_radius")
 			particle_name = "particles/crafts/millium/sledge_impact/shockwave_enhanced.vpcf"

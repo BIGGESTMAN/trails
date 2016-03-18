@@ -17,8 +17,7 @@ function spellCast(keys)
 
 	local enhanced = false
 	if validEnhancedCraft(caster, target) then
-		caster:RemoveModifierByName("modifier_combat_link_followup_available")
-		target:RemoveModifierByName("modifier_combat_link_unbalanced")
+		executeEnhancedCraft(caster, target)
 		shot_interval = ability:GetSpecialValueFor("unbalanced_shot_interval")
 		max_range = ability:GetSpecialValueFor("unbalanced_max_range")
 		enhanced = true

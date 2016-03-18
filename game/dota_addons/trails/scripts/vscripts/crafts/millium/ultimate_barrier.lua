@@ -13,8 +13,7 @@ if IsServer() then
 		local force_field_duration = ability:GetSpecialValueFor("unbalanced_field_duration")
 
 		if validEnhancedCraft(caster, target) then
-			caster:RemoveModifierByName("modifier_combat_link_followup_available")
-			target:RemoveModifierByName("modifier_combat_link_unbalanced")
+			executeEnhancedCraft(caster, target)
 			caster:AddNewModifier(caster, ability, "modifier_ultimate_barrier_force_field", {duration = force_field_duration})
 		end
 

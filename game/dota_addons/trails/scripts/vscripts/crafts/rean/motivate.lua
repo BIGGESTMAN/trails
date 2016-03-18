@@ -14,8 +14,7 @@ if IsServer() then
 		local bonus_cp = ability:GetSpecialValueFor("bonus_cp")
 
 		if validEnhancedCraft(caster, target) then
-			caster:RemoveModifierByName("modifier_combat_link_followup_available")
-			target:RemoveModifierByName("modifier_combat_link_unbalanced")
+			executeEnhancedCraft(caster, target)
 			modifyStat(target, STAT_STR_DOWN, damage_increase_percent, damage_increase_duration)
 			target:AddNewModifier(caster, ability, "modifier_intimidate", {duration = damage_increase_duration})
 

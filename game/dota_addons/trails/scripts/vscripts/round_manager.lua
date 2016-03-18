@@ -117,6 +117,7 @@ function RoundManager:EndRound(winning_team)
 				end
 
 				hero:ModifyGold(BASE_GOLD_PER_ROUND + GOLD_INCREASE_PER_ROUND * self.current_round, true, 17)
+				self:RemoveTemporaryModifiers(hero)
 				upgradeMasterQuartz(hero)
 				ParticleManager:CreateParticle("particles/generic_hero_status/hero_levelup.vpcf", PATTACH_ABSORIGIN_FOLLOW, hero)
 			end
@@ -138,6 +139,15 @@ function RoundManager:EndRound(winning_team)
 			self:BeginRoundStartTimer()
 		end
 	end)
+end
+
+-- Holy shit this is kinda dangerous but whatever yolo
+function RoundManager:RemoveTemporaryModifiers(hero)
+	for k,modifier in pairs(hero:FindAllModifiers()) do
+		if modifier:GetDuration() ~= -1 and (not modifier.DestroyOnExpire or modifier:DestroyOnExpire()) then
+			modifier:Destroy()
+		end
+	end
 end
 
 function RoundManager:GetGameWinner()

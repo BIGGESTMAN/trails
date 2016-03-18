@@ -2,76 +2,121 @@ require "projectile_list"
 require "combat_links"
 require "game_functions"
 
-function channelFinished(keys)
-	local caster = keys.caster
-	local ability = keys.ability
-	local target = keys.target
+LinkLuaModifier("modifier_flamberge_channeling", "crafts/alisa/flamberge.lua", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_flamberge_mute", "crafts/alisa/flamberge.lua", LUA_MODIFIER_MOTION_NONE)
+flamberge = class({})
 
-	local min_multiplier = 0.3
-	local submax_chargetime_multiplier = 0.7
-	local radius = ability:GetSpecialValueFor("radius")
-	local range = ability:GetSpecialValueFor("range")
-	local travel_speed = ability:GetSpecialValueFor("travel_speed")
-	local damage_scale = ability:GetSpecialValueFor("damage_percent") / 100
-	local burn_duration = ability:GetSpecialValueFor("burn_duration")
-	local impactFunction = nil
+if IsServer() then
+	function flamberge:OnSpellStart()
+		local caster = self:GetCaster()
+		local ability = self
+		local target_point = self:GetCursorPosition()
+		local target = self:GetCursorTarget()
+		local direction = (target_point - caster:GetAbsOrigin()):Normalized()
+		caster.flamberge_direction = direction
 
-	local strength_multiplier = 0.3
-	local channel_time_percent = (GameRules:GetGameTime() - ability:GetChannelStartTime()) / ability:GetChannelTime()
-	if channel_time_percent < 1 then
-		strength_multiplier = channel_time_percent * (submax_chargetime_multiplier - min_multiplier) + min_multiplier
-	else
-		strength_multiplier = 1
+		if target and validEnhancedCraft(caster, target) then
+			caster.flamberge_target = target
+			caster:AddNewModifier(caster, ability, "modifier_flamberge_channeling", {})
+		end
+
+		spendCP(caster, ability)
+		applyDelayCooldowns(caster, ability)
 	end
 
-	range = range * strength_multiplier
-	travel_speed = travel_speed * strength_multiplier
-	burn_duration = burn_duration * strength_multiplier
+	function flamberge:OnChannelFinish( bInterrupted )
+		local caster = self:GetCaster()
+		local ability = self
+		local target = self:GetCursorTarget()
 
-	if validEnhancedCraft(caster, target) then
-		caster:RemoveModifierByName("modifier_combat_link_followup_available")
-		target:RemoveModifierByName("modifier_combat_link_unbalanced")
+		local min_multiplier = 0.3
+		local submax_chargetime_multiplier = 0.7
+		local radius = ability:GetSpecialValueFor("radius")
+		local range = ability:GetSpecialValueFor("range")
+		local travel_speed = ability:GetSpecialValueFor("travel_speed")
+		local burn_duration = ability:GetSpecialValueFor("burn_duration")
+		local impactFunction = nil
 
-		damage_scale = ability:GetSpecialValueFor("unbalanced_damage_percent") / 100
-		travel_speed = ability:GetSpecialValueFor("unbalanced_travel_speed")
-		range = (target:GetAbsOrigin() - caster:GetAbsOrigin()):Length2D() 
-		impactFunction = explode
+		local enhanced = false
+		if validEnhancedCraft(caster) then
+			executeEnhancedCraft(caster)
+			burn_duration = ability:GetSpecialValueFor("unbalanced_burn_duration")
+			impactFunction = createFireTrail
+			enhanced = true
+		end
+
+		local strength_multiplier = 0.3
+		local channel_time_percent = (GameRules:GetGameTime() - ability:GetChannelStartTime()) / ability:GetChannelTime()
+		if channel_time_percent < 1 then
+			strength_multiplier = channel_time_percent * (submax_chargetime_multiplier - min_multiplier) + min_multiplier
+		else
+			strength_multiplier = 1
+		end
+
+		if not enhanced then
+			range = range * strength_multiplier
+			travel_speed = travel_speed * strength_multiplier
+		end
+		burn_duration = burn_duration * strength_multiplier
+
+		local crit = false
+		if caster:HasModifier("modifier_crit") then
+			crit = true
+			caster:RemoveModifierByName("modifier_crit")
+		end
+
+		collisionRules = {
+			team = caster:GetTeamNumber(),
+			radius = radius,
+			iTeam = DOTA_UNIT_TARGET_TEAM_ENEMY,
+			iType = DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC + DOTA_UNIT_TARGET_MECHANICAL,
+			iFlag = DOTA_UNIT_TARGET_FLAG_NONE,
+			iOrder = FIND_ANY_ORDER
+		}
+		local origin_location = caster:GetAbsOrigin()
+
+		ProjectileList:CreateLinearProjectile(caster, origin_location, caster.flamberge_direction, travel_speed, range, impactFunction, collisionRules, flambergeHit, "particles/crafts/alisa/flamberge/flamberge.vpcf", {crit = crit, burn_duration = burn_duration})
+		caster.flamberge_direction = nil
+		caster.flamberge_target = nil
+		caster:RemoveModifierByName("modifier_flamberge_channeling")
 	end
-
-	local crit = false
-	if caster:HasModifier("modifier_crit") then
-		crit = true
-		caster:RemoveModifierByName("modifier_crit")
-	end
-
-	collisionRules = {
-		team = caster:GetTeamNumber(),
-		radius = radius,
-		iTeam = DOTA_UNIT_TARGET_TEAM_ENEMY,
-		iType = DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC + DOTA_UNIT_TARGET_MECHANICAL,
-		iFlag = DOTA_UNIT_TARGET_FLAG_NONE,
-		iOrder = FIND_ANY_ORDER
-	}
-	local origin_location = caster:GetAbsOrigin()
-
-	ProjectileList:CreateLinearProjectile(caster, origin_location, caster.flamberge_direction, travel_speed, range, impactFunction, collisionRules, flambergeHit, "particles/crafts/alisa/flamberge/flamberge.vpcf", {damage_scale = damage_scale, crit = crit, burn_duration = burn_duration})
-	caster.flamberge_direction = nil
 end
 
-function spellCast(keys)
-	local caster = keys.caster
-	local ability = keys.ability
-	local target_point = keys.target_points[1]
-	local direction = (target_point - caster:GetAbsOrigin()):Normalized()
-	caster.flamberge_direction = direction
+function flamberge:GetBehavior()
+	local behavior = DOTA_ABILITY_BEHAVIOR_POINT + DOTA_ABILITY_BEHAVIOR_DIRECTIONAL + DOTA_ABILITY_BEHAVIOR_CHANNELLED + DOTA_ABILITY_BEHAVIOR_AOE
+	if self:GetCaster():HasModifier("modifier_combat_link_followup_available") then
+		behavior = behavior + DOTA_ABILITY_BEHAVIOR_UNIT_TARGET
+	end
+	return behavior
+end
 
-	spendCP(caster, ability)
-	applyDelayCooldowns(caster, ability)
+function flamberge:GetAOERadius()
+	if self:GetCaster():HasModifier("modifier_combat_link_followup_available") then
+		return self:GetSpecialValueFor("unbalanced_range")
+	else
+		return self:GetSpecialValueFor("range")
+	end
+end
+
+function flamberge:GetChannelTime()
+	if self:GetCaster():HasModifier("modifier_combat_link_followup_available") then
+		return self:GetSpecialValueFor("unbalanced_channel_time")
+	else
+		return self:GetSpecialValueFor("normal_channel_time")
+	end
+end
+
+function flamberge:GetCastAnimation()
+	return ACT_DOTA_CAST_ABILITY_2
+end
+
+function flamberge:GetPlaybackRateOverride()
+	return 1.6 / self:GetChannelTime()
 end
 
 function flambergeHit(caster, unit, other_args)
 	local ability = caster:FindAbilityByName("flamberge")
-	local damage_scale = other_args.damage_scale
+	local damage_scale = ability:GetSpecialValueFor("damage_percent") / 100
 	local damage_type = ability:GetAbilityDamageType()
 	local bonus_unbalance = ability:GetSpecialValueFor("bonus_unbalance")
 
@@ -85,59 +130,112 @@ function flambergeHit(caster, unit, other_args)
 	end)
 end
 
-function explode(caster, origin_location, direction, speed, range, collisionRules, collisionFunction, other_args, units_hit)
+function createFireTrail(caster, origin, direction, speed, range, collisionRules, collisionFunction, args)
 	local ability = caster:FindAbilityByName("flamberge")
-	local radius = ability:GetSpecialValueFor("unbalanced_explosion_radius")
-	local target_point = origin_location + direction * range
-
-	local team = caster:GetTeamNumber()
-	local iTeam = DOTA_UNIT_TARGET_TEAM_ENEMY
-	local iType = DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC + DOTA_UNIT_TARGET_MECHANICAL
-	local iFlag = DOTA_UNIT_TARGET_FLAG_NONE
-	local iOrder = FIND_ANY_ORDER
-	local targets = FindUnitsInRadius(team, target_point, nil, radius, iTeam, iType, iFlag, iOrder, false)
-	for k,unit in pairs(targets) do
-		if not units_hit[unit] then
-			flambergeHit(caster, unit, other_args)
-		end
-	end
-
-	createFireField(caster, target_point, other_args.crit)
-end
-
-function createFireField(caster, location, crit)
-	local ability = caster:FindAbilityByName("flamberge")
-	local damage_interval = ability:GetSpecialValueFor("unbalanced_field_damage_interval")
-	local damage_scale = ability:GetSpecialValueFor("unbalanced_field_damage_percent") * damage_interval / 100 
+	local endpoint = origin + direction * range
+	local radius = ability:GetSpecialValueFor("unbalanced_trail_radius")
+	local duration = ability:GetSpecialValueFor("unbalanced_trail_duration")
+	local damage_interval = ability:GetSpecialValueFor("unbalanced_trail_damage_interval")
+	local damage_scale = ability:GetSpecialValueFor("unbalanced_damage_percent") / 100 * damage_interval
 	local damage_type = ability:GetAbilityDamageType()
-	local duration = ability:GetSpecialValueFor("unbalanced_field_duration")
-	local radius = ability:GetSpecialValueFor("unbalanced_explosion_radius")
-	-- DebugDrawCircle(location, Vector(255,0,0), 0.5, radius, true, duration)
 
-	if crit then damage_scale = damage_scale * 2 end
+	local particle = ParticleManager:CreateParticle("particles/units/heroes/hero_jakiro/jakiro_macropyre.vpcf", PATTACH_CUSTOMORIGIN, nil)
+	ParticleManager:SetParticleControl(particle, 0, origin)
+	ParticleManager:SetParticleControl(particle, 1, endpoint)
+	ParticleManager:SetParticleControl(particle, 2, Vector(duration,0,0))
 
-	local fire_field_particle = ParticleManager:CreateParticle("particles/crafts/alisa/flamberge/fire_field.vpcf", PATTACH_CUSTOMORIGIN, nil)
-	ParticleManager:SetParticleControl(fire_field_particle, 0, location)
-	ParticleManager:SetParticleControl(fire_field_particle, 1, location)
+	local time_elapsed = 0
+	local time_elapsed_since_damage = 0
+	local update_interval = 1/30
+	local units_muted = {}
 
-	local duration_elapsed = 0
+	DebugDrawCircle(origin, Vector(255,0,0), 0.5, radius, true, duration)
+	DebugDrawCircle(endpoint, Vector(255,0,0), 0.5, radius, true, duration)
 
-	Timers:CreateTimer(damage_interval, function()
+	Timers:CreateTimer(0, function()
+		for unit,v in pairs(units_muted) do
+			units_muted[unit] = false
+		end
+
 		local team = caster:GetTeamNumber()
 		local iTeam = DOTA_UNIT_TARGET_TEAM_ENEMY
 		local iType = DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC + DOTA_UNIT_TARGET_MECHANICAL
-		local iFlag = DOTA_UNIT_TARGET_FLAG_NONE
 		local iOrder = FIND_ANY_ORDER
-		local targets = FindUnitsInRadius(team, location, nil, radius, iTeam, iType, iFlag, iOrder, false)
+		local targets = FindUnitsInLine(team, origin, endpoint, nil, radius, iTeam, iType, iOrder)
 		for k,unit in pairs(targets) do
-			dealScalingDamage(unit, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR)
-			ability:ApplyDataDrivenModifier(caster, unit, "modifier_flamberge_silence", {})
+			units_muted[unit] = true
+			unit:AddNewModifier(caster, ability, "modifier_flamberge_mute", {})
 		end
-		duration_elapsed = duration_elapsed + damage_interval
-		if duration_elapsed < duration then
-			return damage_interval
+		time_elapsed_since_damage = time_elapsed_since_damage + update_interval
+		if time_elapsed_since_damage > damage_interval then
+			for k,unit in pairs(targets) do
+				dealScalingDamage(unit, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR)
+			end
+			time_elapsed_since_damage = time_elapsed_since_damage - damage_interval
+		end
+
+		for unit,v in pairs(units_muted) do
+			if not units_muted[unit] then
+				unit:RemoveModifierByName("modifier_flamberge_mute")
+			end
+		end
+
+		time_elapsed = time_elapsed + update_interval
+		if time_elapsed < duration then
+			return update_interval
 		else
-			ParticleManager:DestroyParticle(fire_field_particle, false)
+			for unit,v in pairs(units_muted) do
+				if not units_muted[unit] then
+					unit:RemoveModifierByName("modifier_flamberge_mute")
+				end
+			end
 		end
 	end)
+end
+
+modifier_flamberge_channeling = class({})
+
+function modifier_flamberge_channeling:IsHidden()
+	return true
+end
+
+if IsServer() then
+	function modifier_flamberge_channeling:OnCreated( kv )
+		self.healing_interval = 1/30
+		self:StartIntervalThink(self.healing_interval)
+	end
+
+	function modifier_flamberge_channeling:OnIntervalThink()
+		local hero = self:GetParent()
+		local direction = (hero.flamberge_target:GetAbsOrigin() - hero:GetAbsOrigin()):Normalized()
+		direction.z = 0
+		hero:SetForwardVector(direction)
+		hero.flamberge_direction = direction
+	end
+end
+
+modifier_flamberge_mute = class({})
+
+function modifier_flamberge_mute:CheckState()
+	local state = {
+	[MODIFIER_STATE_MUTED] = true,
+	}
+
+	return state
+end
+
+function modifier_flamberge_mute:GetEffectName()
+	return "particles/generic_gameplay/generic_silence.vpcf"
+end
+
+function modifier_flamberge_mute:GetEffectAttachType()
+	return PATTACH_OVERHEAD_FOLLOW
+end
+
+function modifier_flamberge_mute:GetTexture()
+	return "silencer_last_word"
+end
+
+function modifier_flamberge_mute:IsDebuff()
+	return true
 end

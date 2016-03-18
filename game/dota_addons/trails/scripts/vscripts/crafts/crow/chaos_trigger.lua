@@ -12,8 +12,7 @@ function spellCast(keys)
 	local aim_period = ability:GetSpecialValueFor("aim_period")
 
 	if validEnhancedCraft(caster, target) then
-		caster:RemoveModifierByName("modifier_combat_link_followup_available")
-		target:RemoveModifierByName("modifier_combat_link_unbalanced")
+		executeEnhancedCraft(caster, target)
 		aim_period = ability:GetSpecialValueFor("unbalanced_aim_period")
 		caster.chaos_trigger_enhanced = true
 	end

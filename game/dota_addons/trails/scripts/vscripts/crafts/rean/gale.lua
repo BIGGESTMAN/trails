@@ -35,8 +35,7 @@ function spellCast(keys)
 	local enhanced = false
 	if validEnhancedCraft(caster, target) then
 		enhanced = true
-		caster:RemoveModifierByName("modifier_combat_link_followup_available")
-		target:RemoveModifierByName("modifier_combat_link_unbalanced")
+		executeEnhancedCraft(caster, target)
 		caster.gale_secondary_targets = copyOfTable(caster.gale_targets)
 		caster.gale_original_target = target
 		for k,unit in pairs(caster.gale_secondary_targets) do
@@ -111,7 +110,9 @@ function dashToNextTarget(caster, direction, speed, args)
 		local dash_target = caster.gale_targets[target_index]
 		table.remove(caster.gale_targets, target_index)
 		if IsValidAlive(dash_target) then
-			caster:SetForwardVector((dash_target:GetAbsOrigin() - caster:GetAbsOrigin()):Normalized())
+			local facing = (dash_target:GetAbsOrigin() - caster:GetAbsOrigin()):Normalized()
+			facing.z = 0
+			caster:SetForwardVector(facing)
 			trackingDash(caster, dash_target, dash_speed, hitTarget, args)
 		else
 			dashToNextTarget(caster, direction, speed, args)
@@ -123,13 +124,17 @@ function dashToNextTarget(caster, direction, speed, args)
 		dashToNextTarget(caster, direction, speed, args)
 	elseif caster.gale_secondary_phase and IsValidAlive(caster.gale_original_target) then -- Final slash against original unbalanced target
 		local dash_target = caster.gale_original_target
-		caster:SetForwardVector((dash_target:GetAbsOrigin() - caster:GetAbsOrigin()):Normalized())
+		local facing = (dash_target:GetAbsOrigin() - caster:GetAbsOrigin()):Normalized()
+		facing.z = 0
+		caster:SetForwardVector(facing)
 		trackingDash(caster, dash_target, dash_speed, hitTarget, args)
 	else -- Dash back to original location, or stay at unbalanced target's location
 		if caster.gale_original_location then
 			local original_location_vector = caster.gale_original_location - caster:GetAbsOrigin()
 			caster.gale_original_location = nil
-			caster:SetForwardVector(original_location_vector:Normalized())
+			local facing = original_location_vector:Normalized()
+			facing.z = 0
+			caster:SetForwardVector(facing)
 			dash(caster, original_location_vector:Normalized(), dash_speed, original_location_vector:Length2D(), true, function() caster:RemoveModifierByName("modifier_gale_dashing") end)
 		else
 			caster:RemoveModifierByName("modifier_gale_dashing")

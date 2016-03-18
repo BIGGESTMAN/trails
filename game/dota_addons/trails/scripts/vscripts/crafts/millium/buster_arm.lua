@@ -18,8 +18,7 @@ function spellCast(keys)
 
 	local enhanced = false
 	if validEnhancedCraft(caster, target) then
-		caster:RemoveModifierByName("modifier_combat_link_followup_available")
-		target:RemoveModifierByName("modifier_combat_link_unbalanced")
+		executeEnhancedCraft(caster, target)
 		damage_scale = ability:GetSpecialValueFor("unbalanced_damage_percent") / 100
 		faint_duration = ability:GetSpecialValueFor("unbalanced_faint_duration")
 		enhanced = true

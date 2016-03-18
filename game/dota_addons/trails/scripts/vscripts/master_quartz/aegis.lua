@@ -109,7 +109,6 @@ function modifier_master_aegis_passive:UnitUnbalanced(args)
 end
 
 function modifier_master_aegis_passive:GetArtDelayMultiplier(element)
-	print(element)
 	if element == ELEMENT_EARTH then
 		return 1 - getMasterQuartzSpecialValue(self:GetParent(), "earth_mastery_delay_reduction") / 100
 	else

@@ -18,8 +18,7 @@ function spellCast(keys)
 	applyDelayCooldowns(caster, ability)
 
 	if validEnhancedCraft(caster, target) then
-		caster:RemoveModifierByName("modifier_combat_link_followup_available")
-		target:RemoveModifierByName("modifier_combat_link_unbalanced")
+		executeEnhancedCraft(caster, target)
 		enhanced = true
 	end
 

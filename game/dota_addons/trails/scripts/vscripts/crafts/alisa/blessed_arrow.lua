@@ -18,8 +18,7 @@ function spellCast(keys)
 	applyDelayCooldowns(caster, ability)
 
 	if validEnhancedCraft(caster, target) then
-		caster:RemoveModifierByName("modifier_combat_link_followup_available")
-		target:RemoveModifierByName("modifier_combat_link_unbalanced")
+		executeEnhancedCraft(caster, target)
 
 		args.healing = getStats(caster).ats * ability:GetSpecialValueFor("unbalanced_healing_percent") / 100
 		args.bonus_cp = ability:GetSpecialValueFor("unbalanced_bonus_cp")

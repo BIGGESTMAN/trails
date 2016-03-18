@@ -20,8 +20,7 @@ function spellCast(keys)
 	end
 
 	if validEnhancedCraft(caster, target) then
-		caster:RemoveModifierByName("modifier_combat_link_followup_available")
-		target:RemoveModifierByName("modifier_combat_link_unbalanced")
+		executeEnhancedCraft(caster, target)
 		caster.unbalanced_autumn_leaf_cutter_target = target
 		spendCP(caster, ability)
 		applyDelayCooldowns(caster, ability)

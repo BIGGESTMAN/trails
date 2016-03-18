@@ -22,8 +22,12 @@ with open(os.path.join(directoryname, filename), encoding="utf-8") as infile:
 			ability['effects'] = []
 			abilities.append(ability)
 			continue
-		if '-' in line:
-			ability['desc_lines'].append(line)
+		if 'Art -' in line:
+			nil, art = line.split("- ")
+			if not "/" in art:
+				for i in range(0, 4):
+					art = art + "/" + art # pretend it says the art name individually for each level
+			ability['arts'] = art.split("/")
 			continue
 		if ":" in line and line[-1:] != ")" and (not ") : " in line):
 			# num_of_existing_effects = len(ability['desc_lines'])
@@ -45,10 +49,10 @@ with open('resource/tooltips/master_quartz_tooltips.txt', mode='w', encoding='ut
 		for i in range(1,6):
 			name = ability['name'].replace(" ", "_") + "_" + str(i)
 			outfile.write('\t\t{}{}" "{}"\n'.format(ability_prefix, name, ability['name']))
-			desc_string = ""
+			desc_string = "Art: " + ability['arts'][i - 1]
 			for line in ability['desc_lines']:
 				effect_num = ability['desc_lines'].index(line)
-				if effect_num <= i:
+				if effect_num < i:
 					desc_string = desc_string + line
 				else:
 					desc_string = desc_string + "<font color='#4C4C4C'>" + line.replace("FE9A2E", "633C12") + "</font>"

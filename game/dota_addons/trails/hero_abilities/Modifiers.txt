@@ -75,3 +75,6 @@ Modifiers
 ~ Sledge Impact Slow (modifier_sledge_impact_slow) : SPD and MOV reduced by 50%%.
 
 ~ Teleporting (modifier_tower_teleporting) : Teleporting to a controlled Tetracyclic Tower.
+
+~ Reviving (modifier_angel_guardian_reviving) : Rapidly regaining health and mana while invulnerable.
+~ Belief Heal (modifier_angel_belief_healing) : Being healed by Belief after Alisa spent mana.

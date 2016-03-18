@@ -150,13 +150,7 @@ function dealDamage(target, attacker, damage, damage_type, ability, cp_gain_fact
 			target:AddNewModifier(attacker, flame_slash_ability, "modifier_burn", {duration = burn_duration})
 		end
 	end
-	if target.stats then
-		if damage_type == DAMAGE_TYPE_PHYSICAL then
-			damage = damage * getDamageMultiplier(getStats(target).def)
-		elseif damage_type == DAMAGE_TYPE_MAGICAL then
-			damage = damage * getDamageMultiplier(getStats(target).adf)
-		end
-	end
+	damage = damage * getDamageMultiplierForType(target, damage_type)
 	if target:HasModifier("modifier_rapid_volley_casting") and ability and not status then
 		target:RemoveModifierByName("modifier_rapid_volley_casting")
 	end
@@ -169,7 +163,7 @@ function dealDamage(target, attacker, damage, damage_type, ability, cp_gain_fact
 	if attacker and attacker ~= target then
 		grantDamageCP(damage, attacker, target, cp_gain_factor)
 	end
-
+	
 	ApplyDamage({victim = target, attacker = attacker, damage = damage, damage_type = damage_type})
 	Round_Recap:AddAbilityDamage(attacker, ability, damage)
 end
@@ -180,6 +174,18 @@ function dealScalingDamage(target, attacker, damage_type, scale, ability, cp_gai
 	elseif damage_type == DAMAGE_TYPE_MAGICAL then
 		dealDamage(target, attacker, scale * getStats(attacker).ats, damage_type, ability, cp_gain_factor, enhanced, status)
 	end
+end
+
+function getDamageMultiplierForType(unit, damage_type)
+	local multiplier = 1
+	if unit.stats then
+		if damage_type == DAMAGE_TYPE_PHYSICAL then
+			multiplier = getDamageMultiplier(getStats(unit).def)
+		elseif damage_type == DAMAGE_TYPE_MAGICAL then
+			multiplier = getDamageMultiplier(getStats(unit).adf)
+		end
+	end
+	return multiplier
 end
 
 function getDamageMultiplier(resist)
@@ -309,10 +315,21 @@ function initializeStats(hero)
 		def = getHeroValueForKey(hero, "Def"),
 		adf = getHeroValueForKey(hero, "Adf"),
 		spd = getHeroValueForKey(hero, "Spd"),
-		mov = hero:GetBaseMoveSpeed()
+		mov = hero:GetBaseMoveSpeed(),
+		hp = getHeroValueForKey(hero, "StatusHealth"),
+		ep = getHeroValueForKey(hero, "StatusMana"),
 	}
-	hero:AddNewModifier(hero, nil, "modifier_base_mov_buff", {})
+	hero:AddNewModifier(hero, nil, "modifier_base_mov_buff", {}) -- NOTE: misleadingly named; also governs base hp and mana increases
 	game_mode:initializeStats(hero)
+	updateHPAndMana(hero)
+end
+
+function updateHPAndMana(hero)
+	-- this seems dumb but whatever yolo
+	Timers:CreateTimer(0, function()
+		hero:CalculateStatBonus()
+		return 1/30
+	end)
 end
 
 function getStats(hero)
@@ -334,6 +351,8 @@ function getQuartzAdjustedStats(hero, stats)
 			stats.adf = stats.adf + quartz:GetSpecialValueFor("bonus_adf")
 			stats.spd = stats.spd + quartz:GetSpecialValueFor("bonus_spd")
 			stats.mov = stats.mov + quartz:GetSpecialValueFor("bonus_mov")
+			stats.hp = stats.hp + quartz:GetSpecialValueFor("bonus_hp")
+			stats.ep = stats.ep + quartz:GetSpecialValueFor("bonus_ep")
 		end
 	end
 	return stats
@@ -365,6 +384,8 @@ function getDatadrivenModifierAdjustedStats(hero, stats)
 			stats.adf = stats.adf + (modifier_kvs["BonusAdf"] or 0)
 			stats.spd = stats.spd + (modifier_kvs["BonusSpd"] or 0)
 			stats.mov = stats.mov + (modifier_kvs["BonusMov"] or 0)
+			stats.hp = stats.hp + (modifier_kvs["BonusHP"] or 0)
+			stats.ep = stats.ep + (modifier_kvs["BonusEP"] or 0)
 		end
 	end
 	return stats
@@ -380,6 +401,8 @@ function getLuaModifierAdjustedStats(hero, stats)
 			stats.adf = stats.adf + (stat_modifiers["BonusAdf"] or 0)
 			stats.spd = stats.spd + (stat_modifiers["BonusSpd"] or 0)
 			stats.mov = stats.mov + (stat_modifiers["BonusMov"] or 0)
+			stats.hp = stats.hp + (stat_modifiers["BonusHP"] or 0)
+			stats.ep = stats.ep + (stat_modifiers["BonusEP"] or 0)
 		end
 	end
 	return stats
@@ -488,7 +511,13 @@ function setCraftActivatedStatus(unit)
 end
 
 function validEnhancedCraft(caster, target)
-	return caster:HasModifier("modifier_combat_link_followup_available") and target and target:HasModifier("modifier_combat_link_unbalanced")
+	return caster:HasModifier("modifier_combat_link_followup_available") and (not target or target:HasModifier("modifier_combat_link_unbalanced"))
+end
+
+function executeEnhancedCraft(caster, target)
+	caster:RemoveModifierByName("modifier_combat_link_followup_available")
+	if target then target:RemoveModifierByName("modifier_combat_link_unbalanced") end
+	triggerModifierEventOnAll("enhanced_craft_used", {unit = caster})
 end
 
 function applyRandomDebuff(target, caster, duration, not_sleep_debuff)
@@ -624,6 +653,10 @@ function triggerModifierEvent(hero, event_name, args)
 			if modifier.GuardTriggered then
 				modifier:GuardTriggered(args)
 			end
+		elseif event_name == "enhanced_craft_used" then
+			if modifier.EnhancedCraftUsed then
+				modifier:EnhancedCraftUsed(args)
+			end
 		end
 	end
 end
@@ -673,14 +706,14 @@ function getMasterQuartz(hero)
 	return master_quartz
 end
 
-function upgradeMasterQuartz(hero)
+function upgradeMasterQuartz(hero, level)
 	local existing_quartz = getMasterQuartz(hero)
 	local slot = getSlotOfItem(existing_quartz, hero)
-	local level = existing_quartz:GetLevel()
+	local level = level or math.min(existing_quartz:GetLevel(), 4) + 1
 	hero:RemoveItem(existing_quartz)
 
 	local quartz_name = getHeroValueForKey(hero, "MasterQuartz")
-	local new_quartz = CreateItem("item_master_"..quartz_name.."_"..(level + 1), hero, hero)
+	local new_quartz = CreateItem("item_master_"..quartz_name.."_"..level, hero, hero)
 	hero:AddItem(new_quartz)
 	hero:SwapItems(getSlotOfItem(new_quartz, hero), slot)
 end
@@ -692,4 +725,13 @@ function getOpposingTeam(team)
 		return DOTA_TEAM_GOODGUYS
 	end
 	return nil
+end
+
+function reviveHero(hero, health)
+	local mana = hero:GetMana()
+	hero:SetRespawnPosition(hero:GetAbsOrigin())
+	hero:RespawnHero(false, false, false)
+	hero:SetHealth(health)
+	hero:SetMana(mana)
+	ParticleManager:CreateParticle("particles/status_effects/revive/revive_rays.vpcf", PATTACH_ABSORIGIN_FOLLOW, hero)
 end

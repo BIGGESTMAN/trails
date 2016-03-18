@@ -199,6 +199,12 @@ function GameMode:OnPlayerChat(keys)
 			COOLDOWNS_MODE = new_mode
 			GameRules:SendCustomMessage("Cooldown mode changed", 0, 0)
 		end
+	elseif text:find("-masterquartz") then
+		local new_level = tonumber(text:sub(string.len("-masterquartz ")))
+		if new_level > 0 and new_level <= 5 then
+			upgradeMasterQuartz(hero, new_level)
+			GameRules:SendCustomMessage("Master quartz set to level "..new_level, 0, 0)
+		end
 	end
 end
 

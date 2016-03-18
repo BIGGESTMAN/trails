@@ -88,9 +88,7 @@ function OnResourceBarsUpdate(data) {
 	var healthPercent = Entities.GetHealthPercent(heroIndex)
 	var manaPercent = Entities.GetMana(heroIndex) / Entities.GetMaxMana(heroIndex) * 100
 	healthBar.style.height = healthPercent + "%"
-	if (manaPercent) {
-		manaBar.style.height = manaPercent + "%"
-	}
+	manaBar.style.height = manaPercent + "%"
 
 	var second_cp_bar_full = Math.max(unitValues[heroIndex].cp - 100, 0)
 	var first_cp_bar_full = Math.min(unitValues[heroIndex].cp, 100)
@@ -141,6 +139,7 @@ function OnCPCostsUpdate(data) {
 	GameEvents.Subscribe( "dota_player_update_query_unit", UpdateAbilityList );
 	GameEvents.Subscribe( "dota_ability_changed", UpdateAbilityList );
 	GameEvents.Subscribe( "dota_hero_ability_points_changed", UpdateAbilityList );
+	GameEvents.Subscribe( "ally_ability_bar_start", UpdateAbilityList );
 
 	GameEvents.Subscribe("resource_bars_update", OnResourceBarsUpdate);
 	GameEvents.Subscribe("cp_costs_update", OnCPCostsUpdate);

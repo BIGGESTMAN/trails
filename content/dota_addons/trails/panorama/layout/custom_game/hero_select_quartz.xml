@@ -5,7 +5,7 @@
 	</styles>
 	<script>
 		function SkillShowTooltip() {
-			var quartz_name = "item_master_" + $.GetContextPanel().GetAttributeString("quartz_name", "") + "_5";
+			var quartz_name = "item_master_" + $.GetContextPanel().GetAttributeString("quartz_name", "") + "_1";
 			$.DispatchEvent("DOTAShowAbilityTooltip", $.GetContextPanel(), quartz_name);
 		}
 		function SkillHideTooltip() {
@@ -15,7 +15,7 @@
 			var quartz_name = $.GetContextPanel().GetAttributeString("quartz_name", "");
 
 			$("#Icon").style.backgroundImage = "url('file://{resources}/images/items/master_" + quartz_name + ".png')";
-			$("#AbilityName").text = $.Localize("DOTA_Tooltip_ability_item_master_" + quartz_name + "_5");
+			$("#AbilityName").text = $.Localize("DOTA_Tooltip_ability_item_master_" + quartz_name + "_1");
 			$("#AbilityDescription").text = $.Localize("masterquartz_description_" + quartz_name);
 		})();
 	</script>
