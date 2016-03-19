@@ -1,6 +1,9 @@
 require "game_functions"
 require "arts/mirage/phantom_phobia"
 
+LinkLuaModifier("modifier_cypher_gambling_strike", "master_quartz/cypher.lua", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_cypher_gambling_magic", "master_quartz/cypher.lua", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_cypher_counterattack", "master_quartz/cypher.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_master_cypher_passive", "master_quartz/cypher.lua", LUA_MODIFIER_MOTION_NONE)
 item_master_cypher = class({})
 item_master_cypher.OnSpellStart = item_phantom_phobia.OnSpellStart
@@ -25,58 +28,129 @@ function modifier_master_cypher_passive:IsHidden()
 end
 
 if IsServer() then
-	function modifier_master_cypher_passive:OnCreated( kv )
-		self.cp_interval = 1/30
-		self:StartIntervalThink(self.cp_interval)
-	end
+	-- function modifier_master_cypher_passive:OnCreated( kv )
+	-- 	self.update_interval = 1/30
+	-- 	self.vanguard_time_accumulated = 0
+	-- 	self:StartIntervalThink(self.update_interval)
+	-- end
 
-	function modifier_master_cypher_passive:OnIntervalThink()
-		local cp_per_second = getMasterQuartzSpecialValue(self:GetParent(), "heated_mind_cp_regen", self:GetAbility())
-		modifyCP(self:GetParent(), cp_per_second * self.cp_interval)
-	end
+	-- function modifier_master_cypher_passive:OnIntervalThink()
+	-- 	local ability = self:GetAbility()
+	-- 	local vanguard_cooldown = ability:GetSpecialValueFor("vanguard_cooldown")
+	-- 	if vanguard_cooldown > 0 then
+	-- 		self.vanguard_time_accumulated = self.vanguard_time_accumulated + self.update_interval * getHeroLinkScaling(self:GetParent())
+	-- 		if self.vanguard_time_accumulated >= vanguard_cooldown then
+	-- 			self:GetParent():AddNewModifier(self:GetParent(), ability, "modifier_physical_guard", {})
+	-- 			self:GetParent():AddNewModifier(self:GetParent(), ability, "modifier_magical_guard", {})
+	-- 			self.vanguard_time_accumulated = 0
+	-- 		end
+	-- 	end
+	-- end
 
 	function modifier_master_cypher_passive:DeclareFunctions()
-		return {MODIFIER_EVENT_ON_TAKEDAMAGE,
-				MODIFIER_EVENT_ON_HERO_KILLED}
+		return {MODIFIER_EVENT_ON_TAKEDAMAGE}
 	end
 
 	function modifier_master_cypher_passive:OnTakeDamage(params)
-		if params.unit == self:GetParent() then
-			if self:GetParent():GetHealthPercent() <= LOW_HP_THRESHOLD_PERCENT and self.fighting_spirit_available then
-				self.fighting_spirit_available = false
-				modifyCP(self:GetParent(), getMasterQuartzSpecialValue(self:GetParent(), "fighting_spirit_cp"))
+		local ability = self:GetAbility()
+		local hero = self:GetParent()
+		if params.attacker == hero then
+			if params.damage_type == DAMAGE_TYPE_PHYSICAL and not hero:HasModifier("modifier_cypher_gambling_strike") then
+				self.gambling_strike_damage_dealt = self.gambling_strike_damage_dealt + params.damage
+				if self.gambling_strike_damage_dealt >= ability:GetSpecialValueFor("gambling_strike_damage_threshold") then
+					hero:AddNewModifier(hero, self:GetAbility(), "modifier_cypher_gambling_strike", {})
+					self.gambling_strike_damage_dealt = 0
+				end
+			elseif self.gambling_magic_damage_dealt and params.damage_type == DAMAGE_TYPE_MAGICAL and not hero:HasModifier("modifier_cypher_gambling_magic") then
+				self.gambling_magic_damage_dealt = self.gambling_magic_damage_dealt + params.damage
+				if self.gambling_magic_damage_dealt >= ability:GetSpecialValueFor("gambling_magic_damage_threshold") then
+					hero:AddNewModifier(hero, self:GetAbility(), "modifier_cypher_gambling_magic", {})
+					self.gambling_magic_damage_dealt = 0
+				end
 			end
 		end
-	end
-
-	function modifier_master_cypher_passive:OnHeroKilled(params)
-		if params.attacker == self:GetParent() then
-			modifyCP(self:GetParent(), getMasterQuartzSpecialValue(self:GetParent(), "thrill_of_battle_cp") * 2)
+		if params.unit == hero.combat_linked_to and self.counterattack_damage_taken and distanceBetween(hero:GetAbsOrigin(), params.attacker:GetAbsOrigin()) <= ability:GetSpecialValueFor("counterattack_range") then
+			self.counterattack_damage_taken = self.counterattack_damage_taken + params.damage
+			if self.counterattack_damage_taken >= ability:GetSpecialValueFor("counterattack_damage_threshold_percent") / 100 * params.unit:GetMaxHealth() then
+				self.counterattack_damage_taken = 0
+				if IsValidAlive(params.attacker) then
+					params.attacker:AddNewModifier(hero, ability, "modifier_cypher_counterattack", {duration = ability:GetSpecialValueFor("counterattack_damage_bonus_duration")})
+				end
+				reduceDelay(hero, getMasterQuartzSpecialValue(self:GetParent(), "counterattack_delay_reduction"))
+			end
 		end
 	end
 end
 
 function modifier_master_cypher_passive:RoundStarted(args)
-	if self:GetAbility():GetSpecialValueFor("fighting_spirit_cp") > 0 then
-		self.fighting_spirit_available = true
+	self.gambling_strike_damage_dealt = 0
+	if self:GetAbility():GetSpecialValueFor("counterattack_damage_bonus") > 0 then
+		self.counterattack_damage_taken = 0
+	end
+	if self:GetAbility():GetSpecialValueFor("gambling_magic_damage_threshold") > 0 then
+		self.gambling_magic_damage_dealt = 0
+	end
+	if self:GetAbility():GetSpecialValueFor("auto_charge_cooldown") > 0 then
+		self.auto_charge_available = true
 	end
 end
 
-function modifier_master_cypher_passive:UnitUnbalanced(args)
-	local caster = self:GetParent()
-	local target = args.unit
-	local distance = (caster:GetAbsOrigin() - target:GetAbsOrigin()):Length2D()
-	if target:GetTeamNumber() ~= caster:GetTeamNumber() and distance <= self:GetAbility():GetSpecialValueFor("thrill_of_battle_range") then
-		modifyCP(caster, getMasterQuartzSpecialValue(caster, "thrill_of_battle_cp"))
-	end
+modifier_cypher_counterattack = class({})
+
+function modifier_cypher_counterattack:GetTexture()
+	return "alpha_wolf_critical_strike"
 end
 
-function modifier_master_cypher_passive:CreateCoverParticles(damage_origin)
-	local caster = self:GetParent()
-	local ally = caster.combat_linked_to
-	local arc_particle = ParticleManager:CreateParticle("particles/master_quartz/cypher/cover_shield_arc.vpcf", PATTACH_CUSTOMORIGIN, caster)
-	ParticleManager:SetParticleControl(arc_particle, 0, caster:GetAbsOrigin())
-	ParticleManager:SetParticleControlForward(arc_particle, 0, (damage_origin - caster:GetAbsOrigin()):Normalized())
-	local ally_particle = ParticleManager:CreateParticle("particles/master_quartz/cypher/cover_shield_sphere.vpcf", PATTACH_POINT_FOLLOW, ally)
+function modifier_cypher_counterattack:IsDebuff()
+	return true
 end
 
+function modifier_cypher_counterattack:GetEffectName()
+	return "particles/units/heroes/hero_rubick/rubick_fade_bolt_debuff.vpcf"
+end
+
+function modifier_cypher_counterattack:GetEffectAttachType()
+	return PATTACH_ABSORIGIN_FOLLOW
+end
+
+modifier_cypher_gambling_strike = class({})
+
+function modifier_cypher_gambling_strike:GetTexture()
+	return "item_master_cypher"
+end
+
+function modifier_cypher_gambling_strike:DealGamblingDamage()
+	local hero = self:GetParent()
+	local targets = getAllLivingHeroes(hero:GetOpposingTeamNumber())
+	local target = targets[RandomInt(1, #targets)]
+	local damage_scale = getMasterQuartzSpecialValue(hero, "gambling_strike_damage_percent") / 100
+	local damage_type = DAMAGE_TYPE_MAGICAL
+
+	self:Destroy()
+	dealScalingDamage(target, hero, damage_scale, damage_type, self:GetAbility())
+
+	local particle = ParticleManager:CreateParticle("particles/master_quartz/cypher/gambling_strike_link.vpcf", PATTACH_CUSTOMORIGIN, nil)
+	ParticleManager:SetParticleControlEnt(particle, 0, hero, PATTACH_POINT_FOLLOW, "attach_hitloc", hero:GetAbsOrigin(), true)
+	ParticleManager:SetParticleControlEnt(particle, 1, target, PATTACH_POINT_FOLLOW, "attach_hitloc", target:GetAbsOrigin(), true)
+end
+
+modifier_cypher_gambling_magic = class({})
+
+function modifier_cypher_gambling_magic:GetTexture()
+	return "item_master_cypher"
+end
+
+function modifier_cypher_gambling_magic:DealGamblingDamage()
+	local hero = self:GetParent()
+	local targets = getAllLivingHeroes(hero:GetOpposingTeamNumber())
+	local target = targets[RandomInt(1, #targets)]
+	local damage_scale = getMasterQuartzSpecialValue(hero, "gambling_magic_damage_percent") / 100
+	local damage_type = DAMAGE_TYPE_PHYSICAL
+
+	self:Destroy()
+	dealScalingDamage(target, hero, damage_scale, damage_type, self:GetAbility())
+
+	local particle = ParticleManager:CreateParticle("particles/master_quartz/cypher/gambling_strike_link.vpcf", PATTACH_CUSTOMORIGIN, nil)
+	ParticleManager:SetParticleControlEnt(particle, 0, hero, PATTACH_POINT_FOLLOW, "attach_hitloc", hero:GetAbsOrigin(), true)
+	ParticleManager:SetParticleControlEnt(particle, 1, target, PATTACH_POINT_FOLLOW, "attach_hitloc", target:GetAbsOrigin(), true)
+end

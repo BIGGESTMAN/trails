@@ -62,7 +62,7 @@ if IsServer() then
 				hero:AddNewModifier(hero, ability, "modifier_aegis_last_bastion", {duration = getMasterQuartzSpecialValue(hero, "last_bastion_duration")})
 			end
 		end
-		if params.unit == hero.combat_linked_to and self.counterattack_damage_taken and distanceBetween(hero:GetAbsOrigin(), params.attacker) <= ability:GetSpecialValueFor("counterattack_range") then
+		if params.unit == hero.combat_linked_to and self.counterattack_damage_taken and distanceBetween(hero:GetAbsOrigin(), params.attacker:GetAbsOrigin()) <= ability:GetSpecialValueFor("counterattack_range") then
 			self.counterattack_damage_taken = self.counterattack_damage_taken + params.damage
 			if self.counterattack_damage_taken >= ability:GetSpecialValueFor("counterattack_damage_threshold_percent") / 100 * params.unit:GetMaxHealth() then
 				self.counterattack_damage_taken = 0

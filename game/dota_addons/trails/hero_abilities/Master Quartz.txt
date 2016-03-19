@@ -52,11 +52,24 @@ Belief Healing Per EP (belief_healing_per_ep) : 0/0/10/13/16
 
 Cypher
 Art - Phantom Phobia
-Gambling Strike : Whenever you deal 450/400/350/300/250 physical damage, your next instance of art damage reduces ATS, ADF, or SPD by 25% for 8/9/10/11/12 seconds.
-Counterattack : Whenever your link partner takes 0/400/350/300/250 damage (450 Radius), you hit the attacker for 0/100/120/140/160% physical damage the next time your partner takes damage (600 Radius). If they take lethal damage, you counter regardless of damage taken with a critical strike. 
-Gambling Magic : Whenever you deal 0/0/350/300/250 magical damage, your next instance of craft damage reduces STR, DEF, or MOV by 25% for 0/0/8/10/12 seconds.
-Auto-charge : Once per 0/0/0/10/6 seconds, whenever your link partner casts an Art, 0/0/0/15/20% of their max EP is restored (450 Radius).
-Reaper : Whenever you deal 0/0/0/0/250 damage, your next instance of damage inflicts Deathblow for 5 seconds.
+Gambling Strike : Whenever you deal cumulative physical damage, your next damaging art deals bonus magic damage to a random enemy.
+Counterattack : Whenever your link partner takes 30% of their max HP in damage from an enemy within 600 range of you, you deal increased damage against the attacker for 3 seconds and your Delay is reduced by 2. If your link partner takes lethal damage, the damage increase lasts until the end of the round and all Delay is removed.
+Gambling Magic : Whenever you deal cumulative magical damage, your damaging craft deals bonus physical damage to a random enemy.
+Auto-charge : Whenever your link partner casts an Art, a percentage of their max mana is restored. Has a cooldown.
+Reaper : Whenever you deal both magical and physical damage to the same enemy within 3 seconds, you apply Deathblow to them for 5 seconds.
+%Gambling Strike Damage Percent (gambling_strike_damage_percent) : 200%
+Gambling Strike Damage Threshold (gambling_strike_damage_threshold) : 450/400/350/300/250
+~Counterattack Damage Threshold (counterattack_damage_threshold_percent) : 30
+~Counterattack Range (counterattack_range) : 600
+%Counterattack Damage Bonus (counterattack_damage_bonus) : 0/15/25/35/45
+~Counterattack Damage Bonus Duration (counterattack_damage_bonus_duration) : 3
+~Counterattack Delay Reduction (counterattack_delay_reduction) : 2
+%Gambling Magic Damage Percent (gambling_magic_damage_percent) : 200%
+Gambling Magic Damage Threshold (gambling_magic_damage_threshold) : 0/0/350/300/250
+Auto-Charge Cooldown (auto_charge_cooldown) : 0/0/0/12/8
+%Auto-Charge Mana Restored (auto_charge_ep_restored) : 0/0/0/15/20
+~Reaper Damage Window (reaper_damage_window) : 3
+~Reaper Deathblow Duration (reaper_deathblow_duration) : 5
 
 Mirage
 Art - Luminous Ray

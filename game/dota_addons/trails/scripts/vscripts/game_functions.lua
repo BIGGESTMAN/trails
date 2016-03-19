@@ -34,7 +34,7 @@ COOLDOWNS_MODE = COOLDOWNS_MODE_SHARED
 
 SCRAFT_MINIMUM_CP = 100
 MAX_CP = 200
-END_OF_ROUND_LOSER_CP = 50
+END_OF_ROUND_LOSER_CP = 0
 DAMAGE_CP_GAIN_FACTOR = 0.125
 CRAFT_CP_GAIN_FACTOR = 0.25
 SCRAFT_CP_GAIN_FACTOR = 0.25
@@ -140,6 +140,9 @@ function dealDamage(target, attacker, damage, damage_type, ability, cp_gain_fact
 	if target:HasModifier("modifier_aegis_counterattack") and attacker == target:FindModifierByName("modifier_aegis_counterattack"):GetCaster() then
 		damage = damage * (1 + getMasterQuartzSpecialValue(attacker, "counterattack_damage_bonus") / 100)
 	end
+	if target:HasModifier("modifier_cypher_counterattack") and attacker == target:FindModifierByName("modifier_cypher_counterattack"):GetCaster() then
+		damage = damage * (1 + getMasterQuartzSpecialValue(attacker, "counterattack_damage_bonus") / 100)
+	end
 	if enhanced and attacker:HasModifier("modifier_master_force_passive") and target:GetHealthPercent() <= LOW_HP_THRESHOLD_PERCENT then
 		damage = damage * (1 + getMasterQuartzSpecialValue(attacker, "finishing_blow_damage_bonus") / 100)
 	end
@@ -159,6 +162,12 @@ function dealDamage(target, attacker, damage, damage_type, ability, cp_gain_fact
 	end
 	if target:HasModifier("modifier_sear") and not status then
 		target:FindModifierByName("modifier_sear"):DealSearDamage()
+	end
+	if attacker:HasModifier("modifier_cypher_gambling_strike") and attacker.combat_linked_to and ability and not status and ability:GetName():find("item_") then -- janky checks to see if damage is from an art
+		attacker:FindModifierByName("modifier_cypher_gambling_strike"):DealGamblingDamage()
+	end
+	if attacker:HasModifier("modifier_cypher_gambling_magic") and attacker.combat_linked_to and ability and not status and not ability:GetName():find("item_") then
+		attacker:FindModifierByName("modifier_cypher_gambling_magic"):DealGamblingDamage()
 	end
 	if attacker and attacker ~= target then
 		grantDamageCP(damage, attacker, target, cp_gain_factor)
@@ -530,8 +539,8 @@ function executeEnhancedCraft(caster, target)
 end
 
 function applyRandomDebuff(target, caster, duration, not_sleep_debuff)
-	local debuffs = 					{"modifier_seal", "modifier_mute", "modifier_burn", "modifier_freeze", "modifier_confuse", "modifier_deathblow", "modifier_petrify", "modifier_faint", "modifier_intimidate", "modifier_sear", "modifier_nightmare"}
-	if not_sleep_debuff then debuffs = 	{"modifier_seal", "modifier_mute", "modifier_burn", "modifier_freeze", "modifier_confuse", "modifier_deathblow", "modifier_petrify", "modifier_faint", "modifier_intimidate", "modifier_sear"} end
+	local debuffs = 					{"modifier_seal", "modifier_mute", "modifier_burn", "modifier_freeze", "modifier_confuse", "modifier_deathblow", "modifier_petrify", "modifier_faint", "modifier_intimidate", "modifier_nightmare"}
+	if not_sleep_debuff then debuffs = 	{"modifier_seal", "modifier_mute", "modifier_burn", "modifier_freeze", "modifier_confuse", "modifier_deathblow", "modifier_petrify", "modifier_faint", "modifier_intimidate"} end
 	local debuff = debuffs[RandomInt(1,#debuffs)]
 	target:AddNewModifier(caster, nil, debuff, {duration = duration})
 end
@@ -638,10 +647,10 @@ function getAllHeroes()
 	return heroes
 end
 
-function getAllLivingHeroes()
+function getAllLivingHeroes(team)
 	local living_heroes = {}
 	for k,hero in pairs(getAllHeroes()) do
-		if hero:IsAlive() then
+		if hero:IsAlive() and (not team or team == hero:GetTeamNumber()) then
 			table.insert(living_heroes, hero)
 		end
 	end

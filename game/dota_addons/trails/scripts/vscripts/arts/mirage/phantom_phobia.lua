@@ -42,8 +42,8 @@ if IsServer() then
 
 		local particle = ParticleManager:CreateParticle("particles/arts/mirage/phantom_phobia/area.vpcf", PATTACH_CUSTOMORIGIN, nil)
 		ParticleManager:SetParticleControl(particle, 0, target_point)
-		-- ParticleManager:SetParticleControl(particle, 1, Vector(radius,0,1))
-		-- ParticleManager:SetParticleControl(particle, 2, Vector(0,radius,0))
+		ParticleManager:SetParticleControl(particle, 1, Vector(radius,0,1))
+		ParticleManager:SetParticleControl(particle, 2, Vector(0,radius,0))
 
 		endCastParticle(caster)
 	end

@@ -25,7 +25,7 @@ function passiveCPGain(keys)
 	end
 
 	for k,ability in pairs(getAllActiveAbilities(keys.caster)) do
-		if ability.current_cp_cost > 0 then
+		if ability.current_cp_cost and ability.current_cp_cost > 0 then --ability.current_cp_cost check makes sure we don't try to reduce cost of normally hidden stuff like cross raven retarget
 			ability.current_cp_cost = ability.current_cp_cost - ability.max_cp_cost * update_interval / CP_COSTS_DECAY_TIME
 			if ability.current_cp_cost < 0 then ability.current_cp_cost = 0 end
 		end
