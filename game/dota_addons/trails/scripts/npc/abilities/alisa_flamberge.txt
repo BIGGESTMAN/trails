@@ -12,7 +12,7 @@
 		"precache"
 		{
 			"particle"					"particles/crafts/alisa/flamberge/flamberge.vpcf"
-			"particle"					"particles/crafts/alisa/flamberge/fire_field.vpcf"
+			"particle"					"particles/crafts/alisa/flamberge/fire_trail.vpcf"
 		}
 
 		"AbilityCastPoint"				"0.0"

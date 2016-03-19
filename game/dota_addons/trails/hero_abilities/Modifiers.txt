@@ -78,3 +78,5 @@ Modifiers
 
 ~ Reviving (modifier_angel_guardian_reviving) : Rapidly regaining health and mana while invulnerable.
 ~ Belief Heal (modifier_angel_belief_healing) : Being healed by Belief after Alisa spent mana.
+
+~ Phantom Phobia (modifier_phantom_phobia) : Taking magic damage over time.

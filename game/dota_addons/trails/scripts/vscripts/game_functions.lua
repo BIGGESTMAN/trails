@@ -465,6 +465,15 @@ function getInverseStat(stat)
 	end
 end
 
+function getStatModifierName(stat, inverse)
+	if not inverse then
+		return "modifier_"..stat.."_up"
+	else
+		return "modifier_"..stat.."_down"
+	end
+	-- return (stat.sub(string.len("modifier_"), string.len("modifier_") + 3))
+end
+
 function getCP(unit)
 	return unit:FindModifierByName("modifier_cp_tracker_cp").cp
 end

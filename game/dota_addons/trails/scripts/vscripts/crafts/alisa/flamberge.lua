@@ -185,9 +185,7 @@ function createFireTrail(caster, origin, direction, speed, range, collisionRules
 			return update_interval
 		else
 			for unit,v in pairs(units_muted) do
-				if not units_muted[unit] then
-					unit:RemoveModifierByName("modifier_flamberge_mute")
-				end
+				unit:RemoveModifierByName("modifier_flamberge_mute")
 			end
 		end
 	end)

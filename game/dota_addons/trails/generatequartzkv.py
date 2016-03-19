@@ -25,7 +25,6 @@ def GetFieldString(field_value):
 				field_string = "FIELD_FLOAT"
 				break
 	else:
-		field_value = field_value.replace("%", "")
 		if not (float(field_value) % 1 == 0):
 			field_string = "FIELD_FLOAT"
 	return field_string
@@ -93,6 +92,7 @@ def WriteQuartzDefinition(file, item, items_written, masterquartz_level = None):
 		file.write('\t\t"ItemBaseLevel"\t"{}"\n'.format(masterquartz_level))
 	file.write('\t\t"AbilitySpecial" {\n')
 	for key, value in (item['effects']):
+			value = value.replace("%", "")
 			value = value.replace("/", " ")
 			file.write('\t\t\t"00" {{\n'.format())
 			file.write('\t\t\t\t"var_type"\t"{}"\n'.format(GetFieldString(value)))
@@ -100,6 +100,7 @@ def WriteQuartzDefinition(file, item, items_written, masterquartz_level = None):
 			file.write('\t\t\t}\n')
 	for key, value in (inheritedEffects):
 		if not key in stat_increases:
+			value = value.replace("%", "")
 			value = value.replace("/", " ")
 			file.write('\t\t\t"00" {{\n'.format())
 			file.write('\t\t\t\t"var_type"\t"{}"\n'.format(GetFieldString(value)))
