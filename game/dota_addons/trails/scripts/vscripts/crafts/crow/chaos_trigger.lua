@@ -146,8 +146,7 @@ function fireShotAt(caster, target)
 		local debuff_name = "modifier_nightmare"
 		if k ~= 1 then debuff_name = "modifier_confuse" end
 		applyEffect(unit, damage_type, function()
-			dealScalingDamage(unit, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR)
-			increaseUnbalance(caster, unit)
+			dealScalingDamage(unit, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR, caster.chaos_trigger_enhanced)
 			if not caster.chaos_trigger_enhanced_has_fired then
 				unit:AddNewModifier(caster, ability, debuff_name, {duration = debuff_duration})
 			end

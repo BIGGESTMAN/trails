@@ -94,7 +94,7 @@ function createWall(caster, origin, endpoint, args)
 	ParticleManager:SetParticleControl(wall_particle, 1, endpoint)
 
 	if not caster.freezing_bullet_walls then caster.freezing_bullet_walls = {} end
-	local wall_table = {entities = wall_entities, dummies = wall_dummies, particle = wall_particle, center = midpoint(origin, endpoint), damage_scale = args.shatter_damage_scale}
+	local wall_table = {entities = wall_entities, dummies = wall_dummies, particle = wall_particle, center = midpoint(origin, endpoint), damage_scale = args.shatter_damage_scale, enhanced = args.enhanced}
 	table.insert(caster.freezing_bullet_walls, wall_table)
 
 	local time_elapsed = 0
@@ -129,8 +129,7 @@ function freezeUnit(caster, units_frozen, unit, enhanced)
 		units_frozen[unit] = true
 		if enhanced and unit:GetUnitName() ~= "npc_dummy_unit_vulnerable" then
 			applyEffect(unit, damage_type, function()
-				dealScalingDamage(unit, caster, damage_type, freeze_damage_scale, ability, CRAFT_CP_GAIN_FACTOR)
-				increaseUnbalance(caster, unit)
+				dealScalingDamage(unit, caster, damage_type, freeze_damage_scale, ability, CRAFT_CP_GAIN_FACTOR, enhanced)
 			end)
 		end
 	end
@@ -151,6 +150,7 @@ function shatterWall(self, dummy, shattering_unit)
 	end
 	local direction = (wall.center - shattering_unit:GetAbsOrigin()):Normalized()
 	local damage_scale = wall.damage_scale
+	local enhanced = wall.enhanced
 
 	local targets = {}
 	for k,entity in pairs(wall.entities) do
@@ -178,8 +178,7 @@ function shatterWall(self, dummy, shattering_unit)
 
 	for k,unit in pairs(targets) do
 		applyEffect(unit, damage_type, function()
-			dealScalingDamage(unit, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR)
-			increaseUnbalance(caster, unit)
+			dealScalingDamage(unit, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR, enhanced)
 		end)
 	end
 end

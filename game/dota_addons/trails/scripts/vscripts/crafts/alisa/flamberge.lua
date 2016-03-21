@@ -75,7 +75,7 @@ if IsServer() then
 		}
 		local origin_location = caster:GetAbsOrigin()
 
-		ProjectileList:CreateLinearProjectile(caster, origin_location, caster.flamberge_direction, travel_speed, range, impactFunction, collisionRules, flambergeHit, "particles/crafts/alisa/flamberge/flamberge.vpcf", {crit = crit, burn_duration = burn_duration})
+		ProjectileList:CreateLinearProjectile(caster, origin_location, caster.flamberge_direction, travel_speed, range, impactFunction, collisionRules, flambergeHit, "particles/crafts/alisa/flamberge/flamberge.vpcf", {crit = crit, burn_duration = burn_duration, enhanced = enhanced})
 		caster.flamberge_direction = nil
 		caster.flamberge_target = nil
 		caster:RemoveModifierByName("modifier_flamberge_channeling")
@@ -114,18 +114,17 @@ function flamberge:GetPlaybackRateOverride()
 	return 1.6 / self:GetChannelTime()
 end
 
-function flambergeHit(caster, unit, other_args)
+function flambergeHit(caster, unit, args)
 	local ability = caster:FindAbilityByName("flamberge")
 	local damage_scale = ability:GetSpecialValueFor("damage_percent") / 100
 	local damage_type = ability:GetAbilityDamageType()
 	local bonus_unbalance = ability:GetSpecialValueFor("bonus_unbalance")
 
-	if other_args.crit then damage_scale = damage_scale * 2 end
+	if args.crit then damage_scale = damage_scale * 2 end
 
 	applyEffect(unit, damage_type, function()
-		dealScalingDamage(unit, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR)
-		increaseUnbalance(caster, unit, bonus_unbalance)
-		unit:AddNewModifier(caster, ability, "modifier_burn", {duration = other_args.burn_duration})
+		dealScalingDamage(unit, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR, args.enhanced, false, bonus_unbalance)
+		unit:AddNewModifier(caster, ability, "modifier_burn", {duration = args.burn_duration})
 		unit:Interrupt()
 	end)
 end
@@ -169,7 +168,7 @@ function createFireTrail(caster, origin, direction, speed, range, collisionRules
 		time_elapsed_since_damage = time_elapsed_since_damage + update_interval
 		if time_elapsed_since_damage > damage_interval then
 			for k,unit in pairs(targets) do
-				dealScalingDamage(unit, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR)
+				dealScalingDamage(unit, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR, args.enhanced, true)
 			end
 			time_elapsed_since_damage = time_elapsed_since_damage - damage_interval
 		end

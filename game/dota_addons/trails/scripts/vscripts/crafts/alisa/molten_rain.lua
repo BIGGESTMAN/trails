@@ -95,8 +95,7 @@ function arrowImpact(caster, origin_location, direction, speed, range, collision
 	local targets = FindUnitsInRadius(team, target_point, nil, arrow_radius, iTeam, iType, iFlag, iOrder, false)
 	for k,unit in pairs(targets) do
 		applyEffect(unit, damage_type, function()
-			dealScalingDamage(unit, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR)
-			increaseUnbalance(caster, unit)
+			dealScalingDamage(unit, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR, enhanced)
 			unit:AddNewModifier(caster, ability, "modifier_sear", {duration = sear_duration})
 			if other_args.enhanced then
 				unit:AddNewModifier(caster, ability, "modifier_burn", {duration = burn_duration})

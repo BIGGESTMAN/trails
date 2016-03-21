@@ -61,11 +61,10 @@ function spellCast(keys)
 		for k,unit in pairs(targets) do
 			applyEffect(unit, damage_type, function()
 				if not enhanced then
-					dealScalingDamage(unit, caster, damage_type, damage_scale / #targets, ability, CRAFT_CP_GAIN_FACTOR)
+					dealScalingDamage(unit, caster, damage_type, damage_scale / #targets, ability, CRAFT_CP_GAIN_FACTOR, enhanced, false, bonus_unbalance)
 				else
-					dealScalingDamage(unit, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR)
+					dealScalingDamage(unit, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR, enhanced, false, bonus_unbalance)
 				end
-				increaseUnbalance(caster, unit, bonus_unbalance)
 				if #targets == 1 or enhanced then unit:AddNewModifier(caster, ability, "modifier_faint", {duration = faint_duration}) end
 				if #targets > 1 or enhanced then modifyStat(unit, STAT_MOV_DOWN, mov_down, mov_down_duration) end
 			end)

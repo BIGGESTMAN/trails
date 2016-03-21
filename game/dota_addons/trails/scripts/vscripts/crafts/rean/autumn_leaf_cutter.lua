@@ -77,8 +77,7 @@ function secondaryDash(caster, direction, speed, other_args)
 
 	for k,unit in pairs(targets) do
 		applyEffect(unit, damage_type, function()
-			dealScalingDamage(unit, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR, other_args.enhanced)
-			increaseUnbalance(caster, unit, bonus_unbalance)
+			dealScalingDamage(unit, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR, other_args.enhanced, false, bonus_unbalance)
 			ability:ApplyDataDrivenModifier(caster, unit, "modifier_autumn_leaf_cutter_slow", {duration = slow_duration})
 			unit:Interrupt()
 			applyGaleMark(caster, unit)

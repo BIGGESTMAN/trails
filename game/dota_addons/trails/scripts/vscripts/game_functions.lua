@@ -114,7 +114,7 @@ function applyEffect(target, damage_type, effect)
 	end
 end
 
-function dealDamage(target, attacker, damage, damage_type, ability, cp_gain_factor, enhanced, status)
+function dealDamage(target, attacker, damage, damage_type, ability, cp_gain_factor, enhanced, status, bonus_unbalance)
 	if target:GetUnitName() == "npc_dummy_unit_vulnerable" then
 		if not status and target.freezingBulletWallShatter then target:freezingBulletWallShatter(target, attacker) end
 		return
@@ -169,8 +169,9 @@ function dealDamage(target, attacker, damage, damage_type, ability, cp_gain_fact
 	if attacker:HasModifier("modifier_cypher_gambling_magic") and attacker.combat_linked_to and ability and not status and not ability:GetName():find("item_") then
 		attacker:FindModifierByName("modifier_cypher_gambling_magic"):DealGamblingDamage()
 	end
-	if attacker and attacker ~= target then
+	if attacker and attacker ~= target and not enhanced then
 		grantDamageCP(damage, attacker, target, cp_gain_factor)
+		increaseUnbalance(attacker, target, bonus_unbalance)
 	end
 	
 	ApplyDamage({victim = target, attacker = attacker, damage = damage, damage_type = damage_type})

@@ -58,8 +58,7 @@ function busterArmHit(caster, unit, damage_scale, faint_duration, enhanced)
 	local velocity = direction * knockback_distance / knockback_duration
 
 	applyEffect(unit, damage_type, function()
-		dealScalingDamage(unit, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR)
-		increaseUnbalance(caster, unit, bonus_unbalance)
+		dealScalingDamage(unit, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR, enhanced, false, bonus_unbalance)
 		ability:ApplyDataDrivenModifier(caster, unit, "modifier_buster_arm_knockback", {})
 		unit:SetForwardVector(direction * -1)
 		unit.buster_arm_faint_duration = faint_duration

@@ -79,8 +79,7 @@ function fireShot(caster, target, damage_scale, quadrant, enhanced)
 	local targets = FindUnitsInRadius(team, target_point, nil, damage_radius, iTeam, iType, iFlag, iOrder, false)
 	for k,unit in pairs(targets) do
 		applyEffect(unit, damage_type, function()
-			dealScalingDamage(unit, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR)
-			increaseUnbalance(caster, unit)
+			dealScalingDamage(unit, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR, enhanced)
 			if enhanced then
 				knockback(caster, target)
 				inflictDelay(target, delay)

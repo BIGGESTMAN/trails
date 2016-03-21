@@ -39,8 +39,7 @@ if IsServer() then
 		local targets = FindUnitsInRadius(team, origin, nil, radius, iTeam, iType, iFlag, iOrder, false)
 		for k,unit in pairs(targets) do
 			applyEffect(unit, damage_type, function()
-				dealScalingDamage(unit, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR)
-				increaseUnbalance(caster, unit, bonus_unbalance)
+				dealScalingDamage(unit, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR, enhanced, false, bonus_unbalance)
 				unit:AddNewModifier(caster, ability, "modifier_balance_down", {duration = balance_down_duration})
 			end)
 		end

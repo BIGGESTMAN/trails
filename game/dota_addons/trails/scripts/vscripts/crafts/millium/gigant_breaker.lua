@@ -94,8 +94,7 @@ function slam(caster, args)
 	local targets = FindUnitsInRadius(team, origin, nil, radius, iTeam, iType, iFlag, iOrder, false)
 	for k,unit in pairs(targets) do
 		applyEffect(unit, damage_type, function()
-			dealScalingDamage(unit, caster, damage_type, damage_scale, ability, SCRAFT_CP_GAIN_FACTOR)
-			increaseUnbalance(caster, unit)
+			dealScalingDamage(unit, caster, damage_type, damage_scale, ability, SCRAFT_CP_GAIN_FACTOR, false, false, 0)
 		end)
 	end
 
@@ -143,8 +142,7 @@ function createShockwave(caster, origin, args)
 			if distance >= current_min_radius and not units_hit[unit] then
 				units_hit[unit] = true
 				applyEffect(unit, damage_type, function()
-					dealScalingDamage(unit, caster, damage_type, damage_scale, ability, SCRAFT_CP_GAIN_FACTOR)
-					increaseUnbalance(caster, unit)
+					dealScalingDamage(unit, caster, damage_type, damage_scale, ability, SCRAFT_CP_GAIN_FACTOR, false, false, 0)
 					modifyStat(unit, STAT_SPD_DOWN, stat_down, stat_down_duration)
 					modifyStat(unit, STAT_MOV_DOWN, stat_down, stat_down_duration)
 				end)

@@ -212,8 +212,7 @@ function bulletImpacted(keys)
 				if damage_modifier > 1 then damage_modifier = 1 end
 				local damage_scale = min_damage_scale + damage_modifier * (max_damage_scale - min_damage_scale)
 
-				dealScalingDamage(unit, caster, damage_type, damage_scale, ability, SCRAFT_CP_GAIN_FACTOR)
-				increaseUnbalance(caster, unit)
+				dealScalingDamage(unit, caster, damage_type, damage_scale, ability, SCRAFT_CP_GAIN_FACTOR, false, false, 0)
 				if caster.cross_raven_max_cp then
 					unit:AddNewModifier(caster, ability, "modifier_nightmare", {duration = debuff_duration})
 					if damage_modifier == 1 then

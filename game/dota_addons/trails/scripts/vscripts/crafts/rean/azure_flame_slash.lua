@@ -69,15 +69,12 @@ function executeSlash(caster, target, max_cp)
 
 	for k,unit in pairs(targets) do
 		applyEffect(unit, damage_type, function()
-			dealScalingDamage(unit, caster, damage_type, damage_scale, ability, SCRAFT_CP_GAIN_FACTOR)
-			increaseUnbalance(caster, unit)
+			dealScalingDamage(unit, caster, damage_type, damage_scale, ability, SCRAFT_CP_GAIN_FACTOR, false, false, 0)
 			unit:AddNewModifier(caster, ability, "modifier_burn", {duration = burn_duration})
 			applyGaleMark(caster, unit)
-			if max_cp then increaseUnbalance(caster, target, ability:GetSpecialValueFor("max_cp_bonus_unbalance") - caster:FindAbilityByName("combat_link"):GetSpecialValueFor("base_unbalance_increase")) end
+			if max_cp then ability:ApplyDataDrivenModifier(caster, caster, "modifier_azure_flame_slash_sword_inflamed", {}) end
 		end)
 	end
-
-	ability:ApplyDataDrivenModifier(caster, caster, "modifier_azure_flame_slash_sword_inflamed", {})
 
 	ParticleManager:CreateParticle("particles/crafts/rean/azure_flame_slash/slash.vpcf", PATTACH_ABSORIGIN, caster)
 end
