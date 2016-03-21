@@ -4,6 +4,9 @@ require "arts/mirage/phantom_phobia"
 LinkLuaModifier("modifier_cypher_gambling_strike", "master_quartz/cypher.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_cypher_gambling_magic", "master_quartz/cypher.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_cypher_counterattack", "master_quartz/cypher.lua", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_cypher_autocharge_available", "master_quartz/cypher.lua", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_cypher_autocharge_cooldown", "master_quartz/cypher.lua", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_cypher_reaper_window", "master_quartz/cypher.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_master_cypher_passive", "master_quartz/cypher.lua", LUA_MODIFIER_MOTION_NONE)
 item_master_cypher = class({})
 item_master_cypher.OnSpellStart = item_phantom_phobia.OnSpellStart
@@ -28,27 +31,9 @@ function modifier_master_cypher_passive:IsHidden()
 end
 
 if IsServer() then
-	-- function modifier_master_cypher_passive:OnCreated( kv )
-	-- 	self.update_interval = 1/30
-	-- 	self.vanguard_time_accumulated = 0
-	-- 	self:StartIntervalThink(self.update_interval)
-	-- end
-
-	-- function modifier_master_cypher_passive:OnIntervalThink()
-	-- 	local ability = self:GetAbility()
-	-- 	local vanguard_cooldown = ability:GetSpecialValueFor("vanguard_cooldown")
-	-- 	if vanguard_cooldown > 0 then
-	-- 		self.vanguard_time_accumulated = self.vanguard_time_accumulated + self.update_interval * getHeroLinkScaling(self:GetParent())
-	-- 		if self.vanguard_time_accumulated >= vanguard_cooldown then
-	-- 			self:GetParent():AddNewModifier(self:GetParent(), ability, "modifier_physical_guard", {})
-	-- 			self:GetParent():AddNewModifier(self:GetParent(), ability, "modifier_magical_guard", {})
-	-- 			self.vanguard_time_accumulated = 0
-	-- 		end
-	-- 	end
-	-- end
-
 	function modifier_master_cypher_passive:DeclareFunctions()
-		return {MODIFIER_EVENT_ON_TAKEDAMAGE}
+		return {MODIFIER_EVENT_ON_TAKEDAMAGE,
+				MODIFIER_EVENT_ON_SPENT_MANA}
 	end
 
 	function modifier_master_cypher_passive:OnTakeDamage(params)
@@ -58,15 +43,19 @@ if IsServer() then
 			if params.damage_type == DAMAGE_TYPE_PHYSICAL and not hero:HasModifier("modifier_cypher_gambling_strike") then
 				self.gambling_strike_damage_dealt = self.gambling_strike_damage_dealt + params.damage
 				if self.gambling_strike_damage_dealt >= ability:GetSpecialValueFor("gambling_strike_damage_threshold") then
-					hero:AddNewModifier(hero, self:GetAbility(), "modifier_cypher_gambling_strike", {})
+					hero:AddNewModifier(hero, ability, "modifier_cypher_gambling_strike", {})
 					self.gambling_strike_damage_dealt = 0
 				end
 			elseif self.gambling_magic_damage_dealt and params.damage_type == DAMAGE_TYPE_MAGICAL and not hero:HasModifier("modifier_cypher_gambling_magic") then
 				self.gambling_magic_damage_dealt = self.gambling_magic_damage_dealt + params.damage
 				if self.gambling_magic_damage_dealt >= ability:GetSpecialValueFor("gambling_magic_damage_threshold") then
-					hero:AddNewModifier(hero, self:GetAbility(), "modifier_cypher_gambling_magic", {})
+					hero:AddNewModifier(hero, ability, "modifier_cypher_gambling_magic", {})
 					self.gambling_magic_damage_dealt = 0
 				end
+			end
+
+			if getMasterQuartzSpecialValue(hero, "reaper_deathblow_duration") > 0 then
+				params.unit:AddNewModifier(hero, ability, "modifier_cypher_reaper_window", {duration = getMasterQuartzSpecialValue(hero, "reaper_damage_window"), damage_type = params.damage_type})
 			end
 		end
 		if params.unit == hero.combat_linked_to and self.counterattack_damage_taken and distanceBetween(hero:GetAbsOrigin(), params.attacker:GetAbsOrigin()) <= ability:GetSpecialValueFor("counterattack_range") then
@@ -83,6 +72,7 @@ if IsServer() then
 end
 
 function modifier_master_cypher_passive:RoundStarted(args)
+	local hero = self:GetParent()
 	self.gambling_strike_damage_dealt = 0
 	if self:GetAbility():GetSpecialValueFor("counterattack_damage_bonus") > 0 then
 		self.counterattack_damage_taken = 0
@@ -91,7 +81,19 @@ function modifier_master_cypher_passive:RoundStarted(args)
 		self.gambling_magic_damage_dealt = 0
 	end
 	if self:GetAbility():GetSpecialValueFor("auto_charge_cooldown") > 0 then
-		self.auto_charge_available = true
+		hero:RemoveModifierByName("modifier_cypher_autocharge_cooldown")
+		hero:AddNewModifier(hero, self:GetAbility(), "modifier_cypher_autocharge_available", {})
+	end
+end
+
+function modifier_master_cypher_passive:OnSpentMana(params)
+	local hero = self:GetParent()
+	if params.unit == hero.combat_linked_to and params.cost > 0 and hero:HasModifier("modifier_cypher_autocharge_available") then
+		local mana = getMasterQuartzSpecialValue(hero, "auto_charge_ep_restored") * hero.combat_linked_to:GetMaxMana()
+		hero.combat_linked_to:GiveMana(mana)
+		hero:RemoveModifierByName("modifier_cypher_autocharge_available")
+
+		ParticleManager:CreateParticle("particles/items3_fx/mango_active.vpcf", PATTACH_ABSORIGIN_FOLLOW, hero.combat_linked_to)
 	end
 end
 
@@ -153,4 +155,54 @@ function modifier_cypher_gambling_magic:DealGamblingDamage()
 	local particle = ParticleManager:CreateParticle("particles/master_quartz/cypher/gambling_strike_link.vpcf", PATTACH_CUSTOMORIGIN, nil)
 	ParticleManager:SetParticleControlEnt(particle, 0, hero, PATTACH_POINT_FOLLOW, "attach_hitloc", hero:GetAbsOrigin(), true)
 	ParticleManager:SetParticleControlEnt(particle, 1, target, PATTACH_POINT_FOLLOW, "attach_hitloc", target:GetAbsOrigin(), true)
+end
+
+modifier_cypher_autocharge_available = class({})
+
+function modifier_cypher_autocharge_available:GetTexture()
+	return "item_master_cypher"
+end
+
+if IsServer() then
+	function modifier_cypher_autocharge_available:OnDestroy()
+		local hero = self:GetCaster()
+		hero:AddNewModifier(hero, self:GetAbility(), "modifier_cypher_autocharge_cooldown", {duration = self:GetAbility():GetSpecialValueFor("auto_charge_cooldown")})
+	end
+end
+
+modifier_cypher_autocharge_cooldown = class({})
+
+function modifier_cypher_autocharge_cooldown:IsHidden()
+	return true
+end
+
+if IsServer() then
+	function modifier_cypher_autocharge_cooldown:OnDestroy()
+		local hero = self:GetCaster()
+		hero:AddNewModifier(hero, self:GetAbility(), "modifier_cypher_autocharge_available", {})
+	end
+end
+
+modifier_cypher_reaper_window = class({})
+
+function modifier_cypher_reaper_window:GetTexture()
+	return "item_master_cypher"
+end
+
+if IsServer() then
+	function modifier_cypher_reaper_window:OnCreated( kv )
+		self.damage_type = kv.damage_type
+	end
+
+	function modifier_cypher_reaper_window:DeclareFunctions()
+		return {MODIFIER_EVENT_ON_TAKEDAMAGE}
+	end
+
+	function modifier_cypher_reaper_window:OnTakeDamage(params)
+		if params.unit == self:GetParent() and ((params.damage_type == DAMAGE_TYPE_MAGICAL and self.damage_type == DAMAGE_TYPE_PHYSICAL) or
+												(params.damage_type == DAMAGE_TYPE_PHYSICAL and self.damage_type == DAMAGE_TYPE_MAGICAL)) then
+			self:Destroy()
+			params.unit:AddNewModifier(self:GetCaster(), self:GetAbility(), "modifier_deathblow", {duration = getMasterQuartzSpecialValue(self:GetCaster(), "reaper_deathblow_duration")})
+		end
+	end
 end

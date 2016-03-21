@@ -78,5 +78,9 @@ Modifiers
 
 ~ Reviving (modifier_angel_guardian_reviving) : Rapidly regaining health and mana while invulnerable.
 ~ Belief Heal (modifier_angel_belief_healing) : Being healed by Belief after Alisa spent mana.
+~ Gambling Strike (modifier_cypher_gambling_strike) : Crow's next damaging art will deal bonus damage to a random enemy.
+~ Gambling Magic (modifier_cypher_gambling_magic) : Crow's next damaging craft will deal bonus damage to a random enemy.
+~ Auto-Charge (modifier_cypher_autocharge_available) : Crow's ally's next art will restore a percent of their mana.
+~ Reaper (modifier_cypher_reaper_window) : If hit by Crow's attacks of both damage types in short succession, will be afflicted with Deathblow.
 
 ~ Phantom Phobia (modifier_phantom_phobia) : Taking magic damage over time.

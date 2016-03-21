@@ -69,7 +69,7 @@ Gambling Magic Damage Threshold (gambling_magic_damage_threshold) : 0/0/350/300/
 Auto-Charge Cooldown (auto_charge_cooldown) : 0/0/0/12/8
 %Auto-Charge Mana Restored (auto_charge_ep_restored) : 0/0/0/15/20
 ~Reaper Damage Window (reaper_damage_window) : 3
-~Reaper Deathblow Duration (reaper_deathblow_duration) : 5
+~Reaper Deathblow Duration (reaper_deathblow_duration) : 0/0/0/0/5
 
 Mirage
 Art - Luminous Ray
