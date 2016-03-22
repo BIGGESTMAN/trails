@@ -19,7 +19,7 @@ function spellCast(keys)
 		caster:RemoveModifierByName("modifier_crit")
 	end
 
-	if validEnhancedCraft(caster, target) then
+	if validEnhancedCraft(caster, target, true) then
 		executeEnhancedCraft(caster, target)
 		caster.unbalanced_autumn_leaf_cutter_target = target
 		spendCP(caster, ability)

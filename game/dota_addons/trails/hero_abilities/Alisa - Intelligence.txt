@@ -16,7 +16,7 @@ Note0 (note0) : Scales from 30% to 70% speed, range and burn duration linearly b
 CP Cost : 20
 
 [W] Blessed Arrow (blessed_arrow) : Alisa fires a blessed arrow into the air, immediately healing allies in an area for a portion of their missing health. After a delay, grants all allies in the area CP based on the total amount of healing.
-Enhanced : Massively increases radius and places Mischievous Blessing on the target, causing Alisa and allies to heal and gain bonus CP when attacking them.
+Enhanced : Massively increases radius and places Mischievous Blessing on enemies in the area, causing Alisa and allies to heal and gain bonus CP when attacking them.
 
 Cast Point : 0.3
 Delay: 6
@@ -25,8 +25,7 @@ Radius (radius) : 300
 %Percent of Missing HP Healed (healing) : 25
 Delay (cp_delay) : 1.5
 %Percent of Healing to CP (bonus_cp_per_healing) : 10
-%Enhanced Healing (unbalanced_healing_percent) : 400
-Enhanced CP (unbalanced_bonus_cp) : 70
+Enhanced Radius (unbalanced_radius) : 700
 Enhanced Debuff Duration (unbalanced_mischievous_duration) : 10
 %Enhanced Debuff Healing (unbalanced_mischievous_healing_percent) : 80
 Enhanced Debuff CP (unbalanced_mischievous_bonus_cp) : 10

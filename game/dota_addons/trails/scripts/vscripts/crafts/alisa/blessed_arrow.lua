@@ -20,9 +20,7 @@ function spellCast(keys)
 	if validEnhancedCraft(caster, target) then
 		executeEnhancedCraft(caster, target)
 
-		args.healing = getStats(caster).ats * ability:GetSpecialValueFor("unbalanced_healing_percent") / 100
-		args.bonus_cp = ability:GetSpecialValueFor("unbalanced_bonus_cp")
-		args.apply_debuff_to = target
+		args.enhanced = true
 	end
 	
 	if caster:HasModifier("modifier_crit") then
@@ -45,28 +43,38 @@ function blessedArrowExplode(caster, origin_location, direction, speed, range, c
 	local target_point = origin_location + direction * range
 	local total_healing = 0
 
+	if other_args.enhanced then
+		radius = ability:GetSpecialValueFor("unbalanced_radius")
+	end
+
 	local team = caster:GetTeamNumber()
-	local iTeam = DOTA_UNIT_TARGET_TEAM_FRIENDLY
+	local iTeam = DOTA_UNIT_TARGET_TEAM_BOTH
 	local iType = DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC + DOTA_UNIT_TARGET_MECHANICAL
 	local iFlag = DOTA_UNIT_TARGET_FLAG_NONE
 	local iOrder = FIND_ANY_ORDER
 	local targets = FindUnitsInRadius(team, target_point, nil, radius, iTeam, iType, iFlag, iOrder, false)
 	for k,unit in pairs(targets) do
-		local heal = healing_percent * unit:GetHealthDeficit()
-		unit:Heal(heal, caster)
-		total_healing = total_healing + heal
+		if unit:GetTeamNumber() == team then
+			local heal = healing_percent * unit:GetHealthDeficit()
+			unit:Heal(heal, caster)
+			total_healing = total_healing + heal
+		elseif other_args.enhanced then
+			ability:ApplyDataDrivenModifier(caster, unit, "modifier_blessed_arrow_mischievous_blessing", {})
+		end
 	end
+
+	local explosion_particle = ParticleManager:CreateParticle("particles/crafts/alisa/blessed_arrow/healing_area.vpcf", PATTACH_CUSTOMORIGIN, nil)
+	ParticleManager:SetParticleControl(explosion_particle, 0, target_point)
+	ParticleManager:SetParticleControl(explosion_particle, 1, Vector(1,radius,0))
 
 	local cp_particle = ParticleManager:CreateParticle("particles/crafts/alisa/blessed_arrow/cp_restoration.vpcf", PATTACH_CUSTOMORIGIN, nil)
 	ParticleManager:SetParticleControl(cp_particle, 0, GetGroundPosition(target_point, caster))
+	ParticleManager:SetParticleControl(cp_particle, 1, Vector(radius,1,radius))
+	ParticleManager:SetParticleControl(cp_particle, 14, Vector(radius,radius,0))
 
 	Timers:CreateTimer(cp_delay, function()
 		grantCP(caster, target_point, total_healing)
 	end)
-
-	if other_args.apply_debuff_to then
-		ability:ApplyDataDrivenModifier(caster, other_args.apply_debuff_to, "modifier_blessed_arrow_mischievous_blessing", {})
-	end
 end
 
 function grantCP(caster, target_point, total_healing)

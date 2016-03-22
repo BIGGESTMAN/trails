@@ -15,7 +15,7 @@ if IsServer() then
 		local direction = (target_point - caster:GetAbsOrigin()):Normalized()
 		caster.flamberge_direction = direction
 
-		if target and validEnhancedCraft(caster, target) then
+		if validEnhancedCraft(caster, target, true) then
 			caster.flamberge_target = target
 			caster:AddNewModifier(caster, ability, "modifier_flamberge_channeling", {})
 		end

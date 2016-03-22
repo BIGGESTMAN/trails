@@ -12,8 +12,9 @@
 
 		"precache"
 		{
-			"particle"					"particles/units/heroes/hero_bounty_hunter/bounty_hunter_track_shield.vpcf"
 			"particle"					"particles/crafts/alisa/blessed_arrow/arrow.vpcf"
+			"particle"					"particles/crafts/alisa/blessed_arrow/healing_area.vpcf"
+			"particle"					"particles/crafts/alisa/blessed_arrow/mischievous_blessing.vpcf"
 		}
 
 		"AbilityCastPoint"				"0.3"
@@ -48,12 +49,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"unbalanced_healing_percent"	"400"
-			}
-			"01"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"unbalanced_bonus_cp"	"70"
+				"unbalanced_radius"		"700"
 			}
 			"01"
 			{
@@ -95,7 +91,7 @@
 
 				"Duration"		"%unbalanced_mischievous_duration"
 
-				"EffectName"		"particles/units/heroes/hero_bounty_hunter/bounty_hunter_track_shield.vpcf"
+				"EffectName"		"particles/crafts/alisa/blessed_arrow/mischievous_blessing.vpcf"
 				"EffectAttachType"	"follow_overhead"
 
 				"OnAttacked"

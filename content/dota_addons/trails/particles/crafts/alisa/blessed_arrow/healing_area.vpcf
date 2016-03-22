@@ -53,7 +53,6 @@
 		},
 		{
 			_class = "C_OP_PositionLock"
-			m_nControlPointNumber = 3
 			m_flStartTime_max = 0.000000
 			m_flStartTime_min = 0.000000
 		},
@@ -84,7 +83,6 @@
 		},
 		{
 			_class = "C_INIT_CreateWithinSphere"
-			m_nControlPointNumber = 3
 			m_fRadiusMax = 100.000000
 			m_vecDistanceBiasAbs =
 			[
@@ -92,8 +90,9 @@
 				0.000000,
 				1.000000,
 			]
-			m_fSpeedMin = 500.000000
-			m_fSpeedMax = 1000.000000
+			m_fSpeedMin = 1.666667
+			m_fSpeedMax = 3.333333
+			m_nScaleCP = 1
 		},
 		{
 			_class = "C_INIT_RandomAlpha"
@@ -158,7 +157,7 @@
 	m_Children =
 	[
 		{
-			m_ChildRef = resource:"particles/crafts/alisa/blessed_arrow/explosion_sparks.vpcf"
+			m_ChildRef = resource:"particles/crafts/alisa/blessed_arrow/healing_area_sparks.vpcf"
 		},
 	]
 }

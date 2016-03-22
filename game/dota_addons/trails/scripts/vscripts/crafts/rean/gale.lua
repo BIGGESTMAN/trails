@@ -33,7 +33,7 @@ function spellCast(keys)
 	end
 
 	local enhanced = false
-	if validEnhancedCraft(caster, target) then
+	if validEnhancedCraft(caster, target, true) then
 		enhanced = true
 		executeEnhancedCraft(caster, target)
 		caster.gale_secondary_targets = copyOfTable(caster.gale_targets)

@@ -60,15 +60,15 @@ Mark Duration (mark_duration) : 3
 Note0 (note0) : Enhanced Gale's movespeed slow decays over the duration.
 CP Cost : 50
 
-[R] Azure Flame Slash (azure_flame_slash) : S-Craft: Rean bathes his sword in blue flames, and after a delay slashes target enemy, dealing physical damage to and Burning them and all nearby enemies. For a duration afterwards, Rean's attacks and crafts Burn enemies.
-200 CP Bonus : Deals more damage, and +75 to Unbalance.
+[R] Azure Flame Slash (azure_flame_slash) : S-Craft: Rean bathes his sword in blue flames, and after a delay slashes target enemy, dealing physical damage to and Burning them and all nearby enemies.
+200 CP Bonus : Deals more damage, and for 10 seconds causes Rean's attacks and crafts to Burn enemies.
 
 Delay: 10
 Radius (radius) : 250
 %Physical Damage (damage_percent) : 450
 Range : 150
 Delay: 1.5
-Duration (duration) : 10
+Duration : 10
 Burn Duration (burn_duration) : 5
 %200 CP Physical Damage (max_cp_damage_percent) : 900
 200 CP Bonus Unbalance : 75

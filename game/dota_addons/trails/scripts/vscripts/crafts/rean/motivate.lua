@@ -13,7 +13,7 @@ if IsServer() then
 		local damage_increase_duration = ability:GetSpecialValueFor("damage_increase_duration")
 		local bonus_cp = ability:GetSpecialValueFor("bonus_cp")
 
-		if validEnhancedCraft(caster, target) then
+		if validEnhancedCraft(caster, target, true) then
 			executeEnhancedCraft(caster, target)
 			modifyStat(target, STAT_STR_DOWN, damage_increase_percent, damage_increase_duration)
 			target:AddNewModifier(caster, ability, "modifier_intimidate", {duration = damage_increase_duration})

@@ -15,7 +15,7 @@ function spellCast(keys)
 	spendCP(caster, ability)
 	applyDelayCooldowns(caster, ability)
 
-	if validEnhancedCraft(caster, target) then
+	if validEnhancedCraft(caster, target, true) then
 		executeEnhancedCraft(caster, target)
 
 		args.drain_cp_from = target

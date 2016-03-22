@@ -15,7 +15,7 @@ Enhanced Maximum Range (unbalanced_max_range) : 900
 Enhanced Knockback Distance : 75
 CP Cost : 20
 
-[W] Freezing Bullet (freezing_bullet) : Crow fires a shot that leaves a trail of frost in its path. After 1 second, the trail coalesces into a wall of ice that blocks movement. The wall can be shattered by any damaging craft or art from an ally, dealing magical damage to enemies on the other side. The trail and wall Freezes each enemy the first time they approach it.
+[W] Freezing Bullet (freezing_bullet) : Crow fires a shot that leaves a trail of frost in its path. After 1 second, the trail coalesces into a wall of ice that blocks movement. The wall can be shattered by any friendly damaging craft or art, dealing magical damage to enemies on the other side. The trail and wall Freezes each enemy the first time they approach it.
 Enhanced : The wall forms immediately and deals magical damage to enemies when Freezing them. The shatter damage is also increased.
 DevNotes - The cast range is trail/wall length. The trail becomes a wall after the shot completes traveling, which means the real delay is 1.4 seconds. Each trail/wall only Freezes each enemy once and ends previous instances of Freeze, dealing its pure damage. The damage is dealt in a 500 x 800 box, on the opposite side of the hero that shattered the wall. The wall just melts if it reaches max duration.
 

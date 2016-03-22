@@ -529,8 +529,8 @@ function setCraftActivatedStatus(unit)
 	end
 end
 
-function validEnhancedCraft(caster, target)
-	return caster:HasModifier("modifier_combat_link_followup_available") and (not target or target:HasModifier("modifier_combat_link_unbalanced"))
+function validEnhancedCraft(caster, target, require_target)
+	return caster:HasModifier("modifier_combat_link_followup_available") and (not require_target or (target and target:HasModifier("modifier_combat_link_unbalanced")))
 end
 
 function executeEnhancedCraft(caster, target)

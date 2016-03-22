@@ -47,7 +47,6 @@
 		},
 		{
 			_class = "C_OP_PositionLock"
-			m_nControlPointNumber = 3
 			m_flEndTime_max = 0.075000
 			m_flEndTime_min = 0.050000
 			m_flStartTime_min = 0.000000
