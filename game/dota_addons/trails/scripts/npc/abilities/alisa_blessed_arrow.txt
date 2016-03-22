@@ -59,12 +59,12 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"unbalanced_mischievous_healing_percent"	"80"
+				"unbalanced_mischievous_healing_percent"	"200"
 			}
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"unbalanced_mischievous_bonus_cp"	"10"
+				"unbalanced_mischievous_bonus_cp"	"20"
 			}
 			"01"
 			{

@@ -169,7 +169,7 @@ function dealDamage(target, attacker, damage, damage_type, ability, cp_gain_fact
 	if attacker:HasModifier("modifier_cypher_gambling_magic") and attacker.combat_linked_to and ability and not status and not ability:GetName():find("item_") then
 		attacker:FindModifierByName("modifier_cypher_gambling_magic"):DealGamblingDamage()
 	end
-	if attacker and attacker ~= target and not enhanced then
+	if attacker and attacker ~= target and not enhanced and not status then
 		grantDamageCP(damage, attacker, target, cp_gain_factor)
 		increaseUnbalance(attacker, target, bonus_unbalance)
 	end

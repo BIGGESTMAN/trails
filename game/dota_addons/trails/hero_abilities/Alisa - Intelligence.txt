@@ -27,8 +27,8 @@ Delay (cp_delay) : 1.5
 %Percent of Healing to CP (bonus_cp_per_healing) : 10
 Enhanced Radius (unbalanced_radius) : 700
 Enhanced Debuff Duration (unbalanced_mischievous_duration) : 10
-%Enhanced Debuff Healing (unbalanced_mischievous_healing_percent) : 80
-Enhanced Debuff CP (unbalanced_mischievous_bonus_cp) : 10
+%Enhanced Debuff Healing (unbalanced_mischievous_healing_percent) : 200
+Enhanced Debuff CP (unbalanced_mischievous_bonus_cp) : 20
 CP Cost : 30
 
 [E] Molten Rain (molten_rain) : Alisa rains burning arrows onto enemies, dealing magic damage and Searing enemies in a large area. Seared enemies take additional magic damage from each damage instance they recieve.
@@ -44,8 +44,7 @@ Arrow Radius : 150
 Sear Duration (sear_duration) : 4
 Duration : 3
 Total Arrows : 20
-%Enhanced Magical Damage (unbalanced_damage_percent) : 150
-Enhanced Burn Duration (unbalanced_burn_duration) : 3
+Enhanced Radius (unbalanced_radius) : 650
 %Enhanced Magic Def. Reduction (unbalanced_adf_down) : 25
 Enhanced Magic Def. Reduction Duration (unbalanced_adf_down_duration) : 5
 Note0 (note0) : Rains 20 total arrows down over 3 seconds.

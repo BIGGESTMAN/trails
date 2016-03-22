@@ -63,12 +63,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"unbalanced_damage_percent"	"150"
-			}
-			"01"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"unbalanced_burn_duration"	"3"
+				"unbalanced_radius"		"650"
 			}
 			"01"
 			{

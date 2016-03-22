@@ -510,7 +510,6 @@ end
 modifier_sear = class({})
 
 function modifier_sear:DealSearDamage()
-	print("?")
 	local caster = self:GetCaster()
 	local ability = self:GetAbility()
 	local damage_scale = ability:GetSpecialValueFor("sear_damage_percent") / 100
