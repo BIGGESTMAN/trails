@@ -187,7 +187,7 @@ function Turn_Bonuses:Crit(unit)
 end
 
 function Turn_Bonuses:HPHeal(unit)
-	unit:Heal(unit:GetMaxHealth() * self.hp_heal, unit)
+	applyHealing(unit, unit, unit:GetMaxHealth() * self.hp_heal)
 end
 
 function Turn_Bonuses:EPHeal(unit)

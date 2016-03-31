@@ -56,7 +56,7 @@ function blessedArrowExplode(caster, origin_location, direction, speed, range, c
 	for k,unit in pairs(targets) do
 		if unit:GetTeamNumber() == team then
 			local heal = healing_percent * unit:GetHealthDeficit()
-			unit:Heal(heal, caster)
+			applyHealing(unit, caster, heal)
 			total_healing = total_healing + heal
 		elseif other_args.enhanced then
 			ability:ApplyDataDrivenModifier(caster, unit, "modifier_blessed_arrow_mischievous_blessing", {})
@@ -101,6 +101,6 @@ function mischievousBlessingAttacked(keys)
 	local healing = getStats(caster).ats * ability:GetSpecialValueFor("unbalanced_mischievous_healing_percent") / 100
 	local bonus_cp = ability:GetSpecialValueFor("unbalanced_mischievous_bonus_cp")
 
-	unit:Heal(healing, caster)
+	applyHealing(unit, caster, healing)
 	modifyCP(unit, bonus_cp)
 end

@@ -164,7 +164,7 @@ if IsServer() then
 	function modifier_hp_regen:OnIntervalThink()
 		local heal_percent = HP_REGEN_HEALTH_PERCENT_PER_SECOND
 		local healing = self:GetParent():GetMaxHealth() * heal_percent * self.heal_interval / 100
-		self:GetParent():Heal(healing, self:GetCaster())
+		applyHealing(self:GetParent(), self:GetCaster(), healing)
 	end
 end
 

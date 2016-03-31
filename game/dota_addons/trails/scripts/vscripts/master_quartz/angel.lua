@@ -90,7 +90,7 @@ function modifier_master_angel_passive:EnhancedCraftUsed(args)
 	local hero = self:GetParent()
 	if args.unit == hero.combat_linked_to and getMasterQuartzSpecialValue(hero, "cheer_missing_health_percent") > 0 then
 		local healing_percent = getMasterQuartzSpecialValue(hero, "cheer_missing_health_percent") / 100
-		hero.combat_linked_to:Heal(healing_percent * hero.combat_linked_to:GetHealthDeficit(), hero)
+		applyHealing(hero.combat_linked_to, hero, healing_percent * hero.combat_linked_to:GetHealthDeficit())
 		local particle = ParticleManager:CreateParticle("particles/master_quartz/angel/cheer_heal.vpcf", PATTACH_CUSTOMORIGIN, nil)
 		ParticleManager:SetParticleControlEnt(particle, 0, hero, PATTACH_POINT_FOLLOW, "attach_hitloc", hero:GetAbsOrigin(), true)
 		ParticleManager:SetParticleControlEnt(particle, 1, hero.combat_linked_to, PATTACH_POINT_FOLLOW, "attach_hitloc", hero.combat_linked_to:GetAbsOrigin(), true)
@@ -144,7 +144,7 @@ if IsServer() then
 	function modifier_angel_guardian_reviving:OnIntervalThink()
 		local hero = self:GetParent()
 
-		hero:Heal(self.total_healing * self.healing_interval / self:GetAbility():GetSpecialValueFor("guardian_duration"), self:GetCaster())
+		applyHealing(hero, self:GetCaster(), self.total_healing * self.healing_interval / self:GetAbility():GetSpecialValueFor("guardian_duration"))
 		hero:GiveMana(self.total_mana_restoration * self.healing_interval / self:GetAbility():GetSpecialValueFor("guardian_duration"))
 	end
 end
@@ -182,7 +182,7 @@ if IsServer() then
 	function modifier_angel_belief_healing:OnIntervalThink()
 		local hero = self:GetParent()
 
-		hero:Heal(self.total_healing * self.healing_interval / self:GetAbility():GetSpecialValueFor("belief_duration"), self:GetCaster())
+		applyHealing(hero, self:GetCaster(), self.total_healing * self.healing_interval / self:GetAbility():GetSpecialValueFor("belief_duration"))
 	end
 end
 
@@ -211,14 +211,6 @@ function modifier_angel_quick_thelas_heal_increase:GetTexture()
 	return "item_master_angel"
 end
 
-function modifier_angel_quick_thelas_heal_increase:DeclareFunctions()
-	return { MODIFIER_EVENT_ON_HEAL_RECEIVED  }
-end
-
-function modifier_angel_quick_thelas_heal_increase:OnHealReceived(params)
-	if params.unit == self:GetParent() then
-		for k,v in pairs(params) do
-			print(k,v)
-		end
-	end
+function modifier_angel_quick_thelas_heal_increase:GetHealingRecievedMultiplier()
+	return 1 + getMasterQuartzSpecialValue(hero, "quick_thelas_healing_increase_percent") / 100
 end

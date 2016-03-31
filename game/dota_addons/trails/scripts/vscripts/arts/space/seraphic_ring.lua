@@ -9,7 +9,7 @@ if IsServer() then
 		if not unit:IsAlive() then
 			reviveHero(unit, 1)
 		end
-		unit:Heal(unit:GetMaxHealth() * healing_percent, caster)
+		applyHealing(unit, caster, unit:GetMaxHealth() * healing_percent)
 		unit:AddNewModifier(caster, ability, "modifier_hp_regen", {duration = hp_regen_duration})
 	end
 

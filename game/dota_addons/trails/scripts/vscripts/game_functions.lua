@@ -209,6 +209,13 @@ function getDamageMultiplier(resist)
 	end
 end
 
+function applyHealing(target, source, healing)
+	if target:HasModifier("modifier_angel_quick_thelas_heal_increase") then
+		healing = healing * target:FindModifierByName("modifier_angel_quick_thelas_heal_increase"):GetHealingRecievedMultiplier()
+	end
+	target:Heal(healing, source)
+end
+
 function dash(unit, direction, speed, range, find_clear_space, impactFunction, other_args)
 	other_args = other_args or {}
 	other_args.range = range
