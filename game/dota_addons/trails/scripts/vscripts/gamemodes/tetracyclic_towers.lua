@@ -267,7 +267,7 @@ end
 
 function Gamemode_Tetracyclic:TowerCapturable(tower)
 	local defending_team = self:GetDefendingTeam()
-	return tower:GetTeamNumber() == defending_team
+	return tower:GetTeamNumber() == defending_team and RoundManager.round_started
 end
 
 function Gamemode_Tetracyclic:OnEntityHurt(keys)

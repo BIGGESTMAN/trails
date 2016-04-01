@@ -52,7 +52,7 @@ Note1 (note1) : Arrow impacts have 150 radius.
 CP Cost : 40
 
 [D] Heavenly Gift (heavenly_gift) : Alisa blesses an area with heavenly light, granting allies in the area Insight. Damage dealt to enemies within the area generates increased CP.
-Enhanced : Instantly drains the target's CP in order to gradually restore CP of allies around Alisa.
+Enhanced : Requires a target. Instantly drains the target's CP in order to gradually restore CP of allies around Alisa.
 
 Cast Point : 0.3
 Delay: 5

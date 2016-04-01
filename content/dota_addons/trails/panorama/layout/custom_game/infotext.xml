@@ -22,6 +22,8 @@
 			<Label hittest="false" class="Text" html="true" text="#infotext_text_2" />
 			<Label hittest="false" class="SubHeader" text="#infotext_subheader_3" />
 			<Label hittest="false" class="Text" html="true" text="#infotext_text_3" />
+			<Label hittest="false" class="SubHeader" text="#infotext_subheader_4" />
+			<Label hittest="false" class="Text" html="true" text="#infotext_text_4" />
 
 			<Label hittest="false" class="TrailspediaHeader" html="true" text="#trailspedia_header"/>
 			<Label hittest="false" class="TrailspediaText" html="true" text="#trailspedia_seal" />

@@ -70,7 +70,7 @@ function increaseUnbalance(caster, target, bonus_increase)
 	local unbalance_threshold = ability:GetSpecialValueFor("unbalance_threshold")
 	bonus_increase = bonus_increase or 0
 
-	if caster.combat_linked_to and IsValidAlive(target) then
+	if caster.combat_linked_to and IsValidAlive(target) and not target:HasModifier("modifier_combat_link_unbalanced") then
 		local modifier = target:FindModifierByName("modifier_unbalanced_level")
 		if modifier then -- to make script not crash when hitting creeps ~_~
 			local unbalance_increase = (base_increase + bonus_increase) * getHeroLinkScaling(caster)
@@ -83,6 +83,8 @@ function increaseUnbalance(caster, target, bonus_increase)
 				caster:RemoveModifierByName("modifier_brute_force")
 				triggerUnbalanceEvent(target)
 				EmitSoundOn("Trails.Unbalanced", target)
+
+				ParticleManager:CreateParticle("particles/units/heroes/hero_sven/sven_spell_gods_strength.vpcf", PATTACH_ABSORIGIN_FOLLOW, caster.combat_linked_to)
 			end
 		end
 	end

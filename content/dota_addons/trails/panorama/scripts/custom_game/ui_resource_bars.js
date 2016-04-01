@@ -31,14 +31,17 @@ function OnResourceBarsUpdate(data) {
 		overfullCPBar.style.width = second_cp_bar_full + "%"
 		$("#CPLabel").text = cp
 
-		unbalanceBar.style.width = unitValues[heroIndex].unbalance + "%"
-		if (unitValues[heroIndex].unbalance == 100) {
+		var unbalance = unitValues[heroIndex].unbalance
+		unbalanceBar.style.width = unbalance + "%"
+		if (unbalance == 100) {
 			unbalanceBar.style["background-color"] = "gradient( radial, 50% 50%, 0% 0%, 80% 80%, from( #FF3232 ), to( #FFB5B5 ) )";
 		}
 		else {
 			unbalanceBar.style["background-color"] = "gradient( linear, 0% 0%, 100% 0%, from( #FF9933 ), to( #FFB775 ) )";
 		}
-		$("#UnbalanceLabel").text = unitValues[heroIndex].unbalance
+
+		$("#UnbalanceLabel").text = unbalance + "/100"
+		$("#UnbalanceLabel").style.opacity = Math.ceil(unbalance / 100)
 	}
 }
 

@@ -537,12 +537,11 @@ function setCraftActivatedStatus(unit)
 end
 
 function validEnhancedCraft(caster, target, require_target)
-	return caster:HasModifier("modifier_combat_link_followup_available") and (not require_target or (target and target:HasModifier("modifier_combat_link_unbalanced")))
+	return caster:HasModifier("modifier_combat_link_followup_available") and (not require_target or target)
 end
 
-function executeEnhancedCraft(caster, target)
+function executeEnhancedCraft(caster)
 	caster:RemoveModifierByName("modifier_combat_link_followup_available")
-	if target then target:RemoveModifierByName("modifier_combat_link_unbalanced") end
 	triggerModifierEventOnAll("enhanced_craft_used", {unit = caster})
 end
 

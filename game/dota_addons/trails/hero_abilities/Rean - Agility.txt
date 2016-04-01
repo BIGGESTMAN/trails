@@ -1,5 +1,5 @@
 [Q] Autumn Leaf Cutter (autumn_leaf_cutter) : Rean dashes through enemies in target area, dealing physical damage, slowing and interrupting. +10 to Unbalance.
-Enhanced : Follows targeted enemy, deals more damage and slows for longer, and knocks enemies away from the target.
+Enhanced : Requires a target. Follows targeted enemy, deals more damage and slows for longer, and knocks enemies away from the target.
 
 Cast Point : 0.2
 Delay: 1
@@ -15,7 +15,7 @@ Note0 (note0) : Can only be cast if there are enemies in the target area.
 CP Cost : 30
 
 [W] Motivate (motivate) : Rean lets forth an encouraging shout, increasing nearby allies' Physical Attack and granting them CP.
-Enhanced : Intimidates targeted enemy, decreasing their Physical Attack and blocking CP generation, and increases allies' Physical Attack and CP by a greater amount.
+Enhanced : Requires a target. Intimidates targeted enemy, decreasing their Physical Attack and blocking CP generation, and increases allies' Physical Attack and CP by a greater amount.
 
 Cast Point : 0.2
 Delay: 3

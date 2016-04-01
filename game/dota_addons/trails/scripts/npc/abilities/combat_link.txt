@@ -41,17 +41,22 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"unbalance_decay_delay"	"8"
-			}
-			"01"
-			{
-				"var_type"				"FIELD_FLOAT"
-				"unbalance_duration"	"6.0"
+				"unbalance_decay_delay"	"5"
 			}
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
 				"base_unbalance_increase"	"10"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"unbalance_duration"	"6"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"unbalance_cooldown"	"5"
 			}
 		}
 
@@ -121,27 +126,7 @@
 
 			"modifier_combat_link_unbalanced"
 			{
-				"Duration" "%unbalance_duration"
-
-				"IsDebuff"	"1"
-
-				"OnCreated"
-				{
-					"RunScript"
-					{
-						"ScriptFile"	"combat_links"
-						"Function"		"createUnbalancedParticle"
-					}
-				}
-
-				"OnDestroy"
-				{
-					"RunScript"
-					{
-						"ScriptFile"	"combat_links"
-						"Function"		"removeUnbalancedParticle"
-					}
-				}
+				"Duration" "%unbalance_cooldown"
 			}
 		}
 	}
