@@ -1,0 +1,29 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+		<include src="file://{resources}/styles/custom_game/ui_resource_bars.css" />
+	</styles>
+	<scripts>
+		<include src="file://{resources}/scripts/custom_game/ui_resource_bars.js" />
+	</scripts>
+	<Panel class="ResourceBarContainer">
+		<Panel hittest="false" class="ResourceBarBackground">
+			<Panel hittest="false" id="HealthBar" class="ResourceBar" />
+			<Label id="HealthLabel" class="Text"/>
+		</Panel>
+		<Panel hittest="false" class="ResourceBarBackground">
+			<Panel hittest="false" id="ManaBar" class="ResourceBar" />
+			<Label id="ManaLabel" class="Text"/>
+		</Panel>
+		<Panel hittest="false" class="ResourceBarBackground">
+			<Panel hittest="false" id="CPBar" class="CPBar ResourceBar" />
+			<Panel hittest="false" id="OverfullCPBar" class="OverfullCPBar ResourceBar" />
+			<Label id="CPLabel" class="Text"/>
+		</Panel>
+		<Panel hittest="false" class="ResourceBarBackground">
+			<Panel hittest="false" id="UnbalanceBar" class="ResourceBar" />
+			<Label id="UnbalanceLabel" class="Text"/>
+		</Panel>
+	</Panel>
+</root>
+

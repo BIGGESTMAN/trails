@@ -74,6 +74,7 @@
 			"modifier_cp_tracker_cp"
 			{
 				"Attributes"		"MODIFIER_ATTRIBUTE_PERMANENT | MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE"
+				"IsHidden"	"1"
 			}
 		}
 	}

@@ -1,9 +1,9 @@
 .ActionBarContainer
 {
 	width: 100%;
-	height: 100%;
-	position: 20% 760px 0px;
-	/*flow-children: down;*/
+	/*height: 100%;*/
+	position: 20% -0% 0px;
+	flow-children: down;
 	horizontal-align: left;
 	vertical-align: bottom;
 }
@@ -11,7 +11,7 @@
 .AbilityOverlayRoot
 {
 	horizontal-align: left;
-	flow-children: down;
+	flow-children: right;
 }
 
 #MainBarContainer
@@ -185,53 +185,11 @@
 	border: 2px solid #734918;
 }
 
-#ResourceBarContainer {
-	width: 60px;
-	height: 100%;
-
-	/*margin-top: 60px;*/
-	/*margin-left: 0px;*/
-	opacity: 1;
-	/*padding: 15px;*/
-	visibility: visible;
+#StatusBarsContainer {
 	flow-children: right;
-}
-
-.ResourceBarBackground {
-	opacity: 1;
-	visibility: visible;
-	vertical-align: top;
-	horizontal-align: left;
-	width: 15px;
-	height: 100%;
-
-	background-color: gradient( linear, 0% 0%, 0% 100%, from( #32393e ), to( #151515 ) );
-	/*box-shadow: #000000df -4px -4px 2px 8px;*/
-	border-top: 1px solid #000000ff;
-	border-left: 1px solid #000000ff;
-	border-right: 1px solid #000000ff;
-	border-bottom: 1px solid #000000ff;
-}
-
-.ResourceBar {
-	width: 100%;
-	height: 0%;
-	background-color: gradient( linear, 0% 0%, 100% 0%, from( #FF9933 ), to( #FFB775 ) );
-	vertical-align: bottom;
-}
-
-.ResourceBar.CPBar {
-	background-color: gradient( linear, 0% 0%, 100% 0%, from( #B7C54A ), to( #FEFDE1 ) );
-}
-
-.ResourceBar.OverfullCPBar {
-	background-color: gradient( linear, 0% 0%, 100% 0%, from( #44BA66 ), to( #CEFEEE ) );
-}
-
-#HealthBar.ResourceBar  {
-	background-color: gradient( linear, 0% 0%, 0% 100%, from( #5FA35F ), to( #0B5709 ) );
-}
-
-#ManaBar.ResourceBar  {
-	background-color: gradient( linear, 0% 0%, 0% 100%, from( #5E82AF ), to( #275088 ) );
+	/*background-color: #ceaa31;*/
+	height: 60px;
+	width: 842.5px;
+	/*width: 200px;*/
+	/*height: 300px;*/
 }

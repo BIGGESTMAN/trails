@@ -7,6 +7,12 @@
 		<include src="file://{resources}/scripts/custom_game/action_bar_container.js" />
 	</scripts>
 	<Panel class="ActionBarContainer" hittest="false">
+		<Panel id="AllyActionBar"/>
+		<Panel id="StatusBarsContainer">
+			<Panel id="SelfStatusBar" class="Upper Lower"/>
+			<Panel id="AllyStatusBar" class="Upper Lower"/>
+		</Panel>
+		<Panel id="SelfActionBar"/>
 	</Panel>
 </root>
 

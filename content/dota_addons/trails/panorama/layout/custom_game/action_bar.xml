@@ -7,9 +7,8 @@
 		<include src="file://{resources}/scripts/custom_game/action_bar.js" />
 	</scripts>
 	<Panel class="AbilityOverlayRoot">
-		<Panel id="BuffList"/>
 		<Panel id="MainBarContainer">
-			<Panel id="ResourceBarContainer">
+			<!-- <Panel id="ResourceBarContainer">
 				<Panel hittest="false" class="ResourceBarBackground">
 					<Panel hittest="false" id="HealthBar" class="ResourceBar" />
 				</Panel>
@@ -23,7 +22,7 @@
 				<Panel hittest="false" class="ResourceBarBackground">
 					<Panel hittest="false" id="UnbalanceBar" class="ResourceBar" />
 				</Panel>
-			</Panel>
+			</Panel> -->
 			<Panel id="HeroPortraitWindow">
 				<Label id="HeroPortraitName"/>
 				<Button id="HeroPortrait" onactivate="OnHeroPortraitClicked()"/>
@@ -31,6 +30,7 @@
 			<Panel id="StatsDisplay" />
 			<Panel id="ability_list" />
 		</Panel>
+		<Panel id="BuffList"/>
 	</Panel>
 </root>
 

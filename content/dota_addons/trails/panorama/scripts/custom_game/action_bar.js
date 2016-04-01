@@ -74,59 +74,23 @@ function UpdateAbilityList(msg)
 	buffList.heroIndex = queryUnit
 }
 
-function OnResourceBarsUpdate(data) {
-	var unitValues = data.unitValues
-	var heroIndex = $.GetContextPanel().heroIndex
-	var container = $("#ResourceBarContainer")
-	var healthBar = $("#HealthBar")
-	var manaBar = $("#ManaBar")
-	var cpBarBackground = $("#ResourceBarContainer").Children()[2]
-	var cpBar = $("#CPBar")
-	var overfullCPBar = $("#OverfullCPBar")
-	var unbalanceBar = $("#UnbalanceBar")
-
-	var healthPercent = Entities.GetHealthPercent(heroIndex)
-	var manaPercent = Entities.GetMana(heroIndex) / Entities.GetMaxMana(heroIndex) * 100
-	healthBar.style.height = healthPercent + "%"
-	manaBar.style.height = manaPercent + "%"
-
-	var second_cp_bar_full = Math.max(unitValues[heroIndex].cp - 100, 0)
-	var first_cp_bar_full = Math.min(unitValues[heroIndex].cp, 100)
-	// $.Msg(cpBarBackground)
-	if (second_cp_bar_full > 0) {
-		first_cp_bar_full = 100 - second_cp_bar_full
-		cpBar.style.position = "0px -" + second_cp_bar_full + "% 0px"
-	}
-	else {
-		cpBar.style.position = "0px 0px 0px" 
-	}
-	cpBar.style.height = first_cp_bar_full + "%"
-	overfullCPBar.style.height = second_cp_bar_full + "%"
-
-	unbalanceBar.style.height = unitValues[heroIndex].unbalance + "%"
-	if (unitValues[heroIndex].unbalance == 100) {
-		unbalanceBar.style["background-color"] = "gradient( radial, 50% 50%, 0% 0%, 80% 80%, from( #FF3232 ), to( #FFB5B5 ) )";
-	}
-	else {
-		unbalanceBar.style["background-color"] = "gradient( linear, 0% 0%, 100% 0%, from( #FF9933 ), to( #FFB775 ) )";
-	}
-}
-
 function OnCPCostsUpdate(data) {
-	var cpCosts = data.cpCosts
-	var heroIndex = $.GetContextPanel().heroIndex
+	if ($.GetContextPanel().style.visibility == "visible") {
+		var cpCosts = data.cpCosts
+		var heroIndex = $.GetContextPanel().heroIndex
 
-	for ( var i = 0; i < Entities.GetAbilityCount( heroIndex ); ++i )
-	{
-		var ability = Entities.GetAbility( heroIndex, i );
-		if ( ability == -1 )
-			continue;
+		for ( var i = 0; i < Entities.GetAbilityCount( heroIndex ); ++i )
+		{
+			var ability = Entities.GetAbility( heroIndex, i );
+			if ( ability == -1 )
+				continue;
 
-		if ( !Abilities.IsDisplayedAbility(ability) )
-			continue;
+			if ( !Abilities.IsDisplayedAbility(ability) )
+				continue;
 
-		$("#ability_list").Children()[i].cpCost = Math.floor(cpCosts[heroIndex][ability])
-		// $.Msg(heroIndex, ", ", ability, ", ", cpCosts[heroIndex][ability])
+			$("#ability_list").Children()[i].cpCost = Math.floor(cpCosts[heroIndex][ability])
+			// $.Msg(heroIndex, ", ", ability, ", ", cpCosts[heroIndex][ability])
+		}
 	}
 }
 
@@ -141,7 +105,6 @@ function OnCPCostsUpdate(data) {
 	GameEvents.Subscribe( "dota_hero_ability_points_changed", UpdateAbilityList );
 	GameEvents.Subscribe( "ally_ability_bar_start", UpdateAbilityList );
 
-	GameEvents.Subscribe("resource_bars_update", OnResourceBarsUpdate);
 	GameEvents.Subscribe("cp_costs_update", OnCPCostsUpdate);
 	
 	UpdateAbilityList(); // initial update

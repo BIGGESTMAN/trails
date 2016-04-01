@@ -84,6 +84,8 @@
 
 			"modifier_combat_link_linked"
 			{
+				"IsHidden"	"1"
+				
 				"OnAttackLanded"
 				{
 					"RunScript"
