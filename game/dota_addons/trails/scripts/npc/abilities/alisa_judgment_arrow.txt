@@ -13,7 +13,7 @@
 
 		"precache"
 		{
-			
+			"particle"					"particles/crafts/alisa/judgment_arrow/projectile.vpcf"	
 		}
 
 		"AbilityCastPoint"				"0"

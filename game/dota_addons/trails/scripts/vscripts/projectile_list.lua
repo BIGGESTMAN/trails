@@ -144,8 +144,10 @@ function setupProjectileList()
 		local projectile_location = projectile:GetAbsOrigin()
 
 		local particle = ParticleManager:CreateParticle(particle_name, PATTACH_ABSORIGIN_FOLLOW, projectile)
-		ParticleManager:SetParticleControl(particle, 0, projectile_location)
-		ParticleManager:SetParticleControl(particle, 1, speed * direction / update_interval)
+		if not other_args.stationary_particle then -- stationary particle = just follows CP 0, doesn't use velocity CP
+			ParticleManager:SetParticleControl(particle, 0, projectile_location)
+			ParticleManager:SetParticleControl(particle, 1, speed * direction / update_interval)
+		end
 		projectile:SetForwardVector(direction)
 
 		Timers:CreateTimer(0, function()
@@ -159,6 +161,9 @@ function setupProjectileList()
 						projectile:SetAbsOrigin(projectile:GetAbsOrigin() + direction * distance)
 					end
 					distance_traveled = distance_traveled + speed
+					if not other_args.non_flat then
+						projectile:SetAbsOrigin(GetGroundPosition(projectile:GetAbsOrigin(), projectile)) -- keep projectile on ground, for particle purposes
+					end
 
 					-- Check for unit collisions
 					if collisionFunction and collisionRules then

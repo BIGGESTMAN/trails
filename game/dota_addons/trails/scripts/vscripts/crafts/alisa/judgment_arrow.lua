@@ -45,7 +45,7 @@ function fireArrow(caster, max_cp)
 	local direction = caster:GetForwardVector()
 	local origin_location = caster:GetAbsOrigin()
 
-	ProjectileList:CreateLinearProjectile(caster, origin_location, direction, travel_speed, range, nil, collisionRules, arrowHit, "particles/crafts/alisa/blessed_arrow/arrow.vpcf", {damage_scale = damage_scale, max_cp = max_cp})
+	ProjectileList:CreateLinearProjectile(caster, origin_location, direction, travel_speed, range, nil, collisionRules, arrowHit, "particles/crafts/alisa/judgment_arrow/projectile.vpcf", {damage_scale = damage_scale, max_cp = max_cp, stationary_particle = true})
 end
 
 function arrowHit(caster, unit, other_args, projectile)
