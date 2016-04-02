@@ -17,6 +17,7 @@ function OnAbilityBarStart(msg)
 
 	$("#AllyActionBar").BLoadLayout("file://{resources}/layout/custom_game/action_bar.xml", false, false );
 	$("#AllyActionBar").style.visibility = "collapse"
+	$("#AllyActionBar").SetHasClass("Upper", true)
 
 	$("#AllyStatusBar").BLoadLayout("file://{resources}/layout/custom_game/ui_resource_bars.xml", false, false );
 	$("#AllyStatusBar").style.visibility = "collapse"

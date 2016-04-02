@@ -14,7 +14,7 @@ function spellCast(keys)
 	local faint_duration = ability:GetSpecialValueFor("faint_duration")
 	local mov_down_duration = ability:GetSpecialValueFor("mov_down_duration")
 	local bonus_unbalance = ability:GetSpecialValueFor("bonus_unbalance")
-	local flight_time = ability:GetSpecialValueFor("flight_duration")
+	local flight_time = 1
 	local mov_down = ability:GetSpecialValueFor("mov_down")
 
 	spendCP(caster, ability)
@@ -44,6 +44,10 @@ function spellCast(keys)
 		caster:RemoveModifierByName("modifier_crit")
 	end
 
+	local dummy = CreateUnitByName("npc_dummy_unit", caster:GetAbsOrigin(), false, caster, caster, caster:GetTeamNumber())
+	local particle = ParticleManager:CreateParticle("particles/crafts/millium/megaton_press/lammy_flying.vpcf", PATTACH_ABSORIGIN_FOLLOW, dummy)
+	ParticleManager:SetParticleControl(particle, 1, target_point)
+
 	local team = caster:GetTeamNumber()
 	local iTeam = DOTA_UNIT_TARGET_TEAM_ENEMY
 	local iType = DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC + DOTA_UNIT_TARGET_MECHANICAL
@@ -69,12 +73,20 @@ function spellCast(keys)
 				if #targets > 1 or enhanced then modifyStat(unit, STAT_MOV_DOWN, mov_down, mov_down_duration) end
 			end)
 		end
+
+		dummy:RemoveSelf()
+
+		local impact_particle = ParticleManager:CreateParticle("particles/crafts/millium/megaton_press_shockwave.vpcf", PATTACH_CUSTOMORIGIN, nil)
+		ParticleManager:SetParticleControl(impact_particle, 0, target_point)
 	end)
 
-	local particle = ParticleManager:CreateParticle("particles/crafts/millium/megaton_press/lammy_flying.vpcf", PATTACH_CUSTOMORIGIN, nil)
-	-- ParticleManager:SetParticleControlForward(particle, 0, (target_point - caster:GetAbsOrigin()):Normalized())
-	ParticleManager:SetParticleControl(particle, 1, caster:GetAbsOrigin())
-	ParticleManager:SetParticleControl(particle, 2, target_point)
-	local midpoint = (caster:GetAbsOrigin() - target_point) / 2 + target_point
-	ParticleManager:SetParticleControl(particle, 3, midpoint + Vector(0,0,900))
+	Physics:Unit(dummy)
+	local velocity = (target_point - dummy:GetAbsOrigin()) / flight_time + Vector(0,0,2000)
+	dummy:SetPhysicsVelocity(velocity)
+	dummy:SetPhysicsAcceleration(Vector(0,0,-4750))
+	dummy:SetPhysicsFriction(0)
+	dummy:SetGroundBehavior(PHYSICS_GROUND_NOTHING)
+	dummy:SetAutoUnstuck(false)
+	dummy:FollowNavMesh(false)
+	dummy:SetNavCollisionType(PHYSICS_NAV_NOTHING)
 end

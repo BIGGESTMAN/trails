@@ -14,6 +14,15 @@
 	flow-children: right;
 }
 
+.AbilityOverlayRoot.Upper {
+	/*pre-transform-scale2d: 0.8;*/
+	/*height: 100px;*/
+	/*width: 600px;*/
+	/*opacity: 0.95;*/
+	brightness: 0.375;
+	saturation: 0.5;
+}
+
 #MainBarContainer
 {
 	horizontal-align: center;

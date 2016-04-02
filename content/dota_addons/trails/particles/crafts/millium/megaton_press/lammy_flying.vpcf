@@ -30,6 +30,7 @@
 				m_flBulge = 3.000000
 			}
 			m_bLoop = false
+			m_bDisableOperator = true
 		},
 		{
 			_class = "C_OP_SetSingleControlPointPosition"
@@ -43,6 +44,7 @@
 		},
 		{
 			_class = "C_OP_BasicMovement"
+			m_bDisableOperator = true
 		},
 		{
 			_class = "C_OP_SetSingleControlPointPosition"
@@ -60,10 +62,13 @@
 			_class = "C_OP_SetCPOrientationToPointAtCP"
 			m_nInputCP = 3
 			m_nOutputCP = 1
+			m_bDisableOperator = true
 		},
 		{
 			_class = "C_OP_SetCPOrientationToPointAtCP"
-			m_nInputCP = 2
+		},
+		{
+			_class = "C_OP_PositionLock"
 		},
 	]
 	m_Renderers =
@@ -90,8 +95,8 @@
 	[
 		{
 			_class = "C_INIT_RandomLifeTime"
-			m_fLifetimeMin = 0.500000
-			m_fLifetimeMax = 0.500000
+			m_fLifetimeMin = 1.000000
+			m_fLifetimeMax = 1.000000
 		},
 		{
 			_class = "C_INIT_RandomAlpha"
@@ -108,7 +113,6 @@
 		},
 		{
 			_class = "C_INIT_CreateWithinSphere"
-			m_nControlPointNumber = 1
 		},
 		{
 			_class = "C_INIT_PositionOffset"

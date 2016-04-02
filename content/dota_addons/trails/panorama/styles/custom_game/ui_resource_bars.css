@@ -12,6 +12,8 @@
 
 .ResourceBarContainer.Upper {
 	width: 33%;
+	brightness: 0.75;
+	saturation: 0.75;
 }
 
 .ResourceBarContainer.Lower {

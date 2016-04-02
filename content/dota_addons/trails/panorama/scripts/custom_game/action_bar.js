@@ -4,15 +4,13 @@ var m_AbilityPanels = []; // created up to a high-water mark, but reused when se
 
 function OnHeroPortraitClicked()
 {
-	// if ( Game.IsInAbilityLearnMode() )
-	// {
-	// 	Game.EndAbilityLearnMode();
-	// }
-	// else
-	// {
-	// 	Game.EnterAbilityLearnMode();
-	// }
 	GameUI.SelectUnit($("#HeroPortraitWindow").heroIndex, false)
+}
+
+function OnHeroPortraitDoubleClicked()
+{
+	// GameUI.SelectUnit($("#HeroPortraitWindow").heroIndex, false)
+	// GameUI.SetCameraLookAtPositionHeightOffset( lookAtHeight + offHeight );
 }
 
 function UpdateAbilityList(msg)

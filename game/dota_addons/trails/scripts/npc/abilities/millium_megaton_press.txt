@@ -42,7 +42,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"flight_duration"		"0.5"
+				"flight_duration"		"1"
 			}
 			"01"
 			{

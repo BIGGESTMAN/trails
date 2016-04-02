@@ -7,6 +7,7 @@ directoryname = "hero_abilities"
 filenames = os.listdir(directoryname)
 
 special_values = ["Note", "Lore"]
+stat_increases = ["bonus_health", "bonus_ep", "bonus_str", "bonus_ats", "bonus_def", "bonus_adf", "bonus_mov", "bonus_spd"]
 
 abilities = []
 ability = None
@@ -60,9 +61,9 @@ for fname in filenames:
 			name, key = effect.split(" (")
 			key = key.replace(" ", "_")
 			if not special:
-				ability['effects'].append((name.upper() + ":", key.capitalize()))
+				ability['effects'].append((name.upper() + ":", key.capitalize(), value))
 			else:
-				ability['effects'].append((value[1:], key.capitalize()))
+				ability['effects'].append((value[1:], key.capitalize(), 0))
 	ability = None
 
 with open('resource/tooltips/generated_tooltips.txt', mode='w', encoding='utf-8') as outfile:
@@ -78,6 +79,10 @@ with open('resource/tooltips/generated_tooltips.txt', mode='w', encoding='utf-8'
 		cast_time_string = ""
 		if ability['is_quartz']:
 			cast_time_string = r"\n\n<font color='#4080FF'>CAST TIME: {}</font>".format(ability['cast_time'])
+			ability['desc'] = ability['desc'] + "<br/>"
+			for effect,key,value in ability['effects']:
+				if key.lower() in stat_increases:
+					ability['desc'] = ability['desc'] + "<br/>    + <font color='#EAA43D'>{}</font> {}".format(value, effect[:-1])
 		else:
 			if 'CP_Cost' in ability:
 				ability['desc'] = ability['desc'] + ability['CP_Cost']
@@ -85,8 +90,9 @@ with open('resource/tooltips/generated_tooltips.txt', mode='w', encoding='utf-8'
 				ability['desc'] = ability['desc'] + ability['Enhanced']
 		outfile.write('\t\t{}{}_Description" "{}{}"\n'.format(current_ability_prefix, name, ability['desc'], cast_time_string))
 
-		for effect, key in ability['effects']:
-			outfile.write('\t\t{}{}_{}" "{}"\n'.format(current_ability_prefix, name, key, effect))
+		for effect, key, value in ability['effects']:
+			if not key.lower() in stat_increases:
+				outfile.write('\t\t{}{}_{}" "{}"\n'.format(current_ability_prefix, name, key, effect))
 		outfile.write("\n")
 	for modifier in modifiers:
 		name = modifier['internal_name'].replace(" ", "_")

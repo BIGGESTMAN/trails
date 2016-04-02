@@ -98,6 +98,10 @@ function slam(caster, args)
 		end)
 	end
 
+	local particle = ParticleManager:CreateParticle("particles/crafts/millium/gigant_breaker/slam_impact.vpcf", PATTACH_CUSTOMORIGIN, nil)
+	ParticleManager:SetParticleControl(particle, 0, origin)
+	-- DebugDrawCircle(origin, Vector(255,0,0), 0.5, radius, true, 3)
+
 	createShockwave(caster, origin, args)
 	if args.max_cp then
 		local shockwaves = ability:GetSpecialValueFor("max_cp_shockwave_count") - 1

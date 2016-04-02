@@ -105,7 +105,7 @@ function updateFacing(caster)
 	local current_caster_y = VectorToAngles(caster:GetForwardVector()).y
 	local last_angle = caster.chaos_trigger_last_angle
 	local angle_delta = current_caster_y - last_angle
-	if angle_delta > 180 then angle_delta = 360 - angle_delta end
+	if angle_delta > 180 then angle_delta = angle_delta - 360 end
 	if math.abs(angle_delta) > max_allowed_turn then
 		if angle_delta > 0 then
 			angle_delta = max_allowed_turn
