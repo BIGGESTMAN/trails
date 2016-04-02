@@ -6,11 +6,8 @@ function spellCast(keys)
 	local target_point = keys.target_points[1]
 	local target = keys.target
 
-	local arrow_destination = target_point + Vector(0,0,300)
-	local arrow_travel_time = ability:GetSpecialValueFor("arrow_travel_time")
-	local range = (arrow_destination - caster:GetAbsOrigin()):Length()
-	local travel_speed = range / arrow_travel_time
-	local args = {non_flat = true}
+	local radius = ability:GetSpecialValueFor("radius")
+	local duration = ability:GetSpecialValueFor("duration")
 
 	spendCP(caster, ability)
 	applyDelayCooldowns(caster, ability)
@@ -18,45 +15,59 @@ function spellCast(keys)
 	if validEnhancedCraft(caster, target, true) then
 		executeEnhancedCraft(caster, target)
 
-		args.drain_cp_from = target
-	end
-
-	local direction = (arrow_destination - caster:GetAbsOrigin()):Normalized()
-	local origin_location = caster:GetAttachmentOrigin(caster:ScriptLookupAttachment("attach_attack1"))
-
-	local sun_particle = ParticleManager:CreateParticle("particles/crafts/alisa/heavenly_gift/sun.vpcf", PATTACH_CUSTOMORIGIN, nil)
-	ParticleManager:SetParticleControl(sun_particle, 0, arrow_destination)
-
-	ProjectileList:CreateLinearProjectile(caster, origin_location, direction, travel_speed, range, heavenlyGiftExplode, nil, nil, "particles/crafts/alisa/blessed_arrow/arrow.vpcf", args)
-end
-
-function heavenlyGiftExplode(caster, origin_location, direction, speed, range, collisionRules, collisionFunction, other_args)
-	local ability = caster:FindAbilityByName("heavenly_gift")
-	local radius = ability:GetSpecialValueFor("radius")
-	local insight_duration = ability:GetSpecialValueFor("buffs_duration")
-	local passion_duration = ability:GetSpecialValueFor("buffs_duration")
-	local cp_per_second = ability:GetSpecialValueFor("passion_cp_regen")
-	local target_point = origin_location + direction * range
-
-	local team = caster:GetTeamNumber()
-	local iTeam = DOTA_UNIT_TARGET_TEAM_FRIENDLY
-	local iType = DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC + DOTA_UNIT_TARGET_MECHANICAL
-	local iFlag = DOTA_UNIT_TARGET_FLAG_NONE
-	local iOrder = FIND_ANY_ORDER
-	local targets = FindUnitsInRadius(team, target_point, nil, radius, iTeam, iType, iFlag, iOrder, false)
-	for k,unit in pairs(targets) do
-		unit:AddNewModifier(caster, ability, "modifier_insight", {duration = insight_duration})
-		if unit ~= caster then
-			unit:AddNewModifier(caster, ability, "modifier_passion", {duration = passion_duration, cp_per_second = cp_per_second})
-		end
-	end
-
-	if other_args.drain_cp_from then
-		local cp_drained = getCP(other_args.drain_cp_from)
-		modifyCP(other_args.drain_cp_from, cp_drained * -1)
+		local cp_drained = getCP(target)
+		modifyCP(target, cp_drained * -1)
 		caster.enhanced_heavenly_gift_cp_drained = cp_drained
 		ability:ApplyDataDrivenModifier(caster, caster, "modifier_heavenly_gift_cp_restore", {})
 	end
+
+	local sun_particle = ParticleManager:CreateParticle("particles/crafts/alisa/heavenly_gift/sun.vpcf", PATTACH_CUSTOMORIGIN, nil)
+	ParticleManager:SetParticleControl(sun_particle, 0, target_point + Vector(0,0,300))
+
+	local area_particle = ParticleManager:CreateParticle("particles/crafts/alisa/heavenly_gift/area.vpcf", PATTACH_CUSTOMORIGIN, nil)
+	ParticleManager:SetParticleControl(area_particle, 0, target_point)
+
+	local update_interval = 1/30
+	local duration_elapsed = 0
+	local affected_units = {}
+	Timers:CreateTimer(0, function()
+		duration_elapsed = duration_elapsed + update_interval
+
+		for unit,v in pairs(affected_units) do
+			affected_units[unit] = false
+		end
+
+		local team = caster:GetTeamNumber()
+		local iTeam = DOTA_UNIT_TARGET_TEAM_BOTH
+		local iType = DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC + DOTA_UNIT_TARGET_MECHANICAL
+		local iFlag = DOTA_UNIT_TARGET_FLAG_NONE
+		local iOrder = FIND_ANY_ORDER
+		local targets = FindUnitsInRadius(team, target_point, nil, radius, iTeam, iType, iFlag, iOrder, false)
+		for k,unit in pairs(targets) do
+			affected_units[unit] = true
+			if unit:GetTeamNumber() == caster:GetTeamNumber() then
+				unit:AddNewModifier(caster, ability, "modifier_insight", {}):StartEvasionCooldown() -- start on cooldown to prevent skirting-in-and-out on edge of aoe shenanigans
+			else
+				ability:ApplyDataDrivenModifier(caster, unit, "modifier_heavenly_gift_enemy", {})
+			end
+		end
+
+		for unit,v in pairs(affected_units) do
+			if not affected_units[unit] then
+				unit:RemoveModifierByName("modifier_insight")
+				unit:RemoveModifierByName("modifier_heavenly_gift_enemy")
+			end
+		end
+
+		if duration_elapsed < duration then
+			return update_interval
+		else
+			for unit,v in pairs(affected_units) do
+				unit:RemoveModifierByName("modifier_insight")
+				unit:RemoveModifierByName("modifier_heavenly_gift_enemy")
+			end
+		end
+	end)
 end
 
 function restoreCPTick(keys)

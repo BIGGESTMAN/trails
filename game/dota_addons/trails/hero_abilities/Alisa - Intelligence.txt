@@ -58,9 +58,8 @@ Cast Point : 0.3
 Delay: 5
 Cast Range : 800
 Radius (radius) : 400
-Insight Duration (buffs_duration) : 5
-Passion Duration (buffs_duration) : 5
-Passion CP Per Second (passion_cp_regen) : 10
+Duration (duration) : 7
+%Increased CP (cp_increase) : 100
 Enhanced CP Restore Duration (unbalanced_cp_restore_duration) : 8
 Enhanced CP Restore Radius (unbalanced_cp_restore_radius) : 350
 CP Cost : 65

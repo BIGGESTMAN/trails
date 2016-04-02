@@ -112,9 +112,10 @@ function RoundManager:EndRound(winning_team)
 
 				hero:AddNewModifier(hero, nil, "modifier_interround_invulnerability", {})
 				
-				if hero:GetTeam() ~= winning_team then
-					modifyCP(hero, END_OF_ROUND_LOSER_CP)
-				end
+				-- if hero:GetTeam() ~= winning_team then
+				-- 	modifyCP(hero, END_OF_ROUND_LOSER_CP)
+				-- end
+				modifyCP(hero, getCP(hero) * -1)
 
 				hero:ModifyGold(BASE_GOLD_PER_ROUND + GOLD_INCREASE_PER_ROUND * self.current_round, true, 17)
 				self:RemoveTemporaryModifiers(hero)

@@ -40,8 +40,8 @@ function checkForLink(keys)
 				caster.tether_particle = ParticleManager:CreateParticle("particles/combat_links/link.vpcf", PATTACH_POINT_FOLLOW, caster)
 				ParticleManager:SetParticleControlEnt(caster.tether_particle, 0, caster, PATTACH_POINT_FOLLOW, "attach_hitloc", caster:GetAbsOrigin(), true)
 				ParticleManager:SetParticleControlEnt(caster.tether_particle, 1, target, PATTACH_POINT_FOLLOW, "attach_hitloc", target:GetAbsOrigin(), true)
-				CustomGameEventManager:Send_ServerToPlayer(caster:GetOwner(), "ally_ability_bar_start", {heroIndex = target:GetEntityIndex(), cpCosts = getAbilityCPCosts(target)})
-				CustomGameEventManager:Send_ServerToPlayer(target:GetOwner(), "ally_ability_bar_start", {heroIndex = caster:GetEntityIndex(), cpCosts = getAbilityCPCosts(caster)})
+				CustomGameEventManager:Send_ServerToPlayer(caster:GetOwner(), "ally_ability_bar_start", {heroIndex = target:GetEntityIndex(), cpCosts = getAbilityCPCosts(target), ownerIndex = target:GetPlayerOwnerID()})
+				CustomGameEventManager:Send_ServerToPlayer(target:GetOwner(), "ally_ability_bar_start", {heroIndex = caster:GetEntityIndex(), cpCosts = getAbilityCPCosts(caster), ownerIndex = target:GetPlayerOwnerID()})
 				break
 			end
 		end
@@ -59,7 +59,7 @@ function removeLink(unit)
 end
 
 function attackLanded(keys)
-	increaseUnbalance(keys.caster, keys.target)
+	-- increaseUnbalance(keys.caster, keys.target)
 end
 
 function increaseUnbalance(caster, target, bonus_increase)
@@ -75,6 +75,7 @@ function increaseUnbalance(caster, target, bonus_increase)
 		if modifier then -- to make script not crash when hitting creeps ~_~
 			local unbalance_increase = (base_increase + bonus_increase) * getHeroLinkScaling(caster)
 			if target:HasModifier("modifier_balance_down") then unbalance_increase = unbalance_increase * BALANCE_DOWN_UNBALANCE_FACTOR end
+			print(unbalance_increase)
 			modifier:IncreaseLevel(unbalance_increase)
 			if modifier:GetStackCount() >= unbalance_threshold or caster:HasModifier("modifier_brute_force") or ONE_HIT_UNBALANCE then
 				ability:ApplyDataDrivenModifier(caster, caster.combat_linked_to, "modifier_combat_link_followup_available", {})

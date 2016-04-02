@@ -22,7 +22,7 @@
 		"AbilityManaCost"				"0"
 		"AbilityCastRange"				"800"
 		"AOERadius"						"300"
-		"CPCost"						"40"
+		"CPCost"						"30"
 
 		"AbilitySpecial"
 		{

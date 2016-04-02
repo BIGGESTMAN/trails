@@ -20,7 +20,7 @@
 		"AbilityManaCost"				"0"
 		"AbilityCastRange"				"800"
 		"AOERadius"						"400"
-		"CPCost"						"50"
+		"CPCost"						"65"
 
 		"AbilitySpecial"
 		{
@@ -32,12 +32,12 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"buffs_duration"		"5"
+				"duration"				"7"
 			}
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"passion_cp_regen"		"10"
+				"cp_increase"			"50"
 			}
 			"01"
 			{
@@ -54,11 +54,6 @@
 				"var_type"				"FIELD_FLOAT"
 				"unbalanced_cp_restore_interval"	"0.25"
 			}
-			"01"
-			{
-				"var_type"				"FIELD_FLOAT"
-				"arrow_travel_time"		"0.5"
-			}
 		}
 
 		"OnSpellStart"
@@ -73,6 +68,11 @@
 
 		"Modifiers"
 		{
+			"modifier_heavenly_gift_enemy"
+			{
+				"IsDebuff"	"1"
+			}
+
 			"modifier_heavenly_gift_cp_restore"
 			{
 				"Duration"		"%unbalanced_cp_restore_duration"

@@ -496,7 +496,7 @@ function getCP(unit)
 end
 
 function modifyCP(unit, amount)
-	if unit:HasAbility("cp_tracker") then
+	if unit:HasAbility("cp_tracker") and not unit:HasModifier("modifier_interround_invulnerability") then
 		if unit:HasModifier("modifier_cp_boost") then amount = amount * CP_BOOST_GAIN_FACTOR end
 		if unit:HasModifier("modifier_intimidate") and amount > 0 then amount = 0 end
 		
@@ -526,6 +526,10 @@ function grantDamageCP(damage, attacker, target, multiplier)
 	local multiplier = multiplier or 1
 	local attacker_cp = damage * DAMAGE_CP_GAIN_FACTOR * multiplier
 	local target_cp = attacker_cp * TARGET_CP_GAIN_FACTOR
+	if target:HasModifier("modifier_heavenly_gift_enemy") then
+		local ability = target:FindModifierByName("modifier_heavenly_gift_enemy"):GetAbility()
+		attacker_cp = attacker_cp * (1 + ability:GetSpecialValueFor("cp_increase") / 100)
+	end
 	modifyCP(attacker, attacker_cp)
 	modifyCP(target, target_cp)
 end

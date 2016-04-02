@@ -388,7 +388,7 @@ function GameMode:OnHeroInGame(hero)
 		-- Setup custom UI stuff
 		CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "infotext_start", {})
 		self:UpdateStatsDisplay(hero)
-		CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "ability_bar_start", {heroIndex = hero:GetEntityIndex(), cpCosts = getAbilityCPCosts(hero)})
+		CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "ability_bar_start", {heroIndex = hero:GetEntityIndex(), cpCosts = getAbilityCPCosts(hero), ownerIndex = hero:GetPlayerOwnerID()})
 		self:UpdateAbilityBars(hero)
 		self:UpdateCPCosts(hero)
 
