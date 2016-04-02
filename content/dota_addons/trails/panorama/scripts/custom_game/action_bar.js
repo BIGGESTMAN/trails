@@ -64,6 +64,10 @@ function UpdateAbilityList(msg)
 	var heroInternalName = Entities.GetUnitName(queryUnit)
 	$("#HeroPortraitName").text = $.Localize(Entities.GetUnitName(queryUnit))
 	$("#HeroPortrait").style.backgroundImage = "url('file://{resources}/images/heroes/portrait_" + heroInternalName + ".png')";
+	if ($.GetContextPanel().ownerIndex !== undefined) {
+		$("#PlayerName").text = Players.GetPlayerName($.GetContextPanel().ownerIndex)
+		$("#PlayerName").style.color = "#" + RGBAPlayerColor($.GetContextPanel().ownerIndex)
+	}
 
 	var statsDisplay = $("#StatsDisplay")
 	statsDisplay.BLoadLayout("file://{resources}/layout/custom_game/stats_display.xml", false, false);
@@ -89,9 +93,14 @@ function OnCPCostsUpdate(data) {
 				continue;
 
 			$("#ability_list").Children()[i].cpCost = Math.floor(cpCosts[heroIndex][ability])
-			// $.Msg(heroIndex, ", ", ability, ", ", cpCosts[heroIndex][ability])
 		}
 	}
+}
+
+function RGBAPlayerColor(id) {
+	var abgr = Players.GetPlayerColor(id).toString(16)
+	var rgba = abgr.substring(6,8) + abgr.substring(4,6) + abgr.substring(2,4) + abgr.substring(0,2)
+	return rgba
 }
 
 (function()

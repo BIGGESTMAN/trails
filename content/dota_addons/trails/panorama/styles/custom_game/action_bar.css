@@ -193,3 +193,17 @@
 	/*width: 200px;*/
 	/*height: 300px;*/
 }
+
+#PlayerName {
+	height: 45%;
+	font-size: 14px;
+	text-transform: uppercase;
+	/*letter-spacing: 1px;*/
+	padding: 6px 6px;
+	vertical-align: bottom;
+	width: 100%;
+	text-align: center;
+	background-color: #000000f5;
+	font-family: Goudy Trajan;
+	color: #b0b0b0;
+}

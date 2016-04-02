@@ -25,7 +25,9 @@
 			</Panel> -->
 			<Panel id="HeroPortraitWindow">
 				<Label id="HeroPortraitName"/>
-				<Button id="HeroPortrait" onactivate="OnHeroPortraitClicked()"/>
+				<Button id="HeroPortrait" onactivate="OnHeroPortraitClicked()">
+					<Label id="PlayerName"/>
+				</Button>
 			</Panel>
 			<Panel id="StatsDisplay" />
 			<Panel id="ability_list" />

@@ -10,14 +10,22 @@
 	flow-children: down;
 }
 
+.ResourceBarContainer.Upper {
+	width: 33%;
+}
+
 .ResourceBarContainer.Lower {
-	border-top: 2px solid #00000080;
-	border-right: 1px solid #00000080;
+	width: 67%;
+}
+
+.ResourceBarContainer.Lower {
+	border-top: 3px solid #00000080;
+	border-right: 1.5px solid #00000080;
 }
 
 .ResourceBarContainer.Upper {
-	border-left: 1px solid #00000080;
-	border-bottom: 2px solid #00000080;
+	border-left: 1.5px solid #00000080;
+	border-bottom: 3px solid #00000080;
 }
 
 .ResourceBarBackground {
