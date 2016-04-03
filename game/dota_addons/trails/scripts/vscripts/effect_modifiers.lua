@@ -513,7 +513,7 @@ function modifier_sear:DealSearDamage()
 	local caster = self:GetCaster()
 	local ability = self:GetAbility()
 	local damage_scale = ability:GetSpecialValueFor("sear_damage_percent") / 100
-	dealScalingDamage(self:GetParent(), caster, DAMAGE_TYPE_MAGICAL, damage_scale, ability, 0, false, true)
+	dealScalingDamage(self:GetParent(), caster, DAMAGE_TYPE_MAGICAL, damage_scale, ability, 0, false, true, 0, {sear_damage = true})
 
 	ParticleManager:CreateParticle("particles/status_effects/sear/damage_effect.vpcf", PATTACH_ABSORIGIN_FOLLOW, self:GetParent())
 end

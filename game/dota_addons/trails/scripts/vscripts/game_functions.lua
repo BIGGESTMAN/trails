@@ -114,7 +114,9 @@ function applyEffect(target, damage_type, effect)
 	end
 end
 
-function dealDamage(target, attacker, damage, damage_type, ability, cp_gain_factor, enhanced, status, bonus_unbalance)
+function dealDamage(target, attacker, damage, damage_type, ability, cp_gain_factor, enhanced, status, bonus_unbalance, args)
+	args = args or {}
+
 	if target:GetUnitName() == "npc_dummy_unit_vulnerable" then
 		if not status and target.freezingBulletWallShatter then target:freezingBulletWallShatter(target, attacker) end
 		return
@@ -160,7 +162,7 @@ function dealDamage(target, attacker, damage, damage_type, ability, cp_gain_fact
 	if target:HasModifier("modifier_chaos_trigger_casting") and ability and not status then
 		target:RemoveModifierByName("modifier_chaos_trigger_casting")
 	end
-	if target:HasModifier("modifier_sear") and not status then
+	if target:HasModifier("modifier_sear") and not args.sear_damage then
 		target:FindModifierByName("modifier_sear"):DealSearDamage()
 	end
 	if attacker:HasModifier("modifier_cypher_gambling_strike") and attacker.combat_linked_to and ability and not status and ability:GetName():find("item_") then -- janky checks to see if damage is from an art
@@ -178,11 +180,11 @@ function dealDamage(target, attacker, damage, damage_type, ability, cp_gain_fact
 	Round_Recap:AddAbilityDamage(attacker, ability, damage)
 end
 
-function dealScalingDamage(target, attacker, damage_type, scale, ability, cp_gain_factor, enhanced, status)
+function dealScalingDamage(target, attacker, damage_type, scale, ability, cp_gain_factor, enhanced, status, bonus_unbalance, args)
 	if damage_type == DAMAGE_TYPE_PHYSICAL then
-		dealDamage(target, attacker, scale * getStats(attacker).str, damage_type, ability, cp_gain_factor, enhanced, status)
+		dealDamage(target, attacker, scale * getStats(attacker).str, damage_type, ability, cp_gain_factor, enhanced, status, bonus_unbalance, args)
 	elseif damage_type == DAMAGE_TYPE_MAGICAL then
-		dealDamage(target, attacker, scale * getStats(attacker).ats, damage_type, ability, cp_gain_factor, enhanced, status)
+		dealDamage(target, attacker, scale * getStats(attacker).ats, damage_type, ability, cp_gain_factor, enhanced, status, bonus_unbalance, args)
 	end
 end
 
