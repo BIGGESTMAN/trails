@@ -38,7 +38,7 @@ if IsServer() then
 	end
 
 	function item_fire_bolt:OnAbilityPhaseStart()
-		createCastParticle(self:GetCaster())
+		createCastParticle(self:GetCaster(), self)
 		return true
 	end
 

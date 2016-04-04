@@ -8,9 +8,12 @@ ELEMENT_WIND = 3
 ELEMENT_TIME = 4
 ELEMENT_SPACE = 5
 ELEMENT_MIRAGE = 6
+CAST_COLORS = {Vector(255,102,102), Vector(255,186,102), Vector(102,115,255), Vector(102,255,153), Vector(158,102,255), Vector(255,223,66), Vector(198,198,198)}
 
-function createCastParticle(caster)
+function createCastParticle(caster, ability)
 	caster.casting_particle = ParticleManager:CreateParticle("particles/arts/arcus/casting.vpcf", PATTACH_ABSORIGIN_FOLLOW, caster)
+	print(ability:GetSpecialValueFor("element"))
+	ParticleManager:SetParticleControl(caster.casting_particle, 4, CAST_COLORS[ability:GetSpecialValueFor("element") + 1])
 end
 
 function endCastParticle(caster)

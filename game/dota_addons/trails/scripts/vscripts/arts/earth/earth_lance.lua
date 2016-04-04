@@ -66,7 +66,7 @@ if IsServer() then
 	end
 
 	function item_earth_lance:OnAbilityPhaseStart()
-		createCastParticle(self:GetCaster())
+		createCastParticle(self:GetCaster(), self)
 		return true
 	end
 

@@ -74,7 +74,7 @@ if IsServer() then
 	end
 
 	function item_seraphic_ring:OnAbilityPhaseStart()
-		createCastParticle(self:GetCaster())
+		createCastParticle(self:GetCaster(), self)
 		return true
 	end
 

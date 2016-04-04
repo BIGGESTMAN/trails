@@ -78,7 +78,7 @@ if IsServer() then
 	end
 
 	function item_spark_arrow:OnAbilityPhaseStart()
-		createCastParticle(self:GetCaster())
+		createCastParticle(self:GetCaster(), self)
 		return true
 	end
 

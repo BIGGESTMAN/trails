@@ -71,6 +71,7 @@
 				244,
 				255,
 			]
+			m_bDisableOperator = true
 		},
 		{
 			_class = "C_OP_SpinUpdate"
@@ -92,6 +93,10 @@
 		{
 			_class = "C_OP_PositionLock"
 		},
+		{
+			_class = "C_OP_ColorInterpolate"
+			m_flFadeStartTime = 0.500000
+		},
 	]
 	m_Initializers =
 	[
@@ -102,8 +107,8 @@
 		},
 		{
 			_class = "C_INIT_RandomRadius"
-			m_flRadiusMax = 8.000000
-			m_flRadiusMin = 6.000000
+			m_flRadiusMax = 16.000000
+			m_flRadiusMin = 12.000000
 		},
 		{
 			_class = "C_INIT_RandomColor"
@@ -121,21 +126,22 @@
 				255,
 				255,
 			]
+			m_bDisableOperator = true
 		},
 		{
 			_class = "C_INIT_InitialVelocityNoise"
 			m_flNoiseScaleLoc = 0.750000
 			m_vecOutputMin =
 			[
-				-150.000000,
-				-150.000000,
-				-100.000000,
+				-300.000000,
+				-300.000000,
+				-200.000000,
 			]
 			m_vecOutputMax =
 			[
-				150.000000,
-				150.000000,
-				150.000000,
+				300.000000,
+				300.000000,
+				300.000000,
 			]
 		},
 		{
@@ -160,6 +166,29 @@
 		{
 			_class = "C_INIT_RemapScalar"
 			m_bScaleInitialRange = true
+		},
+		{
+			_class = "C_INIT_RemapCPtoVector"
+			m_nCPInput = 4
+			m_nFieldOutput = 6
+			m_vInputMax =
+			[
+				255.000000,
+				255.000000,
+				255.000000,
+			]
+			m_vOutputMin =
+			[
+				0.400000,
+				0.400000,
+				0.400000,
+			]
+			m_vOutputMax =
+			[
+				1.000000,
+				1.000000,
+				1.000000,
+			]
 		},
 	]
 	m_Emitters =

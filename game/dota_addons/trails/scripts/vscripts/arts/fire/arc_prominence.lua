@@ -28,7 +28,7 @@ if IsServer() then
 	end
 
 	function item_arc_prominence:OnAbilityPhaseStart()
-		createCastParticle(self:GetCaster())
+		createCastParticle(self:GetCaster(), self)
 		return true
 	end
 

@@ -49,7 +49,7 @@ if IsServer() then
 	end
 
 	function item_phantom_phobia:OnAbilityPhaseStart()
-		createCastParticle(self:GetCaster())
+		createCastParticle(self:GetCaster(), self)
 		return true
 	end
 

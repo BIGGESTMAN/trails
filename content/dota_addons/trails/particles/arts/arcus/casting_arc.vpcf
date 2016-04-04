@@ -48,6 +48,7 @@
 				226,
 				255,
 			]
+			m_bDisableOperator = true
 		},
 		{
 			_class = "C_OP_BasicMovement"
@@ -63,6 +64,29 @@
 			m_nControlPointNumber = 1
 			m_flOpEndFadeOutTime = 0.100000
 			m_flOpStartFadeOutTime = 0.100000
+		},
+		{
+			_class = "C_OP_RemapCPtoVector"
+			m_nCPInput = 4
+			m_nFieldOutput = 6
+			m_vInputMax =
+			[
+				255.000000,
+				255.000000,
+				255.000000,
+			]
+			m_vOutputMin =
+			[
+				0.400000,
+				0.400000,
+				0.400000,
+			]
+			m_vOutputMax =
+			[
+				1.000000,
+				1.000000,
+				1.000000,
+			]
 		},
 	]
 	m_Initializers =

@@ -19,7 +19,7 @@ if IsServer() then
 	end
 
 	function item_impassion:OnAbilityPhaseStart()
-		createCastParticle(self:GetCaster())
+		createCastParticle(self:GetCaster(), self)
 		return true
 	end
 

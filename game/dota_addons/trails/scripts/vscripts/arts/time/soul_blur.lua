@@ -48,7 +48,7 @@ if IsServer() then
 	end
 
 	function item_soul_blur:OnAbilityPhaseStart()
-		createCastParticle(self:GetCaster())
+		createCastParticle(self:GetCaster(), self)
 		return true
 	end
 

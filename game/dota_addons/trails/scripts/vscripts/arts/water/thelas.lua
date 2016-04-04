@@ -42,7 +42,7 @@ if IsServer() then
 	end
 
 	function item_thelas:OnAbilityPhaseStart()
-		createCastParticle(self:GetCaster())
+		createCastParticle(self:GetCaster(), self)
 		return true
 	end
 
