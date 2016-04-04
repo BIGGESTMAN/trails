@@ -77,7 +77,7 @@ function UpdateAbilityList(msg)
 }
 
 function OnCPCostsUpdate(data) {
-	if ($.GetContextPanel().style.visibility == "visible") {
+	if ($.GetContextPanel().heroIndex) {
 		var cpCosts = data.cpCosts
 		var heroIndex = $.GetContextPanel().heroIndex
 

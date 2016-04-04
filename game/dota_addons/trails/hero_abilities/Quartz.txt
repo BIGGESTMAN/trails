@@ -112,7 +112,7 @@ Range (tooltip_cast_range) : 600
 Cast Range : 600
 EP Cost : 40
 
-[F3NE] Arc Prominence (arc_prominence) : Slowly amasses solar energy to release it after 6 seconds or taking damage equal to 50% of the caster's current health. The resulting explosion deals fire damage and Burns enemies, the damage and duration increasing based on the time spent gathering energy.
+[F3NE] Arc Prominence (arc_prominence) : Slowly amasses solar energy to release it after 6 seconds or taking damage equal to 50% of the caster's current health. The resulting explosion deals magic damage and Burns enemies, the damage and duration increasing based on the time spent gathering energy.
 DevNotes - Explosion is centered around the caster. The increases are multiplicative. The damage to set off the explosion is determined at the moment of successful cast and is based solely on total damage taken, so it cannot be delayed by heals.
 
 Price : 3000
@@ -120,10 +120,10 @@ STR (bonus_str) : 50
 DEF (bonus_def) : 30
 Cast Point : 3
 Delay : 10
-Base Fire Damage (damage_percent) : 230%
-Base Burn Duration : 1.5
-Fire Damage & Burn Duration Increase per Second : 20%
-Radius : 700
+%Base Magic Damage (damage_percent) : 230%
+Base Burn Duration (burn_duration) : 1.5
+%Effect Increase per Second (effect_increase_per_second) : 20%
+Radius (radius) : 700
 EP Cost : 250
 
 [I1AE] Spark Arrow (spark_arrow) : Flings a bolt of lightning, which jumps to nearby enemies up to 3 times on successful hit. The initial impact and each jump deals magic damage and Seals.

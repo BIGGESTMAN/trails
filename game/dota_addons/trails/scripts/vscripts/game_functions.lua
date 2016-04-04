@@ -201,11 +201,11 @@ function getDamageMultiplierForType(unit, damage_type)
 end
 
 function getDamageMultiplier(resist)
-	local resist = resist - 100
+	resist = resist - 100
 	if resist > 0 then
-		return 1 / (resist / 100)
+		return 1 / ((resist + 100) / 100)
 	elseif resist < 0 then
-		return 1 * (1 + math.abs(resist) / 100)
+		return 1 + math.abs(resist) / 100
 	else
 		return 1
 	end
