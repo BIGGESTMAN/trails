@@ -114,13 +114,13 @@ function RoundManager:EndRound(winning_team)
 				hero:SetRespawnPosition(RoundManager:GetSpawnPosition(hero, true))
 				hero:RespawnHero(false, false, false)
 
-				hero:RemoveModifierByName("modifier_postround_stun")
-				hero:AddNewModifier(hero, nil, "modifier_interround_invulnerability", {})
-				
 				-- if hero:GetTeam() ~= winning_team then
 				-- 	modifyCP(hero, END_OF_ROUND_LOSER_CP)
 				-- end
 				modifyCP(hero, getCP(hero) * -1)
+
+				hero:RemoveModifierByName("modifier_postround_stun")
+				hero:AddNewModifier(hero, nil, "modifier_interround_invulnerability", {})
 
 				hero:ModifyGold(BASE_GOLD_PER_ROUND + GOLD_INCREASE_PER_ROUND * self.current_round, true, 17)
 				self:RemoveTemporaryModifiers(hero)

@@ -11,7 +11,7 @@ function OnAbilityBarStart(msg)
 
 	$("#SelfStatusBar").BLoadLayout("file://{resources}/layout/custom_game/ui_resource_bars.xml", false, false );
 	$("#SelfStatusBar").heroIndex = msg.heroIndex
-	$("#SelfStatusBar").SetHasClass("Lower", true);
+	$("#SelfStatusBar").SetHasClass("Lower", false);
 	$("#SelfStatusBar").SetHasClass("Upper", false);
 
 
@@ -34,6 +34,8 @@ function OnAllyAbilityBarStart(msg)
 
 	$("#AllyStatusBar").style.visibility = "visible"
 	$("#AllyStatusBar").heroIndex = msg.heroIndex
+
+	$("#SelfStatusBar").SetHasClass("Lower", true);
 }
 
 function OnAllyAbilityBarRemove(msg)
@@ -44,6 +46,8 @@ function OnAllyAbilityBarRemove(msg)
 
 	$("#AllyStatusBar").style.visibility = "collapse"
 	$("#AllyStatusBar").heroIndex = null
+
+	$("#SelfStatusBar").SetHasClass("Lower", false);
 }
 
 (function()

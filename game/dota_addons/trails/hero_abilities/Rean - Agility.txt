@@ -44,7 +44,7 @@ Enhanced SPD (unbalanced_bonus_spd) : 50
 CP Cost : 15
 
 [D] Gale (gale) : Passively marks enemies each time they're hit by another of Rean's attacks, enabling targeting by Gale once they're marked twice. When cast, Rean rapidly slices through marked enemies in the area, dealing physical damage and Sealing them before returning to his starting location. +20 to Unbalance.
-Enhanced : Slices through each enemy twice, with the second slash dealing increased damage and heavily slowing. Always attacks the targeted enemy last, leaving Rean next to them afterwards.
+Enhanced : Requires a target. Slices through each enemy twice, with the second slash dealing increased damage and heavily slowing. Always attacks the targeted enemy last, leaving Rean next to them afterwards.
 
 Cast Point : 0.2
 Delay: 5

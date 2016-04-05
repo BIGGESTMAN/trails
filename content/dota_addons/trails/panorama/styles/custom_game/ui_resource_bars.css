@@ -1,5 +1,5 @@
 .ResourceBarContainer {
-	width: 50%;
+	width: 100%;
 	height: 60px;
 
 	/*margin-top: 60px;*/
@@ -8,6 +8,8 @@
 	/*padding: 15px;*/
 	visibility: visible;
 	flow-children: down;
+	transition-property: width;
+	transition-duration: 0.5s;
 }
 
 .ResourceBarContainer.Upper {
