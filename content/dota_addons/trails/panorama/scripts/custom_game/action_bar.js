@@ -9,8 +9,10 @@ function OnHeroPortraitClicked()
 
 function OnHeroPortraitDoubleClicked()
 {
-	// GameUI.SelectUnit($("#HeroPortraitWindow").heroIndex, false)
-	// GameUI.SetCameraLookAtPositionHeightOffset( lookAtHeight + offHeight );
+	GameUI.SetCameraTarget($("#HeroPortraitWindow").heroIndex);
+	$.Schedule(0.025, function() {
+		GameUI.SetCameraTarget(-1);
+	})
 }
 
 function UpdateAbilityList(msg)

@@ -25,7 +25,7 @@
 			</Panel> -->
 			<Panel id="HeroPortraitWindow">
 				<Label id="HeroPortraitName"/>
-				<Button id="HeroPortrait" onactivate="OnHeroPortraitClicked()" ondblclick="OnHeroPortraitDoubleClicked">
+				<Button id="HeroPortrait" onactivate="OnHeroPortraitClicked()" ondblclick="OnHeroPortraitDoubleClicked()">
 					<Label id="PlayerName"/>
 				</Button>
 			</Panel>
