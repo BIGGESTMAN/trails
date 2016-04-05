@@ -34,9 +34,9 @@ function OnStatsDisplayUpdate(data) {
 
 	if (stats) { // else unit is dead i think?
 		$("#Str").text = "Str: " + stats["str"]
-		$("#Def").text = "Def: " + stats["def"]
+		$("#Def").text = "Def: " + (stats["def"] - 100)
 		$("#Ats").text = "Ats: " + stats["ats"]
-		$("#Adf").text = "Adf: " + stats["adf"]
+		$("#Adf").text = "Adf: " + (stats["adf"] - 100)
 		$("#Spd").text = "Spd: " + stats["spd"]
 		$("#Mov").text = "Mov: " + Math.floor(stats["mov"])
 	}
