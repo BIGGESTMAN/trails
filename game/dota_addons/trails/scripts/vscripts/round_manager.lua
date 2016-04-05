@@ -103,6 +103,10 @@ function RoundManager:EndRound(winning_team)
 	GameRules:GetGameModeEntity():SetTopBarTeamValue(DOTA_TEAM_GOODGUYS, self.score[DOTA_TEAM_GOODGUYS])
 	GameRules:GetGameModeEntity():SetTopBarTeamValue(DOTA_TEAM_BADGUYS, self.score[DOTA_TEAM_BADGUYS])
 
+	for k,hero in pairs(getAllHeroes()) do
+		hero:AddNewModifier(hero, nil, "modifier_postround_stun", {})
+	end
+
 	Timers:CreateTimer(ROUND_END_DELAY, function()
 		for i=0, 9 do
 			local hero = PlayerResource:GetSelectedHeroEntity(i)
@@ -110,6 +114,7 @@ function RoundManager:EndRound(winning_team)
 				hero:SetRespawnPosition(RoundManager:GetSpawnPosition(hero, true))
 				hero:RespawnHero(false, false, false)
 
+				hero:RemoveModifierByName("modifier_postround_stun")
 				hero:AddNewModifier(hero, nil, "modifier_interround_invulnerability", {})
 				
 				-- if hero:GetTeam() ~= winning_team then

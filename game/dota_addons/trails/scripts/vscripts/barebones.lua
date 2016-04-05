@@ -12,6 +12,7 @@ require "gamemodes/tetracyclic_towers"
 require "gamemodes/arena"
 
 LinkLuaModifier("modifier_interround_invulnerability", "modifier_interround_invulnerability.lua", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_postround_stun", "modifier_postround_stun.lua", LUA_MODIFIER_MOTION_NONE)
 
 imported_model_characters = {}
 
