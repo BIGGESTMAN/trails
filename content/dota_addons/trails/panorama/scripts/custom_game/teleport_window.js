@@ -1,7 +1,6 @@
 "use strict";
 
 function OnTeleportWindowStart(data) {
-	$.Msg(data)
 	$.GetContextPanel().SetHasClass("Visible", true);
 	for ( var i = 1; i < 5; ++i ) {
 		$("#Button" + i).SetHasClass("Active", i in data.towersOwned)
@@ -30,7 +29,6 @@ function OnTeleportWindowUpdate(data) {
 }
 
 function OnTeleportButtonPressed(towerIndex) {
-	$.Msg(towerIndex)
 	GameEvents.SendCustomGameEventToServer("teleport_button_pressed", {towerIndex : towerIndex} )
 }
 

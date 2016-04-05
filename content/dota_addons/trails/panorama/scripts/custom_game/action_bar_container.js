@@ -40,6 +40,7 @@ function OnAllyAbilityBarRemove(msg)
 {
 	$("#AllyActionBar").style.visibility = "collapse"
 	$("#AllyActionBar").ownerIndex = undefined
+	$("#AllyActionBar").heroIndex = null
 
 	$("#AllyStatusBar").style.visibility = "collapse"
 	$("#AllyStatusBar").heroIndex = null

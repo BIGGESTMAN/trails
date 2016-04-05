@@ -60,46 +60,46 @@ function UpdateBuff( buffPanel, queryUnit, buffSerial )
 
 function UpdateBuffs()
 {
-	var buffsListPanel = $( "#buffs_list" );
-	if ( !buffsListPanel )
-		return;
-
-	// var queryUnit = Players.GetLocalPlayerPortraitUnit();
 	var queryUnit = $.GetContextPanel().heroIndex
-	
-	var nBuffs = Entities.GetNumBuffs( queryUnit );
-	
-	// update all the panels
-	var nUsedPanels = 0;
-	for ( var i = 0; i < nBuffs; ++i )
-	{
-		var buffSerial = Entities.GetBuff( queryUnit, i );
-		if ( buffSerial == -1 )
-			continue;
-
-		if ( Buffs.IsHidden( queryUnit, buffSerial ) )
-			continue;
+	if (Number.isInteger(queryUnit)) {
+		var buffsListPanel = $( "#buffs_list" );
+		if ( !buffsListPanel )
+			return;
 		
-		if ( nUsedPanels >= m_BuffPanels.length )
+		var nBuffs = Entities.GetNumBuffs( queryUnit );
+		
+		// update all the panels
+		var nUsedPanels = 0;
+		for ( var i = 0; i < nBuffs; ++i )
 		{
-			// create a new panel
-			var buffPanel = $.CreatePanel( "Panel", buffsListPanel, "" );
-			buffPanel.BLoadLayout( "file://{resources}/layout/custom_game/buff_list_buff.xml", false, false );
-			m_BuffPanels.push( buffPanel );
+			var buffSerial = Entities.GetBuff( queryUnit, i );
+			if ( buffSerial == -1 )
+				continue;
+
+			if ( Buffs.IsHidden( queryUnit, buffSerial ) )
+				continue;
+			
+			if ( nUsedPanels >= m_BuffPanels.length )
+			{
+				// create a new panel
+				var buffPanel = $.CreatePanel( "Panel", buffsListPanel, "" );
+				buffPanel.BLoadLayout( "file://{resources}/layout/custom_game/buff_list_buff.xml", false, false );
+				m_BuffPanels.push( buffPanel );
+			}
+
+			// update the panel for the current unit / buff
+			var buffPanel = m_BuffPanels[ nUsedPanels ];
+			UpdateBuff( buffPanel, queryUnit, buffSerial );
+			
+			nUsedPanels++;
 		}
 
-		// update the panel for the current unit / buff
-		var buffPanel = m_BuffPanels[ nUsedPanels ];
-		UpdateBuff( buffPanel, queryUnit, buffSerial );
-		
-		nUsedPanels++;
-	}
-
-	// clear any remaining panels
-	for ( var i = nUsedPanels; i < m_BuffPanels.length; ++i )
-	{
-		var buffPanel = m_BuffPanels[ i ];
-		UpdateBuff( buffPanel, -1, -1 );
+		// clear any remaining panels
+		for ( var i = nUsedPanels; i < m_BuffPanels.length; ++i )
+		{
+			var buffPanel = m_BuffPanels[ i ];
+			UpdateBuff( buffPanel, -1, -1 );
+		}
 	}
 }
 

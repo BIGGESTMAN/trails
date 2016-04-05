@@ -1,5 +1,5 @@
 function OnResourceBarsUpdate(data) {
-	if ($.GetContextPanel().heroIndex) {
+	if (Number.isInteger($.GetContextPanel().heroIndex)) {
 		var unitValues = data.unitValues
 		var heroIndex = $.GetContextPanel().heroIndex
 		var container = $.GetContextPanel()

@@ -76,10 +76,14 @@ function UpdateAbilityList(msg)
 	var buffList = $("#BuffList")
 	buffList.BLoadLayout("file://{resources}/layout/custom_game/buff_list.xml", false, false);
 	buffList.heroIndex = queryUnit
+
+	var inventory = $("#Inventory")
+	inventory.BLoadLayout("file://{resources}/layout/custom_game/inventory.xml", false, false)
+	inventory.heroIndex = queryUnit
 }
 
 function OnCPCostsUpdate(data) {
-	if ($.GetContextPanel().heroIndex) {
+	if (Number.isInteger($.GetContextPanel().heroIndex)) {
 		var cpCosts = data.cpCosts
 		var heroIndex = $.GetContextPanel().heroIndex
 
