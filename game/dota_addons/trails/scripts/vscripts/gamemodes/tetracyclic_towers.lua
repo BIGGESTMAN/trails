@@ -141,6 +141,9 @@ function Gamemode_Tetracyclic:EndRound(winning_team)
 		else
 			tower:SetTeam(defending_team)
 		end
+		tower.capture_progress = 0
+		tower.time_since_progress_increased = 0
+		tower.being_captured_by = nil
 	end
 
 	if winning_team == attacking_team then -- old defending team, before round switched
