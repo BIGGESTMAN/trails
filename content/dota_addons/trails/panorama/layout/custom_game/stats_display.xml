@@ -7,7 +7,7 @@
 	<scripts>
 		<include src="s2r://panorama/scripts/custom_game/stats_display.js" />
 	</scripts>
-	<Panel hittest="true" class="StatsDisplayWindow TrailsGenericWindow">
+	<Panel hittest="true" class="StatsDisplayWindow TrailsGenericWindow" onmouseover="ShowStatsTooltip()" onmouseout="HideStatsTooltip()">
 		<Panel hittest="false" class="StatsDisplayContainer">
 			<Panel class="StatContainer">
 				<Panel id="StrImage" class="StatImage"/>

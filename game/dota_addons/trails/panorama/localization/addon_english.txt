@@ -69,6 +69,8 @@
 	"round_recap_close"								"Close"
 	"round_recap_ready"								"Ready For Next Round"
 
+	"stats_tooltip"									"Str determines basic attack and physical craft damage.<br/>Def reduces incoming physical damage.<br/>Ats determines art and magical craft damage.<br/>Adf reduces incoming magical damage.<br/>Spd reduces all sources of Delay and increases attack speed.<br/>Mov determines movespeed."
+
 	"quest_time_round_starting"						"Round starts"
 	"quest_time_reviving"							"Reviving"
 

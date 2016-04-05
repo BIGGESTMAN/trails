@@ -42,6 +42,14 @@ function OnStatsDisplayUpdate(data) {
 	}
 }
 
+function HideStatsTooltip() {
+	$.DispatchEvent( "DOTAHideTextTooltip", $.GetContextPanel() );
+}
+
+function ShowStatsTooltip() {
+	$.DispatchEvent( "DOTAShowTextTooltip", $.GetContextPanel(), $.Localize("stats_tooltip") );
+}
+
 (function () {
 	GameEvents.Subscribe("stats_display_start", OnStatsDisplayStart);
 	GameEvents.Subscribe("stats_display_update", OnStatsDisplayUpdate);
