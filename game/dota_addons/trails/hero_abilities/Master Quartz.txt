@@ -39,7 +39,7 @@ Guardian : On taking lethal damage, resurrects you and restores your mana over 1
 Cheer : Whenever your link partner uses an Enhanced craft, they're healed for a percent of their missing health.
 Belief : Whenever you spend mana, heal yourself and your link partner over 10 seconds. This healing is broken if the recipient takes damage.
 Quick Thelas : When your link partner falls, they are resurrected at 15% of their max health instead. Can occur only once per round.
-Space Mastery : Halves the delay after casting Space Arts. Enhances Quick Thelas to also grant your partner a 50% bonus to healing recieved for 8 seconds. Upgrades Angel's Art to Seraphic Ring.
+Space Mastery : Halves the delay after casting Space Arts. Enhances Quick Thelas to also grant your partner a 50% bonus to healing recieved for 8 seconds. Upgrades art to Seraphic Ring.
 %Guardian Health and Mana (guardian_hp_and_mana_percent) : 40/55/70/85/100
 ~Guardian Duration (guardian_duration) : 10
 %Cheer Health (cheer_missing_health_percent) : 0/12/15/18/21
