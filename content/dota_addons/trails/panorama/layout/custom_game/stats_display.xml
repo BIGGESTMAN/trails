@@ -9,10 +9,22 @@
 	</scripts>
 	<Panel hittest="true" class="StatsDisplayWindow TrailsGenericWindow">
 		<Panel hittest="false" class="StatsDisplayContainer">
-			<Label hittest="false" id="Str" class="StatsDisplayText"/>
-			<Label hittest="false" id="Def" class="StatsDisplayText"/>
-			<Label hittest="false" id="Ats" class="StatsDisplayText"/>
-			<Label hittest="false" id="Adf" class="StatsDisplayText"/>
+			<Panel class="StatContainer">
+				<Panel id="StrImage" class="StatImage"/>
+				<Label hittest="false" id="Str" class="StatsDisplayText"/>
+			</Panel>
+			<Panel class="StatContainer">
+				<Panel id="DefImage" class="StatImage"/>
+				<Label hittest="false" id="Def" class="StatsDisplayText"/>
+			</Panel>
+			<Panel class="StatContainer">
+				<Panel id="AtsImage" class="StatImage"/>
+				<Label hittest="false" id="Ats" class="StatsDisplayText"/>
+			</Panel>
+			<Panel class="StatContainer">
+				<Panel id="AdfImage" class="StatImage"/>
+				<Label hittest="false" id="Adf" class="StatsDisplayText"/>
+			</Panel>
 		</Panel>
 		<Panel hittest="false" class="StatsDisplayContainer">
 			<Label hittest="false" id="Spd" class="StatsDisplayText"/>

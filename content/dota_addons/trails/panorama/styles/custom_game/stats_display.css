@@ -42,4 +42,25 @@
 
 	vertical-align: center;
 	text-align: center;
+	/*text-overflow: clip;*/
+}
+
+#Adf, #Ats, #Str, #Def {
+	margin-left: 5px;
+	margin-bottom: 1px;
+	text-align: left;
+}
+
+.StatContainer {
+	width: 100%;
+	/*background-color: #ffffff;*/
+	flow-children: right;
+}
+
+.StatImage {
+	margin-left: 5px;
+	width: 16px;
+	height: 16px;
+	background-size: 100% 100%;
+	background-position: center;
 }

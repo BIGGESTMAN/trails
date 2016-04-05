@@ -53,6 +53,11 @@
 			<Image id="image_loader" src="file://{images}/items/master_vermillion.png" hittest="false" />
 			<Image id="image_loader" src="file://{images}/items/master_mirage.png" hittest="false" />
 			<Image id="image_loader" src="file://{images}/items/master_raven.png" hittest="false" />
+
+			<Image id="image_loader" src="file://{images}/ui/strength_icon.png" hittest="false" />
+			<Image id="image_loader" src="file://{images}/ui/defense_icon.png" hittest="false" />
+			<Image id="image_loader" src="file://{images}/ui/m_strength_icon.png" hittest="false" />
+			<Image id="image_loader" src="file://{images}/ui/m_defense_icon.png" hittest="false" />
 		</Panel>
 	</Panel>
 </root>

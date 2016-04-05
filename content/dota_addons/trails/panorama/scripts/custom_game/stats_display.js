@@ -6,6 +6,10 @@ function OnStatsDisplayStart(data) {
 
 function OnStatsDisplayUpdate(data) {
 	var stats_display = $.GetContextPanel()
+	$("#StrImage").style.backgroundImage = "url('file://{resources}/images/ui/strength_icon.png')";
+	$("#DefImage").style.backgroundImage = "url('file://{resources}/images/ui/defense_icon.png')";
+	$("#AtsImage").style.backgroundImage = "url('file://{resources}/images/ui/m_strength_icon.png')";
+	$("#AdfImage").style.backgroundImage = "url('file://{resources}/images/ui/m_defense_icon.png')";
 
 	// var wholeScreen = $.GetContextPanel().GetParent()
 	// var screenWidth = wholeScreen.actuallayoutwidth
