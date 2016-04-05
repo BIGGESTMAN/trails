@@ -54,7 +54,7 @@ Cypher
 Art - Phantom Phobia
 Gambling Strike : Whenever you deal cumulative physical damage, your next damaging art deals bonus magic damage to a random enemy.
 Counterattack : Whenever your link partner takes 30% of their max HP in damage from an enemy within 600 range of you, you deal increased damage against the attacker for 3 seconds and your Delay is reduced by 2. If your link partner takes lethal damage, the damage increase lasts until the end of the round and all Delay is removed.
-Gambling Magic : Whenever you deal cumulative magical damage, your damaging craft deals bonus physical damage to a random enemy.
+Gambling Magic : Whenever you deal cumulative magical damage, your next damaging craft deals bonus physical damage to a random enemy.
 Auto-charge : Whenever your link partner casts an Art, a percentage of their max mana is restored. Has a cooldown.
 Reaper : Whenever you deal both magical and physical damage to the same enemy within 3 seconds, you apply Deathblow to them for 5 seconds.
 %Gambling Strike Damage Percent (gambling_strike_damage_percent) : 200%
