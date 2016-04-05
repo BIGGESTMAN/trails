@@ -196,3 +196,9 @@
 .no_item #ManaCost {
 	visibility: collapse;
 }
+
+.insufficient_mana DOTAItemImage
+{
+	saturation: 0.5;
+	wash-color: #1569be;
+}
