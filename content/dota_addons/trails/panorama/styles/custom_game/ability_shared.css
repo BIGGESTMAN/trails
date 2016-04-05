@@ -1,16 +1,17 @@
 #CooldownOverlay
 {
 	height: 100%;
+	width: 100%;
 	background-color: #000000DD;
 }
 
 #CooldownTimer
 {
 	color: white;
-    font-size: 24px;
+	font-size: 24px;
 	text-shadow: 0px 0px 6px 6 #000000;
-    horizontal-align: center;
-    vertical-align: center;
+	horizontal-align: center;
+	vertical-align: center;
 }
 
 #Cooldown
@@ -25,17 +26,26 @@
 	visibility: visible;
 }
 
-#ManaCost
+#ManaCost, #CPCost
 {
-	color: #C0F9CA;
-    font-size: 14px;
-    font-weight: bold;
-	text-shadow: 0px 0px 6px 8 #238E37;
+	color: #C0C5F7;
+	font-size: 14px;
+	font-weight: bold;
 	margin-right: -2px;
 	margin-bottom: -4px;
 
 	vertical-align: bottom;
 	horizontal-align: right;
+}
+
+#ManaCost
+{
+	text-shadow: 0px 0px 6px 8 #23348C;
+}
+
+#CPCost
+{
+	text-shadow: 0px 0px 6px 8 #238E37;
 }
 
 .no_mana_cost #ManaCost
@@ -78,9 +88,9 @@
 #HotkeyText
 {
 	color: #bba995;
- 	text-shadow: 1px 1px 2px 2 #000000;
-    font-size: 14px;
-    font-weight: bold;
+	text-shadow: 1px 1px 2px 2 #000000;
+	font-size: 14px;
+	font-weight: bold;
 	vertical-align: center;
 	text-align: center;
 	width: 100%;

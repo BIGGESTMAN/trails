@@ -13,6 +13,8 @@ function UpdateItem()
 	var hasCharges = false;
 	var altChargeCount = 0;
 	var hasAltCharges = false;
+	var manaCost = Abilities.GetManaCost( m_Item );
+	var unitMana = Entities.GetMana( m_QueryUnit );
 	
 	if ( Items.ShowSecondaryCharges( m_Item ) )
 	{
@@ -40,12 +42,14 @@ function UpdateItem()
 	$.GetContextPanel().SetHasClass( "show_charges", hasCharges );
 	$.GetContextPanel().SetHasClass( "show_alt_charges", hasAltCharges );
 	$.GetContextPanel().SetHasClass( "is_passive", isPassive );
+	$.GetContextPanel().SetHasClass( "insufficient_mana", ( manaCost > unitMana ) );
 	
 	$( "#HotkeyText" ).text = hotkey;
 	$( "#ItemImage" ).itemname = itemName;
 	$( "#ItemImage" ).contextEntityIndex = m_Item;
 	$( "#ChargeCount" ).text = chargeCount;
 	$( "#AltChargeCount" ).text = altChargeCount;
+	$( "#ManaCost" ).text = manaCost;
 	
 	if ( m_Item == -1 || Abilities.IsCooldownReady( m_Item ) )
 	{
@@ -59,11 +63,15 @@ function UpdateItem()
 		var cooldownLength = Abilities.GetCooldownLength( m_Item );
 		var cooldownRemaining = Abilities.GetCooldownTimeRemaining( m_Item );
 		var cooldownPercent = Math.ceil( 100 * cooldownRemaining / cooldownLength );
-		$( "#CooldownTimer" ).text = Math.ceil( cooldownRemaining );
-		$( "#CooldownOverlay" ).style.width = cooldownPercent+"%";
+		var cooldownText = Math.ceil(cooldownRemaining * 10) / 10;
+		if (cooldownRemaining > 1) {
+			cooldownText = Math.ceil(cooldownRemaining)
+		}
+		$( "#CooldownTimer" ).text = cooldownText;
+		$("#CooldownOverlay").style.clip = "radial( 50% 50%, 0deg, " + (-1 * cooldownPercent * 360 / 100) + "deg )"
 	}
 	
-	$.Schedule( 0.1, UpdateItem );
+	$.Schedule( 1/30, UpdateItem );
 }
 
 function ItemShowTooltip()

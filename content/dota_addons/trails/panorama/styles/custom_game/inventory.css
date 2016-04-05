@@ -79,7 +79,7 @@
 	visibility: visible;
 }
 
-#Hotkey
+.ItemPanel #Hotkey
 {
 	margin-left: 0px;
 
@@ -191,4 +191,8 @@
 .bMoveToStash #MoveToStash
 {
 	visibility: visible;
+}
+
+.no_item #ManaCost {
+	visibility: collapse;
 }

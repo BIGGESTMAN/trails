@@ -57,7 +57,7 @@ function UpdateAbility()
 	$( "#AbilityImage" ).abilityname = abilityName;
 	$( "#AbilityImage" ).contextEntityIndex = m_Ability;
 	
-	$( "#ManaCost" ).text = cpCost;
+	$( "#CPCost" ).text = cpCost;
 	
 	if ( Abilities.IsCooldownReady( m_Ability ) )
 	{
@@ -71,7 +71,11 @@ function UpdateAbility()
 		var cooldownLength = Abilities.GetCooldownLength( m_Ability );
 		var cooldownRemaining = Abilities.GetCooldownTimeRemaining( m_Ability );
 		var cooldownPercent = Math.ceil( 100 * cooldownRemaining / cooldownLength );
-		$( "#CooldownTimer" ).text = Math.ceil( cooldownRemaining );
+		var cooldownText = Math.ceil(cooldownRemaining * 10) / 10;
+		if (cooldownRemaining > 1) {
+			cooldownText = Math.ceil(cooldownRemaining)
+		}
+		$( "#CooldownTimer" ).text = cooldownText;
 		// $( "#CooldownOverlay" ).style.width = cooldownPercent+"%";
 		$( "#CooldownOverlay" ).style.width = "100%";
 		$("#CooldownOverlay").style.clip = "radial( 50% 50%, 0deg, " + (-1 * cooldownPercent * 360 / 100) + "deg )"

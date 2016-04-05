@@ -24,7 +24,7 @@
 							<Label id="CooldownTimer" />
 						</Panel>
 						<Panel id="ActiveAbility" />
-						<Label id="ManaCost" />
+						<Label id="CPCost" />
 					</Button>
 				</Panel>
 			</Panel>
