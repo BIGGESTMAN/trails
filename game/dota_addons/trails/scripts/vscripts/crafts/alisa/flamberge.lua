@@ -111,7 +111,7 @@ function flamberge:GetCastAnimation()
 end
 
 function flamberge:GetPlaybackRateOverride()
-	return 1.6 / self:GetChannelTime()
+	return 1.4 / self:GetChannelTime()
 end
 
 function flambergeHit(caster, unit, args)
