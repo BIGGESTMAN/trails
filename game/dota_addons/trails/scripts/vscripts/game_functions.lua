@@ -370,7 +370,7 @@ function getQuartzAdjustedStats(hero, stats)
 			stats.adf = stats.adf + quartz:GetSpecialValueFor("bonus_adf")
 			stats.spd = stats.spd + quartz:GetSpecialValueFor("bonus_spd")
 			stats.mov = stats.mov + quartz:GetSpecialValueFor("bonus_mov")
-			stats.hp = stats.hp + quartz:GetSpecialValueFor("bonus_hp")
+			stats.hp = stats.hp + quartz:GetSpecialValueFor("bonus_health")
 			stats.ep = stats.ep + quartz:GetSpecialValueFor("bonus_ep")
 		end
 	end
