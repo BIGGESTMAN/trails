@@ -58,6 +58,11 @@ function UpdateAbility()
 	$( "#AbilityImage" ).contextEntityIndex = m_Ability;
 	
 	$( "#CPCost" ).text = cpCost;
+	if (cpCost > 0) {
+		$("#CPCost").style.visibility = "visible"
+	} else {
+		$("#CPCost").style.visibility = "collapse"
+	}
 	
 	if ( Abilities.IsCooldownReady( m_Ability ) )
 	{

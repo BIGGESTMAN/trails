@@ -388,10 +388,8 @@ function GameMode:OnHeroInGame(hero)
 
 		-- Setup custom UI stuff
 		CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "infotext_start", {})
-		self:UpdateStatsDisplay(hero)
 		CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "ability_bar_start", {heroIndex = hero:GetEntityIndex(), cpCosts = getAbilityCPCosts(hero), ownerIndex = hero:GetPlayerOwnerID()})
-		self:UpdateAbilityBars(hero)
-		self:UpdateCPCosts(hero)
+		self:UpdateUIData(hero)
 		
 		Timers:CreateTimer(1/30, function() -- have to wait a frame for GetAssignedHero() to actually work after hero is picked
 			if not RoundManager.round_started then
@@ -442,49 +440,28 @@ function GameMode:AllPlayersPickedHeroes()
 	return true
 end
 
-function GameMode:UpdateStatsDisplay(hero)
+function GameMode:UpdateUIData(hero)
 	Timers:CreateTimer(0, function()
 		local stats = {}
+		local resource_values = {}
+		local costs = {}
+
 		for k,unit in pairs(getAllHeroes()) do
 			stats[unit:GetEntityIndex()] = getStats(unit)
 			stats[unit:GetEntityIndex()].mov = unit:GetIdealSpeed()
-		end
 
-		CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "stats_display_update", {playerid = hero:GetPlayerID(), unitStats = stats})
-		return 1/30
-	end)
-end
-
-function GameMode:UpdateAbilityBars(hero)
-	Timers:CreateTimer(0, function()
-		local values = {}
-		local units = {hero}
-		if hero.combat_linked_to then units[2] = hero.combat_linked_to end
-
-		for k,unit in pairs(units) do
 			local hero_unbalance = unit:FindModifierByName("modifier_unbalanced_level"):GetStackCount()
 			if unit:HasModifier("modifier_combat_link_unbalanced") then hero_unbalance = 100 end
-			values[unit:GetEntityIndex()] = {cp = getCP(unit), unbalance = hero_unbalance}
-		end
+			resource_values[unit:GetEntityIndex()] = {cp = getCP(unit), unbalance = hero_unbalance}
 
-		CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "resource_bars_update", {unitValues = values})
-		return 1/30
-	end)
-end
-
-function GameMode:UpdateCPCosts(hero)
-	Timers:CreateTimer(0, function()
-		local costs = {}
-		local units = {hero}
-		if hero.combat_linked_to then units[2] = hero.combat_linked_to end
-
-		for k,unit in pairs(units) do
 			costs[unit:GetEntityIndex()] = {}
 			for k,ability in pairs(getAllActiveAbilities(unit)) do
 				costs[unit:GetEntityIndex()][ability:GetEntityIndex()] = getCPCost(ability)
 			end
 		end
 
+		CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "stats_display_update", {playerid = hero:GetPlayerID(), unitStats = stats})
+		CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "resource_bars_update", {unitValues = resource_values})
 		CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "cp_costs_update", {cpCosts = costs})
 		return 1/30
 	end)

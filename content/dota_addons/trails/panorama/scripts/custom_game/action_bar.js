@@ -87,6 +87,7 @@ function OnCPCostsUpdate(data) {
 		var cpCosts = data.cpCosts
 		var heroIndex = $.GetContextPanel().heroIndex
 
+		// $.Msg(heroIndex, ", ", cpCosts, ", ", cpCosts[heroIndex])
 		for ( var i = 0; i < Entities.GetAbilityCount( heroIndex ); ++i )
 		{
 			var ability = Entities.GetAbility( heroIndex, i );
