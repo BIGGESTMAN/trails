@@ -16,15 +16,18 @@ function OnAbilityBarStart(msg)
 }
 
 function UpdateUnit()
-{
-	$("#ActionBar").heroIndex = Players.GetLocalPlayerPortraitUnit()
-	$("#StatusBar").heroIndex = Players.GetLocalPlayerPortraitUnit()
-	$.GetContextPanel().style.visibility = "visible"
-	// $.Msg(Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer()), ", ", Players.GetLocalPlayerPortraitUnit())
-	if (Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer()) === Players.GetLocalPlayerPortraitUnit()) {
-		$.GetContextPanel().style.visibility = "collapse"
-		$("#ActionBar").ownerIndex = undefined
-		$("#ActionBar").heroIndex = null
+{	
+	$.GetContextPanel().style.visibility = "collapse"
+	$("#ActionBar").ownerIndex = undefined
+	$("#ActionBar").heroIndex = null
+
+	var own_hero = Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer())
+	var linked_ally = CustomNetTables.GetTableValue("combat_links", own_hero)["link_target"]
+
+	if (own_hero != Players.GetLocalPlayerPortraitUnit() && Players.GetLocalPlayerPortraitUnit() != linked_ally) {
+		$("#ActionBar").heroIndex = Players.GetLocalPlayerPortraitUnit()
+		$("#StatusBar").heroIndex = Players.GetLocalPlayerPortraitUnit()
+		$.GetContextPanel().style.visibility = "visible"
 	}
 }
 
@@ -33,5 +36,6 @@ function UpdateUnit()
 	GameEvents.Subscribe( "dota_player_update_selected_unit", UpdateUnit );
 	GameEvents.Subscribe( "dota_player_update_query_unit", UpdateUnit );
 	GameEvents.Subscribe( "ability_bar_start", OnAbilityBarStart );
+	GameEvents.Subscribe( "link_formed_or_broken", UpdateUnit );
 })();
 

@@ -32,20 +32,29 @@ function checkForLink(keys)
 
 		for k,target in pairs(targets) do
 			if target ~= caster and not target.combat_linked_to and not caster:HasModifier("modifier_link_broken") and not target:HasModifier("modifier_link_broken") then
-				caster.combat_linked_to = target
-				target.combat_linked_to = caster
-				ability:ApplyDataDrivenModifier(caster, caster, "modifier_combat_link_linked", {})
-				ability:ApplyDataDrivenModifier(target, target, "modifier_combat_link_linked", {})
-
-				caster.tether_particle = ParticleManager:CreateParticle("particles/combat_links/link.vpcf", PATTACH_POINT_FOLLOW, caster)
-				ParticleManager:SetParticleControlEnt(caster.tether_particle, 0, caster, PATTACH_POINT_FOLLOW, "attach_hitloc", caster:GetAbsOrigin(), true)
-				ParticleManager:SetParticleControlEnt(caster.tether_particle, 1, target, PATTACH_POINT_FOLLOW, "attach_hitloc", target:GetAbsOrigin(), true)
-				CustomGameEventManager:Send_ServerToPlayer(caster:GetOwner(), "ally_ability_bar_start", {heroIndex = target:GetEntityIndex(), cpCosts = getAbilityCPCosts(target), ownerIndex = target:GetPlayerOwnerID()})
-				CustomGameEventManager:Send_ServerToPlayer(target:GetOwner(), "ally_ability_bar_start", {heroIndex = caster:GetEntityIndex(), cpCosts = getAbilityCPCosts(caster), ownerIndex = target:GetPlayerOwnerID()})
+				formLink(caster, target, ability)
 				break
 			end
 		end
 	end
+end
+
+function formLink(unit, target, ability)
+	unit.combat_linked_to = target
+	target.combat_linked_to = unit
+	ability:ApplyDataDrivenModifier(unit, unit, "modifier_combat_link_linked", {})
+	ability:ApplyDataDrivenModifier(target, target, "modifier_combat_link_linked", {})
+
+	unit.tether_particle = ParticleManager:CreateParticle("particles/combat_links/link.vpcf", PATTACH_POINT_FOLLOW, unit)
+	ParticleManager:SetParticleControlEnt(unit.tether_particle, 0, unit, PATTACH_POINT_FOLLOW, "attach_hitloc", unit:GetAbsOrigin(), true)
+	ParticleManager:SetParticleControlEnt(unit.tether_particle, 1, target, PATTACH_POINT_FOLLOW, "attach_hitloc", target:GetAbsOrigin(), true)
+	CustomGameEventManager:Send_ServerToPlayer(unit:GetOwner(), "ally_ability_bar_start", {heroIndex = target:GetEntityIndex(), cpCosts = getAbilityCPCosts(target), ownerIndex = target:GetPlayerOwnerID()})
+	CustomGameEventManager:Send_ServerToPlayer(target:GetOwner(), "ally_ability_bar_start", {heroIndex = unit:GetEntityIndex(), cpCosts = getAbilityCPCosts(unit), ownerIndex = target:GetPlayerOwnerID()})
+
+	CustomNetTables:SetTableValue("combat_links", tostring(unit:entindex()), {link_target = tostring(target:entindex())})
+	CustomNetTables:SetTableValue("combat_links", tostring(target:entindex()), {link_target = tostring(unit:entindex())})
+	CustomGameEventManager:Send_ServerToPlayer(unit:GetOwner(), "link_formed_or_broken", {})
+	CustomGameEventManager:Send_ServerToPlayer(target:GetOwner(), "link_formed_or_broken", {})
 end
 
 function removeLink(unit)
@@ -56,6 +65,9 @@ function removeLink(unit)
 		unit.tether_particle = nil
 	end
 	CustomGameEventManager:Send_ServerToPlayer(unit:GetOwner(), "ally_ability_bar_remove", {})
+	CustomGameEventManager:Send_ServerToPlayer(unit:GetOwner(), "link_formed_or_broken", {})
+
+	CustomNetTables:SetTableValue("combat_links", tostring(unit:entindex()), {link_target = nil})
 end
 
 function attackLanded(keys)
