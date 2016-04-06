@@ -18,16 +18,17 @@ function OnAbilityBarStart(msg)
 function UpdateUnit()
 {	
 	$.GetContextPanel().style.visibility = "collapse"
-	$("#ActionBar").ownerIndex = undefined
 	$("#ActionBar").heroIndex = null
+	$("#StatusBar").heroIndex = null
 
 	var own_hero = Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer())
-	var linked_ally = CustomNetTables.GetTableValue("combat_links", own_hero)["link_target"]
+	var linked_ally = CustomNetTables.GetTableValue("combat_links", own_hero)
+	if (linked_ally) {linked_ally = linked_ally["link_target"]}
 
 	if (own_hero != Players.GetLocalPlayerPortraitUnit() && Players.GetLocalPlayerPortraitUnit() != linked_ally) {
+		$.GetContextPanel().style.visibility = "visible"
 		$("#ActionBar").heroIndex = Players.GetLocalPlayerPortraitUnit()
 		$("#StatusBar").heroIndex = Players.GetLocalPlayerPortraitUnit()
-		$.GetContextPanel().style.visibility = "visible"
 	}
 }
 

@@ -381,6 +381,8 @@ function GameMode:OnHeroInGame(hero)
 			hero:AddNewModifier(hero, nil, "modifier_interround_invulnerability", {})
 		end
 		initializeStats(hero)
+
+		CustomNetTables:SetTableValue("hero_owners", tostring(hero:entindex()), {owner = tostring(hero:GetPlayerOwnerID())})
 	
 		-- Turn off music by default
 		hero.music_playing = nil
@@ -388,7 +390,7 @@ function GameMode:OnHeroInGame(hero)
 
 		-- Setup custom UI stuff
 		CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "infotext_start", {})
-		CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "ability_bar_start", {heroIndex = hero:GetEntityIndex(), cpCosts = getAbilityCPCosts(hero), ownerIndex = hero:GetPlayerOwnerID()})
+		CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "ability_bar_start", {heroIndex = hero:GetEntityIndex(), cpCosts = getAbilityCPCosts(hero)})
 		self:UpdateUIData(hero)
 		
 		Timers:CreateTimer(1/30, function() -- have to wait a frame for GetAssignedHero() to actually work after hero is picked
@@ -403,24 +405,14 @@ function GameMode:OnHeroInGame(hero)
 		end)
 
 		self:AddStatusBars(hero)
+
 	end
 end
 
 function GameMode:AddStatusBars(hero)
 	local playerid = hero:GetPlayerOwnerID()
-	local hero_index = hero:GetEntityIndex()
-	local player = PlayerResource:GetPlayer(playerid)
 	CustomGameEventManager:Send_ServerToAllClients("status_bars_start", {player=playerid})
 	CustomGameEventManager:Send_ServerToAllClients("unbalance_bars_start", {player=playerid})
-	Timers:CreateTimer(function()
-		if IsValidEntity(hero) then
-			CustomGameEventManager:Send_ServerToAllClients("status_bars_update", {player=playerid, hero=hero_index, cp=getCP(hero)})
-			local hero_unbalance = hero:FindModifierByName("modifier_unbalanced_level"):GetStackCount()
-			if hero:HasModifier("modifier_combat_link_unbalanced") then hero_unbalance = 100 end
-			CustomGameEventManager:Send_ServerToAllClients("unbalance_bars_update", {player=playerid, hero=hero_index, unbalance=hero_unbalance})
-		end
-		return 1/30
-	end)
 end
 
 function GameMode:AddMasterQuartz(hero)
@@ -447,17 +439,24 @@ function GameMode:UpdateUIData(hero)
 		local costs = {}
 
 		for k,unit in pairs(getAllHeroes()) do
+			-- unit stats
 			stats[unit:GetEntityIndex()] = getStats(unit)
 			stats[unit:GetEntityIndex()].mov = unit:GetIdealSpeed()
 
+			-- unbalance level
 			local hero_unbalance = unit:FindModifierByName("modifier_unbalanced_level"):GetStackCount()
 			if unit:HasModifier("modifier_combat_link_unbalanced") then hero_unbalance = 100 end
 			resource_values[unit:GetEntityIndex()] = {cp = getCP(unit), unbalance = hero_unbalance}
 
+			-- ability cp costs
 			costs[unit:GetEntityIndex()] = {}
 			for k,ability in pairs(getAllActiveAbilities(unit)) do
 				costs[unit:GetEntityIndex()][ability:GetEntityIndex()] = getCPCost(ability)
 			end
+
+			-- hero-tracking status bar info for this unit
+			CustomGameEventManager:Send_ServerToAllClients("status_bars_update", {player=hero:GetPlayerID(), hero=hero:GetEntityIndex(), cp=getCP(hero)})
+			CustomGameEventManager:Send_ServerToAllClients("unbalance_bars_update", {player=hero:GetPlayerID(), hero=hero:GetEntityIndex(), unbalance=hero_unbalance})
 		end
 
 		CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "stats_display_update", {playerid = hero:GetPlayerID(), unitStats = stats})

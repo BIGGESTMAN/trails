@@ -4,5 +4,6 @@
   [
     "gale_slows",
     "combat_links",
+    "hero_owners",
   ]
 }
