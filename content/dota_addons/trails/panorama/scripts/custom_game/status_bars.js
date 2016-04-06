@@ -6,20 +6,7 @@ function OnStatusBarsStart(data) {
 
 function OnStatusBarsUpdate(data) {
 	var status_bar = $.GetContextPanel().Children()[data.player]
-	var hero_location = Entities.GetAbsOrigin(data.hero)
 
-
-	var wholeScreen = $.GetContextPanel().GetParent()
-	var screenWidth = wholeScreen.actuallayoutwidth
-	var screenHeight = wholeScreen.actuallayoutheight
-	// var screenWidth = GameUI.CustomUIConfig().screenwidth;
-	// var screenHeight = GameUI.CustomUIConfig().screenheight
-	var scale = 1200 / screenHeight;
-
-	var screenX = (Game.WorldToScreenX(hero_location[0], hero_location[1], hero_location[2]) - status_bar.actuallayoutwidth) * scale
-	var screenY = (Game.WorldToScreenY(hero_location[0], hero_location[1], hero_location[2])) * scale
-	// $.Msg(GameUI.GetCursorPosition(), (screenX + 150) + "," + screenY)
-	status_bar.style.position = screenX + "px " + screenY + "px 0px";
 	var second_bar_full = Math.max(data.cp - 100, 0)
 	var first_bar_full = Math.min(data.cp, 100)
 	if (second_bar_full > 0) {
@@ -33,8 +20,30 @@ function OnStatusBarsUpdate(data) {
 	status_bar.Children()[1].style.width = second_bar_full + "%"
 }
 
+function UpdateBarLocations() {
+	var wholeScreen = $.GetContextPanel().GetParent()
+	var screenWidth = wholeScreen.actuallayoutwidth
+	var screenHeight = wholeScreen.actuallayoutheight
+	var scale = 1200 / screenHeight;
+
+	for (var i = 0; i < $.GetContextPanel().Children().length; ++i) {
+		var status_bar = $.GetContextPanel().Children()[i]
+		var hero_location = Entities.GetAbsOrigin(Players.GetPlayerHeroEntityIndex(i))
+
+		if (hero_location != undefined) {
+			var screenX = (Game.WorldToScreenX(hero_location[0], hero_location[1], hero_location[2]) - status_bar.actuallayoutwidth) * scale
+			var screenY = (Game.WorldToScreenY(hero_location[0], hero_location[1], hero_location[2])) * scale
+
+			status_bar.style.position = screenX + "px " + screenY + "px 0px";
+		}
+	}
+	$.Schedule( 1/200, UpdateBarLocations );
+}
+
 (function () {
 	GameEvents.Subscribe("status_bars_start", OnStatusBarsStart);
 	GameEvents.Subscribe("status_bars_update", OnStatusBarsUpdate);
+
+	$.Schedule( 1/200, UpdateBarLocations );
 })();
 

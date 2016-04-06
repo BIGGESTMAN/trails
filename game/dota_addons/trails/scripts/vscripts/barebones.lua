@@ -392,7 +392,6 @@ function GameMode:OnHeroInGame(hero)
 		CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "ability_bar_start", {heroIndex = hero:GetEntityIndex(), cpCosts = getAbilityCPCosts(hero), ownerIndex = hero:GetPlayerOwnerID()})
 		self:UpdateAbilityBars(hero)
 		self:UpdateCPCosts(hero)
-
 		
 		Timers:CreateTimer(1/30, function() -- have to wait a frame for GetAssignedHero() to actually work after hero is picked
 			if not RoundManager.round_started then
@@ -404,7 +403,26 @@ function GameMode:OnHeroInGame(hero)
 			hero:SetGold(BASE_GOLD_PER_ROUND, true)
 			self:AddMasterQuartz(hero)
 		end)
+
+		self:AddStatusBars(hero)
 	end
+end
+
+function GameMode:AddStatusBars(hero)
+	local playerid = hero:GetPlayerOwnerID()
+	local hero_index = hero:GetEntityIndex()
+	local player = PlayerResource:GetPlayer(playerid)
+	CustomGameEventManager:Send_ServerToAllClients("status_bars_start", {player=playerid})
+	CustomGameEventManager:Send_ServerToAllClients("unbalance_bars_start", {player=playerid})
+	Timers:CreateTimer(function()
+		if IsValidEntity(hero) then
+			CustomGameEventManager:Send_ServerToAllClients("status_bars_update", {player=playerid, hero=hero_index, cp=getCP(hero)})
+			local hero_unbalance = hero:FindModifierByName("modifier_unbalanced_level"):GetStackCount()
+			if hero:HasModifier("modifier_combat_link_unbalanced") then hero_unbalance = 100 end
+			CustomGameEventManager:Send_ServerToAllClients("unbalance_bars_update", {player=playerid, hero=hero_index, unbalance=hero_unbalance})
+		end
+		return 1/30
+	end)
 end
 
 function GameMode:AddMasterQuartz(hero)

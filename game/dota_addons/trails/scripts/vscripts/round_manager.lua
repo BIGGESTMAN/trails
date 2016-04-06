@@ -63,9 +63,6 @@ function RoundManager:StartRound()
 		if hero then
 			hero:RemoveModifierByName("modifier_interround_invulnerability")
 			hero.round_ready = nil
-			if self.current_round == 0 then
-				self:AddStatusBars(hero)
-			end
 			if self.current_round == 8 and hero.music_playing then
 				GameMode:StopMusicForPlayer(PlayerResource:GetPlayer(i))
 				GameMode:StartMusicForPlayer(PlayerResource:GetPlayer(i))
@@ -77,23 +74,6 @@ function RoundManager:StartRound()
 	game_mode:StartRound(self.current_round)
 	Round_Recap:StartRound()
 	CustomGameEventManager:Send_ServerToAllClients("ready_button_hide", {})
-end
-
-function RoundManager:AddStatusBars(hero)
-	local playerid = hero:GetPlayerOwnerID()
-	local hero_index = hero:GetEntityIndex()
-	local player = PlayerResource:GetPlayer(playerid)
-	CustomGameEventManager:Send_ServerToAllClients("status_bars_start", {player=playerid})
-	CustomGameEventManager:Send_ServerToAllClients("unbalance_bars_start", {player=playerid})
-	Timers:CreateTimer(function()
-		if IsValidEntity(hero) then
-			CustomGameEventManager:Send_ServerToAllClients("status_bars_update", {player=playerid, hero=hero_index, cp=getCP(hero)})
-			local hero_unbalance = hero:FindModifierByName("modifier_unbalanced_level"):GetStackCount()
-			if hero:HasModifier("modifier_combat_link_unbalanced") then hero_unbalance = 100 end
-			CustomGameEventManager:Send_ServerToAllClients("unbalance_bars_update", {player=playerid, hero=hero_index, unbalance=hero_unbalance})
-		end
-		return 1/30
-	end)
 end
 
 function RoundManager:EndRound(winning_team)
