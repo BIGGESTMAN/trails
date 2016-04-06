@@ -8,7 +8,7 @@
 		"MaxLevel"						"1"
 
 		"AbilityTextureName"			"chen_test_of_faith_teleport"
-		"AbilityCastAnimation"			""
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_1"
 
 		"precache"
 		{

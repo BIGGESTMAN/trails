@@ -48,6 +48,10 @@ function ultimate_barrier:GetCustomCastErrorTarget(target)
 	return "must_target_unbalanced"
 end
 
+function ultimate_barrier:GetCastAnimation()
+	return ACT_DOTA_CAST_ABILITY_4
+end
+
 modifier_ultimate_barrier_force_field = class({})
 
 function modifier_ultimate_barrier_force_field:GetTexture()
