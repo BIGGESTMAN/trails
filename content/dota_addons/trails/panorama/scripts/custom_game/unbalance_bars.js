@@ -14,6 +14,11 @@ function OnUnbalanceBarsUpdate(data) {
 	else {
 		unbalance_bar.Children()[0].style["background-color"] = "gradient( linear, 0% 0%, 0% 100%, from( #FF9933 ), to( #FFB775 ) )";
 	}
+
+	unbalance_bar.style.visibility = "visible"
+	if (Players.GetTeam(data.player) != Players.GetTeam(Players.GetLocalPlayer()) && CustomNetTables.GetTableValue("hero_info", Players.GetPlayerHeroEntityIndex(data.player))["visible_to_enemies"] != "true") {
+		unbalance_bar.style.visibility = "collapse"
+	}
 }
 
 function UpdateBarLocations() {

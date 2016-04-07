@@ -455,6 +455,10 @@ function GameMode:UpdateUIData(hero)
 			end
 
 			-- hero-tracking status bar info for this unit
+			local dummy_enemy = CreateUnitByName("npc_dummy_unit", Vector(0,0,0), false, unit, unit, unit:GetOpposingTeamNumber())
+			CustomNetTables:SetTableValue("hero_info", tostring(unit:entindex()), {visible_to_enemies = tostring(dummy_enemy:CanEntityBeSeenByMyTeam(unit))})
+			dummy_enemy:RemoveSelf()
+
 			CustomGameEventManager:Send_ServerToAllClients("status_bars_update", {player=hero:GetPlayerID(), hero=hero:GetEntityIndex(), cp=getCP(hero)})
 			CustomGameEventManager:Send_ServerToAllClients("unbalance_bars_update", {player=hero:GetPlayerID(), hero=hero:GetEntityIndex(), unbalance=hero_unbalance})
 		end

@@ -18,6 +18,11 @@ function OnStatusBarsUpdate(data) {
 	}
 	status_bar.Children()[0].style.width = first_bar_full + "%"
 	status_bar.Children()[1].style.width = second_bar_full + "%"
+
+	status_bar.style.visibility = "visible"
+	if (Players.GetTeam(data.player) != Players.GetTeam(Players.GetLocalPlayer()) && CustomNetTables.GetTableValue("hero_info", Players.GetPlayerHeroEntityIndex(data.player))["visible_to_enemies"] != "true") {
+		status_bar.style.visibility = "collapse"
+	}
 }
 
 function UpdateBarLocations() {
