@@ -1,5 +1,6 @@
 require "game_functions"
 require "libraries/notifications"
+require "libraries/util"
 
 LinkLuaModifier("modifier_unbalanced_level", "modifier_unbalanced_level.lua", LUA_MODIFIER_MOTION_NONE)
 
@@ -21,17 +22,8 @@ function checkForLink(keys)
 	end
 
 	if not caster.combat_linked_to then
-		local team = caster:GetTeamNumber()
-		local origin = caster:GetAbsOrigin()
-		local radius = link_range
-		local iTeam = DOTA_UNIT_TARGET_TEAM_FRIENDLY
-		local iType = DOTA_UNIT_TARGET_HERO
-		local iFlag = DOTA_UNIT_TARGET_FLAG_NONE
-		local iOrder = FIND_CLOSEST
-		local targets = FindUnitsInRadius(team, origin, nil, radius, iTeam, iType, iFlag, iOrder, false)
-
-		for k,target in pairs(targets) do
-			if target ~= caster and not target.combat_linked_to and not caster:HasModifier("modifier_link_broken") and not target:HasModifier("modifier_link_broken") then
+		for k,target in pairs(getAllLivingHeroes()) do
+			if distanceBetween(target:GetAbsOrigin(), caster:GetAbsOrigin()) <= link_range and target:GetTeamNumber() == caster:GetTeamNumber() and target ~= caster and not target.combat_linked_to and not caster:HasModifier("modifier_link_broken") and not target:HasModifier("modifier_link_broken") then
 				formLink(caster, target, ability)
 				break
 			end
