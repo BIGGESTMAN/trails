@@ -1,18 +1,14 @@
 "AddonInfo"
 {
   "TeamCount" "2"
-  "maps"      "practical_exam"
+  "maps"      "practical_exam liberl"
   "IsPlayable"  "1"
   "practical_exam"
   {
-		  "MaxPlayers"                    "10"
+		  "MaxPlayers"                    "4"
   }
-//  "desert_duo"
-//  {
-//          "MaxPlayers"                    "10"
-//  }
-//  "forest_solo"
-//  {
-//          "MaxPlayers"                    "10"
-//  }
+  "liberl"
+  {
+		  "MaxPlayers"                    "4"
+  }
 }
