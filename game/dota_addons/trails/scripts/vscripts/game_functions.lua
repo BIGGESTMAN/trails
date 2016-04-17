@@ -171,7 +171,7 @@ function dealDamage(target, attacker, damage, damage_type, ability, cp_gain_fact
 	if attacker:HasModifier("modifier_cypher_gambling_magic") and attacker.combat_linked_to and ability and not status and not ability:GetName():find("item_") then
 		attacker:FindModifierByName("modifier_cypher_gambling_magic"):DealGamblingDamage()
 	end
-	if attacker and attacker ~= target and not enhanced and not status then
+	if attacker and attacker:HasAbility("combat_link") and attacker ~= target and not enhanced and not status then
 		grantDamageCP(damage, attacker, target, cp_gain_factor)
 		increaseUnbalance(attacker, target, bonus_unbalance)
 	end
@@ -765,4 +765,14 @@ function reviveHero(hero, health)
 	hero:SetHealth(health)
 	hero:SetMana(mana)
 	ParticleManager:CreateParticle("particles/status_effects/revive/revive_rays.vpcf", PATTACH_ABSORIGIN_FOLLOW, hero)
+end
+
+function getAbilityCount(unit)
+	local count = 0
+	for i=0,15 do
+		if unit:GetAbilityByIndex(i) then
+			count = count + 1
+		end
+	end
+	return count
 end

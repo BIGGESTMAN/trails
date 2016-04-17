@@ -82,17 +82,21 @@ function increaseUnbalance(caster, target, bonus_increase)
 			print(unbalance_increase)
 			modifier:IncreaseLevel(unbalance_increase)
 			if modifier:GetStackCount() >= unbalance_threshold or caster:HasModifier("modifier_brute_force") or ONE_HIT_UNBALANCE then
-				ability:ApplyDataDrivenModifier(caster, caster.combat_linked_to, "modifier_combat_link_followup_available", {})
+				applyEnhancedState(caster.combat_linked_to, target)
+
 				ability:ApplyDataDrivenModifier(caster, target, "modifier_combat_link_unbalanced", {})
 				modifier:SetStackCount(0)
 				caster:RemoveModifierByName("modifier_brute_force")
-				triggerUnbalanceEvent(target)
-				EmitSoundOn("Trails.Unbalanced", target)
-
-				ParticleManager:CreateParticle("particles/units/heroes/hero_sven/sven_spell_gods_strength.vpcf", PATTACH_ABSORIGIN_FOLLOW, caster.combat_linked_to)
 			end
 		end
 	end
+end
+
+function applyEnhancedState(hero, target)
+	hero:FindAbilityByName("combat_link"):ApplyDataDrivenModifier(hero, hero, "modifier_combat_link_followup_available", {})
+	triggerUnbalanceEvent(target)
+	EmitSoundOn("Trails.Unbalanced", target)
+	ParticleManager:CreateParticle("particles/units/heroes/hero_sven/sven_spell_gods_strength.vpcf", PATTACH_ABSORIGIN_FOLLOW, hero)
 end
 
 function triggerUnbalanceEvent(target)

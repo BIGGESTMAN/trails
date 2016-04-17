@@ -65,5 +65,6 @@
 		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/ready_button.xml" />
 		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/teleport_window.xml" />
 		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/selected_unit_display.xml" />
+		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/boss_lifebar.xml" />
 	</Panel>
 </root>

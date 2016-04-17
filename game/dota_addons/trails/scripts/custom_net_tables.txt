@@ -6,5 +6,6 @@
     "combat_links",
     "hero_owners",
     "hero_info",
+    "gamemode",
   ]
 }

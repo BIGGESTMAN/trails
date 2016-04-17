@@ -2,33 +2,40 @@
 
 function OnAbilityBarStart(msg)
 {
-	GameUI.SelectUnit(Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer()), false)
+	var pvp_mode = CustomNetTables.GetTableValue("gamemode", 0)["pvp_ui_enabled"]
+	if (parseInt(pvp_mode) === 0) {
+		$.GetContextPanel().SetHasClass("Disabled", true)
+	} else {
+		GameUI.SelectUnit(Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer()), false)
 
-	$.GetContextPanel().SetHasClass("NonSelf", true);
-	
-	$("#ActionBar").BLoadLayout("file://{resources}/layout/custom_game/action_bar.xml", false, false );
-	$("#ActionBar").cpCosts = msg.cpCosts
+		$.GetContextPanel().SetHasClass("NonSelf", true);
+		
+		$("#ActionBar").BLoadLayout("file://{resources}/layout/custom_game/action_bar.xml", false, false );
+		$("#ActionBar").cpCosts = msg.cpCosts
 
-	$("#StatusBar").BLoadLayout("file://{resources}/layout/custom_game/ui_resource_bars.xml", false, false );
-	$("#StatusBar").SetHasClass("Lower", false);
-	$("#StatusBar").SetHasClass("Upper", false);
-	UpdateUnit()
+		$("#StatusBar").BLoadLayout("file://{resources}/layout/custom_game/ui_resource_bars.xml", false, false );
+		$("#StatusBar").SetHasClass("Lower", false);
+		$("#StatusBar").SetHasClass("Upper", false);
+		UpdateUnit()
+	}
 }
 
 function UpdateUnit()
-{	
-	$.GetContextPanel().style.visibility = "collapse"
-	$("#ActionBar").heroIndex = null
-	$("#StatusBar").heroIndex = null
+{
+	if (!$.GetContextPanel().BHasClass("Disabled")) {
+		$.GetContextPanel().style.visibility = "collapse"
+		$("#ActionBar").heroIndex = null
+		$("#StatusBar").heroIndex = null
 
-	var own_hero = Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer())
-	var linked_ally = CustomNetTables.GetTableValue("combat_links", own_hero)
-	if (linked_ally) {linked_ally = linked_ally["link_target"]}
+		var own_hero = Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer())
+		var linked_ally = CustomNetTables.GetTableValue("combat_links", own_hero)
+		if (linked_ally) {linked_ally = linked_ally["link_target"]}
 
-	if (own_hero != Players.GetLocalPlayerPortraitUnit() && Players.GetLocalPlayerPortraitUnit() != linked_ally) {
-		$.GetContextPanel().style.visibility = "visible"
-		$("#ActionBar").heroIndex = Players.GetLocalPlayerPortraitUnit()
-		$("#StatusBar").heroIndex = Players.GetLocalPlayerPortraitUnit()
+		if (own_hero != Players.GetLocalPlayerPortraitUnit() && Players.GetLocalPlayerPortraitUnit() != linked_ally) {
+			$.GetContextPanel().style.visibility = "visible"
+			$("#ActionBar").heroIndex = Players.GetLocalPlayerPortraitUnit()
+			$("#StatusBar").heroIndex = Players.GetLocalPlayerPortraitUnit()
+		}
 	}
 }
 

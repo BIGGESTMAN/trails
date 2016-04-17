@@ -7,20 +7,20 @@
 		<include src="file://{resources}/scripts/custom_game/ui_resource_bars.js" />
 	</scripts>
 	<Panel class="ResourceBarContainer">
-		<Panel hittest="false" class="ResourceBarBackground">
+		<Panel hittest="false" class="ResourceBarBackground" id="HealthBarBackground">
 			<Panel hittest="false" id="HealthBar" class="ResourceBar" />
 			<Label id="HealthLabel" class="Text"/>
 		</Panel>
-		<Panel hittest="false" class="ResourceBarBackground">
+		<Panel hittest="false" class="ResourceBarBackground" id="ManaBarBackground">
 			<Panel hittest="false" id="ManaBar" class="ResourceBar" />
 			<Label id="ManaLabel" class="Text"/>
 		</Panel>
-		<Panel hittest="false" class="ResourceBarBackground">
+		<Panel hittest="false" class="ResourceBarBackground" id="CPBarBackground">
 			<Panel hittest="false" id="CPBar" class="CPBar ResourceBar" />
 			<Panel hittest="false" id="OverfullCPBar" class="OverfullCPBar ResourceBar" />
 			<Label id="CPLabel" class="Text"/>
 		</Panel>
-		<Panel hittest="false" class="ResourceBarBackground">
+		<Panel hittest="false" class="ResourceBarBackground" id="UnbalanceBarBackground">
 			<Panel hittest="false" id="UnbalanceBar" class="ResourceBar" />
 			<Label id="UnbalanceLabel" class="Text"/>
 		</Panel>

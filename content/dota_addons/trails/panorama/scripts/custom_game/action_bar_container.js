@@ -22,6 +22,12 @@ function OnAbilityBarStart(msg)
 	$("#AllyStatusBar").style.visibility = "collapse"
 	$("#AllyStatusBar").SetHasClass("Upper", true);
 	$("#AllyStatusBar").SetHasClass("Lower", false);
+
+	var pvp_mode = CustomNetTables.GetTableValue("gamemode", 0)["pvp_ui_enabled"]
+	if (parseInt(pvp_mode) === 0) {
+		$("#SelfStatusBar").SetHasClass("PvE", true);
+		$("#AllyStatusBar").SetHasClass("PvE", true);
+	}
 }
 
 function OnAllyAbilityBarStart(msg)

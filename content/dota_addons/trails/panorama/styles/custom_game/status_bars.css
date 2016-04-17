@@ -55,3 +55,9 @@
 	opacity: 1;
 	visibility: visible;
 }
+
+
+.StatusBarContainer.Disabled {
+	opacity: 0;
+	visibility: collapse;
+}

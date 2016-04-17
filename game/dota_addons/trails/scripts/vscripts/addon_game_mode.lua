@@ -30,7 +30,9 @@ function Precache( context )
 	PrecacheResource("particle_folder", "particles/arts", context)
 	PrecacheResource("particle_folder", "particles/master_quartz", context)
 	PrecacheResource("particle_folder", "particles/status_effects", context)
+	PrecacheResource("particle_folder", "particles/aoe_previews", context)
 	PrecacheResource("particle_folder", "particles/tetracyclic_towers", context)
+	PrecacheResource("particle_folder", "particles/bosses", context)
 
 	-- Models can also be precached by folder or individually
 	-- PrecacheModel should generally used over PrecacheResource for individual models

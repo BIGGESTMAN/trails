@@ -1,0 +1,30 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/custom_game/boss_lifebar.css" />
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+	</styles>
+	<scripts>
+		<include src="s2r://panorama/scripts/custom_game/boss_lifebar.js" />
+	</scripts>
+	<Panel hittest="false" class="BossLifebar">
+		<Panel hittest="false" class="Lifebar_OuterBackground">
+			<Panel hittest="false" class="Lifebar_Container_Top">
+				<Label hittest="false" id="Lifebar_Name_Text" class="TitleFont" text="(Boss Name)" />
+			</Panel>
+			<Panel hittest="false" class="Lifebar_Container_Bottom">
+				<Panel hittest="false" class="Lifebar_Outer">
+					<Panel hittest="false" class="Lifebar_Background">
+						<Panel hittest="false" id="Lifebar_Fill"/>
+						<Panel hittest="false" id="VulnerabilityThresholdBar"/>
+						<Label hittest="false" id="Lifebar_Text" class="Lifebar_Text" text="(HP%)" />
+					</Panel>
+				</Panel>
+				<Panel hittest="false" id="VulnerabilityDurationBar">
+					<Panel hittest="false" id="VulnerabilityDurationBarFill"/>
+				</Panel>
+			</Panel>
+		</Panel>
+		<Panel hittest="false" id="Lifebar_Container_CastAnnounce">
+		</Panel>
+	</Panel>
+</root>

@@ -10,6 +10,7 @@ require "round_recap"
 require "round_manager"
 require "gamemodes/tetracyclic_towers"
 require "gamemodes/arena"
+require "gamemodes/boss"
 
 LinkLuaModifier("modifier_interround_invulnerability", "modifier_interround_invulnerability.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_postround_stun", "modifier_postround_stun.lua", LUA_MODIFIER_MOTION_NONE)
@@ -70,6 +71,7 @@ SHOPPING_TIME = 60
 game_modes = {}
 game_modes["practical_exam"] = Gamemode_Arena
 game_modes["liberl"] = Gamemode_Tetracyclic
+game_modes["liberl_boss"] = Gamemode_Boss
 game_mode = game_modes[GetMapName()]
 
 -- Generated from template
@@ -543,6 +545,7 @@ function GameMode:OnGameInProgress()
 	print("[BAREBONES] The game has officially begun")
 
 	game_mode:Initialize()
+	CustomNetTables:SetTableValue("gamemode", tostring(0), {pvp_ui_enabled = game_mode ~= Gamemode_Boss})
 end
 
 -- Cleanup a player when they leave
