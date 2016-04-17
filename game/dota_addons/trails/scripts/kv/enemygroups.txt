@@ -1,0 +1,48 @@
+"enemygroups"
+{
+	"1"
+	{
+		"enemy_group_1"
+		{
+			"enemy_name"		"trailsadventure_mob_jelly_shroom"
+			"count"				"3"
+		}
+		"cp_reward" 		"15"
+		"gold_reward"		"300"
+	}
+	"2"
+	{
+		"enemy_group_1"
+		{
+			"enemy_name"		"trailsadventure_mob_blade_horn"
+			"count"				"3"
+		}
+		"enemy_group_2"
+		{
+			"enemy_name"		"trailsadventure_mob_blade_pincer"
+			"count"				"1"
+		}
+		"cp_reward" 		"20"
+		"gold_reward"		"500"
+	}
+	"3"
+	{
+		"enemy_group_1"
+		{
+			"enemy_name"		"trailsadventure_mob_sasa_panda"
+			"count"				"3"
+		}
+		"cp_reward" 		"15"
+		"gold_reward"		"300"
+	}
+	"4"
+	{
+		"enemy_group_1"
+		{
+			"enemy_name"		"trailsadventure_mob_gordi_chief"
+			"count"				"3"
+		}
+		"cp_reward" 		"30"
+		"gold_reward"		"600"
+	}
+}
