@@ -152,7 +152,7 @@ function GameMode:InitGameMode()
 	
 	CustomHeroSelect:Initialize()
 
-	RoundManager:Initialize()
+	if self:IsPvPGamemode() then RoundManager:Initialize() end
 
 	-- Commands can be registered for debugging purposes or as functions that can be called by the custom Scaleform UI
 	--Convars:RegisterCommand( "command_example", Dynamic_Wrap(dotacraft, 'ExampleConsoleCommand'), "A console command example", 0 )
@@ -208,6 +208,12 @@ function GameMode:OnPlayerChat(keys)
 			upgradeMasterQuartz(hero, new_level)
 			GameRules:SendCustomMessage("Master quartz set to level "..new_level, 0, 0)
 		end
+	elseif text == "-paths" then
+		CustomGameEventManager:Send_ServerToAllClients("path_choice_window_start", {path_rewards = Gamemode_Boss:GetCraftRewards()})
+	elseif text:find("-debug") then
+		local index = tonumber(text:sub(string.len("-debug ")))
+		local entity = EntIndexToHScript(index)
+		print(entity, entity:GetClassname(), entity:GetName(), entity:GetAbsOrigin(), entity:GetDebugName())
 	end
 end
 
@@ -356,17 +362,6 @@ function GameMode:OnHeroInGame(hero)
 	-- Store this hero handle in this table.
 	table.insert(self.vPlayers, hero)
 
-	Timers:CreateTimer(0.03, function() -- Give illusions a frame to acquire the illusion modifier
-		if not hero:IsIllusion() then
-			for i=0,15 do
-				local ability = hero:GetAbilityByIndex(i)
-				if ability then 
-					ability:SetLevel(ability:GetMaxLevel())
-				end
-			end
-		end
-	end)
-
 	if hero:HasAbility("combat_link") then
 		hero:FindAbilityByName("combat_link"):SetLevel(1)
 		hero:FindAbilityByName("combat_link"):SetActivated(false)
@@ -379,9 +374,6 @@ function GameMode:OnHeroInGame(hero)
 		hero:AddNewModifier(hero, nil, "modifier_interround_invulnerability", {})
 		CustomHeroSelect:OnHeroInGame(hero)
 	else
-		if not RoundManager.round_started then -- to make testing easier -- this should always be true in a real game
-			hero:AddNewModifier(hero, nil, "modifier_interround_invulnerability", {})
-		end
 		initializeStats(hero)
 
 		CustomNetTables:SetTableValue("hero_owners", tostring(hero:entindex()), {owner = tostring(hero:GetPlayerOwnerID())})
@@ -396,18 +388,10 @@ function GameMode:OnHeroInGame(hero)
 		self:UpdateUIData(hero)
 		
 		Timers:CreateTimer(1/30, function() -- have to wait a frame for GetAssignedHero() to actually work after hero is picked
-			if not RoundManager.round_started then
-				FindClearSpaceForUnit(hero, RoundManager:GetSpawnPosition(hero, true), true)
-				if self:AllPlayersPickedHeroes() then
-					RoundManager:BeginRoundStartTimer()
-				end
-			end
-			hero:SetGold(BASE_GOLD_PER_ROUND, true)
-			self:AddMasterQuartz(hero)
+			game_mode:OnHeroInGame(hero)
 		end)
 
-		self:AddStatusBars(hero)
-
+		if self:IsPvPGamemode() then self:AddStatusBars(hero) end
 	end
 end
 
@@ -421,17 +405,6 @@ function GameMode:AddMasterQuartz(hero)
 	local quartz_name = getHeroValueForKey(hero, "MasterQuartz")
 	local item = CreateItem("item_master_"..quartz_name.."_1", hero, hero)
 	hero:AddItem(item)
-end
-
-function GameMode:AllPlayersPickedHeroes()
-	local player_count = PlayerResource:GetPlayerCountForTeam(DOTA_TEAM_GOODGUYS) + PlayerResource:GetPlayerCountForTeam(DOTA_TEAM_BADGUYS)
-	for i = 0, player_count - 1 do
-		local player = PlayerResource:GetPlayer(i)
-		if not CustomHeroSelect:HasSelectedHero(player) then
-			return false
-		end
-	end
-	return true
 end
 
 function GameMode:UpdateUIData(hero)
@@ -457,12 +430,14 @@ function GameMode:UpdateUIData(hero)
 			end
 
 			-- hero-tracking status bar info for this unit
-			local dummy_enemy = CreateUnitByName("npc_dummy_unit", Vector(0,0,0), false, unit, unit, unit:GetOpposingTeamNumber())
-			CustomNetTables:SetTableValue("hero_info", tostring(unit:entindex()), {visible_to_enemies = tostring(dummy_enemy:CanEntityBeSeenByMyTeam(unit))})
-			dummy_enemy:RemoveSelf()
+			if self:IsPvPGamemode() then
+				local dummy_enemy = CreateUnitByName("npc_dummy_unit", Vector(0,0,0), false, unit, unit, unit:GetOpposingTeamNumber())
+				CustomNetTables:SetTableValue("hero_info", tostring(unit:entindex()), {visible_to_enemies = tostring(dummy_enemy:CanEntityBeSeenByMyTeam(unit))})
+				dummy_enemy:RemoveSelf()
 
-			CustomGameEventManager:Send_ServerToAllClients("status_bars_update", {player=hero:GetPlayerID(), hero=hero:GetEntityIndex(), cp=getCP(hero)})
-			CustomGameEventManager:Send_ServerToAllClients("unbalance_bars_update", {player=hero:GetPlayerID(), hero=hero:GetEntityIndex(), unbalance=hero_unbalance})
+				CustomGameEventManager:Send_ServerToAllClients("status_bars_update", {player=hero:GetPlayerID(), hero=hero:GetEntityIndex(), cp=getCP(hero)})
+				CustomGameEventManager:Send_ServerToAllClients("unbalance_bars_update", {player=hero:GetPlayerID(), hero=hero:GetEntityIndex(), unbalance=hero_unbalance})
+			end
 		end
 
 		CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "stats_display_update", {playerid = hero:GetPlayerID(), unitStats = stats})
@@ -520,19 +495,25 @@ end
 function GameMode:AreAllHeroesReady()
 	local player_count = PlayerResource:GetPlayerCountForTeam(DOTA_TEAM_GOODGUYS) + PlayerResource:GetPlayerCountForTeam(DOTA_TEAM_BADGUYS)
 	for i = 0, player_count - 1 do
-		local player = PlayerResource:GetPlayer(i)
-		if not CustomHeroSelect:HasSelectedHero(player) then
-			print("Player " .. i .. " has not selected a hero yet")
-			return false
-		end
-		
-		local hero = player:GetAssignedHero()
+		local hero = PlayerResource:GetPlayer(i):GetAssignedHero()
 		if not hero.round_ready then
 			print("Hero " .. hero:GetUnitName() .. " is not ready yet")
 			return false
 		end
 	end
 
+	return true
+end
+
+function GameMode:HaveAllPlayersPicked()
+	local player_count = PlayerResource:GetPlayerCountForTeam(DOTA_TEAM_GOODGUYS) + PlayerResource:GetPlayerCountForTeam(DOTA_TEAM_BADGUYS)
+	for i=0, player_count - 1 do
+		local player = PlayerResource:GetPlayer(i)
+		if not CustomHeroSelect:HasSelectedHero(player) then
+			print("Player " .. i .. " has not selected a hero yet")
+			return false
+		end
+	end
 	return true
 end
 
@@ -545,7 +526,7 @@ function GameMode:OnGameInProgress()
 	print("[BAREBONES] The game has officially begun")
 
 	game_mode:Initialize()
-	CustomNetTables:SetTableValue("gamemode", tostring(0), {pvp_ui_enabled = game_mode ~= Gamemode_Boss})
+	CustomNetTables:SetTableValue("gamemode", tostring(0), {pvp_ui_enabled = self:IsPvPGamemode()})
 end
 
 -- Cleanup a player when they leave
@@ -803,4 +784,8 @@ function GameMode:OnEntityKilled( keys )
 	end
 
 	game_mode:OnEntityKilled(keys)
+end
+
+function GameMode:IsPvPGamemode()
+	return game_mode ~= Gamemode_Boss
 end

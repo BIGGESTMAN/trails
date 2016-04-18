@@ -365,6 +365,41 @@ function modifier_nightmare:IsDebuff()
 	return true
 end
 
+modifier_sleep = class({})
+
+function modifier_sleep:CheckState()
+	local state = {
+	[MODIFIER_STATE_STUNNED] = true,
+	[MODIFIER_STATE_LOW_ATTACK_PRIORITY] = true,
+	}
+
+	return state
+end
+
+function modifier_sleep:DeclareFunctions()
+	return {MODIFIER_EVENT_ON_TAKEDAMAGE}
+end
+
+function modifier_sleep:OnTakeDamage(params)
+	if params.unit == self:GetParent() then self:Destroy() end
+end
+
+function modifier_sleep:GetEffectName()
+	return "particles/generic_gameplay/generic_sleep.vpcf"
+end
+
+function modifier_sleep:GetEffectAttachType()
+	return PATTACH_OVERHEAD_FOLLOW
+end
+
+function modifier_sleep:GetTexture()
+	return "enigma_midnight_pulse"
+end
+
+function modifier_sleep:IsDebuff()
+	return true
+end
+
 modifier_petrify = class({})
 
 if IsServer() then

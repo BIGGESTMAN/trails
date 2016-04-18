@@ -1,7 +1,7 @@
 "AddonInfo"
 {
   "TeamCount" "2"
-  "maps"      "practical_exam liberl"
+  "maps"      "practical_exam liberl liberl_boss"
   "IsPlayable"  "1"
   "practical_exam"
   {
@@ -10,5 +10,9 @@
   "liberl"
   {
 		  "MaxPlayers"                    "4"
+  }
+  "liberl_boss"
+  {
+      "MaxPlayers"                    "4"
   }
 }

@@ -75,7 +75,8 @@ end
 
 function BossAI:CastRandomSpell(boss)
 	local ability_index = RandomInt(0, getAbilityCount(boss) - 1)
-	self:CastSpell(boss, boss:GetAbilityByIndex(ability_index))
+	-- self:CastSpell(boss, boss:GetAbilityByIndex(ability_index))
+	self:CastSpell(boss, boss:FindAbilityByName("boss_betrayal_bolt"))
 end
 
 function BossAI:CastSpell(boss, ability, target)

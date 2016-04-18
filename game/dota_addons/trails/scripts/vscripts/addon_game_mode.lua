@@ -33,6 +33,7 @@ function Precache( context )
 	PrecacheResource("particle_folder", "particles/aoe_previews", context)
 	PrecacheResource("particle_folder", "particles/tetracyclic_towers", context)
 	PrecacheResource("particle_folder", "particles/bosses", context)
+	PrecacheResource("particle_folder", "particles/mobs", context)
 
 	-- Models can also be precached by folder or individually
 	-- PrecacheModel should generally used over PrecacheResource for individual models
@@ -57,7 +58,7 @@ end
 
 -- Create the game mode when we activate
 function Activate()
-	-- GameRules:SetCustomGameSetupAutoLaunchDelay(0)
+	GameRules:SetCustomGameSetupAutoLaunchDelay(0)
 
 	GameRules.GameMode = GameMode()
 	GameRules.GameMode:InitGameMode()

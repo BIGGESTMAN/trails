@@ -1,0 +1,56 @@
+	"trailsadventure_mob_jelly_shroom"
+	{
+		"BaseClass"					"npc_dota_creature"
+		"Model"						"models/items/courier/shroomy/shroomy.vmdl"
+		"SoundSet"					""
+		"Level"						"3"
+		"ModelScale" 				"1.5"
+		
+		"ConsideredHero"			"0"
+		"IsAncient"					"0"
+
+		//"MinimapIcon"				"minimap_roshancamp"
+		//"MinimapIconSize"			"400"
+
+		"Ability1"					"mob_jelly_shroom_spores"
+		"Ability2"					""
+		"Ability3"					""
+		"Ability4"					""
+		"Ability5"					""
+		"Ability6"					""
+		"Ability7"					""
+
+		"ArmorPhysical"				"0"
+		"MagicalResistance"			"0"
+
+		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"
+		"AttackDamageMin"			"30"
+		"AttackDamageMax"			"30"
+		"AttackRate"				"2"
+		"AttackAnimationPoint"		"0.4"
+		"AttackAcquisitionRange"	"600"
+		"AttackRange"				"128"
+		"AutoAttacksByDefault"		"0"
+
+		"BoundsHullName"			"DOTA_HULL_SIZE_SMALL"
+		//"RingRadius"				"140"
+
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"				"300"
+		"MovementTurnRate"			"0.6"
+
+		"StatusHealth"				"1200"
+		"StatusMana"				"0"
+		"StatusHealthRegen"			"0.0"
+		"StatusManaRegen"			"0.0"
+
+		"VisionDaytimeRange"		"1200"
+		"VisionNighttimeRange"		"1200"
+
+		"TeamName"					"DOTA_TEAM_NEUTRALS"
+		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_HERO"
+		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_HERO"
+		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
+
+		"vscripts"					"ai/mob_jelly_shroom.lua"
+	}

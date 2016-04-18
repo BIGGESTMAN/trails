@@ -25,14 +25,16 @@
 	"damagemeter_header"							"DAMAGE DEALT"
 	
 	"infotext_header"								"INFODUMP HO"
-	"infotext_subheader_2"							"Links, Unbalancing & Master Quartz"
-	"infotext_text_2"								"<p>Approaching an allied hero will form a Combat Link, allowing you to <font color='#FE9A2E'>Unbalance</font> enemies by dealing damage. When you <font color='#FE9A2E'>Unbalance</font> an enemy, your linked ally's abilities (crafts) become <font color='#FE9A2E'>Enhanced</font>.</p><p>Each hero has a unique Master Quartz, which provides bonus effects if you're linked. Master Quartz increase in power and gain new bonuses each round.</p>"
-	"infotext_subheader_3"							"Crafts, Craft Points & S-Crafts"
-	"infotext_text_3"								"<p>Crafts use CP (Craft Points), primarily earned by dealing and taking damage.</p><p>Regular crafts normally don't cost any CP to cast, unless used repeatedly in short succession. S-Crafts always spend all your CP (minimum 100), and are improved at 200 CP.</p><p>All crafts cause you some amount of Delay - their cooldowns apply to all of your crafts at once.</p>"
-	"infotext_subheader_4"							"Quartz & Arts"
-	"infotext_text_4"								"<p>All items (quartz) -- including Master Quartz -- can each cast a single Art, which cost mana and scale with ATS. Normal quartz also grant passive stat bonuses. Quartz can only be bought between rounds.</p><p>Arts cause separate Delay from crafts, only applying to quartz.</p>"
-	"infotext_subheader_1"							"Game Mode: Tetracyclic Towers" 
-	"infotext_text_1"								"<p>The game is assymetrical and divided into rounds; the objective is to capture all towers (by standing near them) in fewer rounds than the enemy. Rounds end when all attacking heroes are killed, the timer expires or a tower is captured.</p>"
+	"infotext_subheader_1"							"Links, Unbalancing & Master Quartz"
+	"infotext_text_1"								"<p>Approaching an allied hero will form a Combat Link, allowing you to <font color='#FE9A2E'>Unbalance</font> enemies by dealing damage. When you <font color='#FE9A2E'>Unbalance</font> an enemy, your linked ally's abilities (crafts) become <font color='#FE9A2E'>Enhanced</font>.</p><p>Each hero has a unique Master Quartz, which provides bonus effects if you're linked. Master Quartz increase in power and gain new bonuses each round.</p>"
+	"infotext_subheader_2"							"Crafts, Craft Points & S-Crafts"
+	"infotext_text_2"								"<p>Crafts use CP (Craft Points), primarily earned by dealing and taking damage.</p><p>Regular crafts normally don't cost any CP to cast, unless used repeatedly in short succession. S-Crafts always spend all your CP (minimum 100), and are improved at 200 CP.</p><p>All crafts cause you some amount of Delay - their cooldowns apply to all of your crafts at once.</p>"
+	"infotext_subheader_3"							"Quartz & Arts"
+	"infotext_text_3"								"<p>All items (quartz) -- including Master Quartz -- can each cast a single Art, which cost mana and scale with ATS. Normal quartz also grant passive stat bonuses. Quartz can only be bought between rounds.</p><p>Arts cause separate Delay from crafts, only applying to quartz.</p>"
+	"infotext_gamemode_towers_header"				"Game Mode: Tetracyclic Towers" 
+	"infotext_gamemode_towers_text"					"<p>The game is assymetrical and divided into rounds; the objective is to capture all towers (by standing near them) in fewer rounds than the enemy. Rounds end when all attacking heroes are killed, the timer expires or a tower is captured.</p>"
+	"infotext_gamemode_boss_header"					"Game Mode: Beat Up A Boss?"
+	"infotext_gamemode_boss_text"					"<p>Every so often, the boss will cast a spell; if it's successfully dodged by all party members, the boss will become temporarily Vulnerable. Dealing sufficient damage to the boss while it's Vulnerable will Enhance the hero who dealt the most damage.</p><p>As the boss is weakened, its spells become more powerful and harder to dodge.</p>"
 
 	"trailspedia_header"							"Status Effects"
 	"trailspedia_seal"								"<b>Seal:</b> Prevents attacking and craft use."
@@ -64,6 +66,8 @@
 	"teleport_to_tower_2"							"Amberl Tower"
 	"teleport_to_tower_3"							"Carnelia Tower"
 	"teleport_to_tower_4"							"Sapphirl Tower"
+
+	"path_choice_window_header"						"Choose Path"
 
 	"round_recap_header"							"Round Recap (Damage Dealt)"
 	"round_recap_close"								"Close"

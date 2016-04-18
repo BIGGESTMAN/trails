@@ -1,0 +1,14 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/custom_game/path_choice_window.css" />
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+	</styles>
+	<scripts>
+		<include src="file://{resources}/scripts/custom_game/path_choice_ability.js" />
+	</scripts>
+	<Panel class="AbilityPanel">
+		<DOTAAbilityImage id="AbilityImage" onmouseover="AbilityShowTooltip()" onmouseout="AbilityHideTooltip()" />
+	</Panel>
+</root>
+
+

@@ -288,3 +288,12 @@ function getSlotOfItem(item, unit)
 		end
 	end
 end
+
+function pointsAroundCenter(center, radius, number_of_points)
+	local points = {}
+	local angle_increment = 360 / number_of_points
+	for i=1,number_of_points do
+		table.insert(points, RotatePosition(Vector(0,0,0), QAngle(0,angle_increment * (i - 1),0), Vector(0,1,0)) * radius + center)
+	end
+	return points
+end

@@ -1,0 +1,45 @@
+"bosses"
+{
+	"grunoja"
+	{
+		"boss"	"trailsadventure_boss_grunoja"
+		"1"
+		{
+			"gold_reward"			"1000"
+			"swift_victory_time"	"40"
+			"swift_victory_gold"	"1"
+			"flawless_victory_gold"	"1"
+			"arena_size"			"1200"
+		}
+		"2"
+		{
+			"trailsadventure_mob_gordi_chief"	"1"
+			
+			"gold_reward"			"1500"
+			"swift_victory_time"	"40"
+			"swift_victory_gold"	"1"
+			"flawless_victory_gold"	"1"
+			"arena_size"			"1200"
+		}
+		"3"
+		{
+			"trailsadventure_mob_gordi_chief"	"2"
+			
+			"gold_reward"			"2200"
+			"swift_victory_time"	"40"
+			"swift_victory_gold"	"1"
+			"flawless_victory_gold"	"1"
+			"arena_size"			"1200"
+		}
+		"4"
+		{
+			"trailsadventure_mob_gordi_chief"	"2"
+			
+			"gold_reward"			"3500"
+			"swift_victory_time"	"40"
+			"swift_victory_gold"	"1"
+			"flawless_victory_gold"	"1"
+			"arena_size"			"1200"
+		}
+	}
+}

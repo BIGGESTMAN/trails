@@ -21,6 +21,7 @@ Modifiers
 ~ HP Regen (modifier_hp_regen) : Rapidly regenerating health.
 ~ Frozen (modifier_freeze) : Turn speed reduced by 80%%, and will lose 10%% of max HP when the freeze ends.
 ~ Confused (modifier_confuse) : Uncontrollable, and randomly attacking nearby units.
+~ Sleep (modifier_sleep) : Disabled and unable to act. Ends early if damage is taken.
 ~ Nightmare (modifier_nightmare) : Disabled and unable to act; when the nightmare ends, a random non-sleep debuff will be applied for 3 seconds. Ends early if damage is taken.
 ~ Deathblow (modifier_deathblow) : Will die instantly if unit falls below 15%% of max HP.
 ~ CP Boost (modifier_cp_boost) : CP gain increased by 50%%.
@@ -32,6 +33,7 @@ Modifiers
 ~ Physical Guard (modifier_physical_guard) : Blocks a single instance of enemy physical damage along with any associated effects.
 ~ Magical Guard (modifier_magical_guard) : Blocks a single instance of enemy magical damage along with any associated effects.
 ~ Airgetlam Guard (modifier_guard_high_priority) : Protected from all damage and associated effects while inside Lammy's force field.
+
 ~ Turn Bonus: Critical (modifier_crit) : Next craft, art or basic attack will deal double damage or heal for double health.
 ~ Turn Bonus: Zero-Arts (modifier_zero_arts) : Next art will be cast instantly and for free.
 ~ Turn Bonus: Brute Force (modifier_brute_force) : Next offensive craft or basic attack will instantly unbalance the target.

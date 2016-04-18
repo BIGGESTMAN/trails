@@ -1,4 +1,4 @@
-	"boss_sunstrike"
+	"boss_betrayal_bolt"
 	{
 		"BaseClass"						"ability_datadriven"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
@@ -13,10 +13,10 @@
 
 		"precache"
 		{
-			"particle"					"particles/econ/items/invoker/invoker_apex/invoker_sun_strike_immortal1.vpcf"
+			
 		}
 
-		"AbilityCastPoint"				"2 1.66 1.33 1"
+		"AbilityCastPoint"				"4"
 		"AbilityCooldown"				"0"
 		"AbilityManaCost"				"0"
 
@@ -30,22 +30,32 @@
 			"01"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"impact_radius"			"200"
+				"projectile_speed"		"800 950 1100 1250"
 			}
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"strikes"				"1 2 4 8"
+				"projectile_radius"		"100"
 			}
 			"01"
 			{
-				"var_type"				"FIELD_FLOAT"
-				"strike_delay"			"2 1.66 1.33 1" // doesn't do anything
+				"var_type"				"FIELD_INTEGER"
+				"projectile_range"		"1500"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"bolts"					"1 2 3 4"
 			}
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
 				"damage"				"300"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"delay_between_bolts"	"0.75"
 			}
 		}
 
@@ -53,7 +63,7 @@
 		{
 			"RunScript"
 			{
-				"ScriptFile"	"boss_abilities/sunstrike"
+				"ScriptFile"	"boss_abilities/betrayal_bolt"
 				"Function"		"onUpgrade"
 			}
 		}
@@ -62,7 +72,7 @@
 		{
 			"RunScript"
 			{
-				"ScriptFile"	"boss_abilities/sunstrike"
+				"ScriptFile"	"boss_abilities/betrayal_bolt"
 				"Function"		"abilityPhaseStart"
 			}
 		}
@@ -71,7 +81,7 @@
 		{
 			"RunScript"
 			{
-				"ScriptFile"	"boss_abilities/sunstrike"
+				"ScriptFile"	"boss_abilities/betrayal_bolt"
 				"Function"		"abilityPhaseInterrupted"
 			}
 		}
@@ -80,7 +90,7 @@
 		{
 			"RunScript"
 			{
-				"ScriptFile"	"boss_abilities/sunstrike"
+				"ScriptFile"	"boss_abilities/betrayal_bolt"
 				"Function"		"spellCast"
 			}
 		}

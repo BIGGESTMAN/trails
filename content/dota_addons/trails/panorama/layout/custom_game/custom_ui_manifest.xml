@@ -52,9 +52,6 @@
 		<!-- <CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/victory.xml" />  -->
 
 		<!-- <CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/image_loader.xml" /> -->
-		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/turn_bonus_display.xml" />
-		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/unbalance_bars.xml" />
-		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/status_bars.xml" />
 		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/quest.xml" />
 		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/infotext.xml" />
 		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/hero_select.xml" />
@@ -63,8 +60,13 @@
 		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/action_bar_container.xml" />
 		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/round_recap.xml" />
 		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/ready_button.xml" />
-		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/teleport_window.xml" />
+		
+		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/turn_bonus_display.xml" />
+		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/unbalance_bars.xml" />
+		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/status_bars.xml" />
 		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/selected_unit_display.xml" />
+		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/teleport_window.xml" />
 		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/boss_lifebar.xml" />
+		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/path_choice_window.xml" />
 	</Panel>
 </root>

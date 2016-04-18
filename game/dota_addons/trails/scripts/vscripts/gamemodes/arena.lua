@@ -59,3 +59,26 @@ function Gamemode_Arena:OnEntityKilled(keys)
 		end
 	end
 end
+
+function Gamemode_Arena:OnHeroInGame(hero)
+	Timers:CreateTimer(0.03, function() -- Give illusions a frame to acquire the illusion modifier
+		if not hero:IsIllusion() then
+			for k,ability in pairs(getAllAbilities(hero)) do
+				ability:SetLevel(ability:GetMaxLevel())
+			end
+		end
+	end)
+
+	if not RoundManager.round_started then -- to make testing easier -- this should always be true in a real game
+		hero:AddNewModifier(hero, nil, "modifier_interround_invulnerability", {})
+	end
+
+	if not RoundManager.round_started then
+		FindClearSpaceForUnit(hero, RoundManager:GetSpawnPosition(hero, true), true)
+		if self:HaveAllPlayersPicked() then
+			RoundManager:BeginRoundStartTimer()
+		end
+	end
+	hero:SetGold(BASE_GOLD_PER_ROUND, true)
+	GameMode:AddMasterQuartz(hero)
+end

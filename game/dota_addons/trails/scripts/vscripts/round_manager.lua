@@ -23,7 +23,7 @@ function RoundManager:OnReadyButtonPressed(eventSourceIndex, args)
 	local hero = player:GetAssignedHero()
 
 	hero.round_ready = true
-	if GameMode:AreAllHeroesReady() and not self.round_started then
+	if GameMode:HaveAllPlayersPicked() and GameMode:AreAllHeroesReady() and not self.round_started then
 		CustomGameEventManager:Send_ServerToAllClients("ready_button_all_players_ready", {})
 		self:BeginRoundStartTimer(3)
 	end

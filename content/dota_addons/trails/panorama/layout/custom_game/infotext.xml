@@ -15,15 +15,12 @@
 			<Label hittest="false" id="Header" text="#infotext_header" />
 			<Label hittest="false" class="SubHeader" text="#infotext_subheader_1" />
 			<Label hittest="false" class="Text" html="true" text="#infotext_text_1" />
-
-			<!-- <Label hittest="false" class="SubHeader" text="#preboss_nextboss_header" /> -->
-
 			<Label hittest="false" class="SubHeader" text="#infotext_subheader_2" />
 			<Label hittest="false" class="Text" html="true" text="#infotext_text_2" />
 			<Label hittest="false" class="SubHeader" text="#infotext_subheader_3" />
 			<Label hittest="false" class="Text" html="true" text="#infotext_text_3" />
-			<Label hittest="false" class="SubHeader" text="#infotext_subheader_4" />
-			<Label hittest="false" class="Text" html="true" text="#infotext_text_4" />
+			<Label hittest="false" id="Gamemode_Header" class="SubHeader" text="(Gamemode Title)" />
+			<Label hittest="false" id="Gamemode_Text" class="Text" html="true" text="(Gamemode Explanation)" />
 
 			<Label hittest="false" class="TrailspediaHeader" html="true" text="#trailspedia_header"/>
 			<Label hittest="false" class="TrailspediaText" html="true" text="#trailspedia_seal" />

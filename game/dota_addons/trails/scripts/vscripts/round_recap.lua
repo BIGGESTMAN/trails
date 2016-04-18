@@ -16,15 +16,17 @@ function Round_Recap:EndRound()
 end
 
 function Round_Recap:AddAbilityDamage(hero, ability, damage)
-	local ability_name = "basic_attacks"
-	local ability_index = nil
-	hero_index = hero:GetEntityIndex()
-	if ability then
-		ability_name = ability:GetAbilityName()
-		ability_index = ability:entindex()
-	end
+	if GameMode:IsPvPGamemode() then
+		local ability_name = "basic_attacks"
+		local ability_index = nil
+		hero_index = hero:GetEntityIndex()
+		if ability then
+			ability_name = ability:GetAbilityName()
+			ability_index = ability:entindex()
+		end
 
-	if not self.heroes[hero_index] then self.heroes[hero_index] = {name = hero:GetUnitName(), abilities = {}, player = hero:GetPlayerOwnerID()} end
-	if not self.heroes[hero_index].abilities[ability_name] then self.heroes[hero_index].abilities[ability_name] = {name = ability_name, damage = 0, index = ability_index} end
-	self.heroes[hero_index].abilities[ability_name].damage = self.heroes[hero_index].abilities[ability_name].damage + damage
+		if not self.heroes[hero_index] then self.heroes[hero_index] = {name = hero:GetUnitName(), abilities = {}, player = hero:GetPlayerOwnerID()} end
+		if not self.heroes[hero_index].abilities[ability_name] then self.heroes[hero_index].abilities[ability_name] = {name = ability_name, damage = 0, index = ability_index} end
+		self.heroes[hero_index].abilities[ability_name].damage = self.heroes[hero_index].abilities[ability_name].damage + damage
+	end
 end

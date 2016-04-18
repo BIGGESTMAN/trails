@@ -2,13 +2,16 @@
 {
 	"1"
 	{
-		"enemy_group_1"
-		{
-			"enemy_name"		"trailsadventure_mob_jelly_shroom"
-			"count"				"3"
-		}
-		"cp_reward" 		"15"
-		"gold_reward"		"300"
+		"trailsadventure_mob_jelly_shroom"	"3"
+		
+		"cp_reward" 			"15"
+		"gold_reward"			"300"
+		"swift_victory_time"	"15"
+		"swift_victory_cp"		"15"
+		"swift_victory_gold"	"200"
+		"flawless_victory_cp"	"5"
+		"flawless_victory_gold"	"100"
+		"arena_size"			"800"
 	}
 	"2"
 	{
@@ -24,6 +27,7 @@
 		}
 		"cp_reward" 		"20"
 		"gold_reward"		"500"
+		"disabled"			"1"
 	}
 	"3"
 	{
@@ -34,6 +38,7 @@
 		}
 		"cp_reward" 		"15"
 		"gold_reward"		"300"
+		"disabled"			"1"
 	}
 	"4"
 	{
@@ -44,5 +49,6 @@
 		}
 		"cp_reward" 		"30"
 		"gold_reward"		"600"
+		"disabled"			"1"
 	}
 }

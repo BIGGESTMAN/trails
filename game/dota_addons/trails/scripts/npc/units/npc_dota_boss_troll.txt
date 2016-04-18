@@ -1,0 +1,57 @@
+	"npc_dota_boss_troll"
+	{
+		"BaseClass"					"npc_dota_creature"
+		"Model"						"models/creeps/neutral_creeps/n_creep_troll_dark_b/n_creep_troll_dark_frost.vmdl"
+		"SoundSet"					"n_creep_trollCommon"
+		"Level"						"3"
+		"ModelScale" 				"1.25"
+		
+		"ConsideredHero"			"1"
+		"IsAncient"					"1"
+
+		"MinimapIcon"				"minimap_roshancamp"
+		"MinimapIconSize"			"400"
+
+		"Ability1"					"boss_sunstrike"
+		"Ability2"					"boss_betrayal_bolt"
+		"Ability3"					""
+		"Ability4"					""
+		"Ability5"					""
+		"Ability6"					""
+		"Ability7"					""
+
+		"ArmorPhysical"				"0"
+		"MagicalResistance"			"0"
+
+		"AttackCapabilities"		"DOTA_UNIT_CAP_RANGED_ATTACK"
+		"AttackDamageMin"			"80"
+		"AttackDamageMax"			"80"
+		"AttackRate"				"3"
+		"AttackAnimationPoint"		"0.4"
+		"AttackAcquisitionRange"	"600"
+		"AttackRange"				"600"
+		"ProjectileModel"			"particles/units/heroes/hero_furion/furion_base_attack.vpcf"
+		"ProjectileSpeed"			"1200"
+
+		"BoundsHullName"			"DOTA_HULL_SIZE_HUGE"
+		"RingRadius"				"140"
+
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"				"300"
+		"MovementTurnRate"			"0.6"
+
+		"StatusHealth"				"5000"
+		"StatusMana"				"100"
+		"StatusHealthRegen"			"0.0"
+		"StatusManaRegen"			"0.0"
+
+		"VisionDaytimeRange"		"1200"
+		"VisionNighttimeRange"		"1200"
+
+		"TeamName"					"DOTA_TEAM_NEUTRALS"
+		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_HERO"
+		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_HERO"
+		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
+
+		"vscripts"					"ai/boss_troll_wizard.lua"
+	}

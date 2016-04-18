@@ -18,6 +18,7 @@ game/dota_addons/trails/panorama_debugger.cfg
 game/dota_addons/trails/scripts/npc/npc_heroes_custom.txt
 game/dota_addons/trails/scripts/npc/npc_abilities_custom.txt
 game/dota_addons/trails/scripts/npc/npc_items_custom.txt
+game/dota_addons/trails/scripts/npc/npc_units_custom.txt
 game/dota_addons/trails/scripts/npc/items/generated_items.txt
 game/dota_addons/trails/scripts/npc/items/generated_masterquartz_items.txt
 game/dota_addons/trails/panorama/*
