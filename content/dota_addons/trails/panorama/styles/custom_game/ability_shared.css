@@ -102,7 +102,8 @@
 .no_item #Hotkey,
 .is_passive #Hotkey,
 #stash_row #Hotkey,
-.no_hotkey #Hotkey
+.no_hotkey #Hotkey,
+.no_level #Hotkey
 {
 	visibility: collapse;
 }

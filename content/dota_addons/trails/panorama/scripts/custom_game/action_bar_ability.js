@@ -42,7 +42,8 @@ function UpdateAbility()
 	var unitMana = Entities.GetMana( m_QueryUnit );
 
 	$.GetContextPanel().SetHasClass( "EnhancedAvailable", IsEnhancedAvailable())
-	$.GetContextPanel().SetHasClass( "no_level", isDisabled );
+	$.GetContextPanel().SetHasClass( "insufficient_cp", isDisabled && !noLevel );
+	$.GetContextPanel().SetHasClass( "no_level", noLevel );
 	$.GetContextPanel().SetHasClass( "is_passive", Abilities.IsPassive(m_Ability) );
 	// $.GetContextPanel().SetHasClass( "no_mana_cost", ( 0 == manaCost ) );
 	$.GetContextPanel().SetHasClass( "insufficient_mana", ( manaCost > unitMana ) );

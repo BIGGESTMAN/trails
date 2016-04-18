@@ -147,6 +147,12 @@
 	wash-color: #303030;
 }
 
+.insufficient_cp DOTAAbilityImage
+{
+	saturation: 0;
+	wash-color: #B7C54A;
+}
+
 .insufficient_mana DOTAAbilityImage
 {
 	saturation: 0;
