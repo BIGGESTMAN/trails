@@ -135,7 +135,7 @@
 		},
 		{
 			_class = "C_INIT_PositionPlaceOnGround"
-			m_flOffset = 100.000000
+			m_flOffset = 24.000000
 			m_flMaxTraceLength = 1024.000000
 			m_bIncludeWater = true
 		},

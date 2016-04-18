@@ -1,5 +1,6 @@
 require "round_recap"
 require "libraries/util"
+require "damage_numbers"
 
 HERO_NAMES = {{"npc_dota_hero_windrunner", "npc_dota_hero_alisa"},
 				{"npc_dota_hero_ember_spirit", "npc_dota_hero_rean"},
@@ -179,6 +180,7 @@ function dealDamage(target, attacker, damage, damage_type, ability, cp_gain_fact
 	
 	ApplyDamage({victim = target, attacker = attacker, damage = damage, damage_type = damage_type})
 	Round_Recap:AddAbilityDamage(attacker, ability, damage)
+	PopupDamageNumbers(target, damage)
 end
 
 function dealScalingDamage(target, attacker, damage_type, scale, ability, cp_gain_factor, enhanced, status, bonus_unbalance, args)
