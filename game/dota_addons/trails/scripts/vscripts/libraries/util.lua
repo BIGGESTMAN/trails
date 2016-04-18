@@ -297,3 +297,13 @@ function pointsAroundCenter(center, radius, number_of_points)
 	end
 	return points
 end
+
+function mergeTables(table1, table2)
+	for k,v in pairs(table2) do
+		if table1[k] then
+			print("[WARNING] Merging tables is overwriting data")
+		end
+		table1[k] = table2[k]
+	end
+	return table1
+end

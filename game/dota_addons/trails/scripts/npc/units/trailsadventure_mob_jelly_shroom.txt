@@ -53,4 +53,10 @@
 		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
 
 		"vscripts"					"ai/mob_jelly_shroom.lua"
+
+		"Str"	"30"
+		"Def"	"200"
+		"Ats"	"0"
+		"Adf"	"0"
+		"Spd"	"0"
 	}

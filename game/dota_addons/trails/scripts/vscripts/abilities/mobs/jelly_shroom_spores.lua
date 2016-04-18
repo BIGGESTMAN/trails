@@ -9,7 +9,6 @@ function spellCast(keys)
 	local radius = ability:GetSpecialValueFor("radius")
 
 	caster.spores_aoe_preview = AOEPreviews:Create(AOE_TYPE_CIRCLE, {radius = radius, follow = caster})
-	print("aoe preview id:", caster.spores_aoe_preview)
 end
 
 function channelFinished(keys)
@@ -23,7 +22,7 @@ function channelSucceeded(keys)
 	local caster = keys.caster
 	local ability = keys.ability
 
-	local radius = ability:GetSpecialValueFor("impact_radius")
+	local radius = ability:GetSpecialValueFor("radius")
 	local damage_scale = ability:GetSpecialValueFor("damage_percent") / 100
 	local damage_type = ability:GetAbilityDamageType()
 	local sleep_duration = ability:GetSpecialValueFor("sleep_duration")
@@ -44,7 +43,7 @@ function channelSucceeded(keys)
 	for k,unit in pairs(targets) do
 		-- spell_result = BOSS_SPELL_RESULT_SUCCESS
 		applyEffect(unit, damage_type, function()
-			dealScalingDamage(target, caster, damage_type, damage_scale, ability)
+			dealScalingDamage(unit, caster, damage_type, damage_scale, ability)
 			unit:AddNewModifier(caster, ability, "modifier_sleep", {duration = sleep_duration})
 		end)
 	end

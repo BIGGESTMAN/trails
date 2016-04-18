@@ -8,7 +8,6 @@ AOE_TYPE_LINE = 1
 function AOEPreviews:Create(aoe_type, params)
 	local particle = nil
 	local origin = params.origin
-	print(aoe_type, params)
 	if aoe_type == AOE_TYPE_CIRCLE then
 		local attach_type = PATTACH_CUSTOMORIGIN
 		if params.follow then attach_type = PATTACH_ABSORIGIN_FOLLOW end

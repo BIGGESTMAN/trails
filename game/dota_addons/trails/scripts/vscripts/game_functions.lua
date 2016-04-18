@@ -302,12 +302,14 @@ function trackingDash(unit, target, speed, impactFunction, other_args)
 	end)
 end
 
-if not gamefunctions_hero_keyvalues then gamefunctions_hero_keyvalues = LoadKeyValues("scripts/npc/npc_heroes_custom.txt") end
-function getHeroValueForKey(hero, key)
+if not gamefunctions_unit_keyvalues then gamefunctions_unit_keyvalues = mergeTables(LoadKeyValues("scripts/npc/npc_heroes_custom.txt"), LoadKeyValues("scripts/npc/npc_units_custom.txt")) end
+function getUnitValueForKey(unit, key)
 	local value = 0
-	local hero_kvs = gamefunctions_hero_keyvalues[getCustomHeroName(hero:GetName())]
-	if hero_kvs and hero_kvs[key] then
-		value = hero_kvs[key]
+	local unit_name = unit:GetUnitName()
+	if unit:IsHero() then unit_name = getCustomHeroName(unit:GetName()) end
+	local unit_kvs = gamefunctions_unit_keyvalues[unit_name]
+	if unit_kvs and unit_kvs[key] then
+		value = unit_kvs[key]
 	end
 	return value
 end
@@ -330,20 +332,22 @@ function getDotaHeroName(name)
 	return nil
 end
 
-function initializeStats(hero)
-	hero.stats = {
-		str = getHeroValueForKey(hero, "Str"),
-		ats = getHeroValueForKey(hero, "Ats"),
-		def = getHeroValueForKey(hero, "Def"),
-		adf = getHeroValueForKey(hero, "Adf"),
-		spd = getHeroValueForKey(hero, "Spd"),
-		mov = hero:GetBaseMoveSpeed(),
-		hp = getHeroValueForKey(hero, "StatusHealth"),
-		ep = getHeroValueForKey(hero, "StatusMana"),
+function initializeStats(unit)
+	unit.stats = {
+		str = getUnitValueForKey(unit, "Str"),
+		ats = getUnitValueForKey(unit, "Ats"),
+		def = getUnitValueForKey(unit, "Def"),
+		adf = getUnitValueForKey(unit, "Adf"),
+		spd = getUnitValueForKey(unit, "Spd"),
+		mov = unit:GetBaseMoveSpeed(),
+		hp = getUnitValueForKey(unit, "StatusHealth"),
+		ep = getUnitValueForKey(unit, "StatusMana"),
 	}
-	hero:AddNewModifier(hero, nil, "modifier_base_mov_buff", {}) -- NOTE: misleadingly named; also governs base hp and mana increases
-	game_mode:initializeStats(hero)
-	updateHPAndMana(hero)
+	unit:AddNewModifier(unit, nil, "modifier_base_mov_buff", {}) -- NOTE: misleadingly named; also governs base hp and mana increases (and causes autoattack damage now, too; what a modifier)
+	game_mode:initializeStats(unit)
+	if unit:IsHero() then
+		updateHPAndMana(unit)
+	end
 end
 
 function updateHPAndMana(hero)
@@ -746,7 +750,7 @@ function upgradeMasterQuartz(hero, level)
 	local level = level or math.min(existing_quartz:GetLevel(), 4) + 1
 	hero:RemoveItem(existing_quartz)
 
-	local quartz_name = getHeroValueForKey(hero, "MasterQuartz")
+	local quartz_name = getUnitValueForKey(hero, "MasterQuartz")
 	local new_quartz = CreateItem("item_master_"..quartz_name.."_"..level, hero, hero)
 	hero:AddItem(new_quartz)
 	hero:SwapItems(getSlotOfItem(new_quartz, hero), slot)

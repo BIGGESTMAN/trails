@@ -30,7 +30,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"passive_cp_per_second"	"1"
+				"passive_cp_per_second"	"0"
 			}
 		}
 
@@ -57,16 +57,6 @@
 					{
 						"ScriptFile"	"cp_tracker"
 						"Function"		"passiveCPGain"
-					}
-				}
-
-				"OnAttackLanded"
-				{
-					"RunScript"
-					{
-						"ScriptFile"	"cp_tracker"
-						"Function"		"attackLanded"
-						"damage"		"%attack_damage"
 					}
 				}
 			}

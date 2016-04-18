@@ -402,7 +402,7 @@ function GameMode:AddStatusBars(hero)
 end
 
 function GameMode:AddMasterQuartz(hero)
-	local quartz_name = getHeroValueForKey(hero, "MasterQuartz")
+	local quartz_name = getUnitValueForKey(hero, "MasterQuartz")
 	local item = CreateItem("item_master_"..quartz_name.."_1", hero, hero)
 	hero:AddItem(item)
 end
@@ -576,6 +576,10 @@ function GameMode:OnNPCSpawned(keys)
 	--print("[BAREBONES] NPC Spawned")
 	--DeepPrintTable(keys)
 	local npc = EntIndexToHScript(keys.entindex)
+
+	if not CustomHeroSelect:IsPlaceholderHero(npc) then
+		initializeStats(npc)
+	end
 
 	if npc:IsRealHero() and npc.bFirstSpawned == nil then
 		npc.bFirstSpawned = true
