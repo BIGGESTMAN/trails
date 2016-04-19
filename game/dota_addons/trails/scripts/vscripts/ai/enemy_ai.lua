@@ -129,7 +129,7 @@ end
 function EnemyAI:Cast(ability_name)
 	local ability = self.unit:FindAbilityByName(ability_name)
 	if ability then
-		print("[AI] Casting " .. ability_name)
+		-- print("[AI] Casting " .. ability_name)
 		self:IssueOrder({
 			OrderType = DOTA_UNIT_ORDER_CAST_NO_TARGET,
 			AbilityIndex = ability:entindex(),
@@ -152,5 +152,5 @@ end
 function EnemyAI:RandomizeAbilityCooldown(ability_name)
 	local ability = self.unit:FindAbilityByName(ability_name)
 	ability:StartCooldown(RandomFloat(0, ability:GetCooldownTime()))
-	print(ability:GetCooldownTimeRemaining())
+	-- print(ability:GetCooldownTimeRemaining())
 end

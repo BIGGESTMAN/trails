@@ -19,6 +19,13 @@
 	padding: 15px;
 }
 
+.PathChoiceWindow.InPath {
+	/*position: 300px 5% 0px;*/
+	background-color: gradient( linear, 0% 0%, 0% 100%, from( #32393e ), to( #151515 ) );
+	border-right: 0px;
+	transform: translate3d(-300px, -20%, 0px);
+}
+
 .PathChoiceWindow.Visible {
 	transform: translate3d(-300px, 0px, 0px);
 }
@@ -35,35 +42,7 @@
 	border: 2px solid #5e686966;
 }*/
 
-/*.PathButton.Esmelas.Active {
-	box-shadow: #50c878df -4px -4px 10px 8px;
-}
-
-.PathButton.Amberl.Active {
-	box-shadow: #ffc200df -4px -4px 10px 8px;
-}
-
-.PathButton.Carnelia.Active {
-	box-shadow: #B31B1Bdf -4px -4px 10px 8px;
-}
-
-.PathButton.Sapphirl.Active {
-	box-shadow: #0F52BAdf -4px -4px 10px 8px;
-}*/
-
 .Header {
-/*	font-family: Goudy Trajan;
-	font-size: 18px;
-	
-	color: #d0d0d0;
-	text-shadow: 1px 1px 4px 1 #000000;
-
-	width: 100%;
-	horizontal-align: center;
-
-	text-align: center;
-	border-bottom: 1px solid #80808040;
-*/	
 	font-family: Goudy Trajan;
 	font-size: 22px;
 	
@@ -76,6 +55,10 @@
 
 	text-align: center;
 	border-bottom: 1px solid #808080;
+}
+
+.PathChoiceWindow.InPath .Header {
+	visibility: collapse;
 }
 
 /*.Text {
@@ -104,4 +87,34 @@
 	vertical-align: center;
 	margin-left: 10px;
 	margin-right: 10px;
+}
+
+#PathButtonsContainer {
+	width: 100%;
+	/*height: 100%;*/
+	flow-children: down;
+	/*opacity: 1;*/
+	/*background-color: #ff8080;*/
+	visibility: visible;
+}
+
+.PathChoiceWindow.InPath #PathButtonsContainer {
+	visibility: collapse;
+}
+
+#PathProgressContainer {
+	visibility: collapse;
+}
+
+.PathChoiceWindow.InPath #PathProgressContainer {
+	visibility: visible;
+}
+
+.EnemyGroupIcon {
+	width: 64px;
+	height: 64px;
+	vertical-align: center;
+	margin-left: 10px;
+	margin-right: 10px;
+	background-color: #ff8080;
 }

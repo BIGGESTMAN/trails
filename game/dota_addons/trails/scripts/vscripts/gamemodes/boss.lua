@@ -2,9 +2,10 @@
 
 require "libraries/animations"
 require "libraries/util"
-require "gamemodes/modifier_boss_vulnerable"
 require "combat_links"
 require "game_functions"
+require "gamemodes/modifier_boss_vulnerable"
+require "gamemodes/reward_modifiers"
 
 LinkLuaModifier("modifier_boss_vulnerable", "gamemodes/modifier_boss_vulnerable.lua", LUA_MODIFIER_MOTION_NONE)
 
@@ -40,7 +41,7 @@ function Gamemode_Boss:OnPathButtonPressed(eventSourceIndex, args)
 	if not self.currently_on_path then
 		self.state = EXPLORING
 		self.currently_on_path = path
-		CustomGameEventManager:Send_ServerToAllClients("path_choice_window_hide", {})
+		CustomGameEventManager:Send_ServerToAllClients("path_start", {})
 		self:RemovePathWall(path)
 	end
 end
@@ -335,9 +336,15 @@ end
 function Gamemode_Boss:SpawnEnemies(enemy_types)
 	for enemy_type,count in pairs(enemy_types) do
 		for i=1,count do
-			local unit = CreateUnitByName(enemy_type, self:GetNextArenaPoint(), true, nil, nil, DOTA_TEAM_BADGUYS)
+			self:SpawnEnemy(enemy_type, self:GetNextArenaPoint())
 		end
 	end
+end
+
+function Gamemode_Boss:SpawnEnemy(unit_name, location)
+	local unit = CreateUnitByName(unit_name, location, true, nil, nil, DOTA_TEAM_BADGUYS)
+	local mod = unit:AddNewModifier(unit, nil, "modifier_"..unit_name:sub(string.len("trailsadventure_mob_") + 1).."_reward", {})
+	print("modifier_"..unit_name:sub(string.len("trailsadventure_mob_")).."_reward")
 end
 
 function Gamemode_Boss:CreateArenaWalls(radius)

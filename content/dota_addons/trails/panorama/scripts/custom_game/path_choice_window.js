@@ -27,9 +27,14 @@ function CreateAbilityPanel(abilityName, heroIndex, parent) {
 	// icon.SetAttributeString("ability_name", ability_name);
 }
 
-function OnPathChoiceWindowHide(data) {
+function OnPathStarted(data) {
+	$.GetContextPanel().SetHasClass("InPath", true);
 	$.GetContextPanel().SetHasClass("Visible", false);
 }
+
+// function OnPathChoiceWindowHide(data) {
+// 	$.GetContextPanel().SetHasClass("Visible", false);
+// }
 
 function OnPathButtonPressed(pathNumber) {
 	GameEvents.SendCustomGameEventToServer("path_button_pressed", {pathNumber : pathNumber} )
@@ -43,5 +48,5 @@ function RGBAPlayerColor(id) {
 
 (function () {
 	GameEvents.Subscribe("path_choice_window_start", OnPathChoiceWindowStart);
-	GameEvents.Subscribe("path_choice_window_hide", OnPathChoiceWindowHide);
+	GameEvents.Subscribe("path_start", OnPathStarted);
 })();

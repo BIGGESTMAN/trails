@@ -9,21 +9,28 @@
 	</scripts>
 	<Panel hittest="false" class="PathChoiceWindow">
 		<Label id="WindowTitle" class="Header" text="#path_choice_window_header"/>
-		<Button hittest="true" id="Button1" class="ButtonBevel PathButton" onactivate="OnPathButtonPressed(1)">
-			<Panel hittest="false" class="RewardIconsContainer" id="Path1RewardIconsContainer"/>
-			<!-- <Label text="#teleport_to_tower_1" class="Text"/> -->
-		</Button>
-		<Button hittest="true" id="Button2" class="ButtonBevel PathButton" onactivate="OnPathButtonPressed(2)">
-			<Panel hittest="false" class="RewardIconsContainer" id="Path2RewardIconsContainer"/>
-			<!-- <Label text="#teleport_to_tower_2" class="Text"/> -->
-		</Button>
-		<Button hittest="true" id="Button3" class="ButtonBevel PathButton" onactivate="OnPathButtonPressed(3)">
-			<Panel hittest="false" class="RewardIconsContainer" id="Path3RewardIconsContainer"/>
-			<!-- <Label text="#teleport_to_tower_3" class="Text"/> -->
-		</Button>
-		<Button hittest="true" id="Button4" class="ButtonBevel PathButton" onactivate="OnPathButtonPressed(4)">
-			<Panel hittest="false" class="RewardIconsContainer" id="Path4RewardIconsContainer"/>
-			<!-- <Label text="#teleport_to_tower_4" class="Text"/> -->
-		</Button>
+		<Panel id="PathButtonsContainer">
+			<Button hittest="true" id="Button1" class="ButtonBevel PathButton" onactivate="OnPathButtonPressed(1)">
+				<Panel hittest="false" class="RewardIconsContainer" id="Path1RewardIconsContainer"/>
+				<!-- <Label text="#teleport_to_tower_1" class="Text"/> -->
+			</Button>
+			<Button hittest="true" id="Button2" class="ButtonBevel PathButton" onactivate="OnPathButtonPressed(2)">
+				<Panel hittest="false" class="RewardIconsContainer" id="Path2RewardIconsContainer"/>
+				<!-- <Label text="#teleport_to_tower_2" class="Text"/> -->
+			</Button>
+			<Button hittest="true" id="Button3" class="ButtonBevel PathButton" onactivate="OnPathButtonPressed(3)">
+				<Panel hittest="false" class="RewardIconsContainer" id="Path3RewardIconsContainer"/>
+				<!-- <Label text="#teleport_to_tower_3" class="Text"/> -->
+			</Button>
+			<Button hittest="true" id="Button4" class="ButtonBevel PathButton" onactivate="OnPathButtonPressed(4)">
+				<Panel hittest="false" class="RewardIconsContainer" id="Path4RewardIconsContainer"/>
+				<!-- <Label text="#teleport_to_tower_4" class="Text"/> -->
+			</Button>
+		</Panel>
+		<Panel id="PathProgressContainer">
+			<Panel id="Group1Icon" class="EnemyGroupIcon" />
+			<Panel id="Group2Icon" class="EnemyGroupIcon" />
+			<Panel id="BossIcon" class="EnemyGroupIcon" />
+		</Panel>
 	</Panel>
 </root>
