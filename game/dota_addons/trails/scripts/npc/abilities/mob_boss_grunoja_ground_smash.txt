@@ -1,0 +1,124 @@
+	"mob_boss_grunoja_ground_smash"
+	{
+		"BaseClass"						"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
+		"MaxLevel"						"1"
+
+		"AbilityTextureName"			"invoker_sunstrike"
+		"AbilityCastAnimation"			"ACT_DOTA_IDLE"
+		"AnimationPlaybackRate" 		"2"
+
+		"precache"
+		{
+			"particle"					"particles/crafts/millium/megaton_press_shockwave.vpcf"
+		}
+
+		"AbilityCastRange"				"0"
+		"AbilityCastPoint"				"0"
+		"AbilityCooldown"				"10"
+		"AbilityManaCost"				"0"
+		"AbilityChannelTime"			"2"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"radius"				"300"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"damage_percent"		"200"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"flight_time"			"1"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"center_radius"			"150"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"center_damage_percent"	"300"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"faint_duration"		"2"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"knockback_duration"	"1"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"knockback_distance"	"400"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"abilities/mobs/boss_grunoja_ground_smash"
+				"Function"		"spellCast"
+			}
+		}
+
+		"OnChannelFinish"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"abilities/mobs/boss_grunoja_ground_smash"
+				"Function"		"channelFinished"
+			}
+		}
+
+		"OnChannelSucceeded"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"abilities/mobs/boss_grunoja_ground_smash"
+				"Function"		"channelSucceeded"
+			}
+		}
+
+		"Modifiers"
+		{
+			"modifier_ground_smash_jumping"
+			{
+				"IsHidden"	"1"
+
+				"States"
+				{
+					"MODIFIER_STATE_STUNNED"				"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_NO_UNIT_COLLISION"		"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+
+			"modifier_ground_smash_knockback"
+			{
+				"IsDebuff"		"1"
+
+				"Duration"		"%knockback_duration"
+
+				"States"
+				{
+					"MODIFIER_STATE_STUNNED"				"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_NO_UNIT_COLLISION"		"MODIFIER_STATE_VALUE_ENABLED"
+				}
+
+				"OverrideAnimation"     "ACT_DOTA_FLAIL"
+			}
+		}
+	}

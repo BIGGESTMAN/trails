@@ -111,6 +111,10 @@ function EnemyAI:ClosestAmong(units)
 	return target
 end
 
+function EnemyAI:GetRandomEnemyUnit()
+	return getAllLivingHeroes()[RandomInt(1, #getAllLivingHeroes())]
+end
+
 function EnemyAI:IssueOrder(order)
 	-- print("issuing order")
 	order.UnitIndex = self.unit:entindex()
@@ -133,6 +137,17 @@ function EnemyAI:Cast(ability_name)
 		self:IssueOrder({
 			OrderType = DOTA_UNIT_ORDER_CAST_NO_TARGET,
 			AbilityIndex = ability:entindex(),
+		})
+	end
+end
+
+function EnemyAI:CastAtTarget(ability_name, target)
+	local ability = self.unit:FindAbilityByName(ability_name)
+	if ability then
+		self:IssueOrder({
+			OrderType = DOTA_UNIT_ORDER_CAST_TARGET,
+			AbilityIndex = ability:entindex(),
+			TargetIndex = target:entindex(),
 		})
 	end
 end

@@ -16,6 +16,9 @@ SHOPPING = 0
 EXPLORING = 1
 ENCOUNTER = 2
 
+RESULT_DEFEAT = 0
+RESULT_VICTORY = 1
+
 ARENA_TRIGGER_RANGE = 400
 
 if Gamemode_Boss == nil then
@@ -28,12 +31,10 @@ function Gamemode_Boss:Initialize()
 	-- local base_vision = Vision(DOTA_TEAM_GOODGUYS)
 	-- base_vision:Add(Vector(0, 0, 0), 1400)
 
-	-- CustomGameEventManager:RegisterListener("preboss_ready", WrapMemberMethod(self.OnHeroReady, self))
-	-- Convars:RegisterCommand("br_force_start", WrapMemberMethod(self.CCmd_ForceStart, self), "Forces the game to start even if not all players have readied up.", FCVAR_CHEAT )
-	-- Convars:RegisterCommand("br_test_dmgmeter", WrapMemberMethod(self.CCmd_TestDmgMeter, self), "", FCVAR_CHEAT )
 	CustomGameEventManager:RegisterListener("path_button_pressed", WrapMemberMethod(self.OnPathButtonPressed, self))
 	self.state = SHOPPING
 	self.current_path_progress = 0
+	self.paths_completed = 0
 end
 
 function Gamemode_Boss:OnPathButtonPressed(eventSourceIndex, args)
@@ -42,6 +43,7 @@ function Gamemode_Boss:OnPathButtonPressed(eventSourceIndex, args)
 		self.state = EXPLORING
 		self.currently_on_path = path
 		CustomGameEventManager:Send_ServerToAllClients("path_start", {})
+		CustomGameEventManager:Send_ServerToAllClients("infotext_game_starting", {})
 		self:RemovePathWall(path)
 	end
 end
@@ -65,7 +67,7 @@ function Gamemode_Boss:SetupPaths()
 		for i=1, GROUPS_PER_PATH do
 			path_groups[i] = self:GetRandomEnemyGroup(enemy_group_kv)
 		end
-		path_groups[GROUPS_PER_PATH + 1] = {group = self:GetRandomUnassignedBoss(bosses_kv, assigned_bosses), cleared = false}
+		path_groups[GROUPS_PER_PATH + 1] = self:GetRandomUnassignedBoss(bosses_kv, assigned_bosses)
 		local new_path = {groups = path_groups, rewards = self:GetRandomUnassignedCrafts(assigned_crafts)}
 		-- print("Path "..i..": ")
 		-- DeepPrintTable(new_path)
@@ -168,6 +170,241 @@ function Gamemode_Boss:GetRandomUnassignedCrafts(assigned_crafts)
 	return rewards
 end
 
+function Gamemode_Boss:initializeStats(hero)
+end
+
+function Gamemode_Boss:OnEntityHurt(keys)
+	local target = EntIndexToHScript(keys.entindex_killed)
+	if target == self.boss_unit then
+		local health_percent = target:GetHealth() / target:GetMaxHealth() * 100
+		CustomGameEventManager:Send_ServerToAllClients("boss_health_changed", {percent = health_percent})
+		self:UpdateEnrageZone(health_percent)
+	end
+end
+
+function Gamemode_Boss:UpdateEnrageZone(health_percent)
+	local new_enrage_zone = 4 - math.ceil(health_percent / 25)
+	if new_enrage_zone > self.boss_unit.enrage_state then
+		self.boss_unit.enrage_state = self.boss_unit.enrage_state + 1
+		for i=0,15 do
+			local ability = self.boss_unit:GetAbilityByIndex(i)
+			if ability then 
+				ability:SetLevel(ability:GetLevel() + 1)
+			end
+		end
+
+		ParticleManager:CreateParticle("particles/bosses/enrage_trigger.vpcf", PATTACH_ABSORIGIN_FOLLOW, self.boss_unit)
+	end
+end
+
+function Gamemode_Boss:OnHeroInGame(hero)
+	hero:GetAbilityByIndex(0):SetLevel(1)
+	hero:GetAbilityByIndex(4):SetLevel(1)
+
+	if GameMode:HaveAllPlayersPicked() then
+		self:BeginGamemode()
+	end
+end
+
+function Gamemode_Boss:BeginGamemode()
+	self.currently_on_path = nil
+	self:SetupPaths()
+	CustomGameEventManager:Send_ServerToAllClients("path_choice_window_start", {path_rewards = self:GetCraftRewards(), path_count = PATHS_COUNT})
+	self:CheckForArenaTrigger()
+end
+
+function Gamemode_Boss:CheckForArenaTrigger()
+	Timers:CreateTimer(0, function()
+		if self.state == EXPLORING and self:HeroInRangeOfArena() then
+			self:StartEncounter()
+		end
+		return 1/4
+	end)
+end
+
+function Gamemode_Boss:HeroInRangeOfArena()
+	for k,hero in pairs(getAllHeroes()) do
+		if distanceBetween(hero:GetAbsOrigin(), self:GetNextArenaPoint()) <= ARENA_TRIGGER_RANGE then
+			return true
+		end
+	end
+	return false
+end
+
+function Gamemode_Boss:GetNextArenaPoint()
+	return Entities:FindByName(nil, "path_"..self.currently_on_path.."_arena_"..self.current_path_progress + 1):GetAbsOrigin()
+end
+
+function Gamemode_Boss:StartEncounter()
+	self.state = ENCOUNTER
+	local arena_center = self:GetNextArenaPoint()
+	self:TeleportFarawayHeroes(arena_center)
+	local enemy_group = self:GetNextEnemyGroup()
+	self:SpawnEnemies(enemy_group.mobs)
+	self:CreateArenaWalls(enemy_group.arena_size)
+end
+
+function Gamemode_Boss:SpawnEnemies(enemy_types)
+	self.active_enemies = {}
+	for enemy_type,count in pairs(enemy_types) do
+		for i=1,count do
+			table.insert(self.active_enemies, self:SpawnEnemy(enemy_type, self:GetNextArenaPoint()))
+		end
+	end
+end
+
+function Gamemode_Boss:SpawnEnemy(unit_name, location)
+	-- print("spawning unit: ", unit_name)
+	local unit = CreateUnitByName(unit_name, location, true, nil, nil, DOTA_TEAM_BADGUYS)
+	unit:AddNewModifier(unit, nil, "modifier_"..unit_name:sub(string.len("trailsadventure_mob_") + 1).."_reward", {})
+	return unit
+end
+
+function Gamemode_Boss:CreateArenaWalls(radius)
+	self.active_arena_wall = {}
+	self.active_arena_wall.entities = {}
+	local center = self:GetNextArenaPoint()
+	local perimeter = math.pi * 2 * radius
+	local wall_segments = perimeter / 40
+
+	for k,point in pairs(pointsAroundCenter(center, radius, wall_segments)) do
+		table.insert(self.active_arena_wall.entities, SpawnEntityFromTableSynchronous("point_simple_obstruction", {origin = point}))
+	end
+
+	local particle = ParticleManager:CreateParticle("particles/bosses/arena_barrier.vpcf", PATTACH_CUSTOMORIGIN, nil)
+	ParticleManager:SetParticleControl(particle, 0, center)
+	ParticleManager:SetParticleControl(particle, 1, Vector(radius,0,0))
+	self.active_arena_wall.particle = particle
+end
+
+function Gamemode_Boss:RemoveArenaWalls()
+	-- print("[BOSS] Removing Arena Walls")
+	ParticleManager:DestroyParticle(self.active_arena_wall.particle, false)
+	for k,entity in pairs(self.active_arena_wall.entities) do
+		entity:RemoveSelf()
+	end
+	self.active_arena_wall = nil
+end
+
+function Gamemode_Boss:GetNextEnemyGroup()
+	local enemy_group = self.paths[self.currently_on_path].groups[self.current_path_progress + 1]
+
+	if not enemy_group.mobs then
+		local boss = enemy_group.boss
+		enemy_group = enemy_group[tostring(self.paths_completed + 1)]
+		enemy_group.mobs[boss] = 1
+	end
+
+	return enemy_group
+end
+
+function Gamemode_Boss:GetCraftRewards()
+	local rewards = {}
+	for k,path in pairs(self.paths) do
+		local crafts = {}
+		for hero,ability in pairs(path.rewards) do
+			-- print(ability, ability.GetAbilityName)
+			crafts[hero:entindex()] = ability
+		end
+		table.insert(rewards, crafts)
+	end
+	-- DeepPrintTable(rewards)
+	return rewards
+end
+
+function Gamemode_Boss:OnEntityKilled(keys)
+	local unit = EntIndexToHScript(keys.entindex_killed)
+
+	if self.state == ENCOUNTER then
+		if unit:IsRealHero() then
+			local living_heroes = 0
+			for k,hero in pairs(getAllHeroes()) do
+				if hero:IsAlive() or hero.reviving then
+					living_heroes = living_heroes + 1
+				end
+			end
+
+			if living_heroes == 0 then
+				-- party died like scrubs? idk
+				GameRules:SendCustomMessage("#Party_Wiped", 0, 0)
+				self:EndEncounter(RESULT_DEFEAT)
+			end
+		else
+			if self:GetLivingEnemyCount() == 0 then
+				self:EndEncounter(RESULT_VICTORY)
+			end
+		end
+	end
+end
+
+function Gamemode_Boss:EndEncounter(result)
+	self.state = EXPLORING
+	self:RemoveLivingEnemies()
+	self:ReviveDeadHeroes()
+	self:RemoveArenaWalls()
+	if result == RESULT_VICTORY then
+		self:GrantEncounterRewards(self:GetNextEnemyGroup())
+		self.current_path_progress = self.current_path_progress + 1
+	else
+		self:TeleportHeroesToStart()
+	end
+end
+
+function Gamemode_Boss:GrantEncounterRewards(enemy_group)
+end
+
+function Gamemode_Boss:RemoveLivingEnemies()
+	for k,unit in pairs(self.active_enemies) do
+		unit:ForceKill(false)
+	end
+	self.active_enemies = nil
+end
+
+function Gamemode_Boss:ReviveDeadHeroes()
+end
+
+function Gamemode_Boss:TeleportFarawayHeroes(arena_point)
+	for k,hero in pairs(getAllHeroes()) do
+		if distanceBetween(hero:GetAbsOrigin(), arena_point) > self:GetNextEnemyGroup().arena_size then
+			FindClearSpaceForUnit(hero, arena_point, true)
+		end
+	end
+end
+
+function Gamemode_Boss:TeleportHeroesToStart()
+end
+
+function Gamemode_Boss:GetLivingEnemyCount()
+	local count = 0
+	for k,enemy in pairs(self.active_enemies) do
+		if IsValidAlive(enemy) then
+			count = count + 1
+		end
+	end
+	return count
+end
+
+
+
+
+
+function Gamemode_Boss:MakeBossVulnerable(boss)
+	self.boss_unit:AddNewModifier(self.boss_unit, nil, "modifier_boss_vulnerable", {duration = VULNERABILITY_DURATION})
+end
+
+function Gamemode_Boss:EnhanceHero(damage_dealt_table)
+	StartAnimation(self.boss_unit, {duration=44 / 30, activity=ACT_DOTA_DISABLED, rate=1})
+
+	local highest_hero = nil
+	for hero,damage in pairs(damage_dealt_table) do
+		if highest_hero == nil or damage > damage_dealt_table[highest_hero] then
+			highest_hero = hero
+		end
+	end
+
+	applyEnhancedState(highest_hero, self.boss_unit)
+end
+
 function Gamemode_Boss:StartRound(round)
 	self:StartBoss(0)
 end
@@ -239,152 +476,6 @@ function Gamemode_Boss:GetArenaPoint(name)
 	end
 end
 
-function Gamemode_Boss:initializeStats(hero)
-end
-
-function Gamemode_Boss:OnEntityHurt(keys)
-	local target = EntIndexToHScript(keys.entindex_killed)
-	if target == self.boss_unit then
-		local health_percent = target:GetHealth() / target:GetMaxHealth() * 100
-		CustomGameEventManager:Send_ServerToAllClients("boss_health_changed", {percent = health_percent})
-		self:UpdateEnrageZone(health_percent)
-	end
-end
-
-function Gamemode_Boss:UpdateEnrageZone(health_percent)
-	local new_enrage_zone = 4 - math.ceil(health_percent / 25)
-	if new_enrage_zone > self.boss_unit.enrage_state then
-		self.boss_unit.enrage_state = self.boss_unit.enrage_state + 1
-		for i=0,15 do
-			local ability = self.boss_unit:GetAbilityByIndex(i)
-			if ability then 
-				ability:SetLevel(ability:GetLevel() + 1)
-			end
-		end
-
-		ParticleManager:CreateParticle("particles/bosses/enrage_trigger.vpcf", PATTACH_ABSORIGIN_FOLLOW, self.boss_unit)
-	end
-end
-
-function Gamemode_Boss:OnEntityKilled(keys)
-end
-
-function Gamemode_Boss:MakeBossVulnerable(boss)
-	self.boss_unit:AddNewModifier(self.boss_unit, nil, "modifier_boss_vulnerable", {duration = VULNERABILITY_DURATION})
-end
-
-function Gamemode_Boss:EnhanceHero(damage_dealt_table)
-	StartAnimation(self.boss_unit, {duration=44 / 30, activity=ACT_DOTA_DISABLED, rate=1})
-
-	local highest_hero = nil
-	for hero,damage in pairs(damage_dealt_table) do
-		if highest_hero == nil or damage > damage_dealt_table[highest_hero] then
-			highest_hero = hero
-		end
-	end
-
-	applyEnhancedState(highest_hero, self.boss_unit)
-end
-
-function Gamemode_Boss:OnHeroInGame(hero)
-	hero:GetAbilityByIndex(0):SetLevel(1)
-	hero:GetAbilityByIndex(4):SetLevel(1)
-
-	if GameMode:HaveAllPlayersPicked() then
-		self:BeginGamemode()
-	end
-end
-
-function Gamemode_Boss:BeginGamemode()
-	self.currently_on_path = nil
-	self:SetupPaths()
-	CustomGameEventManager:Send_ServerToAllClients("path_choice_window_start", {path_rewards = self:GetCraftRewards(), path_count = PATHS_COUNT})
-	self:CheckForArenaTrigger()
-end
-
-function Gamemode_Boss:CheckForArenaTrigger()
-	Timers:CreateTimer(0, function()
-		if self.state == EXPLORING and self:HeroInRangeOfArena() then
-			self:StartEncounter()
-			self:TeleportFarawayHeroes()
-		end
-		return 1/4
-	end)
-end
-
-function Gamemode_Boss:HeroInRangeOfArena()
-	for k,hero in pairs(getAllHeroes()) do
-		if distanceBetween(hero:GetAbsOrigin(), self:GetNextArenaPoint()) <= ARENA_TRIGGER_RANGE then
-			return true
-		end
-	end
-	return false
-end
-
-function Gamemode_Boss:GetNextArenaPoint()
-	return Entities:FindByName(nil, "path_"..self.currently_on_path.."_arena_"..self.current_path_progress + 1):GetAbsOrigin()
-end
-
-function Gamemode_Boss:StartEncounter()
-	self.state = ENCOUNTER
-	local arena_center = self:GetNextArenaPoint()
-	local enemy_group = self:GetNextEnemyGroup()
-	self:SpawnEnemies(enemy_group.mobs)
-	self:CreateArenaWalls(enemy_group.arena_size)
-end
-
-function Gamemode_Boss:SpawnEnemies(enemy_types)
-	for enemy_type,count in pairs(enemy_types) do
-		for i=1,count do
-			self:SpawnEnemy(enemy_type, self:GetNextArenaPoint())
-		end
-	end
-end
-
-function Gamemode_Boss:SpawnEnemy(unit_name, location)
-	local unit = CreateUnitByName(unit_name, location, true, nil, nil, DOTA_TEAM_BADGUYS)
-	local mod = unit:AddNewModifier(unit, nil, "modifier_"..unit_name:sub(string.len("trailsadventure_mob_") + 1).."_reward", {})
-	print("modifier_"..unit_name:sub(string.len("trailsadventure_mob_")).."_reward")
-end
-
-function Gamemode_Boss:CreateArenaWalls(radius)
-	self.active_arena_wall = {}
-	self.active_arena_wall.entities = {}
-	local center = self:GetNextArenaPoint()
-	local perimeter = math.pi * 2 * radius
-	local wall_segments = perimeter / 40
-
-	for k,point in pairs(pointsAroundCenter(center, radius, wall_segments)) do
-		table.insert(self.active_arena_wall.entities, SpawnEntityFromTableSynchronous("point_simple_obstruction", {origin = point}))
-	end
-
-	local particle = ParticleManager:CreateParticle("particles/bosses/arena_barrier.vpcf", PATTACH_CUSTOMORIGIN, nil)
-	ParticleManager:SetParticleControl(particle, 0, center)
-	ParticleManager:SetParticleControl(particle, 1, Vector(radius,0,0))
-	self.active_arena_wall.particle = particle
-end
-
-function Gamemode_Boss:GetNextEnemyGroup()
-	return self.paths[self.currently_on_path].groups[self.current_path_progress + 1]
-end
-
-function Gamemode_Boss:TeleportFarawayHeroes()
-end
-
-function Gamemode_Boss:GetCraftRewards()
-	local rewards = {}
-	for k,path in pairs(self.paths) do
-		local crafts = {}
-		for hero,ability in pairs(path.rewards) do
-			-- print(ability, ability.GetAbilityName)
-			crafts[hero:entindex()] = ability
-		end
-		table.insert(rewards, crafts)
-	end
-	-- DeepPrintTable(rewards)
-	return rewards
-end
-
 
 
 
@@ -422,8 +513,6 @@ function Gamemode_Boss:SlowTeleportToLocation(unit, target_pos)
 	ParticleManager:SetParticleControl(end_fx, 2, Vector(0, 0.5, 1))
 
 	unit:EmitSound("Portal.Loop_Disappear")
-
-	-- ApplySpecialModifier("modifier_bossrush_teleporting", unit)
 
 	Timers:CreateTimer(3, function()
 		FindClearSpaceForUnit(unit, target_pos, true)

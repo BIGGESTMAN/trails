@@ -173,7 +173,11 @@ function GameMode:OnPlayerChat(keys)
 	if text == "-die" then
 		hero:Kill(nil, hero)
 	elseif text == "-win" then
-		RoundManager:EndRound(hero:GetTeam())
+		if self:IsPvPGamemode() then
+			RoundManager:EndRound(hero:GetTeam())
+		else
+			Gamemode_Boss:EndEncounter(RESULT_VICTORY)
+		end
 	elseif text == "-togglemusic" then
 		if hero.music_playing == nil then
 			self:StartMusicForPlayer(player)
@@ -208,12 +212,21 @@ function GameMode:OnPlayerChat(keys)
 			upgradeMasterQuartz(hero, new_level)
 			GameRules:SendCustomMessage("Master quartz set to level "..new_level, 0, 0)
 		end
-	elseif text == "-paths" then
+	elseif text == "-debugrestartpaths" then
 		CustomGameEventManager:Send_ServerToAllClients("path_choice_window_start", {path_rewards = Gamemode_Boss:GetCraftRewards()})
-	elseif text:find("-debug") then
-		local index = tonumber(text:sub(string.len("-debug ")))
+	elseif text:find("-debugentity") then
+		local index = tonumber(text:sub(string.len("-debugentity ")))
 		local entity = EntIndexToHScript(index)
 		print(entity, entity:GetClassname(), entity:GetName(), entity:GetAbsOrigin(), entity:GetDebugName())
+	elseif text:find("-debugentity") then
+		local index = tonumber(text:sub(string.len("-debugentity ")))
+		local entity = EntIndexToHScript(index)
+		print(entity, entity:GetClassname(), entity:GetName(), entity:GetAbsOrigin(), entity:GetDebugName())
+	elseif text:find("-startencounter") then
+		Gamemode_Boss:StartEncounter()
+	elseif text:find("-startboss") then
+		Gamemode_Boss.current_path_progress = 2
+		Gamemode_Boss:StartEncounter()
 	end
 end
 

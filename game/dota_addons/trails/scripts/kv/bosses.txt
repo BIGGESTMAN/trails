@@ -2,7 +2,7 @@
 {
 	"grunoja"
 	{
-		"boss"	"trailsadventure_boss_grunoja"
+		"boss"	"trailsadventure_mob_boss_grunoja"
 		"1"
 		{
 			"gold_reward"			"1000"

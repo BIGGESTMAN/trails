@@ -33,4 +33,10 @@
 		"Tetracyclic_Attackers_Win"			"The attackers have won the round, seizing a tetracyclic tower."
 		"Tetracyclic_Attackers_Win_Kills"	"All defenders have been killed -- the attackers have 15 seconds to end the round by capturing a tower."
 
+		"Party_Wiped"		"All heroes have fallen."
+
 		"RoundTimer"		"Defenders win in %quest_current_value% seconds"
+
+		"DOTA_Chat_PlayerKilledGood"				""
+		"DOTA_Chat_PlayerKilledGoodNearby"			""
+		"DOTA_Chat_PlayerKilledGoodNearbySingle"	""

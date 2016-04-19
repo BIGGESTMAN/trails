@@ -138,7 +138,7 @@ function dealDamage(target, attacker, damage, damage_type, ability, cp_gain_fact
 	if target:HasModifier("modifier_petrify") and damage_type == DAMAGE_TYPE_MAGICAL then
 		return
 	end
-	if target:HasModifier("modifier_faint") then
+	if target:HasModifier("modifier_faint") or target:HasModifier("modifier_sleep") or target:HasModifier("modifier_nightmare") then
 		damage = damage * FAINT_DAMAGE_FACTOR
 	end
 	if target:HasModifier("modifier_aegis_counterattack") and attacker == target:FindModifierByName("modifier_aegis_counterattack"):GetCaster() then
@@ -150,7 +150,7 @@ function dealDamage(target, attacker, damage, damage_type, ability, cp_gain_fact
 	if enhanced and attacker:HasModifier("modifier_master_force_passive") and target:GetHealthPercent() <= LOW_HP_THRESHOLD_PERCENT then
 		damage = damage * (1 + getMasterQuartzSpecialValue(attacker, "finishing_blow_damage_bonus") / 100)
 	end
-	if attacker then
+	if attacker then -- pls move this to a lua modifier, pls
 		if damage_type == DAMAGE_TYPE_PHYSICAL and attacker:HasModifier("modifier_azure_flame_slash_sword_inflamed") then
 			local flame_slash_ability = attacker:FindAbilityByName("azure_flame_slash")
 			local burn_duration = flame_slash_ability:GetSpecialValueFor("burn_duration")
