@@ -5,4 +5,4 @@
 		"npc_dota_hero_sniper"				"Crow"
 		"npc_dota_hero_omniknight"			"Millium"
 
-		"npc_dota_boss_troll"				"Troll"
+		"trailsadventure_mob_boss_grunoja"	"Grunoja"

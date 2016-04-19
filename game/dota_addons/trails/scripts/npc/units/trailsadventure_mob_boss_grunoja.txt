@@ -9,8 +9,8 @@
 		"ConsideredHero"			"1"
 		"IsAncient"					"0"
 
-		//"MinimapIcon"				"minimap_roshancamp"
-		//"MinimapIconSize"			"400"
+		"MinimapIcon"				"minimap_roshancamp"
+		"MinimapIconSize"			"400"
 
 		"Ability1"					"mob_boss_grunoja_ground_smash"
 		"Ability2"					""
@@ -54,8 +54,8 @@
 
 		"vscripts"					"ai/mob_boss_grunoja.lua"
 
-		"Str"	"00"
-		"Def"	"200"
+		"Str"	"200"
+		"Def"	"100"
 		"Ats"	"0"
 		"Adf"	"0"
 		"Spd"	"0"

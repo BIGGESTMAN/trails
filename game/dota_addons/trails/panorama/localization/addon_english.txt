@@ -84,6 +84,9 @@
 	"victory_lbl_rating"							"Rank"
 	"victory_lbl_cash"								"Gold Reward"
 
+	"trailsadventure_mob_boss_grunoja"				"Grunoja"
+	"trailsadventure_mob_boss_grunoja_title"		"Keeper of Lunaria Park"
+
 
 
 

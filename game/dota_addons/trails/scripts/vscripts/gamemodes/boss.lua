@@ -175,25 +175,10 @@ end
 
 function Gamemode_Boss:OnEntityHurt(keys)
 	local target = EntIndexToHScript(keys.entindex_killed)
-	if target == self.boss_unit then
+	if target == self.active_boss then
 		local health_percent = target:GetHealth() / target:GetMaxHealth() * 100
 		CustomGameEventManager:Send_ServerToAllClients("boss_health_changed", {percent = health_percent})
-		self:UpdateEnrageZone(health_percent)
-	end
-end
-
-function Gamemode_Boss:UpdateEnrageZone(health_percent)
-	local new_enrage_zone = 4 - math.ceil(health_percent / 25)
-	if new_enrage_zone > self.boss_unit.enrage_state then
-		self.boss_unit.enrage_state = self.boss_unit.enrage_state + 1
-		for i=0,15 do
-			local ability = self.boss_unit:GetAbilityByIndex(i)
-			if ability then 
-				ability:SetLevel(ability:GetLevel() + 1)
-			end
-		end
-
-		ParticleManager:CreateParticle("particles/bosses/enrage_trigger.vpcf", PATTACH_ABSORIGIN_FOLLOW, self.boss_unit)
+		-- self:UpdateEnrageZone(health_percent)
 	end
 end
 
@@ -257,6 +242,10 @@ function Gamemode_Boss:SpawnEnemy(unit_name, location)
 	-- print("spawning unit: ", unit_name)
 	local unit = CreateUnitByName(unit_name, location, true, nil, nil, DOTA_TEAM_BADGUYS)
 	unit:AddNewModifier(unit, nil, "modifier_"..unit_name:sub(string.len("trailsadventure_mob_") + 1).."_reward", {})
+	if unit:GetUnitName():find("boss") then
+		CustomGameEventManager:Send_ServerToAllClients("boss_begin", {unit_id = unit:GetUnitName()})
+		self.active_boss = unit
+	end
 	return unit
 end
 
@@ -358,6 +347,7 @@ function Gamemode_Boss:RemoveLivingEnemies()
 		unit:ForceKill(false)
 	end
 	self.active_enemies = nil
+	self.active_boss = nil
 end
 
 function Gamemode_Boss:ReviveDeadHeroes()
@@ -473,6 +463,21 @@ function Gamemode_Boss:GetArenaPoint(name)
 		return ent:GetAbsOrigin()
 	else
 		return Vector(0, 0, 0)
+	end
+end
+
+function Gamemode_Boss:UpdateEnrageZone(health_percent)
+	local new_enrage_zone = 4 - math.ceil(health_percent / 25)
+	if new_enrage_zone > self.boss_unit.enrage_state then
+		self.boss_unit.enrage_state = self.boss_unit.enrage_state + 1
+		for i=0,15 do
+			local ability = self.boss_unit:GetAbilityByIndex(i)
+			if ability then 
+				ability:SetLevel(ability:GetLevel() + 1)
+			end
+		end
+
+		ParticleManager:CreateParticle("particles/bosses/enrage_trigger.vpcf", PATTACH_ABSORIGIN_FOLLOW, self.boss_unit)
 	end
 end
 

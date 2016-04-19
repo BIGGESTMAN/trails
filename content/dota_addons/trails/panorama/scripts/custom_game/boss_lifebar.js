@@ -18,7 +18,8 @@ function OnItemWillSpawn( msg )
 function OnBossBegin(msg) {
 	$.GetContextPanel().SetHasClass("MakeVisible", true);
 
-	$("#Lifebar_Name_Text").text = $.Localize("#"+msg.unit_id);
+	$("#Lifebar_Name_Text").text = $.Localize("#" + msg.unit_id);
+	$("#Lifebar_Title_Text").text = $.Localize("#" + msg.unit_id + "_title");
 	SetBossLifebarPercent(100);
 }
 
