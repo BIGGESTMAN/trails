@@ -12,6 +12,7 @@
 		"flawless_victory_cp"	"5"
 		"flawless_victory_gold"	"100"
 		"arena_size"			"800"
+		"disabled"				"1"
 	}
 	"2"
 	{
@@ -42,13 +43,15 @@
 	}
 	"4"
 	{
-		"enemy_group_1"
-		{
-			"enemy_name"		"trailsadventure_mob_gordi_chief"
-			"count"				"3"
-		}
-		"cp_reward" 		"30"
-		"gold_reward"		"600"
-		"disabled"			"1"
+		"trailsadventure_mob_gordi_chief"	"2"
+		
+		"cp_reward" 			"30"
+		"gold_reward"			"600"
+		"swift_victory_time"	"25"
+		"swift_victory_cp"		"20"
+		"swift_victory_gold"	"400"
+		"flawless_victory_cp"	"10"
+		"flawless_victory_gold"	"150"
+		"arena_size"			"600"
 	}
 }

@@ -81,17 +81,20 @@ function impact(caster, target_point)
 		if distance > center_radius then
 			applyEffect(unit, damage_type, function()
 				dealScalingDamage(unit, caster, damage_type, damage_scale, ability)
+				ability:ApplyDataDrivenModifier(caster, unit, "modifier_ground_smash_knockback", {})
+				dash(unit, (unit:GetAbsOrigin() - target_point):Normalized(), (knockback_distance - distance) / knockback_duration, (knockback_distance - distance), true)
 			end)
 		else
 			applyEffect(unit, damage_type, function()
 				dealScalingDamage(unit, caster, damage_type, center_damage_scale, ability)
 				unit:AddNewModifier(caster, ability, "modifier_faint", {duration = faint_duration})
+				ability:ApplyDataDrivenModifier(caster, unit, "modifier_ground_smash_knockback", {})
+				dash(unit, (unit:GetAbsOrigin() - target_point):Normalized(), (knockback_distance - distance) / knockback_duration, (knockback_distance - distance), true)
 			end)
 		end
-
-		ability:ApplyDataDrivenModifier(caster, unit, "modifier_ground_smash_knockback", {})
-		dash(unit, (unit:GetAbsOrigin() - target_point):Normalized(), (knockback_distance - distance) / knockback_duration, (knockback_distance - distance), true)
 	end
+
+	caster:FindModifierByName("modifier_boss_grunoja_reward"):ReportSpellSuccess(#targets > 0)
 
 	local particle = ParticleManager:CreateParticle("particles/crafts/millium/megaton_press_shockwave.vpcf", PATTACH_CUSTOMORIGIN, nil)
 	ParticleManager:SetParticleControl(particle, 0, target_point)

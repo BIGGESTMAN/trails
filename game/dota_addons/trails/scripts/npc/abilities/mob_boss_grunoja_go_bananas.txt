@@ -1,0 +1,92 @@
+	"mob_boss_grunoja_go_bananas"
+	{
+		"BaseClass"						"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"MaxLevel"						"1"
+
+		"AbilityTextureName"			"invoker_sunstrike"
+		"AbilityCastAnimation"			"ACT_DOTA_IDLE"
+		"AnimationPlaybackRate" 		"2"
+
+		"precache"
+		{
+			"particle"					"particles/mobs/gordi_chief_go_ape/buff.vpcf"
+			"particle"					"particles/mobs/boss_grunoja_go_bananas/banana.vpcf"
+		}
+
+		"AbilityCastPoint"				"0.5"
+		"AbilityCooldown"				"0"
+		"AbilityManaCost"				"0"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"radius"				"250"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"stat_increase_per_enemy"	"30" // doesn't do anything
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"hp_per_second"			"75"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"duration"				"10"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"abilities/mobs/boss_grunoja_go_bananas"
+				"Function"		"spellCast"
+			}
+		}
+
+		"Modifiers"
+		{
+			"modifier_go_bananas"
+			{
+				"Duration"	"%duration"
+
+				"BonusStr"	"30"
+				"BonusDef"	"30"
+
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"abilities/mobs/boss_grunoja_go_bananas"
+						"Function"		"increaseModelSize"
+					}
+				}
+
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"abilities/mobs/boss_grunoja_go_bananas"
+						"Function"		"revertModelSize"
+					}
+				}
+
+				"ThinkInterval"  "1"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"abilities/mobs/boss_grunoja_go_bananas"
+						"Function"		"heal"
+					}
+				}
+			}
+		}
+	}

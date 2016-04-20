@@ -79,3 +79,11 @@ function OnBossVulnerabilityTimeUpdate(msg) {
 	GameEvents.Subscribe("boss_victory", OnBossVictory);
 	GameEvents.Subscribe("boss_defeat", OnBossDefeat);
 })();
+
+// function OnNettable2Changed( table_name, key, data ) {
+//     $.Msg( "Table ", table_name, " changed: '", key, "' = ", data );
+// }
+
+// (function () { 
+//     CustomNetTables.SubscribeNetTableListener( "example_nettable_2", OnNettable2Changed );
+// })();

@@ -225,15 +225,15 @@ function Gamemode_Boss:StartEncounter()
 	local arena_center = self:GetNextArenaPoint()
 	self:TeleportFarawayHeroes(arena_center)
 	local enemy_group = self:GetNextEnemyGroup()
+	self.active_enemies = {}
 	self:SpawnEnemies(enemy_group.mobs)
 	self:CreateArenaWalls(enemy_group.arena_size)
 end
 
 function Gamemode_Boss:SpawnEnemies(enemy_types)
-	self.active_enemies = {}
 	for enemy_type,count in pairs(enemy_types) do
 		for i=1,count do
-			table.insert(self.active_enemies, self:SpawnEnemy(enemy_type, self:GetNextArenaPoint()))
+			self:SpawnEnemy(enemy_type, self:GetNextArenaPoint())
 		end
 	end
 end
@@ -246,6 +246,7 @@ function Gamemode_Boss:SpawnEnemy(unit_name, location)
 		CustomGameEventManager:Send_ServerToAllClients("boss_begin", {unit_id = unit:GetUnitName()})
 		self.active_boss = unit
 	end
+	table.insert(self.active_enemies, unit)
 	return unit
 end
 

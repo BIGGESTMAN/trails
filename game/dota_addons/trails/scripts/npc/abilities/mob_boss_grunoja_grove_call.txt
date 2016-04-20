@@ -1,0 +1,38 @@
+	"mob_boss_grunoja_grove_call"
+	{
+		"BaseClass"						"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"MaxLevel"						"1"
+
+		"AbilityTextureName"			"invoker_sunstrike"
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_1"
+		"AnimationPlaybackRate" 		"1.5"
+
+		"precache"
+		{
+			"particle"					"particles/mobs/boss_grunoja_grove_call/dust_cloud.vpcf"
+		}
+
+		"AbilityCastPoint"				"0.5"
+		"AbilityCooldown"				"0"
+		"AbilityManaCost"				"0"
+
+		"AbilitySpecial"
+		{
+
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"abilities/mobs/boss_grunoja_grove_call"
+				"Function"		"spellCast"
+			}
+		}
+
+		"Modifiers"
+		{
+
+		}
+	}

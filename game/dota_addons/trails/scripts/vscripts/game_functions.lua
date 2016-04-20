@@ -54,6 +54,10 @@ LINK_SKILL_SCALING_FACTOR = 0.5
 LOW_HP_THRESHOLD_PERCENT = 20
 SCRAFTS_REQUIRE_UNBALANCE = false
 
+PURGABLE_BUFFS = {}
+PURGABLE_BUFFS["modifier_go_ape_stat_buff"] = true
+PURGABLE_BUFFS["modifier_go_bananas"] = true
+
 LinkLuaModifier("modifier_base_mov_buff", "modifier_base_mov_buff.lua", LUA_MODIFIER_MOTION_NONE)
 
 LinkLuaModifier(STAT_STR, "stat_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
@@ -173,7 +177,7 @@ function dealDamage(target, attacker, damage, damage_type, ability, cp_gain_fact
 	if attacker:HasModifier("modifier_cypher_gambling_magic") and attacker.combat_linked_to and ability and not status and not ability:GetName():find("item_") then
 		attacker:FindModifierByName("modifier_cypher_gambling_magic"):DealGamblingDamage()
 	end
-	if attacker and attacker:HasAbility("combat_link") and attacker ~= target and not enhanced and not status then
+	if GameMode:IsPvPGamemode() and attacker and attacker:HasAbility("combat_link") and attacker ~= target and not enhanced and not status then
 		grantDamageCP(damage, attacker, target, cp_gain_factor)
 		increaseUnbalance(attacker, target, bonus_unbalance)
 	end
@@ -404,14 +408,14 @@ function getDatadrivenModifierAdjustedStats(hero, stats)
 	for k,modifier in pairs(hero:FindAllModifiers()) do
 		local modifier_kvs = getDatadrivenModifierKVs(modifier)
 		if modifier_kvs then
-			stats.str = stats.str + (modifier_kvs["BonusStr"] or 0)
-			stats.def = stats.def + (modifier_kvs["BonusDef"] or 0)
-			stats.ats = stats.ats + (modifier_kvs["BonusAts"] or 0)
-			stats.adf = stats.adf + (modifier_kvs["BonusAdf"] or 0)
-			stats.spd = stats.spd + (modifier_kvs["BonusSpd"] or 0)
-			stats.mov = stats.mov + (modifier_kvs["BonusMov"] or 0)
-			stats.hp = stats.hp + (modifier_kvs["BonusHP"] or 0)
-			stats.ep = stats.ep + (modifier_kvs["BonusEP"] or 0)
+			stats.str = stats.str + (modifier_kvs["BonusStr"] or 0) * modifier:GetStackCount()
+			stats.def = stats.def + (modifier_kvs["BonusDef"] or 0) * modifier:GetStackCount()
+			stats.ats = stats.ats + (modifier_kvs["BonusAts"] or 0) * modifier:GetStackCount()
+			stats.adf = stats.adf + (modifier_kvs["BonusAdf"] or 0) * modifier:GetStackCount()
+			stats.spd = stats.spd + (modifier_kvs["BonusSpd"] or 0) * modifier:GetStackCount()
+			stats.mov = stats.mov + (modifier_kvs["BonusMov"] or 0) * modifier:GetStackCount()
+			stats.hp = stats.hp + (modifier_kvs["BonusHP"] or 0) * modifier:GetStackCount()
+			stats.ep = stats.ep + (modifier_kvs["BonusEP"] or 0) * modifier:GetStackCount()
 		end
 	end
 	return stats

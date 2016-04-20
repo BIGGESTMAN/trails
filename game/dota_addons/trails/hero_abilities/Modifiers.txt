@@ -88,3 +88,4 @@ Modifiers
 ~ Phantom Phobia (modifier_phantom_phobia) : Taking magic damage over time.
 
 ~ Monkey Time (modifier_ground_smash_knockback) : Sent flying by Ground Smash.
+~ Knuckledusted (modifier_knuckleduster_knockback) : Sent flying by Knuckleduster.

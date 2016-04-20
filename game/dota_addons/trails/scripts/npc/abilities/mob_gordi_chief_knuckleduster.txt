@@ -1,4 +1,4 @@
-	"mob_boss_grunoja_ground_smash"
+	"mob_gordi_chief_knuckleduster"
 	{
 		"BaseClass"						"ability_datadriven"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
@@ -8,17 +8,17 @@
 		"MaxLevel"						"1"
 
 		"AbilityTextureName"			"invoker_sunstrike"
-		"AbilityCastAnimation"			"ACT_DOTA_IDLE"
-		"AnimationPlaybackRate" 		"2"
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_1"
+		"AnimationPlaybackRate" 		"0.25"
 
 		"precache"
 		{
-			"particle"					"particles/crafts/millium/megaton_press_shockwave.vpcf"
+			"particle"					"particles/mobs/gordi_chief_knuckleduster/area.vpcf"
 		}
 
-		"AbilityCastRange"				"0"
+		"AbilityCastRange"				"150"
 		"AbilityCastPoint"				"0"
-		"AbilityCooldown"				"0"
+		"AbilityCooldown"				"10"
 		"AbilityManaCost"				"0"
 		"AbilityChannelTime"			"2"
 
@@ -27,7 +27,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"radius"				"300"
+				"radius"				"175"
 			}
 			"01"
 			{
@@ -36,33 +36,18 @@
 			}
 			"01"
 			{
-				"var_type"				"FIELD_FLOAT"
-				"flight_time"			"1"
-			}
-			"01"
-			{
 				"var_type"				"FIELD_INTEGER"
-				"center_radius"			"150"
-			}
-			"01"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"center_damage_percent"	"300"
-			}
-			"01"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"faint_duration"		"2"
+				"faint_duration"		"1"
 			}
 			"01"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"knockback_duration"	"1"
+				"knockback_duration"	"0.25"
 			}
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"knockback_distance"	"400"
+				"knockback_distance"	"150"
 			}
 		}
 
@@ -70,7 +55,7 @@
 		{
 			"RunScript"
 			{
-				"ScriptFile"	"abilities/mobs/boss_grunoja_ground_smash"
+				"ScriptFile"	"abilities/mobs/gordi_chief_knuckleduster"
 				"Function"		"spellCast"
 			}
 		}
@@ -79,7 +64,7 @@
 		{
 			"RunScript"
 			{
-				"ScriptFile"	"abilities/mobs/boss_grunoja_ground_smash"
+				"ScriptFile"	"abilities/mobs/gordi_chief_knuckleduster"
 				"Function"		"channelFinished"
 			}
 		}
@@ -88,25 +73,14 @@
 		{
 			"RunScript"
 			{
-				"ScriptFile"	"abilities/mobs/boss_grunoja_ground_smash"
+				"ScriptFile"	"abilities/mobs/gordi_chief_knuckleduster"
 				"Function"		"channelSucceeded"
 			}
 		}
 
 		"Modifiers"
 		{
-			"modifier_ground_smash_jumping"
-			{
-				"IsHidden"	"1"
-
-				"States"
-				{
-					"MODIFIER_STATE_STUNNED"				"MODIFIER_STATE_VALUE_ENABLED"
-					"MODIFIER_STATE_NO_UNIT_COLLISION"		"MODIFIER_STATE_VALUE_ENABLED"
-				}
-			}
-
-			"modifier_ground_smash_knockback"
+			"modifier_knuckleduster_knockback"
 			{
 				"IsDebuff"		"1"
 
