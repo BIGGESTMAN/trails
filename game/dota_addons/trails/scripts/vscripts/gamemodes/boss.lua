@@ -205,7 +205,7 @@ function Gamemode_Boss:CheckForArenaTrigger()
 end
 
 function Gamemode_Boss:HeroInRangeOfArena()
-	for k,hero in pairs(getAllHeroes()) do
+	for k,hero in pairs(getAllLivingHeroes()) do
 		if distanceBetween(hero:GetAbsOrigin(), self:GetNextArenaPoint()) <= ARENA_TRIGGER_RANGE then
 			return true
 		end
@@ -331,13 +331,13 @@ function Gamemode_Boss:OnEntityKilled(keys)
 end
 
 function Gamemode_Boss:EndEncounter(result)
+	self.state = EXPLORING
 	self:RemoveLivingEnemies()
 	if result == RESULT_VICTORY then
 		self:GrantEncounterRewards(self:GetNextEnemyGroup())
 		self.current_path_progress = self.current_path_progress + 1
 	end
 	Timers:CreateTimer(ENCOUNTER_END_DELAY, function()
-		self.state = EXPLORING
 		self:ReviveDeadHeroes()
 		self:RemoveArenaWalls()
 		if result == RESULT_DEFEAT then
