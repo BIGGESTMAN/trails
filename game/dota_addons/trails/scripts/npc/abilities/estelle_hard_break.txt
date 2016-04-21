@@ -67,7 +67,7 @@
 					"RunScript"
 					{
 						"ScriptFile"	"abilities/crafts/estelle/hard_break"
-						"Function"		"dealDamage"
+						"Function"		"dealPurgeDamage"
 					}
 				}
 			}

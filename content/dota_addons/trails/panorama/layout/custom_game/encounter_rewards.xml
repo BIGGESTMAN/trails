@@ -1,0 +1,15 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/custom_game/encounter_rewards_window.css" />
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+	</styles>
+	<scripts>
+		<include src="s2r://panorama/scripts/custom_game/encounter_rewards_window.js" />
+	</scripts>
+	<Panel hittest="false" class="EncounterRewardsWindow">
+		<Label text="(Gold)" id="GoldText" class="Text"/>
+		<Label text="(CP)" id="CPText" class="Text"/>
+		<Label text="(Time)" id="TimeTakenText" class="Text"/>
+		<Label text="(Flawless)" id="MechanicsRatingText" class="Text"/>
+	</Panel>
+</root>

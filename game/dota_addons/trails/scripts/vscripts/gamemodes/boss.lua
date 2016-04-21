@@ -7,6 +7,7 @@ require "game_functions"
 require "gamemodes/modifier_boss_vulnerable"
 require "gamemodes/modifier_boss_hp_tracker"
 require "gamemodes/reward_modifiers"
+require "gamemodes/cp_rewards"
 
 LinkLuaModifier("modifier_boss_vulnerable", "gamemodes/modifier_boss_vulnerable.lua", LUA_MODIFIER_MOTION_NONE)
 
@@ -215,6 +216,10 @@ function Gamemode_Boss:GetNextArenaPoint()
 	return Entities:FindByName(nil, "path_"..self.currently_on_path.."_arena_"..self.current_path_progress + 1):GetAbsOrigin()
 end
 
+function Gamemode_Boss:GetMainSpawnPoint()
+	return Entities:FindByClassname(nil, "info_player_start_goodguys"):GetAbsOrigin()
+end
+
 function Gamemode_Boss:StartEncounter()
 	self.state = ENCOUNTER
 	local arena_center = self:GetNextArenaPoint()
@@ -223,6 +228,7 @@ function Gamemode_Boss:StartEncounter()
 	self.active_enemies = {}
 	self:SpawnEnemies(enemy_group.mobs)
 	self:CreateArenaWalls(enemy_group.arena_size)
+	self.time_encounter_started = GameRules:GetGameTime()
 end
 
 function Gamemode_Boss:SpawnEnemies(enemy_types)
@@ -337,6 +343,23 @@ function Gamemode_Boss:EndEncounter(result)
 end
 
 function Gamemode_Boss:GrantEncounterRewards(enemy_group)
+	-- DeepPrintTable(enemy_group)
+	local cp = enemy_group.cp_reward
+	local gold = enemy_group.gold_reward
+	local time = GameRules:GetGameTime() - self.time_encounter_started
+	local goal_time = enemy_group.swift_victory_time
+	self.time_encounter_started = nil
+
+	CustomGameEventManager:Send_ServerToAllClients("show_encounter_rewards", {gold = gold, cp = cp, time = time, goal_time = goal_time, mechanics_percent = "?"})
+
+	self:GrantGoldToAllHeroes(gold)
+	CPRewards:RewardCP(nil, nil, cp)
+end
+
+function Gamemode_Boss:GrantGoldToAllHeroes(amount)
+	for k,hero in pairs(getAllHeroes()) do
+		hero:ModifyGold(amount, true, 17)
+	end
 end
 
 function Gamemode_Boss:RemoveLivingEnemies()
@@ -348,6 +371,9 @@ function Gamemode_Boss:RemoveLivingEnemies()
 end
 
 function Gamemode_Boss:ReviveDeadHeroes()
+	for k,hero in pairs(getAllHeroes()) do
+		reviveHero(hero)
+	end
 end
 
 function Gamemode_Boss:TeleportFarawayHeroes(arena_point)
@@ -359,6 +385,9 @@ function Gamemode_Boss:TeleportFarawayHeroes(arena_point)
 end
 
 function Gamemode_Boss:TeleportHeroesToStart()
+	for k,hero in pairs(getAllHeroes()) do
+		FindClearSpaceForUnit(hero, self:GetMainSpawnPoint(), true)
+	end
 end
 
 function Gamemode_Boss:GetLivingEnemyCount()

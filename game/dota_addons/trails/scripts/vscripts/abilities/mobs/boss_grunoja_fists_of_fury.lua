@@ -18,7 +18,7 @@ function spellCast(keys)
 	ability:ApplyDataDrivenModifier(caster, caster, "modifier_fists_of_fury", {})
 end
 
-function dealDamage(keys)
+function dealChannelDamage(keys)
 	local caster = keys.caster
 	local ability = keys.ability
 	local unit = caster.fists_of_fury_state.target

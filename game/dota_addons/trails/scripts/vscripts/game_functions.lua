@@ -229,7 +229,7 @@ end
 function purgePositiveBuffs(target)
 	local modifiers_to_purge = {}
 	for k,modifier in pairs(target:FindAllModifiers()) do
-		if PURGABLE_BUFFS[modifier] then
+		if PURGABLE_BUFFS[modifier:GetName()] then
 			table.insert(modifiers_to_purge, modifier)
 		end
 	end
@@ -786,6 +786,7 @@ function getOpposingTeam(team)
 end
 
 function reviveHero(hero, health)
+	local health = health or hero:GetMaxHealth()
 	local mana = hero:GetMana()
 	hero:SetRespawnPosition(hero:GetAbsOrigin())
 	hero:RespawnHero(false, false, false)

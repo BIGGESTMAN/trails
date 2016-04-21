@@ -29,6 +29,7 @@ function spellCast(keys)
 				if buffs_purged > 0 then
 					ability:ApplyDataDrivenModifier(caster, unit, "modifier_hard_break_purge_damage", {}):SetStackCount(buffs_purged)
 				end
+				print(buffs_purged)
 			end
 			unit:Interrupt()
 		end)
@@ -38,4 +39,11 @@ function spellCast(keys)
 	applyDelayCooldowns(caster, ability)
 
 	ParticleManager:CreateParticle("particles/crafts/estelle/hard_break/cast.vpcf", PATTACH_ABSORIGIN, caster)
+end
+
+function dealPurgeDamage(keys)
+	local caster = keys.caster
+	local target = keys.target
+
+	
 end

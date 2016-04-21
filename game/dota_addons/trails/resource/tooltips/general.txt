@@ -33,7 +33,7 @@
 		"Tetracyclic_Attackers_Win"			"The attackers have won the round, seizing a tetracyclic tower."
 		"Tetracyclic_Attackers_Win_Kills"	"All defenders have been killed -- the attackers have 15 seconds to end the round by capturing a tower."
 
-		"Party_Wiped"		"All heroes have fallen."
+		"Party_Wiped"		"All heroes have fallen. Respawning at hub area."
 
 		"RoundTimer"		"Defenders win in %quest_current_value% seconds"
 
