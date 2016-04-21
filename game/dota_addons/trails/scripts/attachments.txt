@@ -197,8 +197,44 @@
 	}
 	"models/heroes/legion_commander/legion_commander.vmdl"
 	{
+		"attach_hitloc"
+		{
+			"models/items/phantom_lancer/infinite_waves_serpent_weapon/infinite_waves_serpent_weapon.vmdl"
+			{
+				"scale"		"0.69999998807907"
+				"pitch"		"-90"
+				"roll"		"0"
+				"ZPos"		"-250"
+				"YPos"		"0"
+				"yaw"		"0"
+				"XPos"		"100"
+			}
+		}
+		"attach_eyer"
+		{
+			"models/items/windrunner/orchid_flowersong_head/orchid_flowersong_head.vmdl"
+			{
+				"scale"		"1"
+				"pitch"		"-90"
+				"roll"		"-7.5"
+				"yaw"		"-90"
+				"YPos"		"3"
+				"ZPos"		"-140"
+				"XPos"		"-5"
+			}
+		}
 		"attach_attack1"
 		{
+			"models/items/phantom_lancer/infinite_waves_serpent_weapon/infinite_waves_serpent_weapon.vmdl"
+			{
+				"scale"		"0.69999998807907"
+				"pitch"		"-90"
+				"roll"		"0"
+				"ZPos"		"-250"
+				"YPos"		"50"
+				"yaw"		"0"
+				"XPos"		"100"
+			}
 			"models/heroes/earth_spirit/earth_spirit_staff.vmdl"
 			{
 				"scale"		"0.69999998807907"

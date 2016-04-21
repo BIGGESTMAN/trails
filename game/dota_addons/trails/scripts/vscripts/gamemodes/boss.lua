@@ -21,6 +21,7 @@ ENCOUNTER = 2
 RESULT_DEFEAT = 0
 RESULT_VICTORY = 1
 
+ENCOUNTER_END_DELAY = 5
 ARENA_TRIGGER_RANGE = 400
 
 if Gamemode_Boss == nil then
@@ -330,16 +331,19 @@ function Gamemode_Boss:OnEntityKilled(keys)
 end
 
 function Gamemode_Boss:EndEncounter(result)
-	self.state = EXPLORING
 	self:RemoveLivingEnemies()
-	self:ReviveDeadHeroes()
-	self:RemoveArenaWalls()
 	if result == RESULT_VICTORY then
 		self:GrantEncounterRewards(self:GetNextEnemyGroup())
 		self.current_path_progress = self.current_path_progress + 1
-	else
-		self:TeleportHeroesToStart()
 	end
+	Timers:CreateTimer(ENCOUNTER_END_DELAY, function()
+		self.state = EXPLORING
+		self:ReviveDeadHeroes()
+		self:RemoveArenaWalls()
+		if result == RESULT_DEFEAT then
+			self:TeleportHeroesToStart()
+		end
+	end)
 end
 
 function Gamemode_Boss:GrantEncounterRewards(enemy_group)

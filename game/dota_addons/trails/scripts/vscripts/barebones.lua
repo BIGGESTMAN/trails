@@ -410,6 +410,7 @@ function GameMode:OnHeroInGame(hero)
 
 		if hero:GetUnitName() == "npc_dota_hero_legion_commander" then
 			Attachments:AttachProp(hero, "attach_attack1", "models/heroes/earth_spirit/earth_spirit_staff.vmdl", 0.7)
+			Attachments:AttachProp(hero, "attach_eyer", "models/items/windrunner/orchid_flowersong_head/orchid_flowersong_head.vmdl", 1.0)
 		end
 	end
 end
