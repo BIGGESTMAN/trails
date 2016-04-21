@@ -31,7 +31,7 @@ function spellCast(keys)
 				end
 				print(buffs_purged)
 			end
-			unit:Interrupt()
+			applyImpede(unit, caster)
 		end)
 	end
 

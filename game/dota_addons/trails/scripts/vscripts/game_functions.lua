@@ -241,6 +241,13 @@ function purgePositiveBuffs(target)
 	return count
 end
 
+function applyImpede(target, source)
+	if target:IsChanneling() then
+		CPRewards:RewardCP(source, target)
+	end
+	target:InterruptChannel()
+end
+
 function dash(unit, direction, speed, range, find_clear_space, impactFunction, other_args)
 	other_args = other_args or {}
 	other_args.range = range

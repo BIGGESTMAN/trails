@@ -11,8 +11,8 @@ end
 function Spawn()
 	local ai = EnemyAI:DefineAI(thisEntity, function(ai)
 
-		ai:RandomizeAbilityCooldown("mob_gordi_chief_go_ape")
-		ai:RandomizeAbilityCooldown("mob_gordi_chief_knuckleduster")
+		-- ai:RandomizeAbilityCooldown("mob_gordi_chief_go_ape")
+		-- ai:RandomizeAbilityCooldown("mob_gordi_chief_knuckleduster")
 		
 		function ai:State_Default()
 			if self:CanCast("mob_gordi_chief_go_ape") then

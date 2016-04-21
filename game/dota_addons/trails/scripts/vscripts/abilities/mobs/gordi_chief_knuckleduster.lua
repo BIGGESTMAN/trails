@@ -49,9 +49,12 @@ function channelSucceeded(keys)
 			ability:ApplyDataDrivenModifier(caster, unit, "modifier_knuckleduster_knockback", {})
 			dash(unit, (unit:GetAbsOrigin() - caster:GetAbsOrigin()):Normalized(), knockback_distance / knockback_duration, knockback_distance, true)
 		end)
-
 	end
 
 	local particle = ParticleManager:CreateParticle("particles/mobs/gordi_chief_knuckleduster/area.vpcf", PATTACH_CUSTOMORIGIN, nil)
 	ParticleManager:SetParticleControl(particle, 0, origin)
+
+	if #targets == #getAllLivingHeroes() then
+		CPRewards:RewardCP(nil, caster)
+	end
 end
