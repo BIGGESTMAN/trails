@@ -19,6 +19,8 @@ function spellCast(keys)
 		ability:ApplyDataDrivenModifier(caster, caster, "modifier_go_bananas", {}):SetStackCount(#targets)
 	end
 
+	-- print(caster:FindModifierByName("modifier_go_bananas"))
+
 	local particle = ParticleManager:CreateParticle("particles/mobs/gordi_chief_go_ape/buff.vpcf", PATTACH_ABSORIGIN_FOLLOW, caster)
 	local banana_particle = ParticleManager:CreateParticle("particles/mobs/boss_grunoja_go_bananas/banana.vpcf", PATTACH_OVERHEAD_FOLLOW, caster)
 end

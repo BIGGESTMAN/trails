@@ -5,6 +5,7 @@ require "libraries/util"
 require "combat_links"
 require "game_functions"
 require "gamemodes/modifier_boss_vulnerable"
+require "gamemodes/modifier_boss_hp_tracker"
 require "gamemodes/reward_modifiers"
 
 LinkLuaModifier("modifier_boss_vulnerable", "gamemodes/modifier_boss_vulnerable.lua", LUA_MODIFIER_MOTION_NONE)
@@ -174,12 +175,6 @@ function Gamemode_Boss:initializeStats(hero)
 end
 
 function Gamemode_Boss:OnEntityHurt(keys)
-	local target = EntIndexToHScript(keys.entindex_killed)
-	if target == self.active_boss then
-		local health_percent = target:GetHealth() / target:GetMaxHealth() * 100
-		CustomGameEventManager:Send_ServerToAllClients("boss_health_changed", {percent = health_percent})
-		-- self:UpdateEnrageZone(health_percent)
-	end
 end
 
 function Gamemode_Boss:OnHeroInGame(hero)
@@ -245,6 +240,7 @@ function Gamemode_Boss:SpawnEnemy(unit_name, location)
 	if unit:GetUnitName():find("boss") then
 		CustomGameEventManager:Send_ServerToAllClients("boss_begin", {unit_id = unit:GetUnitName()})
 		self.active_boss = unit
+		unit:AddNewModifier(unit, nil, "modifier_boss_hp_tracker", {})
 	end
 	table.insert(self.active_enemies, unit)
 	return unit

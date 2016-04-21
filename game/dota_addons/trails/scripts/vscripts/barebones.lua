@@ -675,7 +675,7 @@ end
 
 -- An ability was used by a player
 function GameMode:OnAbilityUsed(keys)
-	print('[BAREBONES] AbilityUsed')
+	-- print('[BAREBONES] AbilityUsed')
 	DeepPrintTable(keys)
 
 	local player = EntIndexToHScript(keys.PlayerID)
@@ -684,7 +684,7 @@ end
 
 -- A non-player entity (necro-book, chen creep, etc) used an ability
 function GameMode:OnNonPlayerUsedAbility(keys)
-	print('[BAREBONES] OnNonPlayerUsedAbility')
+	-- print('[BAREBONES] OnNonPlayerUsedAbility')
 	DeepPrintTable(keys)
 
 	local abilityname=  keys.abilityname
@@ -701,7 +701,7 @@ end
 
 -- A player leveled up an ability
 function GameMode:OnPlayerLearnedAbility( keys)
-	print ('[BAREBONES] OnPlayerLearnedAbility')
+	-- print ('[BAREBONES] OnPlayerLearnedAbility')
 	DeepPrintTable(keys)
 
 	local player = EntIndexToHScript(keys.player)
@@ -710,7 +710,7 @@ end
 
 -- A channelled ability finished by either completing or being interrupted
 function GameMode:OnAbilityChannelFinished(keys)
-	print ('[BAREBONES] OnAbilityChannelFinished')
+	-- print ('[BAREBONES] OnAbilityChannelFinished')
 	DeepPrintTable(keys)
 
 	local abilityname = keys.abilityname
