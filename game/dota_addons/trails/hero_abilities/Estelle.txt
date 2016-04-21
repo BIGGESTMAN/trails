@@ -1,0 +1,29 @@
+[Q] Hard Break (hard_break) : Estelle strikes target enemy with all her might, dealing physical damage to and Interrupting the target and nearby enemies. If a struck enemy wasn't casting anything, their positive buffs are purged, dealing damage for each buff.
+Purge a buff per 0.1 seconds and damages and reduces mov.
+
+Cast Point : 0.4
+%Physical Damage (damage_percent) : 200
+Radius (radius) : 250
+%Physical Damage Per Buff (damage_percent_per_buff) : 75
+Note0 (note0) : Bonus damage from buffs purged is dealt over a short time after hit, dealing one damage instance every .1 seconds.
+CP Cost : 25
+Delay : 2
+
+[W] Morale (morale) : Estelle encourages allies around her with a shout. If an ally's CP is below 100, they gain CP Boost; if their CP is 100 or above, their STR is increased.
+STR or CP Boost based on CP.
+
+Delay : 3
+
+[E] Hurricane (hurricane) : Estelle spins in place to strike enemies around her for 3 seconds, dealing physical damage and knocking them back slightly on each hit.
+
+Delay : 4
+
+[D] Comet (comet) : Estelle releases a ballistic wave of energy that pierces enemies to deal physical damage. The damage increases based on the number of times they took physical damage from Estelle in the past 10 seconds.
+Damage from all allies.
+
+Delay : 4
+
+[R] Barrage (barrage) : Estelle delivers a flying kick to an enemy, then pummels them with her staff before finishing them off. Each hit deals physical damage and heals Estelle for a percentage of the damage dealt. The initial kick and the final blow deals more damage.
+200 CP Bonus : Increases lifesteal. The initial kick and final blow cause Faint.
+
+Delay : 10

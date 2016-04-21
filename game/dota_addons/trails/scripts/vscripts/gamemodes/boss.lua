@@ -179,7 +179,7 @@ end
 
 function Gamemode_Boss:OnHeroInGame(hero)
 	hero:GetAbilityByIndex(0):SetLevel(1)
-	hero:GetAbilityByIndex(4):SetLevel(1)
+	-- hero:GetAbilityByIndex(4):SetLevel(1)
 
 	if GameMode:HaveAllPlayersPicked() then
 		self:BeginGamemode()

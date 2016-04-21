@@ -5,6 +5,7 @@ require "damage_numbers"
 HERO_NAMES = {{"npc_dota_hero_windrunner", "npc_dota_hero_alisa"},
 				{"npc_dota_hero_ember_spirit", "npc_dota_hero_rean"},
 				{"npc_dota_hero_sniper", "npc_dota_hero_crow"},
+				{"npc_dota_hero_phantom_lancer", "npc_dota_hero_estelle"},
 				{"npc_dota_hero_omniknight", "npc_dota_hero_millium"}}
 
 STAT_STR = "modifier_str_up" -- Increases phys damage
@@ -223,6 +224,21 @@ function applyHealing(target, source, healing)
 		healing = healing * target:FindModifierByName("modifier_angel_quick_thelas_heal_increase"):GetHealingRecievedMultiplier()
 	end
 	target:Heal(healing, source)
+end
+
+function purgePositiveBuffs(target)
+	local modifiers_to_purge = {}
+	for k,modifier in pairs(target:FindAllModifiers()) do
+		if PURGABLE_BUFFS[modifier] then
+			table.insert(modifiers_to_purge, modifier)
+		end
+	end
+
+	local count = #modifiers_to_purge
+	for k,modifier in pairs(modifiers_to_purge) do
+		modifier:Destroy()
+	end
+	return count
 end
 
 function dash(unit, direction, speed, range, find_clear_space, impactFunction, other_args)
