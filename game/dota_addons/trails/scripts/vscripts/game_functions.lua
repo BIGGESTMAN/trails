@@ -5,7 +5,7 @@ require "damage_numbers"
 HERO_NAMES = {{"npc_dota_hero_windrunner", "npc_dota_hero_alisa"},
 				{"npc_dota_hero_ember_spirit", "npc_dota_hero_rean"},
 				{"npc_dota_hero_sniper", "npc_dota_hero_crow"},
-				{"npc_dota_hero_phantom_lancer", "npc_dota_hero_estelle"},
+				{"npc_dota_hero_legion_commander", "npc_dota_hero_estelle"},
 				{"npc_dota_hero_omniknight", "npc_dota_hero_millium"}}
 
 STAT_STR = "modifier_str_up" -- Increases phys damage

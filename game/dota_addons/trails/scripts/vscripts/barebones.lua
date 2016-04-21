@@ -12,6 +12,8 @@ require "gamemodes/tetracyclic_towers"
 require "gamemodes/arena"
 require "gamemodes/boss"
 
+require "libraries/attachments"
+
 LinkLuaModifier("modifier_interround_invulnerability", "modifier_interround_invulnerability.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_postround_stun", "modifier_postround_stun.lua", LUA_MODIFIER_MOTION_NONE)
 
@@ -405,6 +407,10 @@ function GameMode:OnHeroInGame(hero)
 		end)
 
 		if self:IsPvPGamemode() then self:AddStatusBars(hero) end
+
+		if hero:GetUnitName() == "npc_dota_hero_legion_commander" then
+			Attachments:AttachProp(hero, "attach_attack1", "models/heroes/earth_spirit/earth_spirit_staff.vmdl", 0.7)
+		end
 	end
 end
 

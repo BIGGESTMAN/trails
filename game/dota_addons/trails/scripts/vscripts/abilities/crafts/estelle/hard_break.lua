@@ -31,7 +31,7 @@ function spellCast(keys)
 				end
 			end
 			unit:Interrupt()
-		end
+		end)
 	end
 
 	spendCP(caster, ability)

@@ -113,7 +113,7 @@
 	"npc_dota_hero_windrunner_Lore"					"Alisa's technical knowledge and skill with the bow allow her to support her allies and devastate her enemies with wide-area magic effects."
 	"npc_dota_hero_sniper_Lore"						"Crow is a cocky, flexible gunslinger, adept in both physical combat and magic and fully comfortable leaving his and his enemies' fate up to chance."
 	"npc_dota_hero_omniknight_Lore"					"Millium devastates enemies in close range along with her robotic sidekick, Lammy."
-	"npc_dota_hero_phantom_lancer_Lore"				"do i look like a writer"
+	"npc_dota_hero_legion_commander_Lore"				"do i look like a writer"
 
 
 

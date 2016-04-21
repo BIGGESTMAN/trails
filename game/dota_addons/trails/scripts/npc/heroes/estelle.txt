@@ -1,7 +1,7 @@
 	"npc_dota_hero_estelle"
 	{
 		"AbilityLayout" 		"5"
-		"override_hero"			"npc_dota_hero_phantom_lancer"
+		"override_hero"			"npc_dota_hero_legion_commander"
 		"SoundSet"				"0"
 		"Ability1"				"hard_break"
 		"Ability2"				"morale"
@@ -68,4 +68,6 @@
 		"Adf"	"100"
 		"Spd"	"0"
 		"MasterQuartz"	"aegis"
+
+		"DisableWearables"			"1"
 	}
