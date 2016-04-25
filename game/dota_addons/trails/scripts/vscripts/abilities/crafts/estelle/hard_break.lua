@@ -29,7 +29,6 @@ function spellCast(keys)
 				if buffs_purged > 0 then
 					ability:ApplyDataDrivenModifier(caster, unit, "modifier_hard_break_purge_damage", {}):SetStackCount(buffs_purged)
 				end
-				print(buffs_purged)
 			end
 			applyImpede(unit, caster)
 		end)
@@ -44,6 +43,20 @@ end
 function dealPurgeDamage(keys)
 	local caster = keys.caster
 	local target = keys.target
+	local ability = keys.ability
 
-	
+	local damage_scale = ability:GetSpecialValueFor("damage_percent_per_buff") / 100
+	local damage_type = ability:GetAbilityDamageType()
+
+	applyEffect(target, damage_type, function()
+		dealScalingDamage(target, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR)
+	end)
+
+	local modifier = target:FindModifierByName("modifier_hard_break_purge_damage")
+	local stacks = modifier:GetStackCount()
+	if stacks > 1 then
+		modifier:SetStackCount(stacks - 1)
+	else
+		modifier:Destroy()
+	end
 end

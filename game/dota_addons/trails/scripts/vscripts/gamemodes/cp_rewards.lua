@@ -5,6 +5,7 @@ end
 BASE_CP_REWARD = 10
 
 function CPRewards:RewardCP(recipient, enemy, cp)
+	-- print("Rewarding CP", recipient, enemy, cp)
 	if cp ~= 0 then
 		cp = cp or BASE_CP_REWARD
 		enemy = enemy or recipient
@@ -15,7 +16,7 @@ function CPRewards:RewardCP(recipient, enemy, cp)
 			modifyCP(recipient, cp)
 		else
 			for k,hero in pairs(getAllLivingHeroes()) do
-				self:RewardCP(hero, enemy)
+				self:RewardCP(hero, enemy, cp)
 			end
 		end
 		EmitSoundOn("Trails.Unbalanced", enemy)

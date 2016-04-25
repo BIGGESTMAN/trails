@@ -42,7 +42,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"time_per_damage_instance"	"0.1"
+				"time_per_damage_instance"	"0.25"
 			}
 		}
 

@@ -5,7 +5,7 @@ Cast Point : 0.4
 %Physical Damage (damage_percent) : 200
 Radius (radius) : 250
 %Physical Damage Per Buff (damage_percent_per_buff) : 75
-Note0 (note0) : Bonus damage from buffs purged is dealt over a short time after hit, dealing one damage instance every .1 seconds.
+Note0 (note0) : Bonus damage from buffs purged is dealt over a short time, dealing one damage instance every .25 seconds.
 CP Cost : 25
 Delay : 2
 

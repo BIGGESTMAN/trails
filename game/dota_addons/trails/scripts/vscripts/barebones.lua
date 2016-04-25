@@ -683,7 +683,7 @@ end
 -- An ability was used by a player
 function GameMode:OnAbilityUsed(keys)
 	-- print('[BAREBONES] AbilityUsed')
-	DeepPrintTable(keys)
+	-- DeepPrintTable(keys)
 
 	local player = EntIndexToHScript(keys.PlayerID)
 	local abilityname = keys.abilityname
@@ -692,7 +692,7 @@ end
 -- A non-player entity (necro-book, chen creep, etc) used an ability
 function GameMode:OnNonPlayerUsedAbility(keys)
 	-- print('[BAREBONES] OnNonPlayerUsedAbility')
-	DeepPrintTable(keys)
+	-- DeepPrintTable(keys)
 
 	local abilityname=  keys.abilityname
 end
@@ -709,7 +709,7 @@ end
 -- A player leveled up an ability
 function GameMode:OnPlayerLearnedAbility( keys)
 	-- print ('[BAREBONES] OnPlayerLearnedAbility')
-	DeepPrintTable(keys)
+	-- DeepPrintTable(keys)
 
 	local player = EntIndexToHScript(keys.player)
 	local abilityname = keys.abilityname
@@ -718,7 +718,7 @@ end
 -- A channelled ability finished by either completing or being interrupted
 function GameMode:OnAbilityChannelFinished(keys)
 	-- print ('[BAREBONES] OnAbilityChannelFinished')
-	DeepPrintTable(keys)
+	-- DeepPrintTable(keys)
 
 	local abilityname = keys.abilityname
 	local interrupted = keys.interrupted == 1
@@ -735,8 +735,8 @@ end
 
 -- A player last hit a creep, a tower, or a hero
 function GameMode:OnLastHit(keys)
-	print ('[BAREBONES] OnLastHit')
-	DeepPrintTable(keys)
+	-- print ('[BAREBONES] OnLastHit')
+	-- DeepPrintTable(keys)
 
 	local isFirstBlood = keys.FirstBlood == 1
 	local isHeroKill = keys.HeroKill == 1
@@ -784,8 +784,8 @@ end
 
 -- A player killed another player in a multi-team context
 function GameMode:OnTeamKillCredit(keys)
-	print ('[BAREBONES] OnTeamKillCredit')
-	DeepPrintTable(keys)
+	-- print ('[BAREBONES] OnTeamKillCredit')
+	-- DeepPrintTable(keys)
 
 	local killerPlayer = PlayerResource:GetPlayer(keys.killer_userid)
 	local victimPlayer = PlayerResource:GetPlayer(keys.victim_userid)

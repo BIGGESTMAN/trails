@@ -24,6 +24,12 @@ RESULT_VICTORY = 1
 ENCOUNTER_END_DELAY = 5
 ARENA_TRIGGER_RANGE = 400
 
+TIME_BETWEEN_CP_ORB_SPAWNS = 15
+CP_ORBS_PER_SPAWN = 3
+CP_PER_ORB = 5
+CP_ORB_DURATION = 7
+ORB_PICKUP_RANGE = 75
+
 if Gamemode_Boss == nil then
 	Gamemode_Boss = class({})
 end
@@ -205,12 +211,28 @@ function Gamemode_Boss:CheckForArenaTrigger()
 end
 
 function Gamemode_Boss:HeroInRangeOfArena()
-	for k,hero in pairs(getAllLivingHeroes()) do
-		if distanceBetween(hero:GetAbsOrigin(), self:GetNextArenaPoint()) <= ARENA_TRIGGER_RANGE then
-			return true
+	return #self:HeroesInRangeOfPoint(self:GetNextArenaPoint(), ARENA_TRIGGER_RANGE) > 0
+end
+
+function Gamemode_Boss:ClosestHeroToPoint(point, max_range)
+	local heroes = self:HeroesInRangeOfPoint(point, max_range)
+	local closest_hero = nil
+	for k,hero in pairs(heroes) do
+		if closest_hero == nil or distanceBetween(hero:GetAbsOrigin(), point) < distanceBetween(closest_hero:GetAbsOrigin(), point) then
+			closest_hero = hero
 		end
 	end
-	return false
+	return closest_hero
+end
+
+function Gamemode_Boss:HeroesInRangeOfPoint(point, range)
+	local heroes = {}
+	for k,hero in pairs(getAllLivingHeroes()) do
+		if distanceBetween(hero:GetAbsOrigin(), point) <= range then
+			table.insert(heroes, hero)
+		end
+	end
+	return heroes
 end
 
 function Gamemode_Boss:GetNextArenaPoint()
@@ -248,9 +270,49 @@ function Gamemode_Boss:SpawnEnemy(unit_name, location)
 		CustomGameEventManager:Send_ServerToAllClients("boss_begin", {unit_id = unit:GetUnitName()})
 		self.active_boss = unit
 		unit:AddNewModifier(unit, nil, "modifier_boss_hp_tracker", {})
+		self:StartSpawningCPOrbs()
 	end
 	table.insert(self.active_enemies, unit)
 	return unit
+end
+
+function Gamemode_Boss:StartSpawningCPOrbs()
+	Timers:CreateTimer("spawn_cp_orbs", {
+		endTime = TIME_BETWEEN_CP_ORB_SPAWNS,
+		callback = function()
+			for i=1,CP_ORBS_PER_SPAWN do
+				local location = randomPointInCircle(self:GetNextArenaPoint(), self:GetNextEnemyGroup().arena_size)
+				self:CreateCPOrb(location)
+			end
+			return TIME_BETWEEN_CP_ORB_SPAWNS
+		end
+	})
+end
+
+function Gamemode_Boss:CreateCPOrb(location)
+	local orb_particle = ParticleManager:CreateParticle("particles/econ/items/outworld_devourer/od_shards_exile/od_shards_exile_prison_top_orb_flare.vpcf", PATTACH_CUSTOMORIGIN, nil)
+	ParticleManager:SetParticleControl(orb_particle, 0, location)
+
+	local update_interval = 1/30
+	local time_elapsed = 0
+	Timers:CreateTimer(0, function()
+		local hero = self:ClosestHeroToPoint(location, ORB_PICKUP_RANGE)
+		if hero then
+			CPRewards:RewardCP(hero, nil, CP_PER_ORB)
+			ParticleManager:DestroyParticle(orb_particle, false)
+		else
+			time_elapsed = time_elapsed + update_interval
+			if time_elapsed < CP_ORB_DURATION then
+				return update_interval
+			else
+				ParticleManager:DestroyParticle(orb_particle, false)
+			end
+		end
+	end)
+end
+
+function Gamemode_Boss:StopSpawningCPOrbs()
+	Timers:RemoveTimer("spawn_cp_orbs")
 end
 
 function Gamemode_Boss:CreateArenaWalls(radius)
@@ -307,6 +369,8 @@ end
 
 function Gamemode_Boss:OnEntityKilled(keys)
 	local unit = EntIndexToHScript(keys.entindex_killed)
+	local killer = nil
+	if keys.entindex_attacker ~= nil then killer = EntIndexToHScript(keys.entindex_attacker) end
 
 	if self.state == ENCOUNTER then
 		if unit:IsRealHero() then
@@ -323,6 +387,9 @@ function Gamemode_Boss:OnEntityKilled(keys)
 				self:EndEncounter(RESULT_DEFEAT)
 			end
 		else
+			if killer and killer:IsRealHero() then
+				CPRewards:RewardCP(killer, unit)
+			end
 			if self:GetLivingEnemyCount() == 0 then
 				self:EndEncounter(RESULT_VICTORY)
 			end
@@ -333,6 +400,7 @@ end
 function Gamemode_Boss:EndEncounter(result)
 	self.state = EXPLORING
 	self:RemoveLivingEnemies()
+	self:StopSpawningCPOrbs()
 	if result == RESULT_VICTORY then
 		self:GrantEncounterRewards(self:GetNextEnemyGroup())
 		self.current_path_progress = self.current_path_progress + 1
@@ -376,7 +444,9 @@ end
 
 function Gamemode_Boss:ReviveDeadHeroes()
 	for k,hero in pairs(getAllHeroes()) do
-		reviveHero(hero)
+		if not hero:IsAlive() then
+			reviveHero(hero)
+		end
 	end
 end
 
