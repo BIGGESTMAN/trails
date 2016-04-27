@@ -23,15 +23,9 @@ function OnBossBegin(msg) {
 	SetBossLifebarPercent(100);
 }
 
-function OnBossVictory(msg) {
+function OnBossEnd(msg) {
 	$.GetContextPanel().SetHasClass("MakeVisible", false);
 }
-
-
-function OnBossDefeat(msg) {
-	$.GetContextPanel().SetHasClass("MakeVisible", false);
-}
-
 
 function OnBossHealthChanged(msg) {
 	SetBossLifebarPercent(msg.percent.toFixed(1));
@@ -71,13 +65,12 @@ function OnBossVulnerabilityTimeUpdate(msg) {
 
 (function () {
 	GameEvents.Subscribe("boss_begin", OnBossBegin);
+	GameEvents.Subscribe("boss_end", OnBossEnd);
 	GameEvents.Subscribe("boss_health_changed", OnBossHealthChanged);
 	GameEvents.Subscribe("boss_vulnerability_changed", OnBossVulnerabilityChanged);
 	GameEvents.Subscribe("boss_update_vulnerability_time_remaining", OnBossVulnerabilityTimeUpdate);
 
 	GameEvents.Subscribe("boss_cast", OnBossCastAbility);
-	GameEvents.Subscribe("boss_victory", OnBossVictory);
-	GameEvents.Subscribe("boss_defeat", OnBossDefeat);
 })();
 
 // function OnNettable2Changed( table_name, key, data ) {

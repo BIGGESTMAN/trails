@@ -43,7 +43,7 @@ function Gamemode_Boss:Initialize()
 	CustomGameEventManager:RegisterListener("path_button_pressed", WrapMemberMethod(self.OnPathButtonPressed, self))
 	self.state = SHOPPING
 	self.current_path_progress = 0
-	self.paths_completed = 0
+	self.paths_completed = {}
 end
 
 function Gamemode_Boss:OnPathButtonPressed(eventSourceIndex, args)
@@ -197,7 +197,7 @@ end
 function Gamemode_Boss:BeginGamemode()
 	self.currently_on_path = nil
 	self:SetupPaths()
-	CustomGameEventManager:Send_ServerToAllClients("path_choice_window_start", {path_rewards = self:GetCraftRewards(), path_count = PATHS_COUNT})
+	CustomGameEventManager:Send_ServerToAllClients("path_choice_window_start", {path_rewards = self:GetCraftRewards(), path_count = PATHS_COUNT, paths_completed = self.paths_completed})
 	self:CheckForArenaTrigger()
 end
 
@@ -346,7 +346,7 @@ function Gamemode_Boss:GetNextEnemyGroup()
 
 	if not enemy_group.mobs then
 		local boss = enemy_group.boss
-		enemy_group = enemy_group[tostring(self.paths_completed + 1)]
+		enemy_group = enemy_group[tostring(#self.paths_completed + 1)]
 		enemy_group.mobs[boss] = 1
 	end
 
@@ -401,9 +401,14 @@ function Gamemode_Boss:EndEncounter(result)
 	self.state = EXPLORING
 	self:RemoveLivingEnemies()
 	self:StopSpawningCPOrbs()
+	if self:EnemyGroupIsBoss(self:GetNextEnemyGroup()) then
+		CustomGameEventManager:Send_ServerToAllClients("boss_end", {})
+	end
 	if result == RESULT_VICTORY then
 		self:GrantEncounterRewards(self:GetNextEnemyGroup())
-		self.current_path_progress = self.current_path_progress + 1
+		if self.currently_on_path then
+			self.current_path_progress = self.current_path_progress + 1
+		end
 	end
 	Timers:CreateTimer(ENCOUNTER_END_DELAY, function()
 		self:ReviveDeadHeroes()
@@ -415,7 +420,6 @@ function Gamemode_Boss:EndEncounter(result)
 end
 
 function Gamemode_Boss:GrantEncounterRewards(enemy_group)
-	-- DeepPrintTable(enemy_group)
 	local cp = enemy_group.cp_reward
 	local gold = enemy_group.gold_reward
 	local time = GameRules:GetGameTime() - self.time_encounter_started
@@ -426,6 +430,37 @@ function Gamemode_Boss:GrantEncounterRewards(enemy_group)
 
 	self:GrantGoldToAllHeroes(gold)
 	CPRewards:RewardCP(nil, nil, cp)
+	if self:EnemyGroupIsBoss(enemy_group) then
+		self:RewardCrafts()
+		self:EndPath()
+	end
+end
+
+function Gamemode_Boss:RewardCrafts()
+	local crafts = self.paths[self.currently_on_path].rewards
+	for k,hero in pairs(getAllHeroes()) do
+		hero:FindAbilityByName(crafts[hero]):SetLevel(1)
+	end
+end
+
+function Gamemode_Boss:EndPath()
+	CustomGameEventManager:Send_ServerToAllClients("path_end", {})
+
+	self.paths_completed[self.currently_on_path] = true
+	self.currently_on_path = nil
+	CustomGameEventManager:Send_ServerToAllClients("path_choice_window_start", {path_rewards = self:GetCraftRewards(), path_count = PATHS_COUNT, paths_completed = self.paths_completed})
+
+	self.state = SHOPPING
+	self.current_path_progress = 0
+end
+
+function Gamemode_Boss:EnemyGroupIsBoss(enemy_group)
+	for mob_name,count in pairs(enemy_group.mobs) do
+		if mob_name:find("trailsadventure_mob_boss_") then
+			return true
+		end
+	end
+	return false
 end
 
 function Gamemode_Boss:GrantGoldToAllHeroes(amount)

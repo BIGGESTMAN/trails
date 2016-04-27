@@ -1,6 +1,7 @@
 "use strict";
 
 function OnPathChoiceWindowStart(data) {
+	$.Msg(data)
 	$.GetContextPanel().SetHasClass("Visible", true);
 	for ( var i in data.path_rewards ) {
 		$("#Path" + i + "RewardIconsContainer").RemoveAndDeleteChildren()
@@ -8,8 +9,9 @@ function OnPathChoiceWindowStart(data) {
 			var abilityName = data.path_rewards[i][heroIndex]
 			CreateAbilityPanel(abilityName, heroIndex, $("#Path" + i + "RewardIconsContainer"));
 		}
-		$("#Button" + (i)).SetHasClass("Active", i != 4)
-		$("#Button" + (i)).enabled = i != 4
+		var path_enabled = i != 4 && !(i in data.paths_completed)
+		$("#Button" + (i)).SetHasClass("Active", path_enabled)
+		$("#Button" + (i)).enabled = path_enabled
 		// $("#Button" + i).SetHasClass("ButtonBevel", i in data.towersOwned)
 		// $("#Button" + i).SetHasClass("Dark", !(i in data.towersOwned))
 	}
@@ -32,6 +34,11 @@ function OnPathStarted(data) {
 	$.GetContextPanel().SetHasClass("Visible", false);
 }
 
+function OnPathEnded(data) {
+	$.GetContextPanel().SetHasClass("InPath", false);
+	$.GetContextPanel().SetHasClass("Visible", true);
+}
+
 // function OnPathChoiceWindowHide(data) {
 // 	$.GetContextPanel().SetHasClass("Visible", false);
 // }
@@ -49,4 +56,5 @@ function RGBAPlayerColor(id) {
 (function () {
 	GameEvents.Subscribe("path_choice_window_start", OnPathChoiceWindowStart);
 	GameEvents.Subscribe("path_start", OnPathStarted);
+	GameEvents.Subscribe("path_end", OnPathEnded);
 })();
