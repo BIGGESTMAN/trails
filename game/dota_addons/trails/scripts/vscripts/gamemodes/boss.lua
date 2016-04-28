@@ -186,8 +186,14 @@ function Gamemode_Boss:OnEntityHurt(keys)
 end
 
 function Gamemode_Boss:OnHeroInGame(hero)
-	hero:GetAbilityByIndex(0):SetLevel(1)
-	-- hero:GetAbilityByIndex(4):SetLevel(1)
+	-- local starting_craft = hero:GetAbilityByIndex(0)
+	-- local s_craft = hero:GetAbilityByIndex(4)
+	-- if starting_craft then starting_craft:SetLevel(1) end
+	-- if s_craft then s_craft:SetLevel(1) end
+
+	for k,ability in pairs(getAllAbilities(hero)) do
+		ability:SetLevel(ability:GetMaxLevel())
+	end
 
 	if GameMode:HaveAllPlayersPicked() then
 		self:BeginGamemode()

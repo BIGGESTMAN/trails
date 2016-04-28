@@ -12,7 +12,6 @@
 		"flawless_victory_cp"	"5"
 		"flawless_victory_gold"	"100"
 		"arena_size"			"800"
-		"disabled"				"1"
 	}
 	"2"
 	{

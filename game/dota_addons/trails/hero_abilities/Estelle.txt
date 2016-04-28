@@ -24,6 +24,12 @@ Damage from all allies.
 Delay : 4
 
 [R] Barrage (barrage) : Estelle delivers a flying kick to an enemy, then pummels them with her staff before finishing them off. Each hit deals physical damage and heals Estelle for a percentage of the damage dealt. The initial kick and the final blow deals more damage.
-200 CP Bonus : Increases lifesteal. The initial kick and final blow cause Faint.
+200 CP Bonus : Doubles barrage duration and number of hits.
 
+%Kick Damage (kick_damage_percent) : 150
+Barrage Duration (barrage_duration) : 1.5
+%Barrage Hit Damage (barrage_hit_damage_percent) : 35
+Total Barrage Hits (barrage_hits) : 10
+%Lifesteal (lifesteal_percent) : 25
+Note0 (note0) : The target is stunned during the barrage.
 Delay : 10

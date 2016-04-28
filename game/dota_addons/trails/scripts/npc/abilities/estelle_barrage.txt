@@ -1,0 +1,124 @@
+	"barrage"
+	{
+		"BaseClass"						"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+		"MaxLevel"						"1"
+
+		"AbilityTextureName"			"rean_azure_flame_slash"
+		"AbilityCastAnimation"			""
+
+		"precache"
+		{
+
+		}
+
+		"AbilityCastPoint"				"0"
+		"AbilityCooldown"				"10"
+		"AbilityManaCost"				"0"
+		"AbilityCastRange"				"600"
+		"CPCost"						"100"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"flight_speed"			"800"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"kick_damage_percent"	"150"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"barrage_duration"		"1.5"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"barrage_hits"			"10"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"barrage_hit_damage_percent"	"35"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"max_cp_barrage_duration"	"3"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER" // doesn't do anything
+				"max_cp_hits"			"20"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"lifesteal_percent"		"25"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"abilities/crafts/estelle/barrage"
+				"Function"		"spellCast"
+			}
+		}
+
+		"Modifiers"
+		{
+			"modifier_barrage_dashing"
+			{
+				"States"
+				{
+					"MODIFIER_STATE_NO_UNIT_COLLISION"		"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_STUNNED"				"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+
+			"modifier_barrage_active"
+			{
+				"ThinkInterval"	"%barrage_duration / %barrage_hits"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"abilities/crafts/estelle/barrage"
+						"Function"		"dealBarrageDamage"
+					}
+				}
+
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"abilities/crafts/estelle/barrage"
+						"Function"		"endBarrage"
+					}
+				}
+
+				"States"
+				{
+					"MODIFIER_STATE_STUNNED"		"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+
+			"modifier_barrage_stun"
+			{
+				"States"
+				{
+					"MODIFIER_STATE_STUNNED"		"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+		}
+	}

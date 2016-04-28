@@ -657,12 +657,20 @@ end
 
 function getAllActiveAbilities(hero)
 	local abilities = {}
+	for k,ability in pairs(getAllAbilities(hero)) do
+		if not ability:IsHidden() then
+			abilities[k] = ability
+		end
+	end
+	return abilities
+end
+
+function getAllAbilities(hero)
+	local abilities = {}
 	for i=0,hero:GetAbilityCount() - 1 do
 		local ability = hero:GetAbilityByIndex(i)
-		if ability and not ability:IsHidden() then
+		if ability then
 			abilities[i] = ability
-		else
-			break
 		end
 	end
 	return abilities
