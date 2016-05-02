@@ -1,7 +1,6 @@
 "use strict";
 
 function OnPathChoiceWindowStart(data) {
-	$.Msg(data)
 	$.GetContextPanel().SetHasClass("Visible", true);
 	for ( var i in data.path_rewards ) {
 		$("#Path" + i + "RewardIconsContainer").RemoveAndDeleteChildren()

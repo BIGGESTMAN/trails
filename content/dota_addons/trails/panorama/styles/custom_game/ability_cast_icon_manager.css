@@ -1,0 +1,188 @@
+.CastIconContainer {
+	width: 100%;
+	height: 100%;
+}
+
+.BossLifebar.MakeVisible {
+	opacity: 1;
+	visibility: visible;
+	transform: scaleX(1) scaleY(1);
+}
+
+#Lifebar_Container_CastAnnounce {
+	margin-top: -12px;
+	width: 100%;
+	padding: 16px 32px;
+	flow-children: down;
+}
+
+.Lifebar_CastAnnouncement {
+	opacity: 0;
+
+	margin: 2px;
+
+	horizontal-align: center;
+	transform: scaleX(1.5) scaleY(1.5);
+	transition: opacity 0.1s ease 0.0s, transform 0.2s ease-in-out 0.0s, position 0.4s ease-in-out 0.0s;
+
+	flow-children: right;
+}
+
+.Lifebar_CastAnnouncement.CastAnnounce_Visible {
+	opacity: 1;
+	transform: scaleX(1) scaleY(1);
+	transition: opacity 0.3s ease 0.0s, transform 0.3s ease-in-out 0.0s, position 0.4s ease-in-out 0.0s;
+}
+
+.Lifebar_CastAnnouncement .Icon {
+	width: 48px;
+	height: 48px;
+	box-shadow: #000000df -1px -1px 1px 4px;
+}
+
+.Lifebar_CastAnnouncement .Text {
+	font-family: Radiance;
+	font-size: 26px;
+	color: #e0e0e0;
+	text-shadow: 2px 2px 2px #000000;
+	margin-left: 6px;
+	vertical-align: middle;
+}
+
+.Lifebar_Outer {
+	width: 100%;
+	height: 28px;
+	margin-top: 8px;
+	horizontal-align: center;
+	//box-shadow: #ff5060 -2px -2px 16px 4px;
+	background-color: #000000;
+}
+.Lifebar_Background {
+	width: 100%;
+	height: 100%;
+	background-color: gradient(linear, 0% 0%, 0% 100%, from(#252525), to(#101010));
+	box-shadow: inset #000000ff 1px 1px 1px 1px;
+}
+
+#Lifebar_Text {
+	horizontal-align: center;
+	font-family: Radiance;
+	font-size: 18px;
+	font-weight: bold;
+	color: #e0e0e0;
+	text-shadow: 1px 1px 2px 2.0 #000000;
+	vertical-align: middle;
+}
+
+#Lifebar_Name_Text {
+	horizontal-align: center;
+	vertical-align: center;
+	font-size: 24px;
+	text-transform: uppercase;
+	color: #f0f0f0;
+	text-shadow: 1px 1px 2px 2.0 #000000;
+
+	width: 100%;
+	text-align: center;
+}
+
+#Lifebar_Title_Text {
+	horizontal-align: center;
+	vertical-align: center;
+	font-size: 16px;
+	text-transform: uppercase;
+	color: #d0d0d0;
+	text-shadow: 1px 1px 2px 2.0 #000000;
+
+	/*width: 100%;*/
+	text-align: center;
+	border-bottom: 1px solid #a0a0a080;
+	/*text-decoration: underline;*/
+}
+
+.Lifebar_OuterBackground {
+	/*background-image: url('file://{images}/custom_game/healthbar_bg.png');*/
+	background-size: 600px 70px;
+	background-position: 0 20px;
+	background-repeat: no-repeat;
+	width: 600px;
+	/*height: 90px;*/
+	flow-children: down;
+}
+
+.Lifebar_Container_Top {
+	width: 100%;
+	height: 60px;
+	flow-children: down;
+}
+
+.Lifebar_Container_Bottom {
+	width: 100%;
+	/*//height: 64px;*/
+	flow-children: down;
+
+/*
+	background-image: url("s2r://panorama/images/custom_game/lifebar_bg_png.vtex");
+	background-size: 100% auto;
+	background-position: 50% 100%;
+	background-repeat: no-repeat;
+	*/
+}
+
+#Lifebar_Fill {
+	width: 76%;
+	height: 100%;
+	horizontal-align: center;
+	background-color: gradient(linear, 0% 0%, 0% 100%, from(#e22b40), to(#652337));
+	border-left: 1px solid #ffffff08;
+	border-right: 2px solid #ffffff08;
+	box-shadow: #00000060 -6px -2px 3px 12px;
+	/*z-index: -1000;*/
+}
+
+.BossLifebar.Vulnerable #Lifebar_Fill {
+	background-color: gradient(linear, 0% 0%, 0% 100%, from(#FF9933), to(#FFB775));
+}
+
+#VulnerabilityThresholdBar {
+	height: 100%;
+	width: 100%;
+	horizontal-align: center;
+	visibility: collapse;
+	background-color: gradient(linear, 0% 0%, 0% 100%, from(#e22b40), to(#652337));
+	border-left: 1px solid #ffffff08;
+	border-right: 2px solid #ffffff08;
+	box-shadow: #00000060 -6px -2px 3px 12px;
+	/*z-index: 1000;*/
+}
+
+.BossLifebar.Vulnerable #VulnerabilityThresholdBar {
+	visibility: visible;
+}
+
+#VulnerabilityDurationBar {
+	width: 80%;
+	height: 20px;
+	background-color: gradient( linear, 0% 0%, 0% 100%, from( #32393e ), to( #151515 ) );
+	box-shadow: #000000df -4px -4px 2px 8px;
+	border-left: 1px solid #ffffff06;
+	border-right: 1px solid #ffffff06;
+	border-bottom: 1px solid #101010;
+	visibility: collapse;
+	z-index: -1;
+	horizontal-align: center;
+	
+	transition-property: transform;
+	transition-duration: 0.15s;
+	transform: translate3d(0px, -20px, 0px);
+}
+
+#VulnerabilityDurationBarFill {
+	height: 100%;
+	background-color: gradient( linear, 0% 0%, 0% 100%, from( #FF9933 ), to( #FFB775 ) );
+}
+
+.BossLifebar.Vulnerable #VulnerabilityDurationBar {
+	visibility: visible;
+	transform: translate3d(0px, 0px, 0px);
+}

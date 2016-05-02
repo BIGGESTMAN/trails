@@ -69,5 +69,6 @@
 		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/boss_lifebar.xml" />
 		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/path_choice_window.xml" />
 		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/encounter_rewards.xml" />
+		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/ability_cast_icon_manager.xml" />
 	</Panel>
 </root>

@@ -35,8 +35,6 @@ if Gamemode_Boss == nil then
 end
 
 function Gamemode_Boss:Initialize()
-	-- ListenToGameEvent('entity_killed', Dynamic_Wrap(Gamemode_Boss, 'OnUnitKilled'), self)
-
 	-- local base_vision = Vision(DOTA_TEAM_GOODGUYS)
 	-- base_vision:Add(Vector(0, 0, 0), 1400)
 

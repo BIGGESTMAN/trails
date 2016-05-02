@@ -1,0 +1,33 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/custom_game/ability_cast_icon.css" />
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+	</styles>
+	<script>
+		var ability_name = $.GetContextPanel().GetAttributeString("ability_name", -1);
+		$("#Text").text = $.Localize("#DOTA_Tooltip_Ability_"+ability_name);
+		$("#Icon").abilityname = ability_name;
+
+		$.Schedule(1/200, UpdateIconLocation)
+
+		function UpdateIconLocation() {
+			var casterIndex = $.GetContextPanel().GetAttributeInt("caster_index", 0);
+			if (casterIndex != undefined) {
+				var screenLocation = GetScreenPositionOfUnit(casterIndex)
+				$.GetContextPanel().style.position = screenLocation[0] + "px " + screenLocation[1] + "px 0px"
+				$.Schedule(1/200, UpdateIconLocation)
+			}
+		}
+
+		function GetScreenPositionOfUnit(unit) {
+			var unit_location = Entities.GetAbsOrigin(unit)
+			var screenX = Game.WorldToScreenX(unit_location[0], unit_location[1], unit_location[2])
+			var screenY = Game.WorldToScreenY(unit_location[0], unit_location[1], unit_location[2])
+			return [screenX, screenY]
+		}
+	</script>
+	<Panel hittest="false" class="AbilityCastIcon">
+		<DOTAAbilityImage id="Icon" class="Icon"/>
+		<Label hittest="true" id="Text" class="Text" text="(Skill)" />
+	</Panel>
+</root>

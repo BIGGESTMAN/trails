@@ -1,0 +1,11 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/custom_game/ability_cast_icon_manager.css" />
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+	</styles>
+	<scripts>
+		<include src="s2r://panorama/scripts/custom_game/ability_cast_icon_manager.js" />
+	</scripts>
+	<Panel hittest="false" class="CastIconContainer">
+	</Panel>
+</root>

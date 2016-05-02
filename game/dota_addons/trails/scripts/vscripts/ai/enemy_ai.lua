@@ -136,12 +136,14 @@ end
 function EnemyAI:Cast(ability_name)
 	local ability = self.unit:FindAbilityByName(ability_name)
 	if ability then
-		print("[AI] Casting " .. ability_name)
-		print(ability:GetCooldownTimeRemaining())
+		-- print("[AI] Casting " .. ability_name)
+		-- print(ability:GetCooldownTimeRemaining())
 		self:IssueOrder({
 			OrderType = DOTA_UNIT_ORDER_CAST_NO_TARGET,
 			AbilityIndex = ability:entindex(),
 		})
+
+		CustomGameEventManager:Send_ServerToAllClients("ability_cast", {abilityName = ability_name, casterIndex = self.unit:entindex()})
 	end
 end
 
@@ -153,6 +155,8 @@ function EnemyAI:CastAtTarget(ability_name, target)
 			AbilityIndex = ability:entindex(),
 			TargetIndex = target:entindex(),
 		})
+		
+		CustomGameEventManager:Send_ServerToAllClients("ability_cast", {abilityName = ability_name, casterIndex = self.unit:entindex()})
 	end
 end
 

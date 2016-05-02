@@ -116,6 +116,12 @@
 	"npc_dota_hero_legion_commander_Lore"				"do i look like a writer"
 
 
+	"DOTA_Tooltip_Ability_mob_jelly_shroom_spores"			"Spores"
+	"DOTA_Tooltip_Ability_mob_gordi_chief_go_ape"			"Go Ape"
+	"DOTA_Tooltip_Ability_mob_gordi_chief_knuckleduster"	"Knuckleduster"
+
+
+
 
 
 	

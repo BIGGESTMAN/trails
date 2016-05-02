@@ -1,0 +1,61 @@
+@define TotalLength: 2.3s;
+@define TimingFunc: linear;
+@define IterationCount: 1;
+@define AnimationDelay: 0s;
+
+.CastIconContainer {
+	width: 100%;
+	height: 100%;
+}
+
+.AbilityCastIcon {
+	opacity: 0;
+
+	margin: 2px;
+
+	/*horizontal-align: center;*/
+	transform: scaleX(1.5) scaleY(1.5);
+	transition: opacity 0.1s ease 0.0s, transform 0.2s ease-in-out 0.0s;
+
+	flow-children: right;
+
+	animation-name: gamemode_anim;
+	animation-delay: AnimationDelay;
+	animation-duration: TotalLength;
+	animation-timing-function: TimingFunc;
+	animation-iteration-count: IterationCount;
+}
+
+.AbilityCastIcon.CastAnnounce_Visible {
+	opacity: 1;
+	transform: scaleX(1) scaleY(1);
+	transition: opacity 0.3s ease 0.0s, transform 0.3s ease-in-out 0.0s;
+}
+
+.AbilityCastIcon .Icon {
+	width: 48px;
+	height: 48px;
+	box-shadow: #000000df -1px -1px 1px 4px;
+}
+
+.AbilityCastIcon .Text {
+	font-family: Radiance;
+	font-size: 26px;
+	color: #e0e0e0;
+	text-shadow: 2px 2px 2px #000000;
+	margin-left: 6px;
+	vertical-align: middle;
+}
+
+@keyframes 'gamemode_anim'
+{
+	0%
+	{
+		transform: translateX( 0px ) translateY( 0px );
+	}
+
+	100%
+	{
+		transform: translateX( 0px ) translateY( -100px );
+	}
+}

@@ -7,7 +7,7 @@
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
 		"MaxLevel"						"1"
 
-		"AbilityTextureName"			"invoker_sunstrike"
+		"AbilityTextureName"			"greevil_rot"
 		"AbilityCastAnimation"			"ACT_DOTA_SPAWN"
 		"AnimationPlaybackRate" 		"0.75"
 
