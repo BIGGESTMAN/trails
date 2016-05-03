@@ -91,7 +91,7 @@
 		{
 			"RunScript"
 			{
-				"ScriptFile"	"crafts/crow/freezing_bullet"
+				"ScriptFile"	"abilities/crafts/crow/freezing_bullet"
 				"Function"		"spellCast"
 				"Target"		"POINT"
 			}

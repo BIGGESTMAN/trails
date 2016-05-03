@@ -33,7 +33,7 @@
 		{
 			"RunScript"
 			{
-				"ScriptFile"	"crafts/crow/cross_raven"
+				"ScriptFile"	"abilities/crafts/crow/cross_raven"
 				"Function"		"retarget"
 				"Target"		"POINT"
 			}

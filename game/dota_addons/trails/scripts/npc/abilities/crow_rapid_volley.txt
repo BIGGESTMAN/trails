@@ -105,7 +105,7 @@
 		{
 			"RunScript"
 			{
-				"ScriptFile"	"crafts/crow/rapid_volley"
+				"ScriptFile"	"abilities/crafts/crow/rapid_volley"
 				"Function"		"spellCast"
 			}
 		}

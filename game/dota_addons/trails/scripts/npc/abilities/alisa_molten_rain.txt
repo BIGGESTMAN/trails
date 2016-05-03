@@ -86,7 +86,7 @@
 		{
 			"RunScript"
 			{
-				"ScriptFile"	"crafts/alisa/molten_rain"
+				"ScriptFile"	"abilities/crafts/alisa/molten_rain"
 				"Function"		"spellCast"
 				"Target"		"POINT"
 			}

@@ -60,7 +60,7 @@
 		{
 			"RunScript"
 			{
-				"ScriptFile"	"crafts/alisa/heavenly_gift"
+				"ScriptFile"	"abilities/crafts/alisa/heavenly_gift"
 				"Function"		"spellCast"
 				"Target"		"POINT"
 			}

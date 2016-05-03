@@ -67,7 +67,7 @@
 		{
 			"RunScript"
 			{
-				"ScriptFile"	"crafts/rean/azure_flame_slash"
+				"ScriptFile"	"abilities/crafts/rean/azure_flame_slash"
 				"Function"		"spellCast"
 			}
 		}
@@ -76,7 +76,7 @@
 		{
 			"RunScript"
 			{
-				"ScriptFile"	"crafts/rean/azure_flame_slash"
+				"ScriptFile"	"abilities/crafts/rean/azure_flame_slash"
 				"Function"		"channelFinish"
 			}
 		}
@@ -85,7 +85,7 @@
 		{
 			"RunScript"
 			{
-				"ScriptFile"	"crafts/rean/azure_flame_slash"
+				"ScriptFile"	"abilities/crafts/rean/azure_flame_slash"
 				"Function"		"channelSucceeded"
 			}
 		}
@@ -104,7 +104,7 @@
 				{
 					"RunScript"
 					{
-						"ScriptFile"	"crafts/rean/azure_flame_slash"
+						"ScriptFile"	"abilities/crafts/rean/azure_flame_slash"
 						"Function"		"updateFacing"
 					}
 				}

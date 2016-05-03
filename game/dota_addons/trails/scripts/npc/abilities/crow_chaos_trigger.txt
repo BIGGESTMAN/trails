@@ -71,7 +71,7 @@
 		{
 			"RunScript"
 			{
-				"ScriptFile"	"crafts/crow/chaos_trigger"
+				"ScriptFile"	"abilities/crafts/crow/chaos_trigger"
 				"Function"		"spellCast"
 				"Target"		"POINT"
 			}
@@ -86,7 +86,7 @@
 				{
 					"RunScript"
 					{
-						"ScriptFile"	"crafts/crow/chaos_trigger"
+						"ScriptFile"	"abilities/crafts/crow/chaos_trigger"
 						"Function"		"aim"
 					}
 				}
@@ -95,7 +95,7 @@
 				{
 					"RunScript"
 					{
-						"ScriptFile"	"crafts/crow/chaos_trigger"
+						"ScriptFile"	"abilities/crafts/crow/chaos_trigger"
 						"Function"		"aimingFinished"
 					}
 				}

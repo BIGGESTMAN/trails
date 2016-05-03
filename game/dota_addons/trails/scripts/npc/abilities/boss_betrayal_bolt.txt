@@ -63,7 +63,7 @@
 		{
 			"RunScript"
 			{
-				"ScriptFile"	"boss_abilities/betrayal_bolt"
+				"ScriptFile"	"abilities/boss_abilities/betrayal_bolt"
 				"Function"		"onUpgrade"
 			}
 		}
@@ -72,7 +72,7 @@
 		{
 			"RunScript"
 			{
-				"ScriptFile"	"boss_abilities/betrayal_bolt"
+				"ScriptFile"	"abilities/boss_abilities/betrayal_bolt"
 				"Function"		"abilityPhaseStart"
 			}
 		}
@@ -81,7 +81,7 @@
 		{
 			"RunScript"
 			{
-				"ScriptFile"	"boss_abilities/betrayal_bolt"
+				"ScriptFile"	"abilities/boss_abilities/betrayal_bolt"
 				"Function"		"abilityPhaseInterrupted"
 			}
 		}
@@ -90,7 +90,7 @@
 		{
 			"RunScript"
 			{
-				"ScriptFile"	"boss_abilities/betrayal_bolt"
+				"ScriptFile"	"abilities/boss_abilities/betrayal_bolt"
 				"Function"		"spellCast"
 			}
 		}

@@ -86,7 +86,7 @@
 		{
 			"RunScript"
 			{
-				"ScriptFile"	"crafts/rean/autumn_leaf_cutter"
+				"ScriptFile"	"abilities/crafts/rean/autumn_leaf_cutter"
 				"Function"		"spellCast"
 				"Target"		"POINT"
 			}

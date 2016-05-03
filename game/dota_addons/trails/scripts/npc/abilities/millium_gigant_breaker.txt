@@ -119,7 +119,7 @@
 		{
 			"RunScript"
 			{
-				"ScriptFile"	"crafts/millium/gigant_breaker"
+				"ScriptFile"	"abilities/crafts/millium/gigant_breaker"
 				"Function"		"spellCast"
 				"Target"		"POINT"
 			}

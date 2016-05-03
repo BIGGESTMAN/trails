@@ -93,7 +93,7 @@
 		{
 			"RunScript"
 			{
-				"ScriptFile"	"crafts/crow/cross_raven"
+				"ScriptFile"	"abilities/crafts/crow/cross_raven"
 				"Function"		"spellCast"
 				"Target"		"POINT"
 			}
@@ -103,7 +103,7 @@
 		{
 			"RunScript"
 			{
-				"ScriptFile"	"crafts/crow/cross_raven"
+				"ScriptFile"	"abilities/crafts/crow/cross_raven"
 				"Function"		"channelFinish"
 			}
 		}
@@ -112,7 +112,7 @@
 		{
 			"RunScript"
 			{
-				"ScriptFile"	"crafts/crow/cross_raven"
+				"ScriptFile"	"abilities/crafts/crow/cross_raven"
 				"Function"		"channelInterrupted"
 			}
 		}
@@ -137,7 +137,7 @@
 				{
 					"RunScript"
 					{
-						"ScriptFile"	"crafts/crow/cross_raven"
+						"ScriptFile"	"abilities/crafts/crow/cross_raven"
 						"Function"		"triggerBulletsConverge"
 					}
 				}
@@ -149,7 +149,7 @@
 				{
 					"RunScript"
 					{
-						"ScriptFile"	"crafts/crow/cross_raven"
+						"ScriptFile"	"abilities/crafts/crow/cross_raven"
 						"Function"		"bulletImpacted"
 					}
 				}

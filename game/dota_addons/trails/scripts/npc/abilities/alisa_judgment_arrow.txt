@@ -70,7 +70,7 @@
 		{
 			"RunScript"
 			{
-				"ScriptFile"	"crafts/alisa/judgment_arrow"
+				"ScriptFile"	"abilities/crafts/alisa/judgment_arrow"
 				"Function"		"spellCast"
 				"Target"		"POINT"
 			}
@@ -80,7 +80,7 @@
 		{
 			"RunScript"
 			{
-				"ScriptFile"	"crafts/alisa/judgment_arrow"
+				"ScriptFile"	"abilities/crafts/alisa/judgment_arrow"
 				"Function"		"channelFinish"
 			}
 		}
@@ -89,7 +89,7 @@
 		{
 			"RunScript"
 			{
-				"ScriptFile"	"crafts/alisa/judgment_arrow"
+				"ScriptFile"	"abilities/crafts/alisa/judgment_arrow"
 				"Function"		"channelSucceeded"
 			}
 		}

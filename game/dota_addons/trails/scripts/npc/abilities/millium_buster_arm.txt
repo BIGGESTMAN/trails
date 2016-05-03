@@ -73,7 +73,7 @@
 		{
 			"RunScript"
 			{
-				"ScriptFile"	"crafts/millium/buster_arm"
+				"ScriptFile"	"abilities/crafts/millium/buster_arm"
 				"Function"		"abilityPhaseStart"
 			}
 		}
@@ -82,7 +82,7 @@
 		{
 			"RunScript"
 			{
-				"ScriptFile"	"crafts/millium/buster_arm"
+				"ScriptFile"	"abilities/crafts/millium/buster_arm"
 				"Function"		"abilityPhaseInterrupted"
 			}
 		}
@@ -91,7 +91,7 @@
 		{
 			"RunScript"
 			{
-				"ScriptFile"	"crafts/millium/buster_arm"
+				"ScriptFile"	"abilities/crafts/millium/buster_arm"
 				"Function"		"spellCast"
 				"Target"		"POINT"
 			}

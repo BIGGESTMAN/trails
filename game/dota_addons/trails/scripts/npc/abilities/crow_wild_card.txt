@@ -1,7 +1,7 @@
 	"wild_card"
 	{
 		"BaseClass"						"ability_lua"
-		"ScriptFile"					"crafts/crow/wild_card"
+		"ScriptFile"					"abilities/crafts/crow/wild_card"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"

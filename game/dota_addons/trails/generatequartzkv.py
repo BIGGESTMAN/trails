@@ -51,7 +51,7 @@ def WriteQuartzDefinition(file, item, items_written, masterquartz_level = None):
 	else:
 		inheritedItem = item
 		name = '{}{}'.format(name_prefix, item['internal_name'])
-		script_file = 'arts/{}/{}'.format(element_strings[item['element']], item['internal_name'])
+		script_file = 'abilities/arts/{}/{}'.format(element_strings[item['element']], item['internal_name'])
 		shop_interactions = "1"
 		cost = item['quartz_cost']
 		texture_name = "item_quartz_{}_{}".format(element_strings[item['element']], item['tier'])

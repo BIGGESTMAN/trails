@@ -53,7 +53,7 @@
 		{
 			"RunScript"
 			{
-				"ScriptFile"	"boss_abilities/sunstrike"
+				"ScriptFile"	"abilities/boss_abilities/sunstrike"
 				"Function"		"onUpgrade"
 			}
 		}
@@ -62,7 +62,7 @@
 		{
 			"RunScript"
 			{
-				"ScriptFile"	"boss_abilities/sunstrike"
+				"ScriptFile"	"abilities/boss_abilities/sunstrike"
 				"Function"		"abilityPhaseStart"
 			}
 		}
@@ -71,7 +71,7 @@
 		{
 			"RunScript"
 			{
-				"ScriptFile"	"boss_abilities/sunstrike"
+				"ScriptFile"	"abilities/boss_abilities/sunstrike"
 				"Function"		"abilityPhaseInterrupted"
 			}
 		}
@@ -80,7 +80,7 @@
 		{
 			"RunScript"
 			{
-				"ScriptFile"	"boss_abilities/sunstrike"
+				"ScriptFile"	"abilities/boss_abilities/sunstrike"
 				"Function"		"spellCast"
 			}
 		}

@@ -77,7 +77,7 @@
 		{
 			"RunScript"
 			{
-				"ScriptFile"	"crafts/alisa/blessed_arrow"
+				"ScriptFile"	"abilities/crafts/alisa/blessed_arrow"
 				"Function"		"spellCast"
 				"Target"		"POINT"
 			}
@@ -98,7 +98,7 @@
 				{
 					"RunScript"
 					{
-						"ScriptFile"	"crafts/alisa/blessed_arrow"
+						"ScriptFile"	"abilities/crafts/alisa/blessed_arrow"
 						"Function"		"mischievousBlessingAttacked"
 					}
 				}

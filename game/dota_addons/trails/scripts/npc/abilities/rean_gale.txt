@@ -82,7 +82,7 @@
 		{
 			"RunScript"
 			{
-				"ScriptFile"	"crafts/rean/gale"
+				"ScriptFile"	"abilities/crafts/rean/gale"
 				"Function"		"spellCast"
 				"Target"		"POINT"
 			}
@@ -99,7 +99,7 @@
 				{
 					"RunScript"
 					{
-						"ScriptFile"	"crafts/rean/gale"
+						"ScriptFile"	"abilities/crafts/rean/gale"
 						"Function"		"attackLanded"
 					}
 				}
@@ -115,7 +115,7 @@
 				{
 					"RunScript"
 					{
-						"ScriptFile"	"crafts/rean/gale"
+						"ScriptFile"	"abilities/crafts/rean/gale"
 						"Function"		"removeMarkParticle"
 					}
 				}

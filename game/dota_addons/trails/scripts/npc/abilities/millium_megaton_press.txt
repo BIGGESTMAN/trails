@@ -75,7 +75,7 @@
 		{
 			"RunScript"
 			{
-				"ScriptFile"	"crafts/millium/megaton_press"
+				"ScriptFile"	"abilities/crafts/millium/megaton_press"
 				"Function"		"spellCast"
 				"Target"		"POINT"
 			}

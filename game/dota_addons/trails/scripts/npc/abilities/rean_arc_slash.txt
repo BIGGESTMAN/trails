@@ -85,7 +85,7 @@
 		{
 			"RunScript"
 			{
-				"ScriptFile"	"crafts/rean/arc_slash"
+				"ScriptFile"	"abilities/crafts/rean/arc_slash"
 				"Function"		"spellCast"
 				"Target"		"POINT"
 			}
