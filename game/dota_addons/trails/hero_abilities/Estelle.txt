@@ -12,6 +12,10 @@ Delay : 2
 [W] Morale (morale) : Estelle encourages allies around her with a shout. If an ally's CP is below 100, they gain CP Boost; if their CP is 100 or above, their STR is increased.
 STR or CP Boost based on CP.
 
+Radius (radius) : 600
+%STR Increase (str_increase) : 25
+Buff Duration (buff_duration) : 7
+CP Cost : 50
 Delay : 3
 
 [E] Hurricane (hurricane) : Estelle spins in place to strike enemies around her for 3 seconds, dealing physical damage and knocking them back slightly on each hit.
