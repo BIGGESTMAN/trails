@@ -29,6 +29,12 @@ Delay : 4
 [D] Comet (comet) : Estelle releases a ballistic wave of energy that pierces enemies to deal physical damage. The damage increases based on the number of times they took physical damage from Estelle in the past 10 seconds.
 Damage from all allies.
 
+Range (range) : 800
+Projectile Speed : 1300
+Projectile Radius : 150
+%Physical Damage (damage_percent) : 110
+%Physical Damage Per Damage Instance (damage_percent_per_instance) : 40
+CP Cost : 60
 Delay : 4
 
 [R] Barrage (barrage) : Estelle delivers a flying kick to an enemy, then pummels them with her staff before finishing them off. Each hit deals physical damage and heals Estelle for a percentage of the damage dealt. The initial kick and the final blow deals more damage.

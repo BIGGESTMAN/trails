@@ -190,12 +190,19 @@ function Gamemode_Boss:OnHeroInGame(hero)
 	-- if s_craft then s_craft:SetLevel(1) end
 
 	for k,ability in pairs(getAllAbilities(hero)) do
-		ability:SetLevel(ability:GetMaxLevel())
+		self:HeroLearnAbility(ability)
 	end
 
 	if GameMode:HaveAllPlayersPicked() then
 		self:BeginGamemode()
 	end
+end
+
+function Gamemode_Boss:HeroLearnAbility(ability)
+	local activated = ability:IsActivated()
+	ability:SetActivated(true)
+	ability:SetLevel(ability:GetMaxLevel())
+	ability:SetActivated(activated)
 end
 
 function Gamemode_Boss:BeginGamemode()
