@@ -2,7 +2,7 @@ require "game_functions"
 require "arts"
 require "projectile_list"
 
-LinkLuaModifier("modifier_arc_prominence_charging", "arts/fire/arc_prominence.lua", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_arc_prominence_charging", "abilities/arts/fire/arc_prominence.lua", LUA_MODIFIER_MOTION_NONE)
 item_arc_prominence = class({})
 
 if IsServer() then

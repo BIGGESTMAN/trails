@@ -30,6 +30,8 @@ CP_PER_ORB = 5
 CP_ORB_DURATION = 7
 ORB_PICKUP_RANGE = 75
 
+DEBUG_HEROES_START_WITH_ALL_ABILITIES = false
+
 if Gamemode_Boss == nil then
 	Gamemode_Boss = class({})
 end
@@ -184,13 +186,15 @@ function Gamemode_Boss:OnEntityHurt(keys)
 end
 
 function Gamemode_Boss:OnHeroInGame(hero)
-	-- local starting_craft = hero:GetAbilityByIndex(0)
-	-- local s_craft = hero:GetAbilityByIndex(4)
-	-- if starting_craft then starting_craft:SetLevel(1) end
-	-- if s_craft then s_craft:SetLevel(1) end
-
-	for k,ability in pairs(getAllAbilities(hero)) do
-		self:HeroLearnAbility(ability)
+	if not DEBUG_HEROES_START_WITH_ALL_ABILITIES then
+		local starting_craft = hero:GetAbilityByIndex(0)
+		local s_craft = hero:GetAbilityByIndex(4)
+		if starting_craft then self:HeroLearnAbility(starting_craft) end
+		if s_craft then self:HeroLearnAbility(s_craft) end
+	else
+		for k,ability in pairs(getAllAbilities(hero)) do
+			self:HeroLearnAbility(ability)
+		end
 	end
 
 	if GameMode:HaveAllPlayersPicked() then

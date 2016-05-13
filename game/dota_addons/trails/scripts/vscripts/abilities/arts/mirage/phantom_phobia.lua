@@ -1,7 +1,7 @@
 require "game_functions"
 require "arts"
 
-LinkLuaModifier("modifier_phantom_phobia", "arts/mirage/phantom_phobia.lua", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_phantom_phobia", "abilities/arts/mirage/phantom_phobia.lua", LUA_MODIFIER_MOTION_NONE)
 item_phantom_phobia = class({})
 
 if IsServer() then

@@ -2,7 +2,7 @@ require "game_functions"
 require "arts"
 require "libraries/util"
 
-LinkLuaModifier("modifier_aqua_bleed_knockback", "arts/water/aqua_bleed.lua", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_aqua_bleed_knockback", "abilities/arts/water/aqua_bleed.lua", LUA_MODIFIER_MOTION_NONE)
 item_aqua_bleed = class({})
 
 if IsServer() then

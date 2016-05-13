@@ -2,7 +2,7 @@ require "game_functions"
 require "arts"
 require "projectile_list"
 
-LinkLuaModifier("modifier_soul_blur_illusion", "arts/time/soul_blur.lua", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_soul_blur_illusion", "abilities/arts/time/soul_blur.lua", LUA_MODIFIER_MOTION_NONE)
 item_soul_blur = class({})
 
 if IsServer() then
