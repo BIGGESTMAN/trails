@@ -63,7 +63,7 @@ function UpdateAbilityList(msg)
 	heroPortraitWindow.heroIndex = queryUnit
 	var heroInternalName = Entities.GetUnitName(queryUnit)
 	$("#HeroPortraitName").text = $.Localize(Entities.GetUnitName(queryUnit))
-	$("#HeroPortrait").style.backgroundImage = "url('file://{resources}/images/heroes/portrait_" + heroInternalName + ".png')";
+	$("#HeroPortrait").style.backgroundImage = "url('file://{resources}/images/heroes/" + heroInternalName + ".png')";
 	var heroOwner = parseInt(CustomNetTables.GetTableValue("hero_owners", queryUnit)["owner"])
 	$("#PlayerName").text = Players.GetPlayerName(heroOwner)
 	$("#PlayerName").style.color = "#" + RGBAPlayerColor(heroOwner)

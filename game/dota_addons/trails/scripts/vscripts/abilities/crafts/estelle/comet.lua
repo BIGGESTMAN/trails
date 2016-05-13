@@ -60,6 +60,10 @@ end
 
 modifier_comet_passive = class({})
 
+function modifier_comet_passive:IsHidden()
+	return true
+end
+
 if IsServer() then
 	function modifier_comet_passive:OnTakeDamage(params)
 		local hero = self:GetParent()
