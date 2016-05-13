@@ -1,0 +1,92 @@
+	"hurricane"
+	{
+		"BaseClass"						"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
+		"MaxLevel"						"1"
+
+		"AbilityTextureName"			"earthshaker_aftershock"
+		"AbilityCastAnimation"			""
+
+		"precache"
+		{
+
+		}
+
+		"AbilityCastPoint"				"0.2"
+		"AbilityCooldown"				"4"
+		"AbilityManaCost"				"0"
+		"AbilityChannelTime"			"3"
+		"AOERadius"						"350"
+		"CPCost"						"40"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"radius"				"350"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"damage_percent"		"30"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"total_hits"			"10"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"knockback_duration"	"0.1"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"knockback_distance"	"100"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"abilities/crafts/estelle/hurricane"
+				"Function"		"spellCast"
+			}
+		}
+
+		"OnChannelFinish"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"abilities/crafts/estelle/hurricane"
+				"Function"		"channelFinished"
+			}
+		}
+
+		"Modifiers"
+		{
+			"modifier_hurricane_casting"
+			{
+				"States"
+				{
+					"MODIFIER_STATE_COMMAND_RESTRICTED"		"MODIFIER_STATE_VALUE_ENABLED"
+				}
+
+				"ThinkInterval"  "3 / %total_hits"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"abilities/crafts/estelle/hurricane"
+						"Function"		"dealDamage"
+					}
+				}
+			}
+		}
+	}

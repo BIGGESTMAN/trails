@@ -20,6 +20,10 @@ Delay : 3
 
 [E] Hurricane (hurricane) : Estelle spins in place to strike enemies around her for 3 seconds, dealing physical damage and knocking them back slightly on each hit.
 
+Radius (radius) : 350
+%Physical Damage (damage_percent) : 30
+Total Hits (total_hits) : 10
+CP Cost : 40
 Delay : 4
 
 [D] Comet (comet) : Estelle releases a ballistic wave of energy that pierces enemies to deal physical damage. The damage increases based on the number of times they took physical damage from Estelle in the past 10 seconds.
