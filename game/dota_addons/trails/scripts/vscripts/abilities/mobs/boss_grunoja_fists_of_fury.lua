@@ -24,11 +24,11 @@ function dealChannelDamage(keys)
 	local unit = caster.fists_of_fury_state.target
 
 	local damage_scale = ability:GetSpecialValueFor("damage_percent") / 100
-	local damage_per_tick = damage_scale * 0.25 / ability:GetSpecialValueFor("duration")
+	local damage_scale_per_tick = damage_scale * 0.25 / ability:GetSpecialValueFor("duration")
 	local damage_type = ability:GetAbilityDamageType()
 
 	applyEffect(unit, damage_type, function()
-		dealScalingDamage(unit, caster, damage_type, damage_scale, ability)
+		dealScalingDamage(unit, caster, damage_type, damage_scale_per_tick, ability)
 		unit:AddNewModifier(caster, ability, "modifier_faint", {duration = 0.28})
 	end)
 
