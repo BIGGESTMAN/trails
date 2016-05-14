@@ -93,7 +93,7 @@ Price : 500
 HP (bonus_hp) : 400
 Cast Point : 1
 Delay : 4
-Heal (healing_percent) : 180%
+%Heal (healing_percent) : 180%
 Range (tooltip_cast_range) : 700
 Cast Range : 700
 EP Cost : 20
