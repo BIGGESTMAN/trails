@@ -41,7 +41,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"cp_reward"				"40"
+				"cp_reward"				"50"
 			}
 		}
 
