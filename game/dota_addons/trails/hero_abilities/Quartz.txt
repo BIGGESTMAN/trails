@@ -87,6 +87,17 @@ Path Length : 800
 Path Width : 400
 EP Cost : 220
 
+[W1UF] Tear (tear) : Droplets of life heal an ally for a small amount.
+
+Price : 500
+HP (bonus_hp) : 400
+Cast Point : 1
+Delay : 4
+Heal (healing_percent) : 180%
+Range (tooltip_cast_range) : 700
+Cast Range : 700
+EP Cost : 20
+
 [F1UE] Fire Bolt (fire_bolt) : Launches a fireball that deals magic damage and Burns. 
 
 Price : 500

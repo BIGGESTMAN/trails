@@ -800,9 +800,9 @@ function getOpposingTeam(team)
 	return nil
 end
 
-function reviveHero(hero, health)
+function reviveHero(hero, health, mana)
 	local health = health or hero:GetMaxHealth()
-	local mana = hero:GetMana()
+	local mana = mana or hero:GetMana()
 	hero:SetRespawnPosition(hero:GetAbsOrigin())
 	hero:RespawnHero(false, false, false)
 	hero:SetHealth(health)

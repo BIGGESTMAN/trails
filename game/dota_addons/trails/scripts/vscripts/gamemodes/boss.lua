@@ -6,6 +6,7 @@ require "combat_links"
 require "game_functions"
 require "gamemodes/modifier_boss_vulnerable"
 require "gamemodes/modifier_boss_hp_tracker"
+require "gamemodes/modifier_boss_out_of_combat_regen"
 require "gamemodes/reward_modifiers"
 require "gamemodes/cp_rewards"
 
@@ -30,6 +31,7 @@ CP_PER_ORB = 5
 CP_ORB_DURATION = 7
 ORB_PICKUP_RANGE = 75
 
+STARTING_GOLD = 500
 DEBUG_HEROES_START_WITH_ALL_ABILITIES = false
 
 if Gamemode_Boss == nil then
@@ -197,6 +199,8 @@ function Gamemode_Boss:OnHeroInGame(hero)
 		end
 	end
 
+	hero:ModifyGold(STARTING_GOLD, true, 17)
+
 	if GameMode:HaveAllPlayersPicked() then
 		self:BeginGamemode()
 	end
@@ -214,6 +218,19 @@ function Gamemode_Boss:BeginGamemode()
 	self:SetupPaths()
 	CustomGameEventManager:Send_ServerToAllClients("path_choice_window_start", {path_rewards = self:GetCraftRewards(), path_count = PATHS_COUNT, paths_completed = self.paths_completed})
 	self:CheckForArenaTrigger()
+	self:ApplyRegenBuff()
+end
+
+function Gamemode_Boss:ApplyRegenBuff()
+	for k,hero in pairs(getAllHeroes()) do
+		hero:AddNewModifier(hero, nil, "modifier_boss_out_of_combat_regen", {})
+	end
+end
+
+function Gamemode_Boss:RemoveRegenBuff()
+	for k,hero in pairs(getAllHeroes()) do
+		hero:RemoveModifierByName("modifier_boss_out_of_combat_regen")
+	end
 end
 
 function Gamemode_Boss:CheckForArenaTrigger()
@@ -267,6 +284,9 @@ function Gamemode_Boss:StartEncounter()
 	self:SpawnEnemies(enemy_group.mobs)
 	self:CreateArenaWalls(enemy_group.arena_size)
 	self.time_encounter_started = GameRules:GetGameTime()
+	CustomGameEventManager:Send_ServerToAllClients("encounter_started", {})
+	CPRewards:UpdateCPConditionsWindow()
+	self:RemoveRegenBuff()
 end
 
 function Gamemode_Boss:SpawnEnemies(enemy_types)
@@ -419,19 +439,25 @@ function Gamemode_Boss:EndEncounter(result)
 	if self:EnemyGroupIsBoss(self:GetNextEnemyGroup()) then
 		CustomGameEventManager:Send_ServerToAllClients("boss_end", {})
 	end
+	print("?")
 	if result == RESULT_VICTORY then
+		print("??")
 		self:GrantEncounterRewards(self:GetNextEnemyGroup())
 		if self.currently_on_path then
+			print("???")
 			self.current_path_progress = self.current_path_progress + 1
 		end
 	end
 	Timers:CreateTimer(ENCOUNTER_END_DELAY, function()
+		print("????")
 		self:ReviveDeadHeroes()
 		self:RemoveArenaWalls()
 		if result == RESULT_DEFEAT then
 			self:TeleportHeroesToStart()
 		end
+		self:ApplyRegenBuff()
 	end)
+	CustomGameEventManager:Send_ServerToAllClients("encounter_ended", {})
 end
 
 function Gamemode_Boss:GrantEncounterRewards(enemy_group)
@@ -486,7 +512,9 @@ end
 
 function Gamemode_Boss:RemoveLivingEnemies()
 	for k,unit in pairs(self.active_enemies) do
-		unit:ForceKill(false)
+		if IsValidAlive(unit) then
+			unit:ForceKill(false)
+		end
 	end
 	self.active_enemies = nil
 	self.active_boss = nil
@@ -495,7 +523,7 @@ end
 function Gamemode_Boss:ReviveDeadHeroes()
 	for k,hero in pairs(getAllHeroes()) do
 		if not hero:IsAlive() then
-			reviveHero(hero)
+			reviveHero(hero, nil, hero:GetMaxMana())
 		end
 	end
 end
