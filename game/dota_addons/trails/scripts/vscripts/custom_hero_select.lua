@@ -6,6 +6,8 @@ end
 
 CUSTOM_HERO_SELECT_PLACEHOLDER_UNIT_NAME = "npc_dota_hero_wisp"
 
+ALLOW_SAME_HERO_PICKS = true
+
 function CustomHeroSelect:Initialize()
 	GameRules:GetGameModeEntity():SetCustomGameForceHero(CUSTOM_HERO_SELECT_PLACEHOLDER_UNIT_NAME)
 
@@ -81,13 +83,11 @@ function CustomHeroSelect:OnHeroSelectPickedEvent(source, data)
 
 	local hero = player:GetAssignedHero()
 	if hero ~= nil and CustomHeroSelect:IsPlaceholderHero(hero) then
-		-- for k,v in pairs(CustomHeroSelect.pickedHeroes) do
-			-- print(k,v)
-		-- end
-		-- print(player:GetTeamNumber(), CustomHeroSelect.pickedHeroes[player:GetTeamNumber()], picked_hero_id)
-		if not CustomHeroSelect.pickedHeroes[player:GetTeamNumber()][picked_hero_id] then
-			CustomHeroSelect.pickedHeroes[player:GetTeamNumber()][picked_hero_id] = true
-			CustomGameEventManager:Send_ServerToTeam(player:GetTeamNumber(), "heroselect_pick_other", { hero_id = picked_hero_id });
+		if not CustomHeroSelect.pickedHeroes[player:GetTeamNumber()][picked_hero_id] or ALLOW_SAME_HERO_PICKS then
+			if not ALLOW_SAME_HERO_PICKS then
+				CustomHeroSelect.pickedHeroes[player:GetTeamNumber()][picked_hero_id] = true
+				CustomGameEventManager:Send_ServerToTeam(player:GetTeamNumber(), "heroselect_pick_other", { hero_id = picked_hero_id });
+			end
 			CustomGameEventManager:Send_ServerToPlayer(player, "heroselect_pick_confirm", {})
 
 			PrecacheUnitByNameAsync(picked_hero_id, function()
