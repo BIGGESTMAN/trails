@@ -20,6 +20,8 @@ for fname in filenames:
 			if not line:
 				continue
 
+			if line[:2] == "![":
+				ability = None
 			if line[0] == '[':
 				ability = {}
 				bracket_info, truncated_line = line[1:].split("] ")
@@ -42,15 +44,16 @@ for fname in filenames:
 				modifiers.append(modifier)
 				continue
 
-			if (line[:len("Enhanced : ")] == "Enhanced : ") or (line[:len("200 CP Bonus : ")] == "200 CP Bonus : "):
-				ability['Enhanced'] = "\n<font color='#FE9A2E'>{}</font>".format(line)
+			if ability:
+				if (line[:len("Enhanced : ")] == "Enhanced : ") or (line[:len("200 CP Bonus : ")] == "200 CP Bonus : "):
+					ability['Enhanced'] = "\n<font color='#FE9A2E'>{}</font>".format(line)
 
-			if (line[:len("CP Cost : ")] == "CP Cost : "):
-				ability['CP_Cost'] = "\n<font color='#01DF01'>{}</font>".format(line)
+				if (line[:len("CP Cost : ")] == "CP Cost : "):
+					ability['CP_Cost'] = "\n<font color='#01DF01'>{}</font>".format(line)
 
-			if (line[:len("Cast Point : ")] == "Cast Point : "):
-				nil, ability['cast_time'] = line.split(': ')
-				continue
+				if (line[:len("Cast Point : ")] == "Cast Point : "):
+					nil, ability['cast_time'] = line.split(': ')
+					continue
 			
 			if (not ability) or ("(" not in line):
 				continue
