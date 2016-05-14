@@ -38,9 +38,8 @@ function Precache( context )
 
 	-- Models can also be precached by folder or individually
 	-- PrecacheModel should generally used over PrecacheResource for individual models
-	PrecacheResource("model_folder", "particles/heroes/antimage", context)
-	PrecacheResource("model", "particles/heroes/viper/viper.vmdl", context)
-	-- PrecacheModel("models/heroes/viper/viper.vmdl", context)
+	PrecacheModel("models/items/windrunner/orchid_flowersong_head/orchid_flowersong_head.vmdl", context)
+	PrecacheModel("models/heroes/earth_spirit/earth_spirit_staff.vmdl", context)
 
 	-- Sounds can precached here like anything else
 	PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_gyrocopter.vsndevts", context)
@@ -59,7 +58,7 @@ end
 
 -- Create the game mode when we activate
 function Activate()
-	GameRules:SetCustomGameSetupAutoLaunchDelay(0)
+	-- GameRules:SetCustomGameSetupAutoLaunchDelay(0)
 
 	GameRules.GameMode = GameMode()
 	GameRules.GameMode:InitGameMode()

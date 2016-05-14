@@ -17,8 +17,8 @@ function OnStatsDisplayUpdate(data) {
 	// var scale = 1200 / screenHeight;
 
 	var selectedUnit = null
-	var selectedControlledUnits = Players.GetSelectedEntities(data.playerid)
-	var selectedUncontrolledUnit = Players.GetQueryUnit(data.playerid)
+	var selectedControlledUnits = Players.GetSelectedEntities(Players.GetLocalPlayer())
+	var selectedUncontrolledUnit = Players.GetQueryUnit(Players.GetLocalPlayer())
 
 	if (selectedUncontrolledUnit != -1)
 	{

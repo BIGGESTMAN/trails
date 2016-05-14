@@ -389,8 +389,6 @@ function GameMode:OnHeroInGame(hero)
 		hero:AddNewModifier(hero, nil, "modifier_interround_invulnerability", {})
 		CustomHeroSelect:OnHeroInGame(hero)
 	else
-		initializeStats(hero)
-
 		CustomNetTables:SetTableValue("hero_owners", tostring(hero:entindex()), {owner = tostring(hero:GetPlayerOwnerID())})
 	
 		-- Turn off music by default
@@ -400,7 +398,6 @@ function GameMode:OnHeroInGame(hero)
 		-- Setup custom UI stuff
 		CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "infotext_start", {})
 		CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "ability_bar_start", {heroIndex = hero:GetEntityIndex(), cpCosts = getAbilityCPCosts(hero)})
-		self:UpdateUIData(hero)
 		
 		Timers:CreateTimer(1/30, function() -- have to wait a frame for GetAssignedHero() to actually work after hero is picked
 			game_mode:OnHeroInGame(hero)
@@ -434,35 +431,37 @@ function GameMode:UpdateUIData(hero)
 		local costs = {}
 
 		for k,unit in pairs(getAllHeroes()) do
-			-- unit stats
-			stats[unit:GetEntityIndex()] = getStats(unit)
-			stats[unit:GetEntityIndex()].mov = unit:GetIdealSpeed()
+			if unit.stats then
+				-- unit stats
+				stats[unit:GetEntityIndex()] = getStats(unit)
+				stats[unit:GetEntityIndex()].mov = unit:GetIdealSpeed()
 
-			-- unbalance level
-			local hero_unbalance = unit:FindModifierByName("modifier_unbalanced_level"):GetStackCount()
-			if unit:HasModifier("modifier_combat_link_unbalanced") then hero_unbalance = 100 end
-			resource_values[unit:GetEntityIndex()] = {cp = getCP(unit), unbalance = hero_unbalance}
+				-- unbalance level
+				local hero_unbalance = unit:FindModifierByName("modifier_unbalanced_level"):GetStackCount()
+				if unit:HasModifier("modifier_combat_link_unbalanced") then hero_unbalance = 100 end
+				resource_values[unit:GetEntityIndex()] = {cp = getCP(unit), unbalance = hero_unbalance}
 
-			-- ability cp costs
-			costs[unit:GetEntityIndex()] = {}
-			for k,ability in pairs(getAllActiveAbilities(unit)) do
-				costs[unit:GetEntityIndex()][ability:GetEntityIndex()] = getCPCost(ability)
-			end
+				-- ability cp costs
+				costs[unit:GetEntityIndex()] = {}
+				for k,ability in pairs(getAllActiveAbilities(unit)) do
+					costs[unit:GetEntityIndex()][ability:GetEntityIndex()] = getCPCost(ability)
+				end
 
-			-- hero-tracking status bar info for this unit
-			if self:IsPvPGamemode() then
-				local dummy_enemy = CreateUnitByName("npc_dummy_unit", Vector(0,0,0), false, unit, unit, unit:GetOpposingTeamNumber())
-				CustomNetTables:SetTableValue("hero_info", tostring(unit:entindex()), {visible_to_enemies = tostring(dummy_enemy:CanEntityBeSeenByMyTeam(unit))})
-				dummy_enemy:RemoveSelf()
+				-- hero-tracking status bar info for this unit
+				if self:IsPvPGamemode() then
+					local dummy_enemy = CreateUnitByName("npc_dummy_unit", Vector(0,0,0), false, unit, unit, unit:GetOpposingTeamNumber())
+					CustomNetTables:SetTableValue("hero_info", tostring(unit:entindex()), {visible_to_enemies = tostring(dummy_enemy:CanEntityBeSeenByMyTeam(unit))})
+					dummy_enemy:RemoveSelf()
 
-				CustomGameEventManager:Send_ServerToAllClients("status_bars_update", {player=hero:GetPlayerID(), hero=hero:GetEntityIndex(), cp=getCP(hero)})
-				CustomGameEventManager:Send_ServerToAllClients("unbalance_bars_update", {player=hero:GetPlayerID(), hero=hero:GetEntityIndex(), unbalance=hero_unbalance})
+					CustomGameEventManager:Send_ServerToAllClients("status_bars_update", {player=hero:GetPlayerID(), hero=hero:GetEntityIndex(), cp=getCP(hero)})
+					CustomGameEventManager:Send_ServerToAllClients("unbalance_bars_update", {player=hero:GetPlayerID(), hero=hero:GetEntityIndex(), unbalance=hero_unbalance})
+				end
 			end
 		end
 
-		CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "stats_display_update", {playerid = hero:GetPlayerID(), unitStats = stats})
-		CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "resource_bars_update", {unitValues = resource_values})
-		CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "cp_costs_update", {cpCosts = costs})
+		CustomGameEventManager:Send_ServerToAllClients("stats_display_update", {unitStats = stats})
+		CustomGameEventManager:Send_ServerToAllClients("resource_bars_update", {unitValues = resource_values})
+		CustomGameEventManager:Send_ServerToAllClients("cp_costs_update", {cpCosts = costs})
 		return 1/30
 	end)
 end
@@ -547,6 +546,7 @@ function GameMode:OnGameInProgress()
 
 	game_mode:Initialize()
 	CustomNetTables:SetTableValue("gamemode", tostring(0), {pvp_ui_enabled = self:IsPvPGamemode()})
+	self:UpdateUIData()
 end
 
 -- Cleanup a player when they leave
