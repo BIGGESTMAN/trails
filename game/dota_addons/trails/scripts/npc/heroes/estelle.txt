@@ -62,9 +62,9 @@
 		//"ProjectileModel"			"melee_hero"							// Particle system model for projectile.
 		//"ProjectileSpeed"			"900"									// Speed of projectile.
 
-		"Str"	"55"
+		"Str"	"110"
 		"Def"	"100"
-		"Ats"	"30"
+		"Ats"	"60"
 		"Adf"	"100"
 		"Spd"	"0"
 		"MasterQuartz"	"aegis"

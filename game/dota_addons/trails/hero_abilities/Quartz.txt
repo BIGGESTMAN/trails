@@ -25,7 +25,7 @@ Range (tooltip_cast_range) : 600
 Cast Range : 600
 EP Cost : 30
 
-[E3AE] Yggdrasil (yggdrasil) : The world tree takes root, continuously dealing earth damage and reducing MOV in an area that increases as the caster channels. When the channel ends, the damage is echoed and enemies are Petrified for 1.5 seconds plus half the channel time. 
+![E3AE] Yggdrasil (yggdrasil) : The world tree takes root, continuously dealing earth damage and reducing MOV in an area that increases as the caster channels. When the channel ends, the damage is echoed and enemies are Petrified for 1.5 seconds plus half the channel time. 
 DevNotes - The area grows linearly with channel time. The damage during the channel has an initial instance of 70% the first time it hits each enemy, separate from the 35% damage dealt in 0.5 second intervals, meaning 70-280% damage from the channel only. The echoed damage is the damage a single enemy would have taken, meaning 70-280% damage. The MOV Reduction lingers for 0.5 seconds.
 
 Price : 2000
@@ -69,7 +69,7 @@ Range (tooltip_cast_range) : 600
 Cast Range : 600
 EP Cost : 50
 
-[W3AE] Crystal Flood (crystal_flood) : A great torrent flows through the targeted path, dealing water damage to enemies while pulling them along. After 1 second, enemies in the area take additional water damage and are Frozen. 
+![W3AE] Crystal Flood (crystal_flood) : A great torrent flows through the targeted path, dealing water damage to enemies while pulling them along. After 1 second, enemies in the area take additional water damage and are Frozen. 
 DevNotes - Vector-targeted. The path's length and width are fixed regardless of drag distance.
 
 Price : 2000
@@ -142,7 +142,7 @@ Bolt Radius : 125
 Jump Search Radius : 500
 EP Cost : 50
 
-[I2AF] Recuria (recuria) : Creates an air pocket of calming winds that remove all status ailments and stat reductions from allies.
+![I2AF] Recuria (recuria) : Creates an air pocket of calming winds that remove all status ailments and stat reductions from allies.
 DevNotes - Instantly purges all negative effects, then in 0.5 second intervals.
 
 Price : 1000
@@ -156,7 +156,7 @@ Cast Range : 800
 Radius : 450
 EP Cost : 50
 
-[I3AE] Aerial (aerial) : A powerful tornado tears foes apart, dealing magical damage to each enemy in 0.25 second intervals. The tornado ends after 5 seconds or 32 total instances of damage.
+![I3AE] Aerial (aerial) : A powerful tornado tears foes apart, dealing magical damage to each enemy in 0.25 second intervals. The tornado ends after 5 seconds or 32 total instances of damage.
 DevNotes - The tornado instantly damages enemies that enter its radius, then with a 0.25 second cooldown per hit for each enemy.
 
 Price : 1500
@@ -184,7 +184,7 @@ Cast Range : 600
 Illusion Search Radius (faint_range) : 300
 EP Cost : 30
 
-[T2AF] Chrono Drive (chrono_drive) : Opens a timegate that increases MOV and SPD by 25% the first time each ally passes through it.
+![T2AF] Chrono Drive (chrono_drive) : Opens a timegate that increases MOV and SPD by 25% the first time each ally passes through it.
 DevNotes - The gate is created perpendicular to the line between the caster and the targeted point.
 
 Price : 1000
@@ -201,7 +201,7 @@ Gate Width : 50
 Gate Length : 450
 EP Cost : 20
 
-[T3UE] Grim Butterfly (grim_butterfly) : Otherworldly butterflies appear around an enemy to dance through the air, dealing time damage the first time an enemy touches one and putting them in a Nightmare. After 3 seconds, they detonate to deal time damage around themselves.
+![T3UE] Grim Butterfly (grim_butterfly) : Otherworldly butterflies appear around an enemy to dance through the air, dealing time damage the first time an enemy touches one and putting them in a Nightmare. After 3 seconds, they detonate to deal time damage around themselves.
 DevNotes - Butterflies can't be touched for the first 0.5 seconds. Spawns a total of 16 butterflies, the spawn radius divided into four 90° segments. 4 Butterflies spawn in each segment, none within 125 distance of another. 2 butterflies travel north, 2 northeast, 2 east, 2 southeast and so on. The detonation damages in a single instance.
 
 Price : 2000
@@ -232,7 +232,7 @@ Width (width) : 175
 Cast Range : 800
 EP Cost : 30
 
-[M2UF] Crescent Mirror (crescent_mirror) : The illusory moon enchants allies, increasing their ATS by 25% and giving them Magic Reflect.
+![M2UF] Crescent Mirror (crescent_mirror) : The illusory moon enchants allies, increasing their ATS by 25% and giving them Magic Reflect.
 DevNotes - Radius centered around target ally at the end of the cast.
 
 Price : 1000
@@ -262,7 +262,7 @@ Cast Range : 600
 Radius (radius) : 450
 EP Cost : 200
 
-[S1AE] Golden Sphere (golden_sphere) : Three balls of dazzling light Blind enemies facing them. After 1 second, they fly at nearby random enemies to deal space damage and Blind them.
+![S1AE] Golden Sphere (golden_sphere) : Three balls of dazzling light Blind enemies facing them. After 1 second, they fly at nearby random enemies to deal space damage and Blind them.
 DevNotes - The Blind before the balls fly lingers for 0.5 seconds.
 
 Price : 500
@@ -292,7 +292,7 @@ Band Travel Speed : 600
 Max Band Radius : 2000
 EP Cost : 400
 
-[S3AE] Dark Matter (dark_matter) : A gravitational collapse sucks in and crushes enemies, dealing space damage and reducing MOV by 50%. The MOV reduction duration increases by 1 second for each affected enemy beyond the first.
+![S3AE] Dark Matter (dark_matter) : A gravitational collapse sucks in and crushes enemies, dealing space damage and reducing MOV by 50%. The MOV reduction duration increases by 1 second for each affected enemy beyond the first.
 DevNotes - The damage is dealt to enemies within the radius at the end of the pull, and the MOV reduction is applied then as well. Enemies that enter the radius after the cast are affected as well. Enemies that reach the center before the pull duration's end stop moving but continue to be disabled.
 
 Price : 1500

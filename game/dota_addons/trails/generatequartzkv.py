@@ -47,6 +47,9 @@ def WriteQuartzDefinition(file, item, items_written, masterquartz_level = None):
 			if normalquartz['internal_name'] == item['art'].split("/")[masterquartz_level - 1]:
 				inheritedItem = normalquartz
 				break
+		if inheritedItem == None:
+			print("Art for masterquartz " + name + " not found, not writing masterquartz KV")
+			return
 		inheritedEffects = inheritedItem['effects']
 	else:
 		inheritedItem = item
@@ -130,6 +133,8 @@ for fname in filenames:
 					break
 
 			if quartzfile:
+				if line[:2] == "![":
+					item = None
 				if line[0] == '[':
 					item = {}
 					item['element'] = line[1]
@@ -144,24 +149,25 @@ for fname in filenames:
 					items.append(item)
 					continue
 
-				if ("EP Cost" in line):
-					nil, item['manacost'] = line.split(': ')
-					continue
-				if ("Cast Range" in line):
-					nil, item['cast_range'] = line.split(': ')
-					continue
-				if ("Cast Point" in line):
-					nil, item['cast_point'] = line.split(': ')
-					continue
-				if ("Delay" in line):
-					nil, item['delay'] = line.split(': ')
-					continue
-				if (line[:len("Price : ")] == "Price : "):
-					nil, item['quartz_cost'] = line.split(': ')
-					continue
-				if (line[:len("Max Channel Duration : ")] == "Max Channel Duration : "):
-					nil, item['channel_time'] = line.split(': ')
-					continue
+				if item:
+					if ("EP Cost" in line):
+						nil, item['manacost'] = line.split(': ')
+						continue
+					if ("Cast Range" in line):
+						nil, item['cast_range'] = line.split(': ')
+						continue
+					if ("Cast Point" in line):
+						nil, item['cast_point'] = line.split(': ')
+						continue
+					if ("Delay" in line):
+						nil, item['delay'] = line.split(': ')
+						continue
+					if (line[:len("Price : ")] == "Price : "):
+						nil, item['quartz_cost'] = line.split(': ')
+						continue
+					if (line[:len("Max Channel Duration : ")] == "Max Channel Duration : "):
+						nil, item['channel_time'] = line.split(': ')
+						continue
 				
 				if (not item) or ("(" not in line):
 					continue
