@@ -2,6 +2,8 @@ require "game_functions"
 require "gamemodes/cp_rewards"
 
 LinkLuaModifier("modifier_generic_ondamage_reward", "gamemodes/reward_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_counterhit_passive", "gamemodes/reward_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_counterhit_ondamage_reward", "gamemodes/reward_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_jelly_shroom_reward", "gamemodes/reward_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_gordi_chief_reward", "gamemodes/reward_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_boss_grunoja_reward", "gamemodes/reward_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
@@ -22,8 +24,47 @@ if IsServer() then
 	end
 end
 
-function modifier_generic_ondamage_reward:GetAttributes()
+modifier_counterhit_passive = class({})
+
+if IsServer() then
+	function modifier_counterhit_passive:DeclareFunctions()
+		return {MODIFIER_EVENT_ON_ATTACK_LANDED}
+	end
+
+	function modifier_counterhit_passive:OnAttackLanded(params)
+		local unit = self:GetParent()
+		if params.attacker == unit then
+			self:GetParent():AddNewModifier(self:GetParent(), nil, "modifier_counterhit_ondamage_reward", {duration = 0.75})
+		end
+	end
+end
+
+function modifier_counterhit_passive:GetAttributes()
 	return MODIFIER_ATTRIBUTE_PERMANENT
+end
+
+modifier_counterhit_ondamage_reward = class({})
+
+if IsServer() then
+	function modifier_counterhit_ondamage_reward:DeclareFunctions()
+		return {MODIFIER_EVENT_ON_TAKEDAMAGE}
+	end
+
+	function modifier_counterhit_ondamage_reward:OnTakeDamage(params)
+		local unit = self:GetParent()
+		if params.unit == unit then
+			CPRewards:RewardCP(params.attacker, unit, 10)
+			self:Destroy()
+		end
+	end
+end
+
+function modifier_counterhit_ondamage_reward:GetEffectName()
+	return "particles/cp_rewards/counterhit_available_mark.vpcf"
+end
+
+function modifier_counterhit_ondamage_reward:GetEffectAttachType()
+	return PATTACH_OVERHEAD_FOLLOW
 end
 
 modifier_jelly_shroom_reward = class({})

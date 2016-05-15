@@ -303,6 +303,7 @@ function Gamemode_Boss:SpawnEnemy(unit_name, location)
 	-- print("spawning unit: ", unit_name)
 	local unit = CreateUnitByName(unit_name, location, true, nil, nil, DOTA_TEAM_BADGUYS)
 	unit:AddNewModifier(unit, nil, "modifier_"..unit_name:sub(string.len("trailsadventure_mob_") + 1).."_reward", {})
+	unit:AddNewModifier(unit, nil, "modifier_counterhit_passive", {})
 	if unit:GetUnitName():find("boss") then
 		CustomGameEventManager:Send_ServerToAllClients("boss_begin", {unit_id = unit:GetUnitName()})
 		self.active_boss = unit
