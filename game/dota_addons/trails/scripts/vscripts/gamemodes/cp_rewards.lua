@@ -5,6 +5,7 @@ CONDITION_SHROOM_MAGIC_DAMAGE = 3
 CONDITION_DODGE_GROUND_SMASH = 4
 CONDITION_SHARE_KNUCKLEDUSTER_DAMAGE = 5
 CONDITION_BREAK_FISTS_OF_FURY = 6
+CONDITION_COUNTERHIT = 7
 
 if not CPRewards then
 	CPRewards = class({})
@@ -16,6 +17,7 @@ function CPRewards:Initialize()
 	self.reward_conditions = {}
 	self.reward_conditions[CONDITION_INTERRUPT_CRAFTS] = {unlocked = true, description = "Interrupt an enemy ability", unique = false}
 	self.reward_conditions[CONDITION_LAST_HIT_ENEMIES] = {unlocked = true, description = "Last hit an enemy", unique = false}
+	self.reward_conditions[CONDITION_COUNTERHIT] = {unlocked = true, description = "Strike enemies directly after they attack", unique = false}
 	self.reward_conditions[CONDITION_COLLECT_CP_ORBS] = {unlocked = true, description = "Gather CP orbs", unique = false}
 	self.reward_conditions[CONDITION_SHROOM_MAGIC_DAMAGE] = {unlocked = false, description = "Deal magic damage to a shroom", unique = true}
 	self.reward_conditions[CONDITION_SHARE_KNUCKLEDUSTER_DAMAGE] = {unlocked = false, description = "Share Knuckleduster damage among all party members", unique = true}
@@ -46,6 +48,7 @@ function CPRewards:UpdateCPConditionsWindow()
 	local conditions = {}
 	conditions[CONDITION_INTERRUPT_CRAFTS] = true
 	conditions[CONDITION_LAST_HIT_ENEMIES] = true
+	conditions[CONDITION_COUNTERHIT] = true
 	if Gamemode_Boss.active_boss then
 		conditions[CONDITION_COLLECT_CP_ORBS] = true
 	end
