@@ -57,7 +57,7 @@ end
 function EnemyAI:EndState()
 	-- self.stateDuration = nil
 	local endFunction = self:GetStateEndMethod(self.decisionState)
-	if endFunction then endFunction() end
+	if endFunction then endFunction(self) end
 	self:SwitchState("Default")
 end
 

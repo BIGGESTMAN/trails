@@ -68,6 +68,7 @@
 	"teleport_to_tower_4"							"Sapphirl Tower"
 
 	"path_choice_window_header"						"Choose Path"
+	"cp_conditions_window_header"					"CP Conditions"
 
 	"round_recap_header"							"Round Recap (Damage Dealt)"
 	"round_recap_close"								"Close"

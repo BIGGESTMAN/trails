@@ -1,0 +1,13 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/custom_game/cp_conditions_window.css" />
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+	</styles>
+	<scripts>
+		<include src="s2r://panorama/scripts/custom_game/cp_conditions_window.js" />
+	</scripts>
+	<Panel hittest="false" class="CPConditionsWindow">
+		<Label id="WindowTitle" class="Header" text="#cp_conditions_window_header"/>
+		<Panel id="CPConditionsContainer"/>
+	</Panel>
+</root>

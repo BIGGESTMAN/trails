@@ -51,7 +51,7 @@ function endFaint(keys)
 	local caster = keys.caster
 
 	local cp = caster.fists_of_fury_state.cp_reward
-	CPRewards:RewardCP(nil, caster, cp)
+	caster.reward_modifier:TriggerCPReward(keys.ability:GetAbilityName(), cp)
 
 	caster.fists_of_fury_state = nil
 end

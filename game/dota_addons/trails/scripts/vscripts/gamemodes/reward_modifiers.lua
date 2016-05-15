@@ -22,6 +22,10 @@ if IsServer() then
 	end
 end
 
+function modifier_generic_ondamage_reward:GetAttributes()
+	return MODIFIER_ATTRIBUTE_PERMANENT
+end
+
 modifier_jelly_shroom_reward = class({})
 
 function modifier_jelly_shroom_reward:IsHidden()
@@ -37,26 +41,80 @@ if IsServer() then
 		local unit = self:GetParent()
 		if params.unit == unit then
 			if params.damage_type == DAMAGE_TYPE_MAGICAL then
-				CPRewards:RewardCP(params.attacker, unit)
+				self:TriggerCPReward(params.attacker)
 			end
 		end
 	end
+
+	function modifier_jelly_shroom_reward:OnCreated()
+		self:GetParent().reward_modifier = self
+	end
+end
+
+function modifier_jelly_shroom_reward:TriggerCPReward(hero)
+	CPRewards:RewardCP(hero, self:GetParent())
+	CPRewards:UnlockCPCondition(CONDITION_SHROOM_MAGIC_DAMAGE)
+end
+
+function modifier_jelly_shroom_reward:GetAttributes()
+	return MODIFIER_ATTRIBUTE_PERMANENT
+end
+
+function modifier_jelly_shroom_reward:GetRewardConditions()
+	return {CONDITION_SHROOM_MAGIC_DAMAGE}
 end
 
 modifier_boss_grunoja_reward = class({})
+
+if IsServer() then
+	function modifier_boss_grunoja_reward:OnCreated()
+		self:GetParent().reward_modifier = self
+	end
+end
 
 function modifier_boss_grunoja_reward:IsHidden()
 	return true
 end
 
-function modifier_boss_grunoja_reward:ReportSpellSuccess(successful)
-	if not successful then
+function modifier_boss_grunoja_reward:GetAttributes()
+	return MODIFIER_ATTRIBUTE_PERMANENT
+end
+
+function modifier_boss_grunoja_reward:GetRewardConditions()
+	return {CONDITION_DODGE_GROUND_SMASH, CONDITION_BREAK_FISTS_OF_FURY}
+end
+
+function modifier_boss_grunoja_reward:TriggerCPReward(ability_name, cp)
+	if ability_name == "mob_boss_grunoja_fists_of_fury" then
+		CPRewards:RewardCP(nil, self:GetParent(), cp)
+		CPRewards:UnlockCPCondition(CONDITION_BREAK_FISTS_OF_FURY)
+	elseif ability_name == "mob_boss_grunoja_ground_smash" then
 		self:GetParent():AddNewModifier(self:GetParent(), nil, "modifier_generic_ondamage_reward", {duration = 3})
+		CPRewards:UnlockCPCondition(CONDITION_DODGE_GROUND_SMASH)
 	end
 end
 
 modifier_gordi_chief_reward = class({})
 
+if IsServer() then
+	function modifier_gordi_chief_reward:OnCreated()
+		self:GetParent().reward_modifier = self
+	end
+end
+
+function modifier_gordi_chief_reward:TriggerCPReward()
+	CPRewards:RewardCP(nil, self:GetParent())
+	CPRewards:UnlockCPCondition(CONDITION_SHARE_KNUCKLEDUSTER_DAMAGE)
+end
+
 function modifier_gordi_chief_reward:IsHidden()
 	return true
+end
+
+function modifier_gordi_chief_reward:GetAttributes()
+	return MODIFIER_ATTRIBUTE_PERMANENT
+end
+
+function modifier_gordi_chief_reward:GetRewardConditions()
+	return {CONDITION_SHARE_KNUCKLEDUSTER_DAMAGE}
 end

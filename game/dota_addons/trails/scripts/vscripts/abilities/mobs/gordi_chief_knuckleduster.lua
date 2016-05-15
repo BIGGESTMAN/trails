@@ -55,6 +55,6 @@ function channelSucceeded(keys)
 	ParticleManager:SetParticleControl(particle, 0, origin)
 
 	if #targets == #getAllLivingHeroes() then
-		CPRewards:RewardCP(nil, caster)
+		caster.reward_modifier:TriggerCPReward()
 	end
 end

@@ -46,6 +46,8 @@ function Gamemode_Boss:Initialize()
 	self.state = SHOPPING
 	self.current_path_progress = 0
 	self.paths_completed = {}
+
+	CPRewards:Initialize()
 end
 
 function Gamemode_Boss:OnPathButtonPressed(eventSourceIndex, args)
@@ -439,17 +441,13 @@ function Gamemode_Boss:EndEncounter(result)
 	if self:EnemyGroupIsBoss(self:GetNextEnemyGroup()) then
 		CustomGameEventManager:Send_ServerToAllClients("boss_end", {})
 	end
-	print("?")
 	if result == RESULT_VICTORY then
-		print("??")
 		self:GrantEncounterRewards(self:GetNextEnemyGroup())
 		if self.currently_on_path then
-			print("???")
 			self.current_path_progress = self.current_path_progress + 1
 		end
 	end
 	Timers:CreateTimer(ENCOUNTER_END_DELAY, function()
-		print("????")
 		self:ReviveDeadHeroes()
 		self:RemoveArenaWalls()
 		if result == RESULT_DEFEAT then

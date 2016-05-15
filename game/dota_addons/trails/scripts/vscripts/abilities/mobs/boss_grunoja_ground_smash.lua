@@ -94,7 +94,9 @@ function impact(caster, target_point)
 		end
 	end
 
-	caster:FindModifierByName("modifier_boss_grunoja_reward"):ReportSpellSuccess(#targets > 0)
+	if #targets == 0 then
+		caster.reward_modifier:TriggerCPReward(ability:GetAbilityName())
+	end
 
 	local particle = ParticleManager:CreateParticle("particles/crafts/millium/megaton_press_shockwave.vpcf", PATTACH_CUSTOMORIGIN, nil)
 	ParticleManager:SetParticleControl(particle, 0, target_point)
