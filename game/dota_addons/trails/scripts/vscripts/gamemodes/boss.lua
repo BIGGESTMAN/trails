@@ -289,6 +289,36 @@ function Gamemode_Boss:StartEncounter()
 	CustomGameEventManager:Send_ServerToAllClients("encounter_started", {})
 	CPRewards:UpdateCPConditionsWindow()
 	self:RemoveRegenBuff()
+	self:StartForcingUnitsInsideArena()
+end
+
+function Gamemode_Boss:StartForcingUnitsInsideArena()
+	Timers:CreateTimer("force_units_inside_arena", {
+		endTime = 0.1,
+		callback = function()
+			for k,hero in pairs(getAllHeroes()) do
+				if distanceBetween(hero:GetAbsOrigin(), self:GetNextArenaPoint()) > self:GetNextEnemyGroup().arena_size then
+					self:ForceUnitInsideArena(hero)
+				end
+			end
+			for k,enemy in pairs(self.active_enemies) do
+				if IsValidAlive(enemy) and distanceBetween(enemy:GetAbsOrigin(), self:GetNextArenaPoint()) > self:GetNextEnemyGroup().arena_size then
+					self:ForceUnitInsideArena(enemy)
+				end
+			end
+			return 0.1
+		end
+	})
+end
+
+function Gamemode_Boss:ForceUnitInsideArena(unit)
+	local direction = (self:GetNextArenaPoint() - unit:GetAbsOrigin()):Normalized()
+	local distance = distanceBetween(unit:GetAbsOrigin(), self:GetNextArenaPoint()) - self:GetNextEnemyGroup().arena_size
+	FindClearSpaceForUnit(unit, unit:GetAbsOrigin() + direction * distance, true)
+end
+
+function Gamemode_Boss:StopForcingUnitsInsideArena()
+	Timers:RemoveTimer("force_units_inside_arena")
 end
 
 function Gamemode_Boss:SpawnEnemies(enemy_types)
@@ -439,6 +469,7 @@ function Gamemode_Boss:EndEncounter(result)
 	self.state = EXPLORING
 	self:RemoveLivingEnemies()
 	self:StopSpawningCPOrbs()
+	self:StopForcingUnitsInsideArena()
 	if self:EnemyGroupIsBoss(self:GetNextEnemyGroup()) then
 		CustomGameEventManager:Send_ServerToAllClients("boss_end", {})
 	end
