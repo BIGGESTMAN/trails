@@ -53,11 +53,7 @@ if IsServer() then
 end
 
 function flamberge:GetBehavior()
-	return DOTA_ABILITY_BEHAVIOR_POINT + DOTA_ABILITY_BEHAVIOR_CHANNELLED + DOTA_ABILITY_BEHAVIOR_AOE
-end
-
-function flamberge:GetAOERadius()
-	return self:GetSpecialValueFor("range")
+	return DOTA_ABILITY_BEHAVIOR_POINT + DOTA_ABILITY_BEHAVIOR_CHANNELLED
 end
 
 function flamberge:GetChannelTime()
