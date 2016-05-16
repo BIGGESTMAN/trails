@@ -1,4 +1,5 @@
 require "libraries/util"
+require "game_functions"
 
 function setupProjectileList()
 	ProjectileList = {}
@@ -59,7 +60,7 @@ function setupProjectileList()
 		local expire_time = event.expire_time
 
 		if is_attack then
-			ProjectileList:CreateTrackingProjectile(origin, target, speed)
+			rangedAttackLaunched(origin, target, speed)
 			return false
 		else
 			return true

@@ -250,6 +250,14 @@ function applyImpede(target, source)
 	target:InterruptChannel()
 end
 
+function rangedAttackLaunched(origin, target, speed)
+	if not origin:HasModifier("modifier_judgment_arrow_empowered") then
+		ProjectileList:CreateTrackingProjectile(origin, target, speed)
+	else
+		origin:FindModifierByName("modifier_judgment_arrow_empowered"):FireHolyArrow(target)
+	end
+end
+
 function dash(unit, direction, speed, range, find_clear_space, impactFunction, other_args)
 	other_args = other_args or {}
 	other_args.range = range

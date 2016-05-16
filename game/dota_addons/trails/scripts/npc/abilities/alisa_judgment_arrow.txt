@@ -13,7 +13,8 @@
 
 		"precache"
 		{
-			"particle"					"particles/crafts/alisa/judgment_arrow/projectile.vpcf"	
+			"particle"					"particles/crafts/alisa/judgment_arrow/projectile.vpcf"
+			"particle"					"particles/crafts/alisa/judgment_arrow/empowered_arrow.vpcf"
 		}
 
 		"AbilityCastPoint"				"0"
@@ -32,12 +33,17 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"damage_percent"		"300"
+				"damage_percent"		"500"
 			}
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"bonus_unbalance"		"20"
+				"adf_down"				"25"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"adf_down_duration"		"5"
 			}
 			"01"
 			{
@@ -52,17 +58,32 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"silence_duration"		"5"
+				"empowered_duration"	"15"
 			}
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"max_cp_damage_percent"	"600"
+				"empowered_arrows_radius"	"100"
 			}
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"max_cp_stun_duration"	"3"
+				"empowered_arrows_range"	"800"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"empowered_arrows_speed"	"800"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"empowered_arrows_damage_percent_per_ally"	"60"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"empowered_arrows_cp"	"10"
 			}
 		}
 
@@ -96,36 +117,6 @@
 
 		"Modifiers"
 		{
-			"modifier_judgment_arrow_pulled"
-			{
-				"IsDebuff"		"1"
-
-				"States"
-				{
-					"MODIFIER_STATE_STUNNED"				"MODIFIER_STATE_VALUE_ENABLED"
-					"MODIFIER_STATE_NO_UNIT_COLLISION"		"MODIFIER_STATE_VALUE_ENABLED"
-				}
-
-				"OverrideAnimation"     "ACT_DOTA_FLAIL"
-			}
-
-			"modifier_judgment_arrow_stun"
-			{
-				"IsDebuff"		"1"
-
-				"Duration"		"%max_cp_stun_duration"
-
-				"States"
-				{
-					"MODIFIER_STATE_STUNNED"				"MODIFIER_STATE_VALUE_ENABLED"
-				}
-
-				"EffectName"		"particles/generic_gameplay/generic_stunned.vpcf"
-				"EffectAttachType"	"follow_overhead"
-
-				"OverrideAnimation"     "ACT_DOTA_DISABLED"
-			}
-
 			"modifier_judgment_arrow_casting"
 			{
 				"States"
@@ -133,6 +124,5 @@
 					"MODIFIER_STATE_COMMAND_RESTRICTED"		"MODIFIER_STATE_VALUE_ENABLED"
 				}
 			}
-
 		}
 	}
