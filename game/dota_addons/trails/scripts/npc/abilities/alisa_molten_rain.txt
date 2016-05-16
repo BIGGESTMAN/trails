@@ -17,10 +17,10 @@
 		}
 
 		"AbilityCastPoint"				"0.3"
-		"AbilityCooldown"				"5"
+		"AbilityCooldown"				"8"
 		"AbilityManaCost"				"0"
 		"AbilityCastRange"				"800"
-		"AOERadius"						"400"
+		"AOERadius"						"300"
 		"CPCost"						"40"
 
 		"AbilitySpecial"
@@ -28,7 +28,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"radius"				"400"
+				"radius"				"300"
 			}
 			"01"
 			{
@@ -53,27 +53,12 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"duration"				"3"
+				"duration"				"8"
 			}
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"total_arrows"			"20"
-			}
-			"01"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"unbalanced_radius"		"650"
-			}
-			"01"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"unbalanced_adf_down"	"25"
-			}
-			"01"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"unbalanced_adf_down_duration"	"5"
+				"total_arrows"			"35"
 			}
 			"01"
 			{

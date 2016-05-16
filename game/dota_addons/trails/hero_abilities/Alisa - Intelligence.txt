@@ -32,8 +32,8 @@ Arrow Radius : 150
 %Sear Magical Damage (sear_damage_percent) : 20
 Sear Duration (sear_duration) : 4
 Duration : 8
-Total Arrows : 55
-Note0 (note0) : Rains 55 total arrows down over 8 seconds.
+Total Arrows : 35
+Note0 (note0) : Rains 35 total arrows down over 8 seconds.
 Note1 (note1) : Arrow impacts have 150 radius.
 CP Cost : 40
 Delay : 8
