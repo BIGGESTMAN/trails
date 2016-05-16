@@ -17,6 +17,7 @@
 	"2"
 	{
 		"trailsadventure_mob_blade_horn"	"3"
+		"trailsadventure_mob_blade_pincer"	"1"
 
 		"cp_reward" 		"20"
 		"gold_reward"		"750"

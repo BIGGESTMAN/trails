@@ -125,6 +125,8 @@
 	"DOTA_Tooltip_Ability_mob_boss_grunoja_go_bananas"		"Go Bananas"
 	"DOTA_Tooltip_Ability_mob_boss_grunoja_fists_of_fury"	"Fists of Fury"
 	"DOTA_Tooltip_Ability_mob_blade_horn_gore"				"Gore"
+	"DOTA_Tooltip_Ability_mob_blade_pincer_stridulate"		"Stridulate"
+	"DOTA_Tooltip_Ability_mob_blade_pincer_pincer_attack"	"Pincer Attack"
 
 
 

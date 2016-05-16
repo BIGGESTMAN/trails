@@ -58,6 +58,7 @@ SCRAFTS_REQUIRE_UNBALANCE = false
 PURGABLE_BUFFS = {}
 PURGABLE_BUFFS["modifier_go_ape_stat_buff"] = true
 PURGABLE_BUFFS["modifier_go_bananas"] = true
+PURGABLE_BUFFS["modifier_stridulate"] = true
 
 LinkLuaModifier("modifier_base_mov_buff", "modifier_base_mov_buff.lua", LUA_MODIFIER_MOTION_NONE)
 

@@ -8,6 +8,7 @@ LinkLuaModifier("modifier_jelly_shroom_reward", "gamemodes/reward_modifiers.lua"
 LinkLuaModifier("modifier_gordi_chief_reward", "gamemodes/reward_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_boss_grunoja_reward", "gamemodes/reward_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_blade_horn_reward", "gamemodes/reward_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_blade_pincer_reward", "gamemodes/reward_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 
 modifier_generic_ondamage_reward = class({})
 
@@ -184,4 +185,24 @@ end
 
 function modifier_blade_horn_reward:GetRewardConditions()
 	return {CONDITION_DODGE_GORE}
+end
+
+modifier_blade_pincer_reward = class({})
+
+if IsServer() then
+	function modifier_blade_pincer_reward:OnCreated()
+		self:GetParent().reward_modifier = self
+	end
+end
+
+function modifier_blade_pincer_reward:IsHidden()
+	return true
+end
+
+function modifier_blade_pincer_reward:GetAttributes()
+	return MODIFIER_ATTRIBUTE_PERMANENT
+end
+
+function modifier_blade_pincer_reward:GetRewardConditions()
+	return {}
 end

@@ -1,0 +1,71 @@
+	"mob_blade_pincer_stridulate"
+	{
+		"BaseClass"						"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"MaxLevel"						"1"
+
+		"AbilityTextureName"			"invoker_sunstrike"
+
+		"precache"
+		{
+
+		}
+
+		"AbilityCastPoint"				"0"
+		"AbilityCooldown"				"10"
+		"AbilityManaCost"				"0"
+		"AbilityChannelTime"			"2"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"radius"				"350"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"stat_increase"			"35"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"stat_increase_duration"	"8"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"abilities/mobs/blade_pincer_stridulate"
+				"Function"		"spellCast"
+			}
+		}
+
+		"OnChannelFinish"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"abilities/mobs/blade_pincer_stridulate"
+				"Function"		"channelFinished"
+			}
+		}
+
+		"OnChannelSucceeded"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"abilities/mobs/blade_pincer_stridulate"
+				"Function"		"channelSucceeded"
+			}
+		}
+
+		"Modifiers"
+		{
+			
+		}
+	}
