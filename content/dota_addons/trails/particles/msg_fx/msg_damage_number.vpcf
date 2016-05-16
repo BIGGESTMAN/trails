@@ -125,6 +125,13 @@
 				64.000000,
 			]
 		},
+		{
+			_class = "C_INIT_RemapCPtoScalar"
+			m_nCPInput = 4
+			m_flInputMax = 10.000000
+			m_flOutputMax = 10.000000
+			m_bScaleInitialRange = true
+		},
 	]
 	m_Emitters =
 	[
@@ -139,6 +146,7 @@
 	[
 		{
 			m_ChildRef = resource:"particles/msg_fx/msg_damage_number_glow.vpcf"
+			m_bDisableChild = true
 		},
 	]
 }

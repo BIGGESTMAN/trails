@@ -189,7 +189,7 @@ function dealDamage(target, attacker, damage, damage_type, ability, cp_gain_fact
 	
 	ApplyDamage({victim = target, attacker = attacker, damage = damage, damage_type = damage_type})
 	Round_Recap:AddAbilityDamage(attacker, ability, damage)
-	PopupDamageNumbers(target, damage)
+	PopupDamageNumbers(attacker, target, damage)
 end
 
 function dealScalingDamage(target, attacker, damage_type, scale, ability, cp_gain_factor, enhanced, status, bonus_unbalance, args)
