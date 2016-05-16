@@ -5,12 +5,12 @@
 		"trailsadventure_mob_jelly_shroom"	"3"
 		
 		"cp_reward" 			"15"
-		"gold_reward"			"300"
+		"gold_reward"			"600"
 		"swift_victory_time"	"15"
 		"swift_victory_cp"		"15"
-		"swift_victory_gold"	"200"
+		"swift_victory_gold"	"400"
 		"flawless_victory_cp"	"5"
-		"flawless_victory_gold"	"100"
+		"flawless_victory_gold"	"200"
 		"arena_size"			"800"
 	}
 	"2"
@@ -45,12 +45,12 @@
 		"trailsadventure_mob_gordi_chief"	"2"
 		
 		"cp_reward" 			"30"
-		"gold_reward"			"600"
+		"gold_reward"			"800"
 		"swift_victory_time"	"25"
 		"swift_victory_cp"		"20"
-		"swift_victory_gold"	"400"
+		"swift_victory_gold"	"600"
 		"flawless_victory_cp"	"10"
-		"flawless_victory_gold"	"150"
+		"flawless_victory_gold"	"250"
 		"arena_size"			"600"
 	}
 }

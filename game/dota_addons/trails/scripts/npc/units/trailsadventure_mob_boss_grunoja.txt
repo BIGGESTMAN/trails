@@ -39,7 +39,7 @@
 		"MovementSpeed"				"300"
 		"MovementTurnRate"			"0.6"
 
-		"StatusHealth"				"10000"
+		"StatusHealth"				"7000"
 		"StatusMana"				"0"
 		"StatusHealthRegen"			"0.0"
 		"StatusManaRegen"			"0.0"
@@ -55,7 +55,7 @@
 		"vscripts"					"ai/mob_boss_grunoja.lua"
 
 		"Str"	"200"
-		"Def"	"100"
+		"Def"	"0"
 		"Ats"	"0"
 		"Adf"	"0"
 		"Spd"	"0"

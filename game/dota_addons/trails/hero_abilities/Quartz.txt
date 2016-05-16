@@ -15,7 +15,7 @@ EP Cost : 60
 
 [E2UF] Earth Pulse (earth_pulse) : With the power of the earth, gives an ally HP Regeneration.
 
-Price : 750
+Price : 1000
 HP (bonus_health) : 300
 DEF (bonus_def) : 15
 Cast Point : 1.5
@@ -45,7 +45,7 @@ EP Cost : 240
 [W1UE] Aqua Bleed (aqua_bleed) : A focused jet of water is channeled towards an enemy, dealing magic damage while knocking them back. Another enemy can intercept the jet.
 DevNotes - Causes 40% damage and knockback in 0.2 second intervals with no initial instance. Knocks back in the same direction as the jet. 
 
-Price : 500
+Price : 1000
 ADF (bonus_adf) : 20
 Cast Point : 1
 Delay : 3
@@ -113,7 +113,7 @@ EP Cost : 20
 
 [F2UF] Impassion (impassion) : Rouses an ally's will to battle, giving them Passion. 
 
-Price : 750
+Price : 1000
 HP (bonus_health) : 300
 STR (bonus_str) : 15
 Cast Point : 1.5
@@ -126,7 +126,7 @@ EP Cost : 40
 [F3NE] Arc Prominence (arc_prominence) : Slowly amasses solar energy to release it after 6 seconds or taking damage equal to 50% of the caster's current health. The resulting explosion deals magic damage and Burns enemies, the damage and duration increasing based on the time spent gathering energy.
 DevNotes - Explosion is centered around the caster. The increases are multiplicative. The damage to set off the explosion is determined at the moment of successful cast and is based solely on total damage taken, so it cannot be delayed by heals.
 
-Price : 3000
+Price : 5000
 STR (bonus_str) : 50 
 DEF (bonus_def) : 30
 Cast Point : 3
@@ -261,7 +261,7 @@ EP Cost : 150
 [M3AE] Phantom Phobia (phantom_phobia) : Fills the hearts of enemies with a nameless dread that deals magic damage over time and reduces each of targets' STR, ATS, DEF and ATS by 25% if the enemy's stat is lower than yours.
 DevNotes - Deals 25% damage every 0.5 seconds with no initial instance.
 
-Price : 2000
+Price : 3000
 ATS (bonus_ats) : 30
 Mana (bonus_ep) : 70
 Cast Point : 2
@@ -292,7 +292,7 @@ EP Cost : 30
 [S2NF] Seraphic Ring (seraphic_ring) : Sends out a band of light that resurrects and fully heals all allies it touches as well as giving HP Regeneration. The heal is reduced by 40% for each enemy the ring passes through.
 DevNotes - The caster always receives the full heal. The reduction is multiplicative.
 
-Price : 3000
+Price : 5000
 HP (bonus_health) : 800
 ATS (bonus_ats) : 30
 Cast Point : 3

@@ -61,6 +61,11 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
+				"mark_trigger_health_percent_bonus_damage"	"5"
+			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
 				"normal_channel_time"	"2"
 			}
 		}

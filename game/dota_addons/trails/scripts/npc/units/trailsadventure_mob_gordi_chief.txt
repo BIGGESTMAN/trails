@@ -56,7 +56,7 @@
 		"vscripts"					"ai/mob_gordi_chief.lua"
 
 		"Str"	"120"
-		"Def"	"100"
+		"Def"	"0"
 		"Ats"	"0"
 		"Adf"	"0"
 		"Spd"	"0"

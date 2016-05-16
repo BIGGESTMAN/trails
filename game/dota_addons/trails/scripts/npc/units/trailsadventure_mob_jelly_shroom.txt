@@ -55,7 +55,7 @@
 		"vscripts"					"ai/mob_jelly_shroom.lua"
 
 		"Str"	"60"
-		"Def"	"200"
+		"Def"	"100"
 		"Ats"	"0"
 		"Adf"	"0"
 		"Spd"	"0"

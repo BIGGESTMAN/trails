@@ -8,6 +8,8 @@ Travel Speed : 2000
 Heated Air Duration (mark_duration) : 5
 %Ignite Health Threshold (mark_trigger_health_threshold) : 8
 %Ignite Damage (mark_trigger_damage_percent) : 200
+%Ignite % Max Health Damage (mark_trigger_health_percent_bonus_damage) : 5
+Note0 (note0) : Ignite damage deals base damage plus a portion of the target's maximum HP.
 CP Cost : 20
 Delay : 2.5
 

@@ -90,9 +90,11 @@ function flamberge:DealIgniteDamage(unit)
 	local ability = self
 	local damage_scale = ability:GetSpecialValueFor("mark_trigger_damage_percent") / 100
 	local damage_type = ability:GetAbilityDamageType()
+	local percent_health_damage = ability:GetSpecialValueFor("mark_trigger_health_percent_bonus_damage") / 100 * unit:GetMaxHealth()
 
 	applyEffect(unit, damage_type, function()
 		dealScalingDamage(unit, caster, damage_type, damage_scale, ability, CRAFT_CP_GAIN_FACTOR)
+		dealDamage(unit, caster, percent_health_damage, damage_type, ability)
 	end)
 
 	local particle = ParticleManager:CreateParticle("particles/crafts/alisa/flamberge/heated_ignite.vpcf", PATTACH_ABSORIGIN_FOLLOW, unit)
