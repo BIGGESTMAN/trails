@@ -178,6 +178,9 @@ function dealDamage(target, attacker, damage, damage_type, ability, cp_gain_fact
 	if attacker:HasModifier("modifier_cypher_gambling_magic") and attacker.combat_linked_to and ability and not status and not ability:GetName():find("item_") then
 		attacker:FindModifierByName("modifier_cypher_gambling_magic"):DealGamblingDamage()
 	end
+	if target:HasModifier("modifier_heavenly_gift_enemy") then
+		target:FindModifierByName("modifier_heavenly_gift_enemy"):GrantDamageCP(damage, attacker)
+	end
 	if GameMode:IsPvPGamemode() and attacker and attacker:HasAbility("combat_link") and attacker ~= target and not enhanced and not status then
 		grantDamageCP(damage, attacker, target, cp_gain_factor)
 		increaseUnbalance(attacker, target, bonus_unbalance)
@@ -209,7 +212,6 @@ function getDamageMultiplierForType(unit, damage_type)
 end
 
 function getDamageMultiplier(resist)
-	resist = resist - 100
 	if resist > 0 then
 		return 1 / ((resist + 100) / 100)
 	elseif resist < 0 then
@@ -562,10 +564,6 @@ function grantDamageCP(damage, attacker, target, multiplier)
 	local multiplier = multiplier or 1
 	local attacker_cp = damage * DAMAGE_CP_GAIN_FACTOR * multiplier
 	local target_cp = attacker_cp * TARGET_CP_GAIN_FACTOR
-	if target:HasModifier("modifier_heavenly_gift_enemy") then
-		local ability = target:FindModifierByName("modifier_heavenly_gift_enemy"):GetAbility()
-		attacker_cp = attacker_cp * (1 + ability:GetSpecialValueFor("cp_increase") / 100)
-	end
 	modifyCP(attacker, attacker_cp)
 	modifyCP(target, target_cp)
 end

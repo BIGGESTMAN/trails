@@ -1,5 +1,7 @@
 require "game_functions"
 
+LinkLuaModifier("modifier_heavenly_gift_enemy", "abilities/crafts/alisa/heavenly_gift.lua", LUA_MODIFIER_MOTION_NONE)
+
 function spellCast(keys)
 	local caster = keys.caster
 	local ability = keys.ability
@@ -70,33 +72,14 @@ function spellCast(keys)
 	end)
 end
 
-function restoreCPTick(keys)
-	local caster = keys.caster
-	local ability = keys.ability
+modifier_heavenly_gift_enemy = class({})
 
-	local radius = ability:GetSpecialValueFor("unbalanced_cp_restore_radius")
-	local cp_restore_interval = ability:GetSpecialValueFor("unbalanced_cp_restore_interval")
-	local total_duration = ability:GetSpecialValueFor("unbalanced_cp_restore_duration")
-	local cp = caster.enhanced_heavenly_gift_cp_drained * cp_restore_interval / total_duration
-
-	if not caster.enhanced_heavenly_gift_accrued_cp then caster.enhanced_heavenly_gift_accrued_cp = 0 end
-	caster.enhanced_heavenly_gift_accrued_cp = caster.enhanced_heavenly_gift_accrued_cp + cp
-	if caster.enhanced_heavenly_gift_accrued_cp >= 1 then
-		local team = caster:GetTeamNumber()
-		local iTeam = DOTA_UNIT_TARGET_TEAM_FRIENDLY
-		local iType = DOTA_UNIT_TARGET_HERO
-		local iFlag = DOTA_UNIT_TARGET_FLAG_NONE
-		local iOrder = FIND_ANY_ORDER
-		local targets = FindUnitsInRadius(team, caster:GetAbsOrigin(), nil, radius, iTeam, iType, iFlag, iOrder, false)
-		for k,unit in pairs(targets) do
-			modifyCP(unit, math.floor(caster.enhanced_heavenly_gift_accrued_cp))
-		end
-		caster.enhanced_heavenly_gift_accrued_cp = caster.enhanced_heavenly_gift_accrued_cp - math.floor(caster.enhanced_heavenly_gift_accrued_cp)
-	end
+function modifier_heavenly_gift_enemy:IsDebuff()
+	return true
 end
 
-function cpRestoreBuffEnded(keys)
-	local caster = keys.caster
-	caster.enhanced_heavenly_gift_accrued_cp = nil
-	caster.enhanced_heavenly_gift_cp_drained = nil
+function modifier_heavenly_gift_enemy:GrantDamageCP(damage, attacker)
+	local ability = self:GetAbility()
+	local cp_factor = ability:GetSpecialValueFor("cp_gained_percent") / 100
+	modifyCP(attacker, damage * cp_factor)
 end

@@ -1,7 +1,7 @@
 	"heavenly_gift"
 	{
 		"BaseClass"						"ability_datadriven"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"MaxLevel"						"1"
@@ -12,7 +12,8 @@
 
 		"precache"
 		{
-			"particle"					"particles/crafts/alisa/blessed_arrow/arrow.vpcf"
+			"particle"					"particles/crafts/alisa/heavenly_gift/sun.vpcf"
+			"particle"					"particles/crafts/alisa/heavenly_gift/area.vpcf"
 		}
 
 		"AbilityCastPoint"				"0.3"
@@ -37,22 +38,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"cp_increase"			"50"
-			}
-			"01"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"unbalanced_cp_restore_duration"	"8"
-			}
-			"01"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"unbalanced_cp_restore_radius"	"350"
-			}
-			"01"
-			{
-				"var_type"				"FIELD_FLOAT"
-				"unbalanced_cp_restore_interval"	"0.25"
+				"cp_gained_percent"		"5"
 			}
 		}
 
@@ -68,36 +54,6 @@
 
 		"Modifiers"
 		{
-			"modifier_heavenly_gift_enemy"
-			{
-				"IsDebuff"	"1"
-			}
-
-			"modifier_heavenly_gift_cp_restore"
-			{
-				"Duration"		"%unbalanced_cp_restore_duration"
-
-				"ThinkInterval"  "%unbalanced_cp_restore_interval"
-				"OnIntervalThink"
-				{
-					"RunScript"
-					{
-						"ScriptFile"	"crafts/alisa/heavenly_gift"
-						"Function"		"restoreCPTick"
-					}
-				}
-
-				"EffectName"		"particles/cp_fountain/cp_fountain.vpcf"
-				"EffectAttachType"	"follow_origin"
-
-				"OnDestroy"
-				{
-					"RunScript"
-					{
-						"ScriptFile"	"crafts/alisa/heavenly_gift"
-						"Function"		"cpRestoreBuffEnded"
-					}
-				}
-			}
+			
 		}
 	}

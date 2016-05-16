@@ -60,9 +60,9 @@
 		//"ProjectileSpeed"			"1300"									// Speed of projectile.
 
 		"Str"	"60"
-		"Def"	"100"
+		"Def"	"0"
 		"Ats"	"110"
-		"Adf"	"100"
+		"Adf"	"0"
 		"Spd"	"0"
 		"MasterQuartz"	"angel"
 	}
