@@ -12,22 +12,15 @@
 		"flawless_victory_cp"	"5"
 		"flawless_victory_gold"	"200"
 		"arena_size"			"800"
+		"disabled"			"1"
 	}
 	"2"
 	{
-		"enemy_group_1"
-		{
-			"enemy_name"		"trailsadventure_mob_blade_horn"
-			"count"				"3"
-		}
-		"enemy_group_2"
-		{
-			"enemy_name"		"trailsadventure_mob_blade_pincer"
-			"count"				"1"
-		}
+		"trailsadventure_mob_blade_horn"	"3"
+
 		"cp_reward" 		"20"
-		"gold_reward"		"500"
-		"disabled"			"1"
+		"gold_reward"		"750"
+		"arena_size"		"800"
 	}
 	"3"
 	{
@@ -52,5 +45,6 @@
 		"flawless_victory_cp"	"10"
 		"flawless_victory_gold"	"250"
 		"arena_size"			"600"
+		"disabled"			"1"
 	}
 }

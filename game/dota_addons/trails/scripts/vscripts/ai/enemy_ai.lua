@@ -119,7 +119,7 @@ function EnemyAI:GetRandomEnemyUnit()
 end
 
 function EnemyAI:IssueOrder(order)
-	-- print("issuing order")
+	-- print("[AI] Issuing order")
 	order.UnitIndex = self.unit:entindex()
 	if self.unit:IsChanneling() then order.Queue = 1 end -- dunno if this is still necessary with shoulddonewaction() check but whatever
 	-- DeepPrintTable(order)
@@ -154,6 +154,19 @@ function EnemyAI:CastAtTarget(ability_name, target)
 			OrderType = DOTA_UNIT_ORDER_CAST_TARGET,
 			AbilityIndex = ability:entindex(),
 			TargetIndex = target:entindex(),
+		})
+		
+		CustomGameEventManager:Send_ServerToAllClients("ability_cast", {abilityName = ability_name, casterIndex = self.unit:entindex()})
+	end
+end
+
+function EnemyAI:CastAtPoint(ability_name, target_point)
+	local ability = self.unit:FindAbilityByName(ability_name)
+	if ability then
+		self:IssueOrder({
+			OrderType = DOTA_UNIT_ORDER_CAST_POSITION,
+			AbilityIndex = ability:entindex(),
+			Position = target_point,
 		})
 		
 		CustomGameEventManager:Send_ServerToAllClients("ability_cast", {abilityName = ability_name, casterIndex = self.unit:entindex()})

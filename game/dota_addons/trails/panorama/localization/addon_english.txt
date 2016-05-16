@@ -120,6 +120,11 @@
 	"DOTA_Tooltip_Ability_mob_jelly_shroom_spores"			"Spores"
 	"DOTA_Tooltip_Ability_mob_gordi_chief_go_ape"			"Go Ape"
 	"DOTA_Tooltip_Ability_mob_gordi_chief_knuckleduster"	"Knuckleduster"
+	"DOTA_Tooltip_Ability_mob_boss_grunoja_ground_smash"	"Ground Smash"
+	"DOTA_Tooltip_Ability_mob_boss_grunoja_grove_call"		"Grove Call"
+	"DOTA_Tooltip_Ability_mob_boss_grunoja_go_bananas"		"Go Bananas"
+	"DOTA_Tooltip_Ability_mob_boss_grunoja_fists_of_fury"	"Fists of Fury"
+	"DOTA_Tooltip_Ability_mob_blade_horn_gore"				"Gore"
 
 
 

@@ -266,7 +266,7 @@ function dash(unit, direction, speed, range, find_clear_space, impactFunction, o
 	local collision_rules = other_args.collision_rules
 	local collisionFunction = other_args.collisionFunction
 	local cannot_collide_with = other_args.cannot_collide_with or {}
-	local units_hit = {}
+	other_args.units_hit = {}
 
 	local update_interval = 1/30
 	speed = speed * update_interval
@@ -290,9 +290,9 @@ function dash(unit, direction, speed, range, find_clear_space, impactFunction, o
 					collision_rules["origin"] = unit:GetAbsOrigin()
 					local targets = FindUnitsInRadiusTable(collision_rules)
 					for k,target in pairs(targets) do
-						if target ~= unit and not cannot_collide_with[target] and not units_hit[target] then
+						if target ~= unit and not cannot_collide_with[target] and not other_args.units_hit[target] then
 							collisionFunction(target, unit, direction, other_args)
-							units_hit[target] = true
+							other_args.units_hit[target] = true
 						end
 					end
 				end

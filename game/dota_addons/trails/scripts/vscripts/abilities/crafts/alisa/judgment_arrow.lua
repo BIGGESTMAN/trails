@@ -36,7 +36,7 @@ function fireArrow(caster)
 		caster:RemoveModifierByName("modifier_crit")
 	end
 
-	collisionRules = {
+	local collisionRules = {
 		team = caster:GetTeamNumber(),
 		radius = radius,
 		iTeam = DOTA_UNIT_TARGET_TEAM_ENEMY,
@@ -78,7 +78,7 @@ function modifier_judgment_arrow_empowered:FireHolyArrow(target)
 	local travel_speed = ability:GetSpecialValueFor("empowered_arrows_speed")
 	local radius = ability:GetSpecialValueFor("empowered_arrows_radius")
 
-	collisionRules = {
+	local collisionRules = {
 		team = caster:GetTeamNumber(),
 		radius = radius,
 		iTeam = DOTA_UNIT_TARGET_TEAM_BOTH,

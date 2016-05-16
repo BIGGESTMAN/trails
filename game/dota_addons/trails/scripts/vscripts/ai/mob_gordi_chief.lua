@@ -2,14 +2,6 @@ require("ai/enemy_ai")
 
 function Spawn()
 	local ai = EnemyAI:DefineAI(thisEntity, function(ai)
-		function ai:State_Default()
-			return self:DefaultBehavior()
-		end
-	end)
-end
-
-function Spawn()
-	local ai = EnemyAI:DefineAI(thisEntity, function(ai)
 
 		ai:RandomizeAbilityCooldown("mob_gordi_chief_go_ape")
 		ai:RandomizeAbilityCooldown("mob_gordi_chief_knuckleduster")

@@ -59,7 +59,7 @@
 		//"ProjectileModel"			"particles/econ/items/leshrac/leshrac_tormented_staff/leshrac_base_attack_tormented.vpcf"							// Particle system model for projectile.
 		//"ProjectileSpeed"			"1300"									// Speed of projectile.
 
-		"Str"	"600"
+		"Str"	"60"
 		"Def"	"0"
 		"Ats"	"110"
 		"Adf"	"0"

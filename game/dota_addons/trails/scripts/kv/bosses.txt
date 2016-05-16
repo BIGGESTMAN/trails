@@ -5,7 +5,7 @@
 		"boss"	"trailsadventure_mob_boss_grunoja"
 		"1"
 		{
-			"gold_reward"			"1000"
+			"gold_reward"			"2000"
 			"swift_victory_time"	"40"
 			"swift_victory_gold"	"1"
 			"flawless_victory_gold"	"1"
@@ -15,7 +15,7 @@
 		{
 			"trailsadventure_mob_gordi_chief"	"1"
 			
-			"gold_reward"			"1500"
+			"gold_reward"			"3000"
 			"swift_victory_time"	"40"
 			"swift_victory_gold"	"1"
 			"flawless_victory_gold"	"1"
@@ -25,7 +25,7 @@
 		{
 			"trailsadventure_mob_gordi_chief"	"2"
 			
-			"gold_reward"			"2200"
+			"gold_reward"			"4400"
 			"swift_victory_time"	"40"
 			"swift_victory_gold"	"1"
 			"flawless_victory_gold"	"1"
@@ -35,7 +35,55 @@
 		{
 			"trailsadventure_mob_gordi_chief"	"2"
 			
-			"gold_reward"			"3500"
+			"gold_reward"			"7000"
+			"swift_victory_time"	"40"
+			"swift_victory_gold"	"1"
+			"flawless_victory_gold"	"1"
+			"arena_size"			"1200"
+		}
+	}
+	"scary_dinosaur"
+	{
+		"boss"	"trailsadventure_mob_boss_scary_dinosaur"
+		"1"
+		{
+			"trailsadventure_mob_blade_horn"	"2"
+			"trailsadventure_mob_blade_pincer"	"1"
+
+			"gold_reward"			"2000"
+			"swift_victory_time"	"40"
+			"swift_victory_gold"	"1"
+			"flawless_victory_gold"	"1"
+			"arena_size"			"1200"
+		}
+		"2"
+		{
+			"trailsadventure_mob_blade_horn"	"3"
+			"trailsadventure_mob_blade_pincer"	"1"
+			
+			"gold_reward"			"3000"
+			"swift_victory_time"	"40"
+			"swift_victory_gold"	"1"
+			"flawless_victory_gold"	"1"
+			"arena_size"			"1200"
+		}
+		"3"
+		{
+			"trailsadventure_mob_blade_horn"	"4"
+			"trailsadventure_mob_blade_pincer"	"1"
+			
+			"gold_reward"			"4400"
+			"swift_victory_time"	"40"
+			"swift_victory_gold"	"1"
+			"flawless_victory_gold"	"1"
+			"arena_size"			"1200"
+		}
+		"4"
+		{
+			"trailsadventure_mob_blade_horn"	"4"
+			"trailsadventure_mob_blade_pincer"	"2"
+			
+			"gold_reward"			"7000"
 			"swift_victory_time"	"40"
 			"swift_victory_gold"	"1"
 			"flawless_victory_gold"	"1"

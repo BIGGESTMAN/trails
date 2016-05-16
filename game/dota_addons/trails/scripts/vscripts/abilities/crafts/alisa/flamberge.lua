@@ -37,7 +37,7 @@ if IsServer() then
 			caster:RemoveModifierByName("modifier_crit")
 		end
 
-		collisionRules = {
+		local collisionRules = {
 			team = caster:GetTeamNumber(),
 			radius = radius,
 			iTeam = DOTA_UNIT_TARGET_TEAM_ENEMY,

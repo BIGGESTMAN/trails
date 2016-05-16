@@ -6,6 +6,7 @@ CONDITION_DODGE_GROUND_SMASH = 4
 CONDITION_SHARE_KNUCKLEDUSTER_DAMAGE = 5
 CONDITION_BREAK_FISTS_OF_FURY = 6
 CONDITION_COUNTERHIT = 7
+CONDITION_DODGE_GORE = 7
 
 if not CPRewards then
 	CPRewards = class({})
@@ -23,6 +24,7 @@ function CPRewards:Initialize()
 	self.reward_conditions[CONDITION_SHARE_KNUCKLEDUSTER_DAMAGE] = {unlocked = false, description = "Share Knuckleduster damage among all party members", unique = true}
 	self.reward_conditions[CONDITION_DODGE_GROUND_SMASH] = {unlocked = false, description = "Dodge Ground Smash", unique = true}
 	self.reward_conditions[CONDITION_BREAK_FISTS_OF_FURY] = {unlocked = false, description = "Break Fists of Fury early", unique = true}
+	self.reward_conditions[CONDITION_DODGE_GORE] = {unlocked = false, description = "Dodge Gore", unique = true}
 end
 
 function CPRewards:RewardCP(recipient, enemy, cp)
