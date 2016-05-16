@@ -553,10 +553,6 @@ function modifier_sear:DealSearDamage()
 	ParticleManager:CreateParticle("particles/status_effects/sear/damage_effect.vpcf", PATTACH_ABSORIGIN_FOLLOW, self:GetParent())
 end
 
-function modifier_sear:DeclareFunctions()
-	return {MODIFIER_EVENT_ON_TAKEDAMAGE}
-end
-
 function modifier_sear:GetStatusEffectName()
 	return "particles/status_fx/status_effect_stickynapalm.vpcf"
 end

@@ -39,7 +39,7 @@ if IsServer() then
 		local origin = target:GetAbsOrigin()
 
 		local illusion = CreateUnitByName(unit_name, origin, true, caster, nil, caster:GetTeamNumber())
-		illusion:SetPlayerID(caster:GetPlayerID())
+		-- illusion:SetPlayerID(caster:GetPlayerID())
 
 		illusion:AddNewModifier(caster, ability, "modifier_illusion", { duration = illusion_duration, outgoing_damage = 0, incoming_damage = 0 })
 		illusion:MakeIllusion()

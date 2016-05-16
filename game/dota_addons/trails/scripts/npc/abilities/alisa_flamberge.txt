@@ -12,7 +12,8 @@
 		"precache"
 		{
 			"particle"					"particles/crafts/alisa/flamberge/flamberge.vpcf"
-			"particle"					"particles/crafts/alisa/flamberge/fire_trail.vpcf"
+			"particle"					"particles/crafts/alisa/flamberge/heated_status.vpcf"
+			"particle"					"particles/crafts/alisa/flamberge/heated_ignite.vpcf"
 		}
 
 		"AbilityCastPoint"				"0.0"
@@ -35,7 +36,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"bonus_unbalance"		"10"
+				"mark_duration"			"5"
 			}
 			"01"
 			{
@@ -50,42 +51,17 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"burn_duration"			"3"
+				"mark_trigger_health_threshold"	"8"
 			}
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"unbalanced_burn_duration"	"10"
-			}
-			"01"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"unbalanced_trail_duration"	"8"
-			}
-			"01"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"unbalanced_trail_radius"	"250"
-			}
-			"01"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"unbalanced_damage_percent"	"150"
-			}
-			"01"
-			{
-				"var_type"				"FIELD_FLOAT"
-				"unbalanced_trail_damage_interval"	"0.25"
+				"mark_trigger_damage_percent"	"200"
 			}
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
 				"normal_channel_time"	"2"
-			}
-			"01"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"unbalanced_channel_time"	"5"
 			}
 		}
 	}

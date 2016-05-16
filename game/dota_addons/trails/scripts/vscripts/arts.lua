@@ -12,7 +12,6 @@ CAST_COLORS = {Vector(255,102,102), Vector(255,186,102), Vector(102,115,255), Ve
 
 function createCastParticle(caster, ability)
 	caster.casting_particle = ParticleManager:CreateParticle("particles/arts/arcus/casting.vpcf", PATTACH_ABSORIGIN_FOLLOW, caster)
-	print(ability:GetSpecialValueFor("element"))
 	ParticleManager:SetParticleControl(caster.casting_particle, 4, CAST_COLORS[ability:GetSpecialValueFor("element") + 1])
 end
 

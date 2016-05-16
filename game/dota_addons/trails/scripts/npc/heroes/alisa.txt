@@ -43,7 +43,7 @@
 		"MovementSpeed"				"335"									// Speed.
 		"MovementTurnRate"			"0.6"									// Turning rate.
 
-		"StatusHealth"				"1050"									// Base health.
+		"StatusHealth"				"10500"									// Base health.
 		"StatusHealthRegen"			"0"										// Health regeneration rate.
 		"StatusMana"				"500"										// Base mana.
 		"StatusManaRegen"			"0"										// Mana regeneration rate.
@@ -59,9 +59,9 @@
 		//"ProjectileModel"			"particles/econ/items/leshrac/leshrac_tormented_staff/leshrac_base_attack_tormented.vpcf"							// Particle system model for projectile.
 		//"ProjectileSpeed"			"1300"									// Speed of projectile.
 
-		"Str"	"30"
+		"Str"	"60"
 		"Def"	"100"
-		"Ats"	"55"
+		"Ats"	"110"
 		"Adf"	"100"
 		"Spd"	"0"
 		"MasterQuartz"	"angel"
