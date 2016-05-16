@@ -1,7 +1,7 @@
 	"blessed_arrow"
 	{
 		"BaseClass"						"ability_datadriven"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"MaxLevel"						"1"
@@ -48,26 +48,6 @@
 			}
 			"01"
 			{
-				"var_type"				"FIELD_INTEGER"
-				"unbalanced_radius"		"700"
-			}
-			"01"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"unbalanced_mischievous_duration"	"10"
-			}
-			"01"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"unbalanced_mischievous_healing_percent"	"200"
-			}
-			"01"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"unbalanced_mischievous_bonus_cp"	"20"
-			}
-			"01"
-			{
 				"var_type"				"FIELD_FLOAT"
 				"arrow_travel_time"		"0.5"
 			}
@@ -85,23 +65,6 @@
 
 		"Modifiers"
 		{
-			"modifier_blessed_arrow_mischievous_blessing"
-			{
-				"IsDebuff"		"1"
 
-				"Duration"		"%unbalanced_mischievous_duration"
-
-				"EffectName"		"particles/crafts/alisa/blessed_arrow/mischievous_blessing.vpcf"
-				"EffectAttachType"	"follow_overhead"
-
-				"OnAttacked"
-				{
-					"RunScript"
-					{
-						"ScriptFile"	"abilities/crafts/alisa/blessed_arrow"
-						"Function"		"mischievousBlessingAttacked"
-					}
-				}
-			}
 		}
 	}

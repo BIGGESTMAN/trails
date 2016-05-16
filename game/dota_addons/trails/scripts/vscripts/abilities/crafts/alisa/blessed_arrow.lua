@@ -4,7 +4,6 @@ function spellCast(keys)
 	local caster = keys.caster
 	local ability = keys.ability
 	local target_point = keys.target_points[1]
-	local target = keys.target
 
 	local arrow_destination = target_point + Vector(0,0,300)
 	local arrow_travel_time = ability:GetSpecialValueFor("arrow_travel_time")
@@ -16,12 +15,6 @@ function spellCast(keys)
 
 	spendCP(caster, ability)
 	applyDelayCooldowns(caster, ability)
-
-	if validEnhancedCraft(caster, target) then
-		executeEnhancedCraft(caster, target)
-
-		args.enhanced = true
-	end
 	
 	if caster:HasModifier("modifier_crit") then
 		args.healing = args.healing * 2
@@ -43,10 +36,6 @@ function blessedArrowExplode(caster, origin_location, direction, speed, range, c
 	local target_point = origin_location + direction * range
 	local total_healing = 0
 
-	if other_args.enhanced then
-		radius = ability:GetSpecialValueFor("unbalanced_radius")
-	end
-
 	local team = caster:GetTeamNumber()
 	local iTeam = DOTA_UNIT_TARGET_TEAM_BOTH
 	local iType = DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC + DOTA_UNIT_TARGET_MECHANICAL
@@ -58,8 +47,6 @@ function blessedArrowExplode(caster, origin_location, direction, speed, range, c
 			local heal = healing_percent * unit:GetHealthDeficit()
 			applyHealing(unit, caster, heal)
 			total_healing = total_healing + heal
-		elseif other_args.enhanced then
-			ability:ApplyDataDrivenModifier(caster, unit, "modifier_blessed_arrow_mischievous_blessing", {})
 		end
 	end
 
@@ -91,16 +78,4 @@ function grantCP(caster, target_point, total_healing)
 	for k,unit in pairs(targets) do
 		modifyCP(unit, total_healing * bonus_cp_percent)
 	end
-end
-
-function mischievousBlessingAttacked(keys)
-	local caster = keys.caster
-	local ability = keys.ability
-	local unit = keys.attacker
-
-	local healing = getStats(caster).ats * ability:GetSpecialValueFor("unbalanced_mischievous_healing_percent") / 100
-	local bonus_cp = ability:GetSpecialValueFor("unbalanced_mischievous_bonus_cp")
-
-	applyHealing(unit, caster, healing)
-	modifyCP(unit, bonus_cp)
 end
