@@ -33,8 +33,10 @@ function CPRewards:RewardCP(recipient, enemy, cp)
 		cp = cp or BASE_CP_REWARD
 		enemy = enemy or recipient
 		if recipient then
-			local particle = ParticleManager:CreateParticle("particles/bosses/cp_reward_rays.vpcf", PATTACH_ABSORIGIN_FOLLOW, recipient)
-			ParticleManager:SetParticleControlEnt(particle, 1, enemy, PATTACH_POINT_FOLLOW, "attach_hitloc", enemy:GetAbsOrigin(), true)
+			if cp >= 1 then
+				local particle = ParticleManager:CreateParticle("particles/bosses/cp_reward_rays.vpcf", PATTACH_ABSORIGIN_FOLLOW, recipient)
+				ParticleManager:SetParticleControlEnt(particle, 1, enemy, PATTACH_POINT_FOLLOW, "attach_hitloc", enemy:GetAbsOrigin(), true)
+			end
 
 			modifyCP(recipient, cp)
 			triggerModifierEventOnAll("cp_condition_achieved", {recipient = recipient})
