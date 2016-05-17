@@ -48,7 +48,7 @@ function Filters:ExecuteOrderFilter(event)
 	else
 		event.order_type = event.order_type - 100
 	end
-	if unit:HasModifier("modifier_chaos_trigger_casting") and event.order_type == DOTA_UNIT_ORDER_STOP then
+	if unit:HasModifier("modifier_chaos_trigger_casting") and (event.order_type == DOTA_UNIT_ORDER_STOP or event.order_type == DOTA_UNIT_ORDER_HOLD_POSITION) then
 		local target_point = unit:GetAbsOrigin() + unit:GetForwardVector()
 		local self_move_order = {
 			UnitIndex = event.units['0'],
@@ -58,7 +58,7 @@ function Filters:ExecuteOrderFilter(event)
 		ExecuteOrderFromTable(self_move_order)
 		return false
 	end
-	if unit:HasModifier("modifier_angel_guardian_reviving") and event.order_type == DOTA_UNIT_ORDER_STOP then
+	if unit:HasModifier("modifier_angel_guardian_reviving") and (event.order_type == DOTA_UNIT_ORDER_STOP or event.order_type == DOTA_UNIT_ORDER_HOLD_POSITION) then
 		unit:RemoveModifierByName("modifier_angel_guardian_reviving")
 	end
 	return true

@@ -32,7 +32,7 @@ function checkForLinkBreak(keys)
 	local ability = keys.ability
 
 	if hero.combat_linked_to then
-		if not IsValidEntity(hero.combat_linked_to) or not hero.combat_linked_to:IsAlive() then
+		if not IsValidEntity(hero.combat_linked_to) or (not hero.combat_linked_to:IsAlive() and not hero.combat_linked_to.reviving) then
 			if IsValidEntity(hero.combat_linked_to) then
 				removeLink(hero.combat_linked_to)
 			end

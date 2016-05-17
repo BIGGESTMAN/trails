@@ -26,16 +26,6 @@ function modifier_master_angel_passive:IsHidden()
 	return true
 end
 
--- function modifier_master_angel_passive:OnFatalDamage(args)
--- 	if self.guardian_revive_available and self:GetParent().combat_linked_to then
--- 		self:GetParent():AddNewModifier(self:GetParent(), self:GetAbility(), "modifier_angel_guardian_reviving", {duration = self:GetAbility():GetSpecialValueFor("guardian_duration")})
--- 		self.guardian_revive_available = false
--- 		return false
--- 	else
--- 		return true
--- 	end
--- end
-
 function modifier_master_angel_passive:DeclareFunctions()
 	return {MODIFIER_EVENT_ON_DEATH,
 			MODIFIER_EVENT_ON_SPENT_MANA }
@@ -46,9 +36,9 @@ function modifier_master_angel_passive:OnDeath(params)
 	if params.unit == hero and self.guardian_revive_available and hero.combat_linked_to then
 		hero.reviving = true
 		self.guardian_revive_available = false
-		hero.guardian_healing_percent = getMasterQuartzSpecialValue(hero, "guardian_hp_and_mana_percent") / 100
+		hero.guardian_healing_percent = self:GetAbility():GetSpecialValueFor("guardian_hp_and_mana_percent") / 100
 		Timers:CreateTimer(1/30, function()
-			if RoundManager.round_started then
+			if Gamemode_Boss.state == ENCOUNTER then
 				reviveHero(hero, 1)
 				hero.reviving = nil
 				hero:AddNewModifier(hero, self:GetAbility(), "modifier_angel_guardian_reviving", {duration = self:GetAbility():GetSpecialValueFor("guardian_duration")})
@@ -60,9 +50,9 @@ function modifier_master_angel_passive:OnDeath(params)
 		self.quick_thelas_available = false
 		hero.combat_linked_to.reviving = true
 		local linked_hero = hero.combat_linked_to
-		local health = getMasterQuartzSpecialValue(hero, "quick_thelas_health") / 100 * hero.combat_linked_to:GetMaxHealth()
+		local health = self:GetAbility():GetSpecialValueFor("quick_thelas_health") / 100 * hero.combat_linked_to:GetMaxHealth()
 		Timers:CreateTimer(1/30, function()
-			if RoundManager.round_started then
+			if Gamemode_Boss.state == ENCOUNTER then
 				reviveHero(linked_hero, health)
 				hero.reviving = nil
 				hero:AddNewModifier(hero, self:GetAbility(), "modifier_angel_quick_thelas_heal_increase", {duration = self:GetAbility():GetSpecialValueFor("quick_thelas_healing_increase_duration")})
@@ -71,17 +61,22 @@ function modifier_master_angel_passive:OnDeath(params)
 	end
 end
 
-function modifier_master_angel_passive:RoundStarted(args)
+function modifier_master_angel_passive:LinkFormed(args)
 	self.guardian_revive_available = true
 	if self:GetAbility():GetSpecialValueFor("quick_thelas_health") > 0 then
 		self.quick_thelas_available = true
 	end
 end
 
-function modifier_master_angel_passive:EnhancedCraftUsed(args)
+function modifier_master_angel_passive:LinkBroken()
+	self.guardian_revive_available = false
+	self.quick_thelas_available = false
+end
+
+function modifier_master_angel_passive:CPConditionAchieved(args)
 	local hero = self:GetParent()
-	if args.unit == hero.combat_linked_to and getMasterQuartzSpecialValue(hero, "cheer_missing_health_percent") > 0 then
-		local healing_percent = getMasterQuartzSpecialValue(hero, "cheer_missing_health_percent") / 100
+	if args.recipient == hero.combat_linked_to and self:GetAbility():GetSpecialValueFor("cheer_missing_health_percent") > 0 then
+		local healing_percent = self:GetAbility():GetSpecialValueFor("cheer_missing_health_percent") / 100
 		applyHealing(hero.combat_linked_to, hero, healing_percent * hero.combat_linked_to:GetHealthDeficit())
 		local particle = ParticleManager:CreateParticle("particles/master_quartz/angel/cheer_heal.vpcf", PATTACH_CUSTOMORIGIN, nil)
 		ParticleManager:SetParticleControlEnt(particle, 0, hero, PATTACH_POINT_FOLLOW, "attach_hitloc", hero:GetAbsOrigin(), true)
@@ -93,7 +88,7 @@ function modifier_master_angel_passive:OnSpentMana(params)
 	local hero = self:GetParent()
 	if params.unit == hero and hero.combat_linked_to and params.cost > 0 then
 		local ep_spent = params.cost
-		local healing = ep_spent * getMasterQuartzSpecialValue(hero, "belief_healing_per_ep")
+		local healing = ep_spent * self:GetAbility():GetSpecialValueFor("belief_healing_per_ep")
 		for k,unit in pairs({hero, hero.combat_linked_to}) do
 			if not unit.belief_healing then unit.belief_healing = 0 end
 			unit.belief_healing = unit.belief_healing + healing
@@ -104,7 +99,7 @@ end
 
 function modifier_master_angel_passive:GetArtDelayMultiplier(element)
 	if element == ELEMENT_SPACE then
-		return 1 - getMasterQuartzSpecialValue(self:GetParent(), "space_mastery_delay_reduction") / 100
+		return 1 - self:GetAbility():GetSpecialValueFor("space_mastery_delay_reduction") / 100
 	else
 		return 1
 	end
@@ -204,5 +199,5 @@ function modifier_angel_quick_thelas_heal_increase:GetTexture()
 end
 
 function modifier_angel_quick_thelas_heal_increase:GetHealingRecievedMultiplier()
-	return 1 + getMasterQuartzSpecialValue(hero, "quick_thelas_healing_increase_percent") / 100
+	return 1 + self:GetAbility():GetSpecialValueFor("quick_thelas_healing_increase_percent") / 100
 end

@@ -28,45 +28,6 @@ function modifier_master_vermillion_passive:IsHidden()
 	return true
 end
 
-if IsServer() then
--- 	function modifier_master_vermillion_passive:DeclareFunctions()
--- 		return {MODIFIER_EVENT_ON_TAKEDAMAGE,
--- 				MODIFIER_EVENT_ON_HERO_KILLED}
--- 	end
-
--- 	function modifier_master_vermillion_passive:OnTakeDamage(params)
--- 		local ability = self:GetAbility()
--- 		local hero = self:GetParent()
--- 		if params.unit == hero then
--- 			self.vanguard_time_accumulated = 0
-
--- 			if hero:GetHealthPercent() <= LOW_HP_THRESHOLD_PERCENT and self.last_bastion_available then
--- 				self.last_bastion_available = false
--- 				hero:AddNewModifier(hero, ability, "modifier_vermillion_last_bastion", {duration = getMasterQuartzSpecialValue(hero, "last_bastion_duration")})
--- 			end
--- 		end
--- 		if params.unit == hero.combat_linked_to and self.counterattack_damage_taken and distanceBetween(hero:GetAbsOrigin(), params.attacker:GetAbsOrigin()) <= ability:GetSpecialValueFor("counterattack_range") then
--- 			self.counterattack_damage_taken = self.counterattack_damage_taken + params.damage
--- 			if self.counterattack_damage_taken >= ability:GetSpecialValueFor("counterattack_damage_threshold_percent") / 100 * params.unit:GetMaxHealth() then
--- 				self.counterattack_damage_taken = 0
--- 				if IsValidAlive(params.attacker) then
--- 					params.attacker:AddNewModifier(hero, ability, "modifier_vermillion_counterattack", {duration = ability:GetSpecialValueFor("counterattack_damage_bonus_duration")})
--- 				end
--- 				reduceDelay(hero, getMasterQuartzSpecialValue(self:GetParent(), "counterattack_delay_reduction"))
--- 			end
--- 		end
--- 	end
-
--- 	function modifier_master_vermillion_passive:OnHeroKilled(params)
--- 		if params.unit == self:GetParent().combat_linked_to then
--- 			if IsValidAlive(params.attacker) then
--- 				params.attacker:AddNewModifier(self:GetParent(), ability, "modifier_vermillion_counterattack", {})
--- 			end
--- 			removeDelay(self:GetParent())
--- 		end
--- 	end
-end
-
 function modifier_master_vermillion_passive:GetSophisticatedFightDamageMultiplier()
 	local hero = self:GetParent()
 	local max_damage_increase = self:GetAbility():GetSpecialValueFor("sophisticated_fight_max_damage_increase")
@@ -108,8 +69,10 @@ function modifier_master_vermillion_passive:ApplyCombinationMark(target)
 	self:GetCaster():RemoveModifierByName("modifier_master_vermillion_combination_ready")
 end
 
-function modifier_master_vermillion_passive:CPConditionAchieved()
-	applyHealing(self:GetParent(), self:GetParent(), self:GetAbility():GetSpecialValueFor("invigorate_healing"))
+function modifier_master_vermillion_passive:CPConditionAchieved(args)
+	if args.recipient == self:GetParent() then
+		applyHealing(self:GetParent(), self:GetParent(), self:GetAbility():GetSpecialValueFor("invigorate_healing"))
+	end
 end
 
 modifier_master_vermillion_combination_ready = class({})
@@ -214,58 +177,3 @@ if IsServer() then
 		hero:AddNewModifier(hero, self:GetAbility(), "modifier_master_vermillion_fiery_bond_ready", {})
 	end
 end
-
--- function modifier_master_vermillion_passive:GuardTriggered(args)
--- 	local ability = self:GetAbility()
--- 	modifyStat(self:GetParent(), STAT_STR, getMasterQuartzSpecialValue(self:GetParent(), "vanguard_stat_increase"), ability:GetSpecialValueFor("vanguard_stat_increase_duration"))
--- 	modifyStat(self:GetParent(), STAT_MOV, getMasterQuartzSpecialValue(self:GetParent(), "vanguard_stat_increase"), ability:GetSpecialValueFor("vanguard_stat_increase_duration"))
--- end
-
--- function modifier_master_vermillion_passive:UnitUnbalanced(args)
--- 	local hero = self:GetParent()
--- 	local target = args.unit
--- 	if target == hero.combat_linked_to then
--- 		modifyCP(hero, getMasterQuartzSpecialValue(hero, "lively_yell_cp"))
--- 		modifyCP(hero.combat_linked_to, getMasterQuartzSpecialValue(hero, "lively_yell_cp"))
--- 	end
--- end
-
--- function modifier_master_vermillion_passive:GetArtDelayMultiplier(element)
--- 	if element == ELEMENT_EARTH then
--- 		return 1 - getMasterQuartzSpecialValue(self:GetParent(), "earth_mastery_delay_reduction") / 100
--- 	else
--- 		return 1
--- 	end
--- end
-
--- modifier_vermillion_counterattack = class({})
-
--- function modifier_vermillion_counterattack:GetTexture()
--- 	return "alpha_wolf_critical_strike"
--- end
-
--- function modifier_vermillion_counterattack:IsDebuff()
--- 	return true
--- end
-
--- function modifier_vermillion_counterattack:GetEffectName()
--- 	return "particles/units/heroes/hero_rubick/rubick_fade_bolt_debuff.vpcf"
--- end
-
--- function modifier_vermillion_counterattack:GetEffectAttachType()
--- 	return PATTACH_ABSORIGIN_FOLLOW
--- end
-
--- modifier_vermillion_last_bastion = class({})
-
--- function modifier_vermillion_last_bastion:GetTexture()
--- 	return "master_vermillion"
--- end
-
--- function modifier_vermillion_last_bastion:GetEffectName()
--- 	return "particles/master_quartz/vermillion/last_bastion_shield.vpcf"
--- end
-
--- function modifier_vermillion_last_bastion:GetEffectAttachType()
--- 	return PATTACH_ABSORIGIN_FOLLOW
--- end

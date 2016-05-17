@@ -97,6 +97,8 @@
 						"Function"		"linkExpired"
 					}
 				}
+
+				"Attributes"		"MODIFIER_ATTRIBUTE_PERMANENT"
 			}
 
 			"modifier_combat_link_followup_available"
