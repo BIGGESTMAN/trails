@@ -43,7 +43,7 @@ Modifiers
 ~ CP (modifier_cp_tracker_cp) : Amount of CP available for crafts. Increased by dealing and recieving damage, and gained slowly over time.
 ~ Capture Blocked (modifier_capture_blocked) : Has been damaged recently and cannot capture towers.
 
-~ Combat Link (modifier_combat_link_linked) : Linked with an ally, enabling unbalancing of enemies and activating master quartz' link abilities.
+~ Combat Link (modifier_combat_link_linked) : Linked with an ally, activating both units' Master Quartz abilities.
 ~ Enhanced Crafts Ready (modifier_combat_link_followup_available) : An enemy has been knocked off-balance by an ally, enabling the use of an Enhanced craft.
 ~ Unbalanced Level (modifier_unbalanced_level) : Beginning to become unbalanced -- at 100, will enable the use of enemy Enhanced crafts. Rapidly decays if not increased for 5 seconds.
 ~ Unbalanced (modifier_combat_link_unbalanced) : Has been recently knocked off-balance, and cannot be unbalanced again for a short time.

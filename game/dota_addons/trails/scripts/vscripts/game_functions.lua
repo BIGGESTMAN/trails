@@ -244,6 +244,7 @@ function applyHealing(target, source, healing)
 		healing = healing * target:FindModifierByName("modifier_angel_quick_thelas_heal_increase"):GetHealingRecievedMultiplier()
 	end
 	target:Heal(healing, source)
+	PopupHealingNumbers(source, target, healing)
 end
 
 function purgePositiveBuffs(target)

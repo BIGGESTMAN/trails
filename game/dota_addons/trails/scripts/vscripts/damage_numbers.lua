@@ -65,6 +65,16 @@ function PopupDamageNumbers(source, target, amount)
 	end
 end
 
+function PopupHealingNumbers(source, target, amount)
+	local color = Vector(150,255,150)
+	for k,hero in pairs(getAllHeroes()) do
+		local particle = PopupNumbers(target, "damage_number", color, 0.75, amount, nil, nil, hero:GetPlayerOwner())
+		local size_factor = 1
+		if hero == source or hero == target then size_factor = 2 end
+		ParticleManager:SetParticleControl(particle, 4, Vector(size_factor,0,0))
+	end
+end
+
 -- Customizable version.
 function PopupNumbers(target, pfx, color, lifetime, number, presymbol, postsymbol, player)
 	local pfxPath = string.format("particles/msg_fx/msg_%s.vpcf", pfx)
