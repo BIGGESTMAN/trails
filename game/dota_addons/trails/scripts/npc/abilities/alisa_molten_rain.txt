@@ -43,11 +43,6 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"sear_damage_percent"	"20"
-			}
-			"01"
-			{
-				"var_type"				"FIELD_INTEGER"
 				"sear_duration"			"4"
 			}
 			"01"

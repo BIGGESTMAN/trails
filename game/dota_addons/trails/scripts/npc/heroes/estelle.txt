@@ -46,7 +46,7 @@
 		"MovementSpeed"				"335"									// Speed.
 		"MovementTurnRate"			".65"									// Turning rate.
 
-		"StatusHealth"				"1300"									// Base health.
+		"StatusHealth"				"13000"									// Base health.
 		"StatusHealthRegen"			"0"										// Health regeneration rate.
 		"StatusMana"				"240"										// Base mana.
 		"StatusManaRegen"			"0"										// Mana regeneration rate.
@@ -67,7 +67,7 @@
 		"Ats"	"60"
 		"Adf"	"0"
 		"Spd"	"0"
-		"MasterQuartz"	"aegis"
+		"MasterQuartz"	"vermillion"
 
 		"DisableWearables"			"1"
 	}

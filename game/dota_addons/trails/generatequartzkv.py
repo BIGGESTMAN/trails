@@ -30,35 +30,31 @@ def GetFieldString(field_value):
 	return field_string
 
 def WriteQuartzDefinition(file, item, items_written, masterquartz_level = None):
-	inheritedItem = None
 	name = None
 	script_file = None
 	shop_interactions = None
 	cost = None
 	texture_name = None
-	inheritedEffects = []
+	cast_properties = {}
 	if masterquartz_level:
 		name = '{}{}_{}'.format(master_name_prefix, item['internal_name'], masterquartz_level)
 		script_file = 'master_quartz/{}'.format(item['internal_name'])
 		shop_interactions = "0"
 		cost = "0"
 		texture_name = "item_master_{}".format(item['internal_name'])
-		for normalquartz in items:
-			if normalquartz['internal_name'] == item['art'].split("/")[masterquartz_level - 1]:
-				inheritedItem = normalquartz
-				break
-		if inheritedItem == None:
-			print("Art for masterquartz " + name + " not found, not writing masterquartz KV")
-			return
-		inheritedEffects = inheritedItem['effects']
+		cast_properties['target_type'] = "U"
+		cast_properties['target_team'] = "F"
+		cast_properties['delay'] = "30" # yeah idk why this is so hardcoded, w/e
+		cast_properties['cast_point'] = "0"
+		cast_properties['manacost'] = "0"
 	else:
-		inheritedItem = item
 		name = '{}{}'.format(name_prefix, item['internal_name'])
 		script_file = 'abilities/arts/{}/{}'.format(element_strings[item['element']], item['internal_name'])
 		shop_interactions = "1"
 		cost = item['quartz_cost']
 		texture_name = "item_quartz_{}_{}".format(element_strings[item['element']], item['tier'])
-		item['effects'].append(("element", str(element_indices.index(inheritedItem['element']))))
+		item['effects'].append(("element", str(element_indices.index(item['element']))))
+		cast_properties = item
 
 	file.write('\t"{}" {{\n'.format(name))
 	file.write('\t\t"ID"\t"{}"\n'.format(2001 + items_written))
@@ -66,24 +62,24 @@ def WriteQuartzDefinition(file, item, items_written, masterquartz_level = None):
 	file.write('\t\t"ScriptFile"\t"{}"\n'.format(script_file))
 
 	channeled_behavior_string = ""
-	if ('channel_time' in inheritedItem):
+	if ('channel_time' in cast_properties):
 		channeled_behavior_string = " | DOTA_ABILITY_BEHAVIOR_CHANNELED"
-	file.write('\t\t"AbilityBehavior"\t"{}{}"\n'.format(target_type_strings[inheritedItem['target_type']], channeled_behavior_string))
+	file.write('\t\t"AbilityBehavior"\t"{}{}"\n'.format(target_type_strings[cast_properties['target_type']], channeled_behavior_string))
 
-	file.write('\t\t"AbilityUnitTargetTeam"\t"{}"\n'.format(target_team_strings[inheritedItem['target_team']]))
+	file.write('\t\t"AbilityUnitTargetTeam"\t"{}"\n'.format(target_team_strings[cast_properties['target_team']]))
 	file.write('\t\t"AbilityUnitTargetType"\t"{}"\n'.format("DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"))
 	file.write('\t\t"Model"\t"models/props_gameplay/red_box.vmdl"\n')
 	file.write('\t\t"Effect"\t"particles/generic_gameplay/dropped_item.vpcf"\n')
 	file.write('\t\t"AbilityTextureName"\t"{}"\n'.format(texture_name))
 	file.write('\t\t"AbilityCastAnimation"\t"ACT_DOTA_TELEPORT"\n')
 	file.write('\t\t"ItemAliases"\t"{}"\n'.format(item['internal_name']))
-	file.write('\t\t"AbilityCooldown"\t"{}"\n'.format(inheritedItem['delay']))
-	file.write('\t\t"AbilityCastPoint"\t"{}"\n'.format(inheritedItem['cast_point']))
-	if ('cast_range' in inheritedItem):
-		file.write('\t\t"AbilityCastRange"\t"{}"\n'.format(inheritedItem['cast_range']))
-	file.write('\t\t"AbilityManaCost"\t"{}"\n'.format(inheritedItem['manacost']))
-	if ('channel_time' in inheritedItem):
-		file.write('\t\t"AbilityChannelTime"\t"{}"\n'.format(inheritedItem['channel_time']))
+	file.write('\t\t"AbilityCooldown"\t"{}"\n'.format(cast_properties['delay']))
+	file.write('\t\t"AbilityCastPoint"\t"{}"\n'.format(cast_properties['cast_point']))
+	if ('cast_range' in cast_properties):
+		file.write('\t\t"AbilityCastRange"\t"{}"\n'.format(cast_properties['cast_range']))
+	file.write('\t\t"AbilityManaCost"\t"{}"\n'.format(cast_properties['manacost']))
+	if ('channel_time' in cast_properties):
+		file.write('\t\t"AbilityChannelTime"\t"{}"\n'.format(cast_properties['channel_time']))
 	file.write('\t\t"ItemCost"\t"{}"\n'.format(cost))
 	file.write('\t\t"ItemDroppable"\t"{}"\n'.format(shop_interactions))
 	file.write('\t\t"ItemSellable"\t"{}"\n'.format(shop_interactions))
@@ -95,14 +91,6 @@ def WriteQuartzDefinition(file, item, items_written, masterquartz_level = None):
 		file.write('\t\t"ItemBaseLevel"\t"{}"\n'.format(masterquartz_level))
 	file.write('\t\t"AbilitySpecial" {\n')
 	for key, value in (item['effects']):
-			value = value.replace("%", "")
-			value = value.replace("/", " ")
-			file.write('\t\t\t"00" {{\n'.format())
-			file.write('\t\t\t\t"var_type"\t"{}"\n'.format(GetFieldString(value)))
-			file.write('\t\t\t\t"{}"\t"{}"\n'.format(key, value))
-			file.write('\t\t\t}\n')
-	for key, value in (inheritedEffects):
-		if not key in stat_increases:
 			value = value.replace("%", "")
 			value = value.replace("/", " ")
 			file.write('\t\t\t"00" {{\n'.format())

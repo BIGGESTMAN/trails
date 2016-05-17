@@ -4,40 +4,15 @@ require "libraries/util"
 
 LinkLuaModifier("modifier_unbalanced_level", "modifier_unbalanced_level.lua", LUA_MODIFIER_MOTION_NONE)
 
-function checkForLink(keys)
-	local caster = keys.caster
-	local ability = keys.ability
-	local link_range = ability:GetSpecialValueFor("link_radius")
-	local link_break_range = ability:GetSpecialValueFor("link_break_range")
-
-	if caster.combat_linked_to then
-		if not IsValidEntity(caster.combat_linked_to) or not caster.combat_linked_to:IsAlive() or
-		(((caster.combat_linked_to:GetAbsOrigin() - caster:GetAbsOrigin()):Length2D() > link_break_range or caster:HasModifier("modifier_link_broken") or caster.combat_linked_to:HasModifier("modifier_link_broken"))
-		and not caster:HasModifier("modifier_unshatterable_bonds")) then
-			if IsValidEntity(caster.combat_linked_to) then
-				removeLink(caster.combat_linked_to)
-			end
-			removeLink(caster)
-		end
-	end
-
-	if not caster.combat_linked_to then
-		for k,target in pairs(getAllLivingHeroes()) do
-			if distanceBetween(target:GetAbsOrigin(), caster:GetAbsOrigin()) <= link_range and target:GetTeamNumber() == caster:GetTeamNumber() and target ~= caster and not target.combat_linked_to and not caster:HasModifier("modifier_link_broken") and not target:HasModifier("modifier_link_broken") then
-				formLink(caster, target, ability)
-				break
-			end
-		end
-	end
-end
-
-function formLink(unit, target, ability)
+function formLink(unit, target, duration)
+	local ability = unit:FindAbilityByName("combat_link")
 	unit.combat_linked_to = target
 	target.combat_linked_to = unit
-	ability:ApplyDataDrivenModifier(unit, unit, "modifier_combat_link_linked", {})
-	ability:ApplyDataDrivenModifier(target, target, "modifier_combat_link_linked", {})
+	ability:ApplyDataDrivenModifier(unit, unit, "modifier_combat_link_linked", {duration = duration})
+	ability:ApplyDataDrivenModifier(target, target, "modifier_combat_link_linked", {duration = duration})
 
 	unit.tether_particle = ParticleManager:CreateParticle("particles/combat_links/link.vpcf", PATTACH_POINT_FOLLOW, unit)
+	target.tether_particle = unit.tether_particle
 	ParticleManager:SetParticleControlEnt(unit.tether_particle, 0, unit, PATTACH_POINT_FOLLOW, "attach_hitloc", unit:GetAbsOrigin(), true)
 	ParticleManager:SetParticleControlEnt(unit.tether_particle, 1, target, PATTACH_POINT_FOLLOW, "attach_hitloc", target:GetAbsOrigin(), true)
 	CustomGameEventManager:Send_ServerToPlayer(unit:GetOwner(), "ally_ability_bar_start", {heroIndex = target:GetEntityIndex(), cpCosts = getAbilityCPCosts(target)})
@@ -47,10 +22,30 @@ function formLink(unit, target, ability)
 	CustomNetTables:SetTableValue("combat_links", tostring(target:entindex()), {link_target = tostring(unit:entindex())})
 	CustomGameEventManager:Send_ServerToPlayer(unit:GetOwner(), "link_formed_or_broken", {})
 	CustomGameEventManager:Send_ServerToPlayer(target:GetOwner(), "link_formed_or_broken", {})
+
+	triggerModifierEvent(unit, "link_formed", {})
+	triggerModifierEvent(target, "link_formed", {})
+end
+
+function checkForLinkBreak(keys)
+	local hero = keys.target
+	local ability = keys.ability
+
+	if hero.combat_linked_to then
+		if not IsValidEntity(hero.combat_linked_to) or not hero.combat_linked_to:IsAlive() then
+			if IsValidEntity(hero.combat_linked_to) then
+				removeLink(hero.combat_linked_to)
+			end
+			removeLink(hero)
+		end
+	end
+end
+
+function linkExpired(keys)
+	removeLink(keys.target)
 end
 
 function removeLink(unit)
-	unit.combat_linked_to = nil
 	unit:RemoveModifierByName("modifier_combat_link_linked")
 	if unit.tether_particle then
 		ParticleManager:DestroyParticle(unit.tether_particle, false)
@@ -60,10 +55,19 @@ function removeLink(unit)
 	CustomGameEventManager:Send_ServerToPlayer(unit:GetOwner(), "link_formed_or_broken", {})
 
 	CustomNetTables:SetTableValue("combat_links", tostring(unit:entindex()), {link_target = nil})
+
+	triggerModifierEvent(unit, "link_broken", {})
+	unit.combat_linked_to = nil
 end
 
-function attackLanded(keys)
-	-- increaseUnbalance(keys.caster, keys.target)
+function changeLinkParticle(unit, particle_name)
+	if unit.tether_particle then
+		ParticleManager:DestroyParticle(unit.tether_particle, true)
+		unit.tether_particle = ParticleManager:CreateParticle(particle_name, PATTACH_POINT_FOLLOW, unit)
+		ParticleManager:SetParticleControlEnt(unit.tether_particle, 0, unit, PATTACH_POINT_FOLLOW, "attach_hitloc", unit:GetAbsOrigin(), true)
+		ParticleManager:SetParticleControlEnt(unit.tether_particle, 1, unit.combat_linked_to, PATTACH_POINT_FOLLOW, "attach_hitloc", unit.combat_linked_to:GetAbsOrigin(), true)
+		unit.combat_linked_to.tether_particle = unit.tether_particle
+	end
 end
 
 function increaseUnbalance(caster, target, bonus_increase)

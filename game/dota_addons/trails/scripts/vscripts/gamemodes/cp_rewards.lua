@@ -37,6 +37,8 @@ function CPRewards:RewardCP(recipient, enemy, cp)
 			ParticleManager:SetParticleControlEnt(particle, 1, enemy, PATTACH_POINT_FOLLOW, "attach_hitloc", enemy:GetAbsOrigin(), true)
 
 			modifyCP(recipient, cp)
+			triggerModifierEvent(recipient, "cp_condition_achieved", {})
+			Gamemode_Boss:AddBravePoints(cp)
 		else
 			for k,hero in pairs(getAllLivingHeroes()) do
 				self:RewardCP(hero, enemy, cp)

@@ -72,7 +72,7 @@ if IsServer() then
 		if params.unit == self:GetParent() then
 			self.damage_taken = self.damage_taken + params.damage
 			if self.damage_taken >= self.damage_threshold then
-				self:Destroy()
+				self:Destroy(false)
 			end
 		end
 	end

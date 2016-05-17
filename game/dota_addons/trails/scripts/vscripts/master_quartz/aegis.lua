@@ -1,14 +1,13 @@
 require "game_functions"
-require "arts/earth/earth_pulse"
+require "master_quartz"
 
 LinkLuaModifier("modifier_master_aegis_passive", "master_quartz/aegis.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_aegis_counterattack", "master_quartz/aegis.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_aegis_last_bastion", "master_quartz/aegis.lua", LUA_MODIFIER_MOTION_NONE)
 item_master_aegis = class({})
-item_master_aegis.OnSpellStart = item_earth_pulse.OnSpellStart
-item_master_aegis.OnAbilityPhaseStart = item_earth_pulse.OnAbilityPhaseStart
-item_master_aegis.OnAbilityPhaseInterrupted = item_earth_pulse.OnAbilityPhaseInterrupted
-item_master_aegis.GetCastAnimation = item_earth_pulse.GetCastAnimation
+item_master_aegis.OnSpellStart = MasterQuartz.OnSpellStart
+item_master_aegis.CastFilterResultTarget = MasterQuartz.CastFilterResultTarget
+item_master_aegis.GetCustomCastErrorTarget = MasterQuartz.GetCustomCastErrorTarget
 
 function item_master_aegis:GetIntrinsicModifierName()
 	return "modifier_master_aegis_passive"

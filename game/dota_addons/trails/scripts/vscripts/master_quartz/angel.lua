@@ -1,17 +1,14 @@
 require "game_functions"
-require "arts/water/thelas"
-require "arts/space/seraphic_ring"
-require "round_manager"
+require "master_quartz"
 
 LinkLuaModifier("modifier_master_angel_passive", "master_quartz/angel.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_angel_guardian_reviving", "master_quartz/angel.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_angel_belief_healing", "master_quartz/angel.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_angel_quick_thelas_heal_increase", "master_quartz/angel.lua", LUA_MODIFIER_MOTION_NONE)
 item_master_angel = class({})
-item_master_angel.OnSpellStart = item_thelas.OnSpellStart
-item_master_angel.OnAbilityPhaseStart = item_thelas.OnAbilityPhaseStart
-item_master_angel.OnAbilityPhaseInterrupted = item_thelas.OnAbilityPhaseInterrupted
-item_master_angel.GetCastAnimation = item_thelas.GetCastAnimation
+item_master_angel.OnSpellStart = MasterQuartz.OnSpellStart
+item_master_angel.CastFilterResultTarget = MasterQuartz.CastFilterResultTarget
+item_master_angel.GetCustomCastErrorTarget = MasterQuartz.GetCustomCastErrorTarget
 
 function item_master_angel:GetIntrinsicModifierName()
 	return "modifier_master_angel_passive"
@@ -22,11 +19,6 @@ item_master_angel_2 = item_master_angel
 item_master_angel_3 = item_master_angel
 item_master_angel_4 = item_master_angel
 item_master_angel_5 = copyOfTable(item_master_angel)
-
-item_master_angel_5.OnSpellStart = item_seraphic_ring.OnSpellStart
-item_master_angel_5.OnAbilityPhaseStart = item_seraphic_ring.OnAbilityPhaseStart
-item_master_angel_5.OnAbilityPhaseInterrupted = item_seraphic_ring.OnAbilityPhaseInterrupted
-item_master_angel_5.GetCastAnimation = item_seraphic_ring.GetCastAnimation
 
 modifier_master_angel_passive = class({})
 
@@ -200,7 +192,7 @@ end
 
 function modifier_angel_belief_healing:OnTakeDamage(params)
 	if params.unit == self:GetParent() then
-		self:Destroy()
+		self:Destroy(false)
 	end
 end
 

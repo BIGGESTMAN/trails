@@ -115,12 +115,12 @@ end
 
 function modifier_ultimate_barrier_force_field:OnAbilityStart(params)
 	if params.unit == self:GetParent() then
-		self:Destroy()
+		self:Destroy(false)
 	end
 end
 
 function modifier_ultimate_barrier_force_field:OnAttackStart(params)
 	if params.attacker == self:GetParent() then
-		self:Destroy()
+		self:Destroy(false)
 	end
 end

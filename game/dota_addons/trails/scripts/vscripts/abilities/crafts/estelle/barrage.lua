@@ -1,4 +1,5 @@
 require "game_functions"
+require "libraries/animations"
 
 function spellCast(keys)
 	local caster = keys.caster

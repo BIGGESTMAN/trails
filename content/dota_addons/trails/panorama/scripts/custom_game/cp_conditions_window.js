@@ -25,9 +25,14 @@ function CreateConditionPanel(description, parent, unique, unlocked) {
 	conditionPanel.BLoadLayout("file://{resources}/layout/custom_game/cp_condition.xml", false, false);
 }
 
+function OnBravePointsUpdate(msg) {
+	$("#BravePoints").text = "Brave Points: " + msg.brave_points
+}
+
 (function () {
 	GameEvents.Subscribe("encounter_started", OnEncounterStart);
 	GameEvents.Subscribe("encounter_ended", OnEncounterEnd);
 	GameEvents.Subscribe("update_cp_conditions_window", OnConditionsUpdate);
+	GameEvents.Subscribe("update_brave_points", OnBravePointsUpdate);
 })();
 

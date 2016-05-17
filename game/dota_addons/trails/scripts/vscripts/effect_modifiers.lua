@@ -346,7 +346,7 @@ function modifier_nightmare:DeclareFunctions()
 end
 
 function modifier_nightmare:OnTakeDamage(params)
-	if params.unit == self:GetParent() then self:Destroy() end
+	if params.unit == self:GetParent() then self:Destroy(false) end
 end
 
 function modifier_nightmare:GetEffectName()
@@ -381,7 +381,7 @@ function modifier_sleep:DeclareFunctions()
 end
 
 function modifier_sleep:OnTakeDamage(params)
-	if params.unit == self:GetParent() then self:Destroy() end
+	if params.unit == self:GetParent() then self:Destroy(false) end
 end
 
 function modifier_sleep:GetEffectName()
@@ -406,7 +406,7 @@ if IsServer() then
 	function modifier_petrify:OnTakeDamage(params)
 		if params.unit == self:GetParent() then
 			if damage_type == DAMAGE_TYPE_PHYSICAL then
-				self:Destroy()
+				self:Destroy(false)
 
 				local damage_percent = 20
 				local damage = self:GetParent():GetHealthDeficit() * damage_percent / 100
@@ -547,7 +547,7 @@ modifier_sear = class({})
 function modifier_sear:DealSearDamage()
 	local caster = self:GetCaster()
 	local ability = self:GetAbility()
-	local damage_scale = ability:GetSpecialValueFor("sear_damage_percent") / 100
+	local damage_scale = 0.5
 	dealScalingDamage(self:GetParent(), caster, DAMAGE_TYPE_MAGICAL, damage_scale, ability, 0, false, true, 0, {sear_damage = true})
 
 	ParticleManager:CreateParticle("particles/status_effects/sear/damage_effect.vpcf", PATTACH_ABSORIGIN_FOLLOW, self:GetParent())
@@ -562,7 +562,7 @@ function modifier_sear:HeroEffectPriority()
 end
 
 function modifier_sear:GetEffectName()
-	return "particles/units/heroes/hero_batrider/batrider_stickynapalm_debuff.vpcf"
+	return "particles/status_effects/sear/status_effect.vpcf"
 end
 
 function modifier_sear:GetEffectAttachType()
@@ -660,7 +660,7 @@ function modifier_zero_arts:OnAbilityExecuted(params)
 	if params.unit == self:GetParent() and params.ability:GetManaCost(params.ability:GetLevel()) > 0 then
 		params.ability:SetOverrideCastPoint(params.ability.normal_cast_point)
 		params.ability.normal_cast_point = nil
-		self:Destroy()
+		self:Destroy(false)
 	end
 end
 

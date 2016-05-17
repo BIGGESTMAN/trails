@@ -1,9 +1,7 @@
--- BOSSRUSH_NETTABLE = "bossrush"
-
-require "libraries/animations"
 require "libraries/util"
 require "combat_links"
 require "game_functions"
+require "master_quartz"
 require "gamemodes/modifier_boss_vulnerable"
 require "gamemodes/modifier_boss_hp_tracker"
 require "gamemodes/modifier_boss_out_of_combat_regen"
@@ -36,6 +34,7 @@ DEBUG_HEROES_START_WITH_ALL_ABILITIES = false
 
 if Gamemode_Boss == nil then
 	Gamemode_Boss = class({})
+	Gamemode_Boss.__index = Gamemode_Boss
 end
 
 function Gamemode_Boss:Initialize()
@@ -286,10 +285,25 @@ function Gamemode_Boss:StartEncounter()
 	self:SpawnEnemies(enemy_group.mobs)
 	self:CreateArenaWalls(enemy_group.arena_size)
 	self.time_encounter_started = GameRules:GetGameTime()
-	CustomGameEventManager:Send_ServerToAllClients("encounter_started", {})
-	CPRewards:UpdateCPConditionsWindow()
 	self:RemoveRegenBuff()
 	self:StartForcingUnitsInsideArena()
+	self.brave_points = 0
+
+	triggerModifierEventOnAll("encounter_started", {})
+
+	CustomGameEventManager:Send_ServerToAllClients("update_brave_points", {brave_points = self.brave_points})
+	CustomGameEventManager:Send_ServerToAllClients("encounter_started", {})
+	CPRewards:UpdateCPConditionsWindow()
+end
+
+function Gamemode_Boss:AddBravePoints(cp_gained)
+	self.brave_points = self.brave_points + cp_gained
+	CustomGameEventManager:Send_ServerToAllClients("update_brave_points", {brave_points = self.brave_points})
+end
+
+function Gamemode_Boss:SpendBravePoints(points)
+	self.brave_points = self.brave_points - points
+	CustomGameEventManager:Send_ServerToAllClients("update_brave_points", {brave_points = self.brave_points})
 end
 
 function Gamemode_Boss:StartForcingUnitsInsideArena()
@@ -313,7 +327,7 @@ end
 
 function Gamemode_Boss:ForceUnitInsideArena(unit)
 	local direction = (self:GetNextArenaPoint() - unit:GetAbsOrigin()):Normalized()
-	local distance = distanceBetween(unit:GetAbsOrigin(), self:GetNextArenaPoint()) - self:GetNextEnemyGroup().arena_size
+	local distance = distanceBetween(unit:GetAbsOrigin(), self:GetNextArenaPoint()) - self:GetNextEnemyGroup().arena_size + 150 -- plus a bit of a grace area to make sure units get over the arena walls
 	FindClearSpaceForUnit(unit, unit:GetAbsOrigin() + direction * distance, true)
 end
 
@@ -487,6 +501,8 @@ function Gamemode_Boss:EndEncounter(result)
 		end
 		self:ApplyRegenBuff()
 	end)
+
+	self.brave_points = 0
 	CustomGameEventManager:Send_ServerToAllClients("encounter_ended", {})
 end
 
@@ -585,109 +601,6 @@ end
 
 
 
-
-function Gamemode_Boss:MakeBossVulnerable(boss)
-	self.boss_unit:AddNewModifier(self.boss_unit, nil, "modifier_boss_vulnerable", {duration = VULNERABILITY_DURATION})
-end
-
-function Gamemode_Boss:EnhanceHero(damage_dealt_table)
-	StartAnimation(self.boss_unit, {duration=44 / 30, activity=ACT_DOTA_DISABLED, rate=1})
-
-	local highest_hero = nil
-	for hero,damage in pairs(damage_dealt_table) do
-		if highest_hero == nil or damage > damage_dealt_table[highest_hero] then
-			highest_hero = hero
-		end
-	end
-
-	applyEnhancedState(highest_hero, self.boss_unit)
-end
-
-function Gamemode_Boss:StartRound(round)
-	self:StartBoss(0)
-end
-
-function Gamemode_Boss:StartBoss(boss_index)
-	local arena_id = "lake"
-	local unit_id = "npc_dota_boss_troll"
-
-	-- DamageMeter:Reset()
-
-	self.currentArena = arena_id
-	-- self:CreateFOWViewers()
-
-	PrecacheUnitByNameAsync(unit_id, function()
-		-- Spawn the boss
-		local boss_unit = CreateUnitByName(unit_id, self:GetArenaPoint("boss"), true, nil, nil, DOTA_TEAM_BADGUYS)
-		-- BossAI:Start(boss_unit)
-		self.boss_unit = boss_unit
-		for i=0,15 do
-			local ability = boss_unit:GetAbilityByIndex(i)
-			if ability then 
-				ability:SetLevel(1)
-			end
-		end
-		boss_unit.enrage_state = 0
-
-		-- Teleport heroes to the encounter
-		-- local tp_target = self:GetArenaPoint("herospawn")
-
-		local hero_idx = 0
-		for _,hero in ipairs(getAllHeroes()) do
-			-- local hero_tp_target = tp_target + Vector((hero_idx + 0.5 - #getAllHeroes() / 2.0) * 200, 0, 0)
-
-			-- AddFOWViewer(DOTA_TEAM_GOODGUYS, hero_tp_target, 500, 3.1, false)
-			-- PlayerResource:SetCameraTarget(hero:GetPlayerID(), hero)
-			-- self:SlowTeleportToLocation(hero, hero_tp_target)
-
-			-- Clear cooldowns, too
-			-- for i = 0, 5 do
-			-- 	local ability = hero:GetAbilityByIndex(i)
-			-- 	if ability then
-			-- 		ability:EndCooldown()
-			-- 	end
-			-- end
-
-			hero_idx = hero_idx + 1
-		end
-
-		-- Lock camera while teleporting
-		-- Timers:CreateTimer(3.1, function()
-		-- 	for _,hero in ipairs(HeroList:GetAllHeroes()) do
-		-- 		PlayerResource:SetCameraTarget(hero:GetPlayerID(), nil)
-		-- 	end
-
-			CustomGameEventManager:Send_ServerToAllClients("boss_begin", { unit_id = boss_unit:GetUnitName() })
-		-- 	self.encounterStartTime = GameRules:GetGameTime()
-		-- 	self.encounterDeaths = 0
-		-- 	self.encounterConsumablesUsed = 0
-		-- end)
-	end)
-end
-
-function Gamemode_Boss:GetArenaPoint(name)
-	local ent = Entities:FindByName(nil, self.currentArena .. "_" .. name)
-	if ent ~= nil then
-		return ent:GetAbsOrigin()
-	else
-		return Vector(0, 0, 0)
-	end
-end
-
-function Gamemode_Boss:UpdateEnrageZone(health_percent)
-	local new_enrage_zone = 4 - math.ceil(health_percent / 25)
-	if new_enrage_zone > self.boss_unit.enrage_state then
-		self.boss_unit.enrage_state = self.boss_unit.enrage_state + 1
-		for i=0,15 do
-			local ability = self.boss_unit:GetAbilityByIndex(i)
-			if ability then 
-				ability:SetLevel(ability:GetLevel() + 1)
-			end
-		end
-
-		ParticleManager:CreateParticle("particles/bosses/enrage_trigger.vpcf", PATTACH_ABSORIGIN_FOLLOW, self.boss_unit)
-	end
-end
 
 
 

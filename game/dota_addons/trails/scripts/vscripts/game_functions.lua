@@ -129,12 +129,15 @@ function dealDamage(target, attacker, damage, damage_type, ability, cp_gain_fact
 		if not status and target.freezingBulletWallShatter then target:freezingBulletWallShatter(target, attacker) end
 		return
 	end
-	if target.combat_linked_to and target.combat_linked_to:HasModifier("modifier_master_force_passive") and pointIsBetweenPoints(target.combat_linked_to:GetAbsOrigin(), target:GetAbsOrigin(), attacker:GetAbsOrigin()) then
-		local cover_damage_percent = getMasterQuartzSpecialValue(target.combat_linked_to, "cover_damage_reduction") / 100
-		if cover_damage_percent > 0 then
-			dealDamage(target.combat_linked_to, attacker, cover_damage_percent * damage, damage_type, ability, cp_gain_factor)
-			damage = damage * (1 - cover_damage_percent)
-			target.combat_linked_to:FindModifierByName("modifier_master_force_passive"):CreateCoverParticles(attacker:GetAbsOrigin())
+	if target.combat_linked_to and pointIsBetweenPoints(target.combat_linked_to:GetAbsOrigin(), target:GetAbsOrigin(), attacker:GetAbsOrigin()) then
+		local modifier = target.combat_linked_to:FindModifierByName("modifier_master_force_passive") or target.combat_linked_to:FindModifierByName("modifier_master_vermillion_passive")
+		if modifier then
+			local cover_damage_percent = modifier:GetCoverDamageReduction()
+			if cover_damage_percent > 0 then
+				dealDamage(target.combat_linked_to, attacker, cover_damage_percent * damage, damage_type, ability, cp_gain_factor)
+				damage = damage * (1 - cover_damage_percent)
+				modifier:CreateCoverParticles(attacker:GetAbsOrigin())
+			end
 		end
 	end
 	if target:HasModifier("modifier_insight") and target:FindModifierByName("modifier_insight").evasion_active and damage_type == DAMAGE_TYPE_PHYSICAL then
@@ -173,12 +176,26 @@ function dealDamage(target, attacker, damage, damage_type, ability, cp_gain_fact
 	if target:HasModifier("modifier_sear") and not args.sear_damage then
 		target:FindModifierByName("modifier_sear"):DealSearDamage()
 	end
+
+	-- Master Quartz offensive effects
 	if attacker:HasModifier("modifier_cypher_gambling_strike") and attacker.combat_linked_to and ability and not status and ability:GetName():find("item_") then -- janky checks to see if damage is from an art
 		attacker:FindModifierByName("modifier_cypher_gambling_strike"):DealGamblingDamage()
 	end
 	if attacker:HasModifier("modifier_cypher_gambling_magic") and attacker.combat_linked_to and ability and not status and not ability:GetName():find("item_") then
 		attacker:FindModifierByName("modifier_cypher_gambling_magic"):DealGamblingDamage()
 	end
+	if attacker:HasModifier("modifier_master_vermillion_passive") and attacker.combat_linked_to then
+		if damage_type == DAMAGE_TYPE_PHYSICAL then
+			damage = damage * attacker:FindModifierByName("modifier_master_vermillion_passive"):GetSophisticatedFightDamageMultiplier()
+		end
+		if attacker:HasModifier("modifier_master_vermillion_combination_ready") and ability then
+			attacker:FindModifierByName("modifier_master_vermillion_passive"):ApplyCombinationMark(target)
+		end
+	end
+	if ability and target:HasModifier("modifier_master_vermillion_combination_mark") then
+		target:FindModifierByName("modifier_master_vermillion_combination_mark"):TriggerMark(attacker)
+	end
+
 	if target:HasModifier("modifier_heavenly_gift_enemy") then
 		target:FindModifierByName("modifier_heavenly_gift_enemy"):GrantDamageCP(damage, attacker)
 	end
@@ -239,7 +256,7 @@ function purgePositiveBuffs(target)
 
 	local count = #modifiers_to_purge
 	for k,modifier in pairs(modifiers_to_purge) do
-		modifier:Destroy()
+		modifier:Destroy(false)
 	end
 	return count
 end
@@ -335,6 +352,9 @@ function trackingDash(unit, target, speed, impactFunction, other_args)
 			else
 				impactFunction(unit, direction, speed / update_interval, other_args)
 				FindClearSpaceForUnit(unit, unit:GetAbsOrigin(), false)
+				direction = unit:GetForwardVector()
+				direction.z = 0
+				unit:SetForwardVector(direction)
 			end
 		end
 	end)
@@ -490,7 +510,7 @@ function modifyStat(unit, stat, percent, duration)
 			if new_percent > 0 then
 				inverse_modifier:SetStackCount(new_percent)
 			else
-				inverse_modifier:Destroy()
+				inverse_modifier:Destroy(false)
 				if new_percent < 0 then
 					local modifier = unit:AddNewModifier(unit, nil, getInverseStat(stat), {duration = duration})
 					modifier:SetStackCount(new_percent)
@@ -736,6 +756,22 @@ function triggerModifierEvent(hero, event_name, args)
 		elseif event_name == "enhanced_craft_used" then
 			if modifier.EnhancedCraftUsed then
 				modifier:EnhancedCraftUsed(args)
+			end
+		elseif event_name == "encounter_started" then
+			if modifier.EncounterStarted then
+				modifier:EncounterStarted(args)
+			end
+		elseif event_name == "cp_condition_achieved" then
+			if modifier.CPConditionAchieved then
+				modifier:CPConditionAchieved(args)
+			end
+		elseif event_name == "link_formed" then
+			if modifier.LinkFormed then
+				modifier:LinkFormed(args)
+			end
+		elseif event_name == "link_broken" then
+			if modifier.LinkBroken then
+				modifier:LinkBroken(args)
 			end
 		end
 	end

@@ -67,16 +67,6 @@
 				"Passive"	"1"
 				"IsHidden"	"1"
 
-				"ThinkInterval"  "0.03"
-				"OnIntervalThink"
-				{
-					"RunScript"
-					{
-						"ScriptFile"	"combat_links"
-						"Function"		"checkForLink"
-					}
-				}
-
 				"OnCreated"
 				{
 					"RunScript"
@@ -89,14 +79,22 @@
 
 			"modifier_combat_link_linked"
 			{
-				"IsHidden"	"1"
-				
-				"OnAttackLanded"
+				"ThinkInterval"  "0.03"
+				"OnIntervalThink"
 				{
 					"RunScript"
 					{
 						"ScriptFile"	"combat_links"
-						"Function"		"attackLanded"
+						"Function"		"checkForLinkBreak"
+					}
+				}
+				
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"combat_links"
+						"Function"		"linkExpired"
 					}
 				}
 			}

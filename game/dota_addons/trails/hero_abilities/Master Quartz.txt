@@ -34,12 +34,11 @@ Lively Yell CP (lively_yell_cp) : 0/0/0/30/45
 ~Earth Mastery Delay Reduction (earth_mastery_delay_reduction) : 50
 
 Angel
-Art - Thelas/Thelas/Thelas/Thelas/Seraphic Ring
-Guardian : On taking lethal damage, resurrects you and restores your mana over 10 seconds. Alisa can interrupt the revival in order to revive immediately with less health and mana. Can occur only once per round.
-Cheer : Whenever your link partner uses an Enhanced craft, they're healed for a percent of their missing health.
+Guardian : On taking lethal damage, resurrects you and restores your mana over 10 seconds. Alisa can interrupt the revival in order to revive immediately with less health and mana. Can occur only once per link.
+Cheer : Whenever your link partner achieves a CP Condition, they're healed for a percent of their missing health.
 Belief : Whenever you spend mana, heal yourself and your link partner over 10 seconds. This healing is broken if the recipient takes damage.
-Quick Thelas : When your link partner falls, they are resurrected at 15% of their max health instead. Can occur only once per round.
-Space Mastery : Halves the delay after casting Space Arts. Enhances Quick Thelas to also grant your partner a 50% bonus to healing recieved for 8 seconds. Upgrades art to Seraphic Ring.
+Quick Thelas : When your link partner falls, they are resurrected at 15% of their max health instead. Can occur only once per link.
+Space Mastery : Halves the delay after casting Space Arts. Enhances Quick Thelas to also grant your partner a 50% bonus to healing recieved for 8 seconds.
 %Guardian Health and Mana (guardian_hp_and_mana_percent) : 40/55/70/85/100
 ~Guardian Duration (guardian_duration) : 10
 %Cheer Health (cheer_missing_health_percent) : 0/12/15/18/21
@@ -80,9 +79,17 @@ Auto-charge : Once per 0/0/0/10/6 seconds, whenever your link partner casts an A
 Witching Hour : When you fall below 20% of your max health, your ATS is increased by 25% for 0/0/0/0/10 seconds. Happens only once per round.
 
 Vermillion
-Art - Recuria
-Sophisticated Fight : Increases your physical damage by 1% for every 4/3.5/3/2.5/2% of health you have.
+Sophisticated Fight : Increases your physical damage based on how full your health is.
 Cover : Reduces the damage your link partner takes and deals half of the damage reduced to you. Must be in between damage source and link partner.
-Combination : Once per 0/0/20/16/12 seconds, your next damaging craft marks enemies hit for 3 seconds. When your link partner hits a marked enemy with a craft, it unbalances more and changes the mark to make your craft unbalance more while refreshing its duration.  
-Invigorate : You gain 0/0/100/175/250 health whenever an enemy within 350 range is unbalanced, and double that amount when you defeat an enemy.
-Fiery Bond : Once per 0/0/0/0/8 seconds, your link Burns the first enemy it touches for 2 seconds.
+Combination : Your damaging crafts place a Combination mark on enemies hit for 3 seconds. Combination marks can only be triggered by the link partner of the hero who placed them. When triggered by craft damage, the partner inflicts bonus physical damage and places a new Combination mark. Has a cooldown.
+Invigorate : You heal whenever you achieve a CP Condition.
+Fiery Bond : Your link Sears the first enemy it touches for 2 seconds. Has a cooldown.
+%Sophisticated Fight Max Damage Increase (sophisticated_fight_max_damage_increase) : 26/32/38/44/50
+%Cover Damage Reduction (cover_damage_reduction) : 0/7.5/15/22.5/30
+%Combination Physical Damage (combination_physical_damage_percent) : 100
+Combination Cooldown (combination_cooldown) : 0/0/20/16/12
+~Combination Mark Duration (combination_mark_duration) : 3
+Invigorate Healing (invigorate_healing) : 0/0/0/100/150
+Fiery Bond Cooldown (fiery_bond_cooldown) : 0/0/0/0/8
+~Fiery Bond Duration (fiery_bond_duration) : 2
+~Fiery Bond Beam Radius (fiery_bond_radius) : 75

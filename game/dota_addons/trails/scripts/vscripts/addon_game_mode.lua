@@ -59,7 +59,9 @@ end
 
 -- Create the game mode when we activate
 function Activate()
-	GameRules:SetCustomGameSetupAutoLaunchDelay(0)
+	if IsInToolsMode() then
+		GameRules:SetCustomGameSetupAutoLaunchDelay(0)
+	end
 
 	GameRules.GameMode = GameMode()
 	GameRules.GameMode:InitGameMode()

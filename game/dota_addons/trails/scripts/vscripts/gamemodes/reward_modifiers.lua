@@ -21,7 +21,7 @@ if IsServer() then
 		local unit = self:GetParent()
 		if params.unit == unit then
 			CPRewards:RewardCP(params.attacker, unit)
-			self:Destroy()
+			self:Destroy(false)
 		end
 	end
 end
@@ -56,7 +56,7 @@ if IsServer() then
 		local unit = self:GetParent()
 		if params.unit == unit then
 			CPRewards:RewardCP(params.attacker, unit, 10)
-			self:Destroy()
+			self:Destroy(false)
 		end
 	end
 end

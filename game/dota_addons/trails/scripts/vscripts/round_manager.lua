@@ -131,7 +131,7 @@ end
 function RoundManager:RemoveTemporaryModifiers(hero)
 	for k,modifier in pairs(hero:FindAllModifiers()) do
 		if modifier:GetDuration() ~= -1 and (not modifier.DestroyOnExpire or modifier:DestroyOnExpire()) then
-			modifier:Destroy()
+			modifier:Destroy(false)
 		end
 	end
 end

@@ -229,6 +229,10 @@ function GameMode:OnPlayerChat(keys)
 	elseif text:find("-startboss") then
 		Gamemode_Boss.current_path_progress = 2
 		Gamemode_Boss:StartEncounter()
+	elseif text:find("-brave") then
+		if not Gamemode_Boss.brave_points then Gamemode_Boss.brave_points = 0 end
+		Gamemode_Boss:AddBravePoints(10000)
+		GameRules:SendCustomMessage("Brave points increased", 0, 0)
 	end
 end
 
@@ -409,6 +413,8 @@ function GameMode:OnHeroInGame(hero)
 			Attachments:AttachProp(hero, "attach_attack1", "models/heroes/earth_spirit/earth_spirit_staff.vmdl", 0.7)
 			Attachments:AttachProp(hero, "attach_eyer", "models/items/windrunner/orchid_flowersong_head/orchid_flowersong_head.vmdl", 1.0)
 		end
+
+		self:AddMasterQuartz(hero)
 	end
 end
 

@@ -71,6 +71,10 @@ function modifier_master_force_passive:UnitUnbalanced(args)
 	end
 end
 
+function modifier_master_force_passive:GetCoverDamageReduction()
+	return getMasterQuartzSpecialValue(self:GetParent(), "cover_damage_reduction") / 100
+end
+
 function modifier_master_force_passive:CreateCoverParticles(damage_origin)
 	local caster = self:GetParent()
 	local ally = caster.combat_linked_to

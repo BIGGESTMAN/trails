@@ -31,7 +31,6 @@ Cast Range : 800
 Radius (radius) : 300
 Arrow Radius : 150
 %Magical Damage (damage_percent) : 80
-%Sear Magical Damage (sear_damage_percent) : 20
 Sear Duration (sear_duration) : 4
 Duration (duration) : 8
 Total Arrows : 35

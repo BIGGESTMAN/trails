@@ -57,6 +57,6 @@ function dealPurgeDamage(keys)
 	if stacks > 1 then
 		modifier:SetStackCount(stacks - 1)
 	else
-		modifier:Destroy()
+		modifier:Destroy(false)
 	end
 end
