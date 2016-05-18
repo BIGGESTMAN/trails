@@ -92,8 +92,8 @@ function ItemShowTooltip()
 	// 	// arg_string = arg_string + "abil" + i + "=" + abilities[i] + ";"
 	// 	arg_string = arg_string + abilities[i] + ";"
 	// }
-	if (Math.random() < 0.5) {
-		var itemName = Abilities.GetAbilityName( m_Item );
+	var itemName = Abilities.GetAbilityName( m_Item );
+	if (itemName.substr(0, ("item_master_").length) != "item_master_") {
 		$.DispatchEvent( "DOTAShowAbilityTooltipForEntityIndex", $.GetContextPanel(), itemName, m_QueryUnit );
 	} else {
 		var arg_string = "masterquartz=" + m_Item

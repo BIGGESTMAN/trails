@@ -243,8 +243,11 @@ function applyHealing(target, source, healing)
 	if target:HasModifier("modifier_angel_quick_thelas_heal_increase") then
 		healing = healing * target:FindModifierByName("modifier_angel_quick_thelas_heal_increase"):GetHealingRecievedMultiplier()
 	end
+	local real_healing = math.min(target:GetHealthDeficit(), healing)
 	target:Heal(healing, source)
-	PopupHealingNumbers(source, target, healing)
+
+	triggerModifierEvent(source, "applied_healing", {healing = real_healing})
+	PopupHealingNumbers(source, target, real_healing)
 end
 
 function purgePositiveBuffs(target)
@@ -773,6 +776,10 @@ function triggerModifierEvent(hero, event_name, args)
 		elseif event_name == "link_broken" then
 			if modifier.LinkBroken then
 				modifier:LinkBroken(args)
+			end
+		elseif event_name == "applied_healing" then
+			if modifier.AppliedHealing then
+				modifier:AppliedHealing(args)
 			end
 		end
 	end

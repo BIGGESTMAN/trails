@@ -89,5 +89,6 @@
 			"flawless_victory_gold"	"1"
 			"arena_size"			"1200"
 		}
+		"disabled"	"1"
 	}
 }

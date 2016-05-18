@@ -132,7 +132,7 @@ end
 function Gamemode_Boss:GetRandomUnassignedBoss(kv, assigned_bosses)
 	local unassigned_bosses = {}
 	for k,v in pairs(kv) do
-		if not assigned_bosses[k] then
+		if not assigned_bosses[k] and v["disabled"] ~= 1 then
 			unassigned_bosses[k] = v
 		end
 	end
@@ -144,6 +144,9 @@ function Gamemode_Boss:GetRandomUnassignedBoss(kv, assigned_bosses)
 		boss_kv = unassigned_bosses[index]
 	else
 		boss_kv = kv[randomIndexOfTable(kv)]
+		while boss_kv["disabled"] == 1 do
+			boss_kv = kv[randomIndexOfTable(kv)]
+		end
 	end
 	if index then assigned_bosses[index] = true end
 

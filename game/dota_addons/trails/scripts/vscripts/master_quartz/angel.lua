@@ -1,6 +1,8 @@
 require "game_functions"
 require "master_quartz"
 
+EXP_GAIN_HEALING_FACTOR = 0.05
+
 LinkLuaModifier("modifier_master_angel_passive", "master_quartz/angel.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_angel_guardian_reviving", "master_quartz/angel.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_angel_belief_healing", "master_quartz/angel.lua", LUA_MODIFIER_MOTION_NONE)
@@ -9,9 +11,21 @@ item_master_angel = class({})
 item_master_angel.OnSpellStart = MasterQuartz.OnSpellStart
 item_master_angel.CastFilterResultTarget = MasterQuartz.CastFilterResultTarget
 item_master_angel.GetCustomCastErrorTarget = MasterQuartz.GetCustomCastErrorTarget
+item_master_angel.GainExperience = MasterQuartz.GainExperience
+item_master_angel.LevelUp = MasterQuartz.LevelUp
 
 function item_master_angel:GetIntrinsicModifierName()
 	return "modifier_master_angel_passive"
+end
+
+function item_master_angel:GetNetTableInfo()
+	return {name = self:GetAbilityName():sub(0, self:GetAbilityName():len() - 2), exp = {current = self.exp, next_level = MASTER_QUARTZ_EXP_TABLE[self:GetLevel()]}, abilities = {
+											{unlocked = self:GetLevel() >= 1, name = "masterquartz_guardian", icon = "vermillion_sophisticated_fight", ability_specials = {"guardian_hp_and_mana_percent"}},
+											{unlocked = self:GetLevel() >= 2, name = "masterquartz_cheer", icon = "spectre_dispersion", ability_specials = {"cheer_missing_health_percent"}},
+											{unlocked = self:GetLevel() >= 3, name = "masterquartz_belief", icon = "troll_warlord_fervor", ability_specials = {"belief_healing_per_ep"}},
+											{unlocked = self:GetLevel() >= 4, name = "masterquartz_quick_thelas", icon = "huskar_inner_vitality", ability_specials = {}},
+											{unlocked = self:GetLevel() >= 5, name = "masterquartz_space_mastery", icon = "phoenix_sun_ray", ability_specials = {}},
+													}}
 end
 
 item_master_angel_1 = item_master_angel
@@ -103,6 +117,10 @@ function modifier_master_angel_passive:GetArtDelayMultiplier(element)
 	else
 		return 1
 	end
+end
+
+function modifier_master_angel_passive:AppliedHealing(args)
+	self:GetAbility():GainExperience(args.healing * EXP_GAIN_HEALING_FACTOR)
 end
 
 modifier_angel_guardian_reviving = class({})

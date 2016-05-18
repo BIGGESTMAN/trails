@@ -24,7 +24,7 @@ with open(os.path.join(directoryname, filename), encoding="utf-8") as infile:
 			continue
 		if ":" in line and line[-1:] != ")" and (not ") : " in line):
 			# num_of_existing_effects = len(ability['desc_lines'])
-			ability['desc_lines'].append("<font color='#FE9A2E'>" + line.replace(" :", ":</font>") + "\n")
+			ability['desc_lines'].append((line.split(" : ")))
 			continue
 
 		if (not ability) or ("(" not in line) or (line[:1] == "~"):
@@ -42,18 +42,16 @@ with open('resource/tooltips/master_quartz_tooltips.txt', mode='w', encoding='ut
 		for i in range(1,6):
 			name = ability['name'].replace(" ", "_") + "_" + str(i)
 			outfile.write('\t\t{}{}" "{}"\n'.format(ability_prefix, name, ability['name']))
-			desc_string = ""
-			for line in ability['desc_lines']:
-				effect_num = ability['desc_lines'].index(line)
-				if effect_num < i:
-					desc_string = desc_string + line
-				else:
-					desc_string = desc_string + "<font color='#4C4C4C'>" + line.replace("FE9A2E", "633C12") + "</font>"
-			outfile.write('\t\t{}{}_Description" "{}"\n'.format(ability_prefix, name, desc_string))
-
 			for effect, key in ability['effects']:
 				# effect_num = ability['effects'].index((effect,key)) + 1
 				# if effect_num <= i:
 					# outfile.write('\t\t{}{}_{}" "{}"\n'.format(ability_prefix, name, key, effect))
 				outfile.write('\t\t{}{}_{}" "{}"\n'.format(ability_prefix, name, key, effect))
 			outfile.write("\n")
+
+with open('panorama/localization/panoramatooltips/master_quartz_tooltips.txt', mode='w', encoding='utf-8') as outfile:
+	outfile.write("\n")
+	for ability in abilities:
+		for effect,description in ability['desc_lines']:
+			outfile.write('\t"masterquartz_{}_desc" "{}"\n'.format(effect.replace(" ", "_"), description))
+			outfile.write('\t"masterquartz_{}" "{}"\n'.format(effect.replace(" ", "_"), effect))

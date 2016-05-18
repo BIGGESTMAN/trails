@@ -15,8 +15,8 @@ function setupTooltip() {
 
 		var ability = masterquartz_info.abilities[i + 1]
 		$("#Ability" + i).SetHasClass("Disabled", !ability.unlocked)
-		$("#Ability" + i + "Name").text = ability.name
-		$("#Ability" + i + "Description").text = ability.description
+		$("#Ability" + i + "Name").text = $.Localize(ability.name)
+		$("#Ability" + i + "Description").text = $.Localize(ability.name + "_desc")
 		$("#Ability" + i + "Icon").abilityname = ability.icon
 
 		$("#AbilitySpecialContainer_" + i).RemoveAndDeleteChildren()
