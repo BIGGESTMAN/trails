@@ -7,5 +7,6 @@
     "hero_owners",
     "hero_info",
     "gamemode",
+    "masterquartz_info",
   ]
 }

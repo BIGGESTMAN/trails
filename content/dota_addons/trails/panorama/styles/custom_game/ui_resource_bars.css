@@ -56,11 +56,11 @@
 }
 
 .ResourceBar.CPBar {
-	background-color: gradient( linear, 0% 0%, 100% 0%, from( #B7C54A ), to( #FEFDE1 ) );
+	background-color: gradient( linear, 0% 100%, 0% 0%, from( #B7C54A ), to( #FEFDE1 ) );
 }
 
 .ResourceBar.OverfullCPBar {
-	background-color: gradient( linear, 0% 0%, 100% 0%, from( #44BA66 ), to( #CEFEEE ) );
+	background-color: gradient( linear, 0% 100%, 0% 0%, from( #44BA66 ), to( #CEFEEE ) );
 }
 
 #HealthBar.ResourceBar  {

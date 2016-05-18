@@ -16,6 +16,16 @@ function item_master_vermillion:GetIntrinsicModifierName()
 	return "modifier_master_vermillion_passive"
 end
 
+function item_master_vermillion:GetNetTableInfo()
+	return {name = self:GetAbilityName():sub(0, self:GetAbilityName():len() - 2), abilities = {
+											{unlocked = self:GetLevel() >= 1, name = "Sophisticated Fight", description = "Increases your physical damage based on how full your health is.", icon = "vermillion_sophisticated_fight", ability_specials = {"sophisticated_fight_max_damage_increase"}},
+											{unlocked = self:GetLevel() >= 2, name = "Cover", description = "Reduces the damage your link partner takes and deals half of the damage reduced to you. Must be in between damage source and link partner.", icon = "spectre_dispersion", ability_specials = {"cover_damage_reduction"}},
+											{unlocked = self:GetLevel() >= 3, name = "Combination", description = "Your damaging crafts place a Combination mark on enemies hit for 3 seconds. Combination marks can only be triggered by the link partner of the hero who placed them. When triggered by craft damage, the partner inflicts bonus physical damage and places a new Combination mark. Has a cooldown.", icon = "troll_warlord_fervor", ability_specials = {"combination_physical_damage_percent", "combination_cooldown"}},
+											{unlocked = self:GetLevel() >= 4, name = "Invigorate", description = "You heal whenever you achieve a CP Condition.", icon = "huskar_inner_vitality", ability_specials = {"invigorate_healing"}},
+											{unlocked = self:GetLevel() >= 5, name = "Fiery Bonds", description = "Your link Sears the first enemy it touches for 2 seconds. Has a cooldown.", icon = "phoenix_sun_ray", ability_specials = {"fiery_bond_cooldown"}},
+													}}
+end
+
 item_master_vermillion_1 = item_master_vermillion
 item_master_vermillion_2 = item_master_vermillion
 item_master_vermillion_3 = item_master_vermillion

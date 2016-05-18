@@ -71,5 +71,6 @@
 		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/encounter_rewards.xml" />
 		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/cp_conditions_window.xml" />
 		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/ability_cast_icon_manager.xml" />
+		<!-- <CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/master_quartz_tooltip.xml" /> -->
 	</Panel>
 </root>

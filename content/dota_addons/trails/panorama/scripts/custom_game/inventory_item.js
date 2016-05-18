@@ -79,13 +79,41 @@ function ItemShowTooltip()
 	if ( m_Item == -1 )
 		return;
 
-	var itemName = Abilities.GetAbilityName( m_Item );
-	$.DispatchEvent( "DOTAShowAbilityTooltipForEntityIndex", $.GetContextPanel(), itemName, m_QueryUnit );
+	// var tooltipPanel = $.CreatePanel("Panel", $.GetContextPanel(), "MasterQuartzTooltipPanel");
+	// tooltipPanel.BLoadLayout("file://{resources}/layout/custom_game/master_quartz_tooltip.xml", false, false);
+	// $.GetContextPanel().tooltipPanel = tooltipPanel
+	// $.Msg(tooltipPanel, "\n", $.GetContextPanel().tooltipPanel)
+	// tooltipPanel.style.position = $.GetContextPanel().style.position
+
+	// var arg_string = "abilities="
+	// var abilities = []
+	// for (var i=0; i < 5; i++) {
+	// 	abilities.push(m_Item)
+	// 	// arg_string = arg_string + "abil" + i + "=" + abilities[i] + ";"
+	// 	arg_string = arg_string + abilities[i] + ";"
+	// }
+	if (Math.random() < 0.5) {
+		var itemName = Abilities.GetAbilityName( m_Item );
+		$.DispatchEvent( "DOTAShowAbilityTooltipForEntityIndex", $.GetContextPanel(), itemName, m_QueryUnit );
+	} else {
+		var arg_string = "masterquartz=" + m_Item
+		$.DispatchEvent("UIShowCustomLayoutParametersTooltip", $.GetContextPanel(), "file://{resources}/layout/custom_game/master_quartz_tooltip.xml", arg_string);
+	}
+	// $.DispatchEvent("UIShowCustomLayoutParametersTooltip", $.GetContextPanel(), "file://{resources}/layout/tooltips/tooltip_custom_test.xml", {itemID : m_Item});
+	// UIShowCustomLayoutParametersTooltip("MasterQuartzTooltip", "file://{resources}/layout/tooltips/tooltip_custom_test.xml", itemID=m_Item)
 }
 
 function ItemHideTooltip()
 {
+	// if ( m_Item == -1 )
+		// return;
+	// $.GetContextPanel().tooltipPanel.DeleteAsync( 0 );
+
 	$.DispatchEvent( "DOTAHideAbilityTooltip", $.GetContextPanel() );
+
+	$.DispatchEvent("UIHideCustomLayoutTooltip", $.GetContextPanel())
+
+	// $.DispatchEvent( "DOTAHideTextTooltip", $.GetContextPanel() );
 }
 
 function ActivateItem()

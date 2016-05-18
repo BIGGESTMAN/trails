@@ -1,0 +1,139 @@
+.MasterQuartzTooltipWindow {
+	/*width: 300px;*/
+	/*height: 300px;*/
+	
+	vertical-align: center;
+	horizontal-align: center;
+
+	opacity: 1;
+	/*transition-property: transform, box-shadow;*/
+	/*transition-duration: 0.5s;*/
+
+	/*background-color: gradient( linear, 0% 0%, 0% 100%, from( #32393eb0 ), to( #151515b0 ) );*/
+	/*background-color: gradient( linear, 0% 0%, 0% 100%, from( #32393e ), to( #151515 ) );*/
+	background-color: #ffffff;
+	/*padding: 15px;*/
+}
+
+#MasterQuartzTooltipContainer {
+	background-color: gradient( linear, 0% 100%, 0% 0%, from( #32393e ), to( #151515 ) );
+	box-shadow: #0000009f -4px -4px 2px 8px;
+	border-top: 1px solid #ffffff10;
+	border-left: 1px solid #ffffff06;
+	border-right: 1px solid #ffffff06;
+	border-bottom: 1px solid #ffffff06;
+	padding: 15px;
+	flow-children: down;
+}
+
+#AbilityContainer {
+	flow-children: right;
+	/*width: 300px;*/
+	/*height: 100%;*/
+	/*background-color: #ffffff;*/
+}
+
+.AbilityIcon {
+	/*width: 64px;*/
+	/*height: 64px;*/
+	flow-children: down;
+	margin: 10px;
+	opacity: 1;
+}
+
+.AbilityIcon.Disabled {
+	opacity: 0.2;
+}
+
+.AbilityIconImage {
+	width: 64px;
+	height: 64px;
+	margin: 5px;
+	horizontal-align: center;
+}
+
+.AbilityName, .AbilityDescription {
+	color: #ffffff;
+
+	width: 100%;
+	/*margin-left: 8px;
+	margin-right: 8px;
+	margin-top: 16px;*/
+	/*line-height: 18px;*/
+
+	vertical-align: center;
+	text-align: center;
+}
+
+.AbilityName {
+	font-family: Georgia, sans-serif;
+	font-size: 18px;
+	/*height: 30px;*/
+}
+
+.AbilityDescription {
+	font-family: Radiance;
+	font-size: 14px;
+	/*height: 40px;*/
+}
+
+#Name, #ExpLabel {
+	horizontal-align: center;
+}
+
+#Name {
+	color: #ffffff;
+	font-size: 20px;
+	font-family: Goudy Trajan;
+	padding-bottom: 3px;
+	border-bottom: 1px solid #a0a0a040;
+	margin-bottom: 5px;
+}
+
+#ExpLabel {
+	color: #000000;
+	font-family: Goudy Trajan Medium;
+	font-size: 22px;
+}
+
+#ExpBarBackground {
+	horizontal-align: center;
+	width: 80%;
+	height: 30px;
+
+	opacity: 1;
+	visibility: visible;
+	vertical-align: top;
+
+	background-color: gradient( linear, 0% 0%, 0% 100%, from( #32393e ), to( #151515 ) );
+	box-shadow: #FF9933 -2px -2px 2px 5px;
+	border-top: 1px solid #000000ff;
+	border-left: 1px solid #000000ff;
+	border-right: 1px solid #000000ff;
+	border-bottom: 1px solid #000000ff;
+}
+
+#ExpBar {
+	width: 80%;
+	height: 100%;
+	background-color: gradient( linear, 0% 0%, 100% 0%, from( #FF9933 ), to( #FFB775 ) );
+	vertical-align: bottom;
+}
+
+.AbilitySpecialContainer {
+	flow-children: down;
+	margin-top: 20px;
+}
+
+.AbilitySpecial {
+	color: #C4C4C4;
+	width: 100%;
+	vertical-align: center;
+	text-align: center;
+	font-family: Radiance;
+	font-size: 14px;
+}
+
+.AbilityName, .AbilityDescription, .AbilitySpecial {
+	width: 200px;
+}

@@ -833,6 +833,8 @@ function upgradeMasterQuartz(hero, level)
 	local new_quartz = CreateItem("item_master_"..quartz_name.."_"..level, hero, hero)
 	hero:AddItem(new_quartz)
 	hero:SwapItems(getSlotOfItem(new_quartz, hero), slot)
+
+	CustomNetTables:SetTableValue("masterquartz_info", tostring(new_quartz:entindex()), new_quartz:GetNetTableInfo())
 end
 
 function getOpposingTeam(team)
