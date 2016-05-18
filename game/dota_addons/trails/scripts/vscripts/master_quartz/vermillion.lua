@@ -1,6 +1,8 @@
 require "game_functions"
 require "master_quartz"
 
+EXP_GAIN_DAMAGE_FACTOR = 0.05
+
 LinkLuaModifier("modifier_master_vermillion_passive", "master_quartz/vermillion.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_master_vermillion_combination_ready", "master_quartz/vermillion.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_master_vermillion_combination_mark", "master_quartz/vermillion.lua", LUA_MODIFIER_MOTION_NONE)
@@ -11,13 +13,15 @@ item_master_vermillion = class({})
 item_master_vermillion.OnSpellStart = MasterQuartz.OnSpellStart
 item_master_vermillion.CastFilterResultTarget = MasterQuartz.CastFilterResultTarget
 item_master_vermillion.GetCustomCastErrorTarget = MasterQuartz.GetCustomCastErrorTarget
+item_master_vermillion.GainExperience = MasterQuartz.GainExperience
+item_master_vermillion.LevelUp = MasterQuartz.LevelUp
 
 function item_master_vermillion:GetIntrinsicModifierName()
 	return "modifier_master_vermillion_passive"
 end
 
 function item_master_vermillion:GetNetTableInfo()
-	return {name = self:GetAbilityName():sub(0, self:GetAbilityName():len() - 2), abilities = {
+	return {name = self:GetAbilityName():sub(0, self:GetAbilityName():len() - 2), exp = {current = self.exp, next_level = MASTER_QUARTZ_EXP_TABLE[self:GetLevel()]}, abilities = {
 											{unlocked = self:GetLevel() >= 1, name = "Sophisticated Fight", description = "Increases your physical damage based on how full your health is.", icon = "vermillion_sophisticated_fight", ability_specials = {"sophisticated_fight_max_damage_increase"}},
 											{unlocked = self:GetLevel() >= 2, name = "Cover", description = "Reduces the damage your link partner takes and deals half of the damage reduced to you. Must be in between damage source and link partner.", icon = "spectre_dispersion", ability_specials = {"cover_damage_reduction"}},
 											{unlocked = self:GetLevel() >= 3, name = "Combination", description = "Your damaging crafts place a Combination mark on enemies hit for 3 seconds. Combination marks can only be triggered by the link partner of the hero who placed them. When triggered by craft damage, the partner inflicts bonus physical damage and places a new Combination mark. Has a cooldown.", icon = "troll_warlord_fervor", ability_specials = {"combination_physical_damage_percent", "combination_cooldown"}},
@@ -82,6 +86,18 @@ end
 function modifier_master_vermillion_passive:CPConditionAchieved(args)
 	if args.recipient == self:GetParent() then
 		applyHealing(self:GetParent(), self:GetParent(), self:GetAbility():GetSpecialValueFor("invigorate_healing"))
+	end
+end
+
+function modifier_master_vermillion_passive:DeclareFunctions()
+	return { MODIFIER_EVENT_ON_TAKEDAMAGE }
+end
+
+if IsServer() then
+	function modifier_master_vermillion_passive:OnTakeDamage(params)
+		if params.attacker == self:GetParent() and params.damage_type == DAMAGE_TYPE_PHYSICAL then
+			self:GetAbility():GainExperience(params.damage * EXP_GAIN_DAMAGE_FACTOR)
+		end
 	end
 end
 

@@ -41,14 +41,24 @@ function setupTooltip() {
 		}
 	}
 
+	var exp_current = Math.floor(masterquartz_info.exp.current)
+	var exp_next = masterquartz_info.exp.next_level
+	var exp_percent = exp_current / exp_next * 100
+	$("#ExpBar").style.width = exp_percent + "%"
+	$("#ExpLabel").text = exp_current + " / " + exp_next
+
 	// var a = DumpObjectIndented(masterquartz_info).split('\n')
 	// for (var i=0; i<a.length; i++)
 	// 	$.Msg(a[i]);
 }
 
-(function()
-{
+function OnMasterQuartzInfoChanged( table_name, key, data ) {
+    $.Msg( "Table ", table_name, " changed: '", key, "' = ", data );
+    setupTooltip()
+}
 
+(function() {
+	CustomNetTables.SubscribeNetTableListener( "masterquartz_info", OnMasterQuartzInfoChanged );
 })();
 
 function DumpObjectIndented(obj, indent)

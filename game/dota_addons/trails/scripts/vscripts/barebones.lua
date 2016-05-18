@@ -424,7 +424,7 @@ end
 
 function GameMode:AddMasterQuartz(hero)
 	local quartz_name = getUnitValueForKey(hero, "MasterQuartz")
-	local item = CreateItem("item_master_"..quartz_name.."_1", hero, hero)
+	local item = createMasterQuartz(quartz_name, hero)
 	hero:AddItem(item)
 
 	CustomNetTables:SetTableValue("masterquartz_info", tostring(item:entindex()), item:GetNetTableInfo())
