@@ -187,7 +187,7 @@ end
 
 function modifier_angel_belief_healing:OnTakeDamage(params)
 	if params.unit == self:GetParent() then
-		self:Destroy(false)
+		self:Destroy()
 	end
 end
 

@@ -8,6 +8,7 @@ require "custom_hero_select"
 require "turn_bonuses"
 require "round_recap"
 require "round_manager"
+require "music"
 require "gamemodes/tetracyclic_towers"
 require "gamemodes/arena"
 require "gamemodes/boss"
@@ -182,9 +183,9 @@ function GameMode:OnPlayerChat(keys)
 		end
 	elseif text == "-togglemusic" then
 		if hero.music_playing == nil then
-			self:StartMusicForPlayer(player)
+			Music:StartMusicForPlayer(player)
 		else
-			self:StopMusicForPlayer(player)
+			Music:StopMusicForPlayer(player)
 		end
 	elseif text == "-spawnbonus" and game_mode == Gamemode_Arena then
 		Turn_Bonuses:SpawnBonus(RoundManager.current_round)
@@ -220,10 +221,6 @@ function GameMode:OnPlayerChat(keys)
 		local index = tonumber(text:sub(string.len("-debugentity ")))
 		local entity = EntIndexToHScript(index)
 		print(entity, entity:GetClassname(), entity:GetName(), entity:GetAbsOrigin(), entity:GetDebugName())
-	elseif text:find("-debugentity") then
-		local index = tonumber(text:sub(string.len("-debugentity ")))
-		local entity = EntIndexToHScript(index)
-		print(entity, entity:GetClassname(), entity:GetName(), entity:GetAbsOrigin(), entity:GetDebugName())
 	elseif text:find("-startencounter") then
 		Gamemode_Boss:StartEncounter()
 	elseif text:find("-startboss") then
@@ -233,6 +230,8 @@ function GameMode:OnPlayerChat(keys)
 		if not Gamemode_Boss.brave_points then Gamemode_Boss.brave_points = 0 end
 		Gamemode_Boss:AddBravePoints(10000)
 		GameRules:SendCustomMessage("Brave points increased", 0, 0)
+	elseif text:find("-listcommands") then
+		GameRules:SendCustomMessage("-die -win -togglemusic -maxcp -cpmode [x] -cdmode [x] -masterquartz [x] -debugentity [x]\n Mode-specific: -spawnbonus -startround -debugunbalance -debugrestartpaths -startencounter -startboss -brave", 0, 0)
 	end
 end
 
@@ -396,8 +395,7 @@ function GameMode:OnHeroInGame(hero)
 		CustomNetTables:SetTableValue("hero_owners", tostring(hero:entindex()), {owner = tostring(hero:GetPlayerOwnerID())})
 	
 		-- Turn off music by default
-		hero.music_playing = nil
-		hero.player:SetMusicStatus(DOTA_MUSIC_STATUS_NONE, 100000)
+		Music:InitializeFor(hero)
 
 		-- Setup custom UI stuff
 		CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "infotext_start", {})
@@ -470,46 +468,6 @@ function GameMode:UpdateUIData(hero)
 		CustomGameEventManager:Send_ServerToAllClients("cp_costs_update", {cpCosts = costs})
 		return 1/30
 	end)
-end
-
-function GameMode:OnMusicControlToggled(eventSourceIndex, args)
-	local player = EntIndexToHScript(eventSourceIndex)
-	local hero = player:GetAssignedHero()
-
-	-- Shoutout to unbelievably stupid hacks, fuck this game
-	hero.ignore_music_toggle_click = not hero.ignore_music_toggle_click
-
-	-- print("1")
-	if not hero.ignore_music_toggle_click then
-		-- print("2")
-		if hero.music_playing == nil then
-			-- print("3")
-			self:StartMusicForPlayer(player)
-		else
-			-- print("4")
-			self:StopMusicForPlayer(player)
-		end
-	end
-end
-
-function GameMode:StartMusicForPlayer(player)
-	local hero = player:GetAssignedHero()
-	Timers:CreateTimer("music_timer_"..player:GetPlayerID(), {
-		callback = function()
-			local music_string = "Trails.Dont_Be_Defeated"
-			if RoundManager.current_round == 8 then music_string = "Trails.Decisive_Collision" end
-			EmitSoundOnClient(music_string, player)
-			hero.music_playing = music_string
-			return 135
-		end
-	})
-end
-
-function GameMode:StopMusicForPlayer(player)
-	local hero = player:GetAssignedHero()
-	Timers:RemoveTimer("music_timer_"..player:GetPlayerID())
-	player:StopSound(hero.music_playing)
-	hero.music_playing = nil
 end
 
 function GameMode:StartCountdown(time, title, callback)

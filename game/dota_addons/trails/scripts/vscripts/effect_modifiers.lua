@@ -346,7 +346,7 @@ function modifier_nightmare:DeclareFunctions()
 end
 
 function modifier_nightmare:OnTakeDamage(params)
-	if params.unit == self:GetParent() then self:Destroy(false) end
+	if params.unit == self:GetParent() then self:Destroy() end
 end
 
 function modifier_nightmare:GetEffectName()
@@ -381,7 +381,7 @@ function modifier_sleep:DeclareFunctions()
 end
 
 function modifier_sleep:OnTakeDamage(params)
-	if params.unit == self:GetParent() then self:Destroy(false) end
+	if params.unit == self:GetParent() then self:Destroy() end
 end
 
 function modifier_sleep:GetEffectName()
@@ -406,7 +406,7 @@ if IsServer() then
 	function modifier_petrify:OnTakeDamage(params)
 		if params.unit == self:GetParent() then
 			if damage_type == DAMAGE_TYPE_PHYSICAL then
-				self:Destroy(false)
+				self:Destroy()
 
 				local damage_percent = 20
 				local damage = self:GetParent():GetHealthDeficit() * damage_percent / 100
@@ -660,7 +660,7 @@ function modifier_zero_arts:OnAbilityExecuted(params)
 	if params.unit == self:GetParent() and params.ability:GetManaCost(params.ability:GetLevel()) > 0 then
 		params.ability:SetOverrideCastPoint(params.ability.normal_cast_point)
 		params.ability.normal_cast_point = nil
-		self:Destroy(false)
+		self:Destroy()
 	end
 end
 

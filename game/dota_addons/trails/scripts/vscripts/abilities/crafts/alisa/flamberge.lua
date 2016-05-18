@@ -133,7 +133,7 @@ if IsServer() then
 			if self.hp_to_trigger <= 0 then
 				local ability = self:GetAbility()
 				local unit = self:GetParent()
-				self:Destroy(false)
+				self:Destroy()
 				ability:DealIgniteDamage(unit)
 			end
 		end

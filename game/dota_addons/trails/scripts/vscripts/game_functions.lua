@@ -257,7 +257,7 @@ function purgePositiveBuffs(target)
 
 	local count = #modifiers_to_purge
 	for k,modifier in pairs(modifiers_to_purge) do
-		modifier:Destroy(false)
+		modifier:Destroy()
 	end
 	return count
 end
@@ -511,7 +511,7 @@ function modifyStat(unit, stat, percent, duration)
 			if new_percent > 0 then
 				inverse_modifier:SetStackCount(new_percent)
 			else
-				inverse_modifier:Destroy(false)
+				inverse_modifier:Destroy()
 				if new_percent < 0 then
 					local modifier = unit:AddNewModifier(unit, nil, getInverseStat(stat), {duration = duration})
 					modifier:SetStackCount(new_percent)

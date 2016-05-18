@@ -128,7 +128,7 @@ function modifier_cypher_gambling_strike:DealGamblingDamage()
 	local damage_scale = getMasterQuartzSpecialValue(hero, "gambling_strike_damage_percent") / 100
 	local damage_type = DAMAGE_TYPE_MAGICAL
 
-	self:Destroy(false)
+	self:Destroy()
 	dealScalingDamage(target, hero, damage_scale, damage_type, self:GetAbility())
 
 	local particle = ParticleManager:CreateParticle("particles/master_quartz/cypher/gambling_strike_link.vpcf", PATTACH_CUSTOMORIGIN, nil)
@@ -149,7 +149,7 @@ function modifier_cypher_gambling_magic:DealGamblingDamage()
 	local damage_scale = getMasterQuartzSpecialValue(hero, "gambling_magic_damage_percent") / 100
 	local damage_type = DAMAGE_TYPE_PHYSICAL
 
-	self:Destroy(false)
+	self:Destroy()
 	dealScalingDamage(target, hero, damage_scale, damage_type, self:GetAbility())
 
 	local particle = ParticleManager:CreateParticle("particles/master_quartz/cypher/gambling_strike_link.vpcf", PATTACH_CUSTOMORIGIN, nil)
@@ -201,7 +201,7 @@ if IsServer() then
 	function modifier_cypher_reaper_window:OnTakeDamage(params)
 		if params.unit == self:GetParent() and ((params.damage_type == DAMAGE_TYPE_MAGICAL and self.damage_type == DAMAGE_TYPE_PHYSICAL) or
 												(params.damage_type == DAMAGE_TYPE_PHYSICAL and self.damage_type == DAMAGE_TYPE_MAGICAL)) then
-			self:Destroy(false)
+			self:Destroy()
 			params.unit:AddNewModifier(self:GetCaster(), self:GetAbility(), "modifier_deathblow", {duration = getMasterQuartzSpecialValue(self:GetCaster(), "reaper_deathblow_duration")})
 		end
 	end

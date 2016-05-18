@@ -38,7 +38,7 @@ if IsServer() then
 			CustomGameEventManager:Send_ServerToAllClients("boss_vulnerability_changed", {vulnerable = true, threshold_percent = self.damage_remaining / self:GetParent():GetMaxHealth() * 100})
 
 			if self.damage_remaining <= 0 then
-				self:Destroy(false)
+				self:Destroy()
 			end
 		end
 	end

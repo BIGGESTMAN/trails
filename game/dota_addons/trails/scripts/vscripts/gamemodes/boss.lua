@@ -220,6 +220,7 @@ function Gamemode_Boss:BeginGamemode()
 	CustomGameEventManager:Send_ServerToAllClients("path_choice_window_start", {path_rewards = self:GetCraftRewards(), path_count = PATHS_COUNT, paths_completed = self.paths_completed})
 	self:CheckForArenaTrigger()
 	self:ApplyRegenBuff()
+	Music:SwitchMusic(MUSIC_TYPE_EXPLORING)
 end
 
 function Gamemode_Boss:ApplyRegenBuff()
@@ -294,6 +295,12 @@ function Gamemode_Boss:StartEncounter()
 	CustomGameEventManager:Send_ServerToAllClients("update_brave_points", {brave_points = self.brave_points})
 	CustomGameEventManager:Send_ServerToAllClients("encounter_started", {})
 	CPRewards:UpdateCPConditionsWindow()
+
+	if not self.active_boss then
+		Music:SwitchMusic(MUSIC_TYPE_COMBAT)
+	else
+		Music:SwitchMusic(MUSIC_TYPE_BOSS)
+	end
 end
 
 function Gamemode_Boss:AddBravePoints(cp_gained)
@@ -504,6 +511,8 @@ function Gamemode_Boss:EndEncounter(result)
 
 	self.brave_points = 0
 	CustomGameEventManager:Send_ServerToAllClients("encounter_ended", {})
+
+	Music:SwitchMusic(MUSIC_TYPE_EXPLORING)
 end
 
 function Gamemode_Boss:GrantEncounterRewards(enemy_group)

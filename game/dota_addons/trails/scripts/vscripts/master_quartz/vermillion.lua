@@ -94,7 +94,7 @@ function modifier_master_vermillion_combination_mark:TriggerMark(attacker)
 	local ability = self:GetAbility()
 	local target = self:GetParent()
 	if attacker == self:GetCaster().combat_linked_to then
-		self:Destroy(false)
+		self:Destroy()
 		local damage_scale = ability:GetSpecialValueFor("combination_physical_damage_percent") / 100
 		applyEffect(target, DAMAGE_TYPE_PHYSICAL, function()
 			dealScalingDamage(target, attacker, DAMAGE_TYPE_PHYSICAL, damage_scale, ability)
@@ -152,7 +152,7 @@ if IsServer() then
 		for k,unit in pairs(targets) do
 			if pointIsBetweenPoints(unit:GetAbsOrigin(), origin, caster.combat_linked_to:GetAbsOrigin()) then
 				unit:AddNewModifier(caster, ability, "modifier_sear", {duration = ability:GetSpecialValueFor("fiery_bond_duration")})
-				self:Destroy(false)
+				self:Destroy()
 				break
 			end
 		end

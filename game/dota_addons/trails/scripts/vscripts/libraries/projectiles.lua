@@ -281,7 +281,7 @@ function Projectiles:CreateProjectile(projectile)
       end
     end
   end
-  function projectile:Destroy(false)
+  function projectile:Destroy()
     ParticleManager:DestroyParticle(projectile.id, false)
     Projectiles:RemoveTimer(projectile.ProjectileTimerName)
   end
