@@ -17,7 +17,7 @@ function setupTooltip() {
 		$("#Ability" + i).SetHasClass("Disabled", !ability.unlocked)
 		$("#Ability" + i + "Name").text = $.Localize(ability.name)
 		$("#Ability" + i + "Description").text = $.Localize(ability.name + "_desc")
-		$("#Ability" + i + "Icon").abilityname = ability.icon
+		$("#Ability" + i + "Icon").style.backgroundImage = "url('file://{resources}/images/spellicons/" + ability.icon + ".png')";
 
 		$("#AbilitySpecialContainer_" + i).RemoveAndDeleteChildren()
 		if (ability.unlocked && ability.ability_specials) {

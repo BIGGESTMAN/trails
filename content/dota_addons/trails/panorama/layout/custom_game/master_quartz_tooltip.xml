@@ -12,31 +12,31 @@
 			<Panel id="AbilityContainer">
 				<Panel hittest="true" class="AbilityIcon" id="Ability0">
 					<Label id="Ability0Name" text="(Ability0Name)" class="AbilityName"/>
-					<DOTAAbilityImage hittest="true" id="Ability0Icon" class="AbilityIconImage"/>
+					<Panel hittest="true" id="Ability0Icon" class="AbilityIconImage"/>
 					<Label id="Ability0Description" text="(Ability0Description)" class="AbilityDescription"/>
 					<Panel class="AbilitySpecialContainer" id="AbilitySpecialContainer_0"/>
 				</Panel>
 				<Panel hittest="true" class="AbilityIcon" id="Ability1">
 					<Label id="Ability1Name" text="(Ability1Name)" class="AbilityName"/>
-					<DOTAAbilityImage hittest="true" id="Ability1Icon" class="AbilityIconImage"/>
+					<Panel hittest="true" id="Ability1Icon" class="AbilityIconImage"/>
 					<Label id="Ability1Description" text="(Ability1Description)" class="AbilityDescription"/>
 					<Panel class="AbilitySpecialContainer" id="AbilitySpecialContainer_1"/>
 				</Panel>
 				<Panel hittest="true" class="AbilityIcon" id="Ability2">
 					<Label id="Ability2Name" text="(Ability2Name)" class="AbilityName"/>
-					<DOTAAbilityImage hittest="true" id="Ability2Icon" class="AbilityIconImage"/>
+					<Panel hittest="true" id="Ability2Icon" class="AbilityIconImage"/>
 					<Label id="Ability2Description" text="(Ability2Description)" class="AbilityDescription"/>
 					<Panel class="AbilitySpecialContainer" id="AbilitySpecialContainer_2"/>
 				</Panel>
 				<Panel hittest="true" class="AbilityIcon" id="Ability3">
 					<Label id="Ability3Name" text="(Ability3Name)" class="AbilityName"/>
-					<DOTAAbilityImage hittest="true" id="Ability3Icon" class="AbilityIconImage"/>
+					<Panel hittest="true" id="Ability3Icon" class="AbilityIconImage"/>
 					<Label id="Ability3Description" text="(Ability3Description)" class="AbilityDescription"/>
 					<Panel class="AbilitySpecialContainer" id="AbilitySpecialContainer_3"/>
 				</Panel>
 				<Panel hittest="true" class="AbilityIcon" id="Ability4">
 					<Label id="Ability4Name" text="(Ability4Name)" class="AbilityName"/>
-					<DOTAAbilityImage hittest="true" id="Ability4Icon" class="AbilityIconImage"/>
+					<Panel hittest="true" id="Ability4Icon" class="AbilityIconImage"/>
 					<Label id="Ability4Description" text="(Ability4Description)" class="AbilityDescription"/>
 					<Panel class="AbilitySpecialContainer" id="AbilitySpecialContainer_4"/>
 				</Panel>

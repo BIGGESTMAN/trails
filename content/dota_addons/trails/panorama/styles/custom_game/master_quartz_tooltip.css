@@ -50,6 +50,7 @@
 	height: 64px;
 	margin: 5px;
 	horizontal-align: center;
+	background-size: 100% 100%;
 }
 
 .AbilityName, .AbilityDescription {
