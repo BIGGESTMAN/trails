@@ -39,10 +39,10 @@ Cheer : Whenever your link partner achieves a CP Condition, they're healed for a
 Belief : Whenever you spend mana, heal yourself and your link partner over 10 seconds. This healing is broken if the recipient takes damage.
 Quick Thelas : When your link partner falls, they are resurrected at 15% of their max health instead. Can occur only once per link.
 Space Mastery : Halves the delay after casting Space Arts. Enhances Quick Thelas to also grant your partner a 50% bonus to healing recieved for 8 seconds.
-%Guardian Health and Mana (guardian_hp_and_mana_percent) : 40/55/70/85/100
+%Health and Mana (guardian_hp_and_mana_percent) : 40/55/70/85/100
 ~Guardian Duration (guardian_duration) : 10
-%Cheer Health (cheer_missing_health_percent) : 0/12/15/18/21
-Belief Healing Per EP (belief_healing_per_ep) : 0/0/10/13/16
+%Missing Health Restored (cheer_missing_health_percent) : 0/12/15/18/21
+Healing Per EP (belief_healing_per_ep) : 0/0/10/13/16
 ~Belief Duration (belief_duration) : 10
 ~Quick Thelas Health (quick_thelas_health) : 0/0/0/15/15
 ~Quick Thelas Healing Increase (quick_thelas_healing_increase_percent) : 50
@@ -84,12 +84,12 @@ Cover : Reduces the damage your link partner takes and deals half of the damage 
 Combination : Your damaging crafts place a Combination mark on enemies hit for 3 seconds. Combination marks can only be triggered by the link partner of the hero who placed them. When triggered by craft damage, the partner inflicts bonus physical damage and places a new Combination mark. Has a cooldown.
 Invigorate : You heal whenever you achieve a CP Condition.
 Fiery Bond : Your link Sears the first enemy it touches for 2 seconds. Has a cooldown.
-%Sophisticated Fight Max Damage Increase (sophisticated_fight_max_damage_increase) : 26/32/38/44/50
-%Cover Damage Reduction (cover_damage_reduction) : 0/7.5/15/22.5/30
-%Combination Physical Damage (combination_physical_damage_percent) : 100
-Combination Cooldown (combination_cooldown) : 0/0/20/16/12
+%Max Damage Increase (sophisticated_fight_max_damage_increase) : 26/32/38/44/50
+%Damage Reduction (cover_damage_reduction) : 0/7.5/15/22.5/30
+%Physical Damage (combination_physical_damage_percent) : 100
+Cooldown (combination_cooldown) : 0/0/20/16/12
 ~Combination Mark Duration (combination_mark_duration) : 3
-Invigorate Healing (invigorate_healing) : 0/0/0/100/150
-Fiery Bond Cooldown (fiery_bond_cooldown) : 0/0/0/0/8
+Healing (invigorate_healing) : 0/0/0/100/150
+Cooldown (fiery_bond_cooldown) : 0/0/0/0/8
 ~Fiery Bond Duration (fiery_bond_duration) : 2
 ~Fiery Bond Beam Radius (fiery_bond_radius) : 75
