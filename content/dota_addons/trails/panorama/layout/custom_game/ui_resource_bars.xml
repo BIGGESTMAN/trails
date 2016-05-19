@@ -7,6 +7,11 @@
 		<include src="file://{resources}/scripts/custom_game/ui_resource_bars.js" />
 	</scripts>
 	<Panel class="ResourceBarContainer">
+		<Panel hittest="false" class="ResourceBarBackground" id="BravePointBarBackground">
+			<Panel hittest="false" id="BravePointBar" class="ResourceBar" />
+			<Panel id="BravePointIcon" background-image="url('file://{resources}/images/ui/bravepoint_icon.png')"/>
+			<Label id="BravePointLabel" class="Text"/>
+		</Panel>
 		<Panel hittest="false" class="ResourceBarBackground" id="HealthBarBackground">
 			<Panel hittest="false" id="HealthBar" class="ResourceBar" />
 			<Label id="HealthLabel" class="Text"/>

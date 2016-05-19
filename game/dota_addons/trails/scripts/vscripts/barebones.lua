@@ -224,8 +224,8 @@ function GameMode:OnPlayerChat(keys)
 	elseif text:find("-startencounter") then
 		Gamemode_Boss:StartEncounter()
 	elseif text:find("-startboss") then
-		Gamemode_Boss.current_path_progress = 2
-		Gamemode_Boss:StartEncounter()
+		local groups = Gamemode_Boss.paths[Gamemode_Boss.currently_on_path].groups
+		Gamemode_Boss:StartEncounter(groups[#groups])
 	elseif text:find("-brave") then
 		if not Gamemode_Boss.brave_points then Gamemode_Boss.brave_points = 0 end
 		Gamemode_Boss:AddBravePoints(10000)
@@ -466,7 +466,7 @@ function GameMode:UpdateUIData(hero)
 		end
 
 		CustomGameEventManager:Send_ServerToAllClients("stats_display_update", {unitStats = stats})
-		CustomGameEventManager:Send_ServerToAllClients("resource_bars_update", {unitValues = resource_values})
+		CustomGameEventManager:Send_ServerToAllClients("resource_bars_update", {unitValues = resource_values, bravePoints = Gamemode_Boss.brave_points})
 		CustomGameEventManager:Send_ServerToAllClients("cp_costs_update", {cpCosts = costs})
 		return 1/30
 	end)

@@ -53,7 +53,7 @@ function setupTooltip() {
 }
 
 function OnMasterQuartzInfoChanged( table_name, key, data ) {
-    $.Msg( "Table ", table_name, " changed: '", key, "' = ", data );
+    // $.Msg( "Table ", table_name, " changed: '", key, "' = ", data );
     setupTooltip()
 }
 

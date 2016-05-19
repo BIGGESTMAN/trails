@@ -1,6 +1,6 @@
 .ResourceBarContainer {
 	width: 100%;
-	height: 60px;
+	height: 100%;
 
 	/*margin-top: 60px;*/
 	/*margin-left: 0px;*/
@@ -51,7 +51,7 @@
 .ResourceBar {
 	width: 0%;
 	height: 100%;
-	background-color: gradient( linear, 0% 0%, 100% 0%, from( #FF9933 ), to( #FFB775 ) );
+	background-color: gradient( linear, 0% 100%, 0% 0%, from( #FF9933 ), to( #FFB775 ) );
 	vertical-align: bottom;
 }
 
@@ -84,4 +84,48 @@
 
 .ResourceBarContainer.PvE #UnbalanceBarBackground {
 	visibility: collapse;
+}
+
+@define TotalLength: 1.5s;
+@define TimingFunc: linear;
+@define IterationCount: 9999;
+@define AnimationDelay: 0s;
+
+@keyframes 'gamemode_anim'
+{
+	0%
+	{
+		opacity: 1;
+	}
+	50%
+	{
+		opacity: 0.25;
+	}
+	100%
+	{
+		opacity: 1;
+	}
+}
+
+#BravePointBarBackground {
+	/*opacity: 0.9;*/
+	height: 40px;
+	background-color: gradient( linear, 0% 0%, 0% 100%, from( #151515 ), to( #383838 ) );
+}
+
+#BravePointBar.ResourceBar.Full {
+	animation-name: gamemode_anim;
+	animation-delay: AnimationDelay;
+	animation-duration: TotalLength;
+	animation-timing-function: TimingFunc;
+	animation-iteration-count: IterationCount;
+}
+
+#BravePointIcon {
+	width: 38px;
+	height: 29px;
+	vertical-align: center;
+	margin-left: 10px;
+	background-size: 100%;
+	background-image: url('file://{resources}/images/ui/bravepoint_icon.png');
 }

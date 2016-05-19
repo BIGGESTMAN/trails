@@ -180,6 +180,13 @@ function EnemyAI:MoveTowards(target)
 	})
 end
 
+function EnemyAI:MoveToLocation(location)
+	self:IssueOrder({
+			OrderType = DOTA_UNIT_ORDER_MOVE_TO_POSITION,
+			Position = location,
+		})
+end
+
 function EnemyAI:CanCast(ability_name)
 	local ability = self.unit:FindAbilityByName(ability_name)
 	-- print("[AI] Cooldown of "..ability_name.." remaining: ", ability:GetCooldownTimeRemaining())

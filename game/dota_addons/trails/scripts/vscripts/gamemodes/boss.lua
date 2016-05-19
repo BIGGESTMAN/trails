@@ -8,10 +8,11 @@ require "gamemodes/modifier_boss_out_of_combat_regen"
 require "gamemodes/reward_modifiers"
 require "gamemodes/cp_rewards"
 
-LinkLuaModifier("modifier_boss_vulnerable", "gamemodes/modifier_boss_vulnerable.lua", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_map_dummy_invulnerability", "gamemodes/adventure_mode_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_map_dummy_hidden", "gamemodes/adventure_mode_modifiers.lua", LUA_MODIFIER_MOTION_NONE)
 
 PATHS_COUNT = 4
-GROUPS_PER_PATH = 2
+GROUPS_PER_PATH = 8
 
 SHOPPING = 0
 EXPLORING = 1
@@ -21,7 +22,7 @@ RESULT_DEFEAT = 0
 RESULT_VICTORY = 1
 
 ENCOUNTER_END_DELAY = 5
-ARENA_TRIGGER_RANGE = 400
+BATTLE_TRIGGER_RANGE = 150
 
 TIME_BETWEEN_CP_ORB_SPAWNS = 15
 CP_ORBS_PER_SPAWN = 3
@@ -29,6 +30,7 @@ CP_PER_ORB = 15
 CP_ORB_DURATION = 7
 ORB_PICKUP_RANGE = 125
 
+MAX_BRAVE_POINTS = 100
 STARTING_GOLD = 500
 DEBUG_HEROES_START_WITH_ALL_ABILITIES = false
 
@@ -43,7 +45,6 @@ function Gamemode_Boss:Initialize()
 
 	CustomGameEventManager:RegisterListener("path_button_pressed", WrapMemberMethod(self.OnPathButtonPressed, self))
 	self.state = SHOPPING
-	self.current_path_progress = 0
 	self.paths_completed = {}
 
 	CPRewards:Initialize()
@@ -52,21 +53,20 @@ end
 function Gamemode_Boss:OnPathButtonPressed(eventSourceIndex, args)
 	local path = args.pathNumber
 	if not self.currently_on_path then
-		self.state = EXPLORING
-		self.currently_on_path = path
+		self:ActivatePath(path)
 		CustomGameEventManager:Send_ServerToAllClients("path_start", {})
 		CustomGameEventManager:Send_ServerToAllClients("infotext_game_starting", {})
-		self:RemovePathWall(path)
+		-- self:RemovePathWall(path)
 	end
 end
 
-function Gamemode_Boss:RemovePathWall(path_number)
-	ParticleManager:DestroyParticle(self.path_walls[path_number].particle, false)
-	for k,entity in pairs(self.path_walls[path_number].entities) do
-		entity:RemoveSelf()
-	end
-	self.path_walls[path_number] = nil
-end
+-- function Gamemode_Boss:RemovePathWall(path_number)
+-- 	ParticleManager:DestroyParticle(self.path_walls[path_number].particle, false)
+-- 	for k,entity in pairs(self.path_walls[path_number].entities) do
+-- 		entity:RemoveSelf()
+-- 	end
+-- 	self.path_walls[path_number] = nil
+-- end
 
 function Gamemode_Boss:SetupPaths()
 	local enemy_group_kv = LoadKeyValues("scripts/kv/enemygroups.txt")
@@ -75,41 +75,103 @@ function Gamemode_Boss:SetupPaths()
 	local assigned_crafts = {}
 	self.paths = {}
 	for i=1, PATHS_COUNT do
+		local assigned_spawn_points = {}
 		local path_groups = {}
 		for i=1, GROUPS_PER_PATH do
 			path_groups[i] = self:GetRandomEnemyGroup(enemy_group_kv)
+			self:SetupEnemyGroup(path_groups[i], assigned_spawn_points)
 		end
 		path_groups[GROUPS_PER_PATH + 1] = self:GetRandomUnassignedBoss(bosses_kv, assigned_bosses)
+		self:SetupBoss(path_groups[GROUPS_PER_PATH + 1])
 		local new_path = {groups = path_groups, rewards = self:GetRandomUnassignedCrafts(assigned_crafts)}
 		-- print("Path "..i..": ")
 		-- DeepPrintTable(new_path)
 		table.insert(self.paths, new_path)
 	end
 
-	self:CreatePathWalls()
+	-- self:CreatePathWalls()
 end
 
-function Gamemode_Boss:CreatePathWalls()
-	self.path_walls = {}
-	for path=1, PATHS_COUNT do
-		self.path_walls[path] = {}
-		local wall_start = Entities:FindByName(nil, "path_"..path.."_wall_1_start"):GetAbsOrigin()
-		local wall_end = Entities:FindByName(nil, "path_"..path.."_wall_1_end"):GetAbsOrigin()
-		local distance = (wall_end - wall_start):Length2D()
-		local direction = (wall_end - wall_start):Normalized()
-		local wall_segments = distance / 40
-		self.path_walls[path].entities = {}
+function Gamemode_Boss:SetupEnemyGroup(enemy_group, assigned_spawn_points)
+	local spawn_points = Entities:FindAllByName("mob_spawn_point")
+	local spawn_point = nil
+	while spawn_point == nil or assigned_spawn_points[spawn_point] do
+		local entity = spawn_points[RandomInt(1, #spawn_points)]
+		spawn_point = entity:GetAbsOrigin()
+	end
 
-		for i=1,wall_segments do
-			local segment_location = wall_start + direction * distance * i / wall_segments
-			self.path_walls[path].entities[i] = SpawnEntityFromTableSynchronous("point_simple_obstruction", {origin = segment_location})
-		end
+	enemy_group.spawn_point = spawn_point
+	assigned_spawn_points[spawn_point] = true
+end
 
-		self.path_walls[path].particle = ParticleManager:CreateParticle("particles/bosses/path_barrier.vpcf", PATTACH_CUSTOMORIGIN, nil)
-		ParticleManager:SetParticleControl(self.path_walls[path].particle, 0, wall_start)
-		ParticleManager:SetParticleControl(self.path_walls[path].particle, 1, wall_end)
+function Gamemode_Boss:SetupBoss(enemy_group)
+	enemy_group.spawn_point = Entities:FindByName(nil, "boss_spawn"..enemy_group.boss:sub(string.len("trailsadventure_mob_boss_"))):GetAbsOrigin()
+end
+
+function Gamemode_Boss:ActivatePath(path)
+	self.state = EXPLORING
+	self.currently_on_path = path
+	for k,enemy_group in pairs(self.paths[path].groups) do
+		enemy_group = self:FlattenEnemyGroup(enemy_group)
+		self.paths[path].groups[k] = enemy_group
+		self:ActivateEnemyGroup(enemy_group)
 	end
 end
+
+function Gamemode_Boss:FlattenEnemyGroup(enemy_group)
+	if not enemy_group.mobs then
+		local boss = enemy_group.boss
+		local spawn_point = enemy_group.spawn_point
+		local map_dummy = enemy_group.map_dummy
+		enemy_group = enemy_group[tostring(#self.paths_completed + 1)]
+		enemy_group.mobs[boss] = 1
+		enemy_group.spawn_point = spawn_point
+		enemy_group.map_dummy = map_dummy
+	end
+
+	return enemy_group
+end
+
+function Gamemode_Boss:ActivateEnemyGroup(enemy_group)
+	local map_dummy = CreateUnitByName("trailsadventure_onmap_mob_dummy", enemy_group.spawn_point, true, nil, nil, DOTA_TEAM_BADGUYS)
+	map_dummy:SetModel(self:GetEnemyGroupModel(enemy_group))
+	map_dummy:SetOriginalModel(self:GetEnemyGroupModel(enemy_group))
+	map_dummy:AddNewModifier(map_dummy, nil, "modifier_map_dummy_invulnerability", {})
+	enemy_group.map_dummy = map_dummy
+	map_dummy.enemy_group = enemy_group
+end
+
+function Gamemode_Boss:GetEnemyGroupModel(enemy_group)
+	if enemy_group.boss then
+		return gamefunctions_unit_keyvalues[enemy_group.boss]["Model"]
+	else
+		for enemy,count in pairs(enemy_group.mobs) do
+			return gamefunctions_unit_keyvalues[enemy]["Model"]
+		end
+	end
+end
+
+-- function Gamemode_Boss:CreatePathWalls()
+-- 	self.path_walls = {}
+-- 	for path=1, PATHS_COUNT do
+-- 		self.path_walls[path] = {}
+-- 		local wall_start = Entities:FindByName(nil, "path_"..path.."_wall_1_start"):GetAbsOrigin()
+-- 		local wall_end = Entities:FindByName(nil, "path_"..path.."_wall_1_end"):GetAbsOrigin()
+-- 		local distance = (wall_end - wall_start):Length2D()
+-- 		local direction = (wall_end - wall_start):Normalized()
+-- 		local wall_segments = distance / 40
+-- 		self.path_walls[path].entities = {}
+
+-- 		for i=1,wall_segments do
+-- 			local segment_location = wall_start + direction * distance * i / wall_segments
+-- 			self.path_walls[path].entities[i] = SpawnEntityFromTableSynchronous("point_simple_obstruction", {origin = segment_location})
+-- 		end
+
+-- 		self.path_walls[path].particle = ParticleManager:CreateParticle("particles/bosses/path_barrier.vpcf", PATTACH_CUSTOMORIGIN, nil)
+-- 		ParticleManager:SetParticleControl(self.path_walls[path].particle, 0, wall_start)
+-- 		ParticleManager:SetParticleControl(self.path_walls[path].particle, 1, wall_end)
+-- 	end
+-- end
 
 function Gamemode_Boss:GetRandomEnemyGroup(kv)
 	local group_kv = kv[randomIndexOfTable(kv)]
@@ -220,10 +282,11 @@ end
 function Gamemode_Boss:BeginGamemode()
 	self.currently_on_path = nil
 	self:SetupPaths()
+	self.brave_points = 0
 	CustomGameEventManager:Send_ServerToAllClients("path_choice_window_start", {path_rewards = self:GetCraftRewards(), path_count = PATHS_COUNT, paths_completed = self.paths_completed})
-	self:CheckForArenaTrigger()
-	self:ApplyRegenBuff()
 	Music:SwitchMusic(MUSIC_TYPE_EXPLORING)
+
+	self:CheckForArenaTrigger()
 end
 
 function Gamemode_Boss:ApplyRegenBuff()
@@ -240,15 +303,18 @@ end
 
 function Gamemode_Boss:CheckForArenaTrigger()
 	Timers:CreateTimer(0, function()
-		if self.state == EXPLORING and self:HeroInRangeOfArena() then
-			self:StartEncounter()
+		if self.state == EXPLORING then
+			for k,enemy_group in pairs(self.paths[self.currently_on_path].groups) do
+				if enemy_group.map_dummy then
+					if #self:HeroesInRangeOfPoint(enemy_group.map_dummy:GetAbsOrigin(), BATTLE_TRIGGER_RANGE) > 0 then
+						self:StartEncounter(enemy_group)
+						break
+					end
+				end
+			end
 		end
 		return 1/4
 	end)
-end
-
-function Gamemode_Boss:HeroInRangeOfArena()
-	return #self:HeroesInRangeOfPoint(self:GetNextArenaPoint(), ARENA_TRIGGER_RANGE) > 0
 end
 
 function Gamemode_Boss:ClosestHeroToPoint(point, max_range)
@@ -273,25 +339,25 @@ function Gamemode_Boss:HeroesInRangeOfPoint(point, range)
 end
 
 function Gamemode_Boss:GetNextArenaPoint()
-	return Entities:FindByName(nil, "path_"..self.currently_on_path.."_arena_"..self.current_path_progress + 1):GetAbsOrigin()
+	return self.active_enemy_group.arena_center
 end
 
 function Gamemode_Boss:GetMainSpawnPoint()
 	return Entities:FindByClassname(nil, "info_player_start_goodguys"):GetAbsOrigin()
 end
 
-function Gamemode_Boss:StartEncounter()
+function Gamemode_Boss:StartEncounter(enemy_group)
 	self.state = ENCOUNTER
-	local arena_center = self:GetNextArenaPoint()
-	self:TeleportFarawayHeroes(arena_center)
-	local enemy_group = self:GetNextEnemyGroup()
+	self.active_enemy_group = enemy_group
+	enemy_group.arena_center = enemy_group.map_dummy:GetAbsOrigin()
+	self:TeleportFarawayHeroes(enemy_group.arena_center)
 	self.active_enemies = {}
 	self:SpawnEnemies(enemy_group.mobs)
 	self:CreateArenaWalls(enemy_group.arena_size)
+	self:HideOtherEnemyGroups()
 	self.time_encounter_started = GameRules:GetGameTime()
-	self:RemoveRegenBuff()
+	-- self:RemoveRegenBuff()
 	self:StartForcingUnitsInsideArena()
-	self.brave_points = 0
 
 	triggerModifierEventOnAll("encounter_started", {})
 
@@ -304,15 +370,34 @@ function Gamemode_Boss:StartEncounter()
 	else
 		Music:SwitchMusic(MUSIC_TYPE_BOSS)
 	end
+
+	enemy_group.map_dummy:RemoveSelf()
+	enemy_group.map_dummy = nil
+end
+
+function Gamemode_Boss:HideOtherEnemyGroups()
+	for k,group in pairs(self.paths[self.currently_on_path].groups) do
+		if group ~= self.active_enemy_group and group.map_dummy then
+			group.map_dummy:AddNewModifier(group.map_dummy, nil, "modifier_map_dummy_hidden", {})
+		end
+	end
+end
+
+function Gamemode_Boss:UnHideOtherEnemyGroups()
+	for k,group in pairs(self.paths[self.currently_on_path].groups) do
+		if group ~= self.active_enemy_group and group.map_dummy then
+			group.map_dummy:RemoveModifierByName("modifier_map_dummy_hidden")
+		end
+	end
 end
 
 function Gamemode_Boss:AddBravePoints(cp_gained)
-	self.brave_points = self.brave_points + cp_gained
+	self.brave_points = math.min(self.brave_points + cp_gained, MAX_BRAVE_POINTS)
 	CustomGameEventManager:Send_ServerToAllClients("update_brave_points", {brave_points = self.brave_points})
 end
 
 function Gamemode_Boss:SpendBravePoints(points)
-	self.brave_points = self.brave_points - points
+	self.brave_points = math.max(self.brave_points - points, 0)
 	CustomGameEventManager:Send_ServerToAllClients("update_brave_points", {brave_points = self.brave_points})
 end
 
@@ -321,12 +406,12 @@ function Gamemode_Boss:StartForcingUnitsInsideArena()
 		endTime = 0.1,
 		callback = function()
 			for k,hero in pairs(getAllHeroes()) do
-				if distanceBetween(hero:GetAbsOrigin(), self:GetNextArenaPoint()) > self:GetNextEnemyGroup().arena_size then
+				if distanceBetween(hero:GetAbsOrigin(), self:GetNextArenaPoint()) > self.active_enemy_group.arena_size then
 					self:ForceUnitInsideArena(hero)
 				end
 			end
 			for k,enemy in pairs(self.active_enemies) do
-				if IsValidAlive(enemy) and distanceBetween(enemy:GetAbsOrigin(), self:GetNextArenaPoint()) > self:GetNextEnemyGroup().arena_size then
+				if IsValidAlive(enemy) and distanceBetween(enemy:GetAbsOrigin(), self:GetNextArenaPoint()) > self.active_enemy_group.arena_size then
 					self:ForceUnitInsideArena(enemy)
 				end
 			end
@@ -337,7 +422,7 @@ end
 
 function Gamemode_Boss:ForceUnitInsideArena(unit)
 	local direction = (self:GetNextArenaPoint() - unit:GetAbsOrigin()):Normalized()
-	local distance = distanceBetween(unit:GetAbsOrigin(), self:GetNextArenaPoint()) - self:GetNextEnemyGroup().arena_size + 150 -- plus a bit of a grace area to make sure units get over the arena walls
+	local distance = distanceBetween(unit:GetAbsOrigin(), self:GetNextArenaPoint()) - self.active_enemy_group.arena_size + 150 -- plus a bit of a grace area to make sure units get over the arena walls
 	FindClearSpaceForUnit(unit, unit:GetAbsOrigin() + direction * distance, true)
 end
 
@@ -354,7 +439,6 @@ function Gamemode_Boss:SpawnEnemies(enemy_types)
 end
 
 function Gamemode_Boss:SpawnEnemy(unit_name, location)
-	-- print("spawning unit: ", unit_name)
 	local unit = CreateUnitByName(unit_name, location, true, nil, nil, DOTA_TEAM_BADGUYS)
 	unit:AddNewModifier(unit, nil, "modifier_"..unit_name:sub(string.len("trailsadventure_mob_") + 1).."_reward", {})
 	unit:AddNewModifier(unit, nil, "modifier_counterhit_passive", {})
@@ -373,7 +457,7 @@ function Gamemode_Boss:StartSpawningCPOrbs()
 		endTime = TIME_BETWEEN_CP_ORB_SPAWNS,
 		callback = function()
 			for i=1,CP_ORBS_PER_SPAWN do
-				local location = randomPointInCircle(self:GetNextArenaPoint(), self:GetNextEnemyGroup().arena_size)
+				local location = randomPointInCircle(self:GetNextArenaPoint(), self.active_enemy_group.arena_size)
 				self:CreateCPOrb(location)
 			end
 			return TIME_BETWEEN_CP_ORB_SPAWNS
@@ -425,7 +509,6 @@ function Gamemode_Boss:CreateArenaWalls(radius)
 end
 
 function Gamemode_Boss:RemoveArenaWalls()
-	-- print("[BOSS] Removing Arena Walls")
 	ParticleManager:DestroyParticle(self.active_arena_wall.particle, false)
 	for k,entity in pairs(self.active_arena_wall.entities) do
 		entity:RemoveSelf()
@@ -433,29 +516,15 @@ function Gamemode_Boss:RemoveArenaWalls()
 	self.active_arena_wall = nil
 end
 
-function Gamemode_Boss:GetNextEnemyGroup()
-	local enemy_group = self.paths[self.currently_on_path].groups[self.current_path_progress + 1]
-
-	if not enemy_group.mobs then
-		local boss = enemy_group.boss
-		enemy_group = enemy_group[tostring(#self.paths_completed + 1)]
-		enemy_group.mobs[boss] = 1
-	end
-
-	return enemy_group
-end
-
 function Gamemode_Boss:GetCraftRewards()
 	local rewards = {}
 	for k,path in pairs(self.paths) do
 		local crafts = {}
 		for hero,ability in pairs(path.rewards) do
-			-- print(ability, ability.GetAbilityName)
 			crafts[hero:entindex()] = ability
 		end
 		table.insert(rewards, crafts)
 	end
-	-- DeepPrintTable(rewards)
 	return rewards
 end
 
@@ -494,14 +563,14 @@ function Gamemode_Boss:EndEncounter(result)
 	self:RemoveLivingEnemies()
 	self:StopSpawningCPOrbs()
 	self:StopForcingUnitsInsideArena()
-	if self:EnemyGroupIsBoss(self:GetNextEnemyGroup()) then
+	self:UnHideOtherEnemyGroups()
+	if self:EnemyGroupIsBoss(self.active_enemy_group) then
 		CustomGameEventManager:Send_ServerToAllClients("boss_end", {})
 	end
 	if result == RESULT_VICTORY then
-		self:GrantEncounterRewards(self:GetNextEnemyGroup())
-		if self.currently_on_path then
-			self.current_path_progress = self.current_path_progress + 1
-		end
+		self:GrantEncounterRewards(self.active_enemy_group)
+	else
+		self:ActivateEnemyGroup(self.active_enemy_group)
 	end
 	Timers:CreateTimer(ENCOUNTER_END_DELAY, function()
 		self:ReviveDeadHeroes()
@@ -509,10 +578,10 @@ function Gamemode_Boss:EndEncounter(result)
 		if result == RESULT_DEFEAT then
 			self:TeleportHeroesToStart()
 		end
-		self:ApplyRegenBuff()
+		-- self:ApplyRegenBuff()
 	end)
 
-	self.brave_points = 0
+	self.active_enemy_group = nil
 	CustomGameEventManager:Send_ServerToAllClients("encounter_ended", {})
 
 	Music:SwitchMusic(MUSIC_TYPE_EXPLORING)
@@ -543,14 +612,19 @@ function Gamemode_Boss:RewardCrafts()
 end
 
 function Gamemode_Boss:EndPath()
-	CustomGameEventManager:Send_ServerToAllClients("path_end", {})
+	for k,enemy_group in pairs(self.paths[self.currently_on_path].groups) do
+		if enemy_group.map_dummy then
+			enemy_group.map_dummy:RemoveSelf()
+			enemy_group.map_dummy = nil
+		end
+	end
 
 	self.paths_completed[self.currently_on_path] = true
 	self.currently_on_path = nil
+	CustomGameEventManager:Send_ServerToAllClients("path_end", {})
 	CustomGameEventManager:Send_ServerToAllClients("path_choice_window_start", {path_rewards = self:GetCraftRewards(), path_count = PATHS_COUNT, paths_completed = self.paths_completed})
 
 	self.state = SHOPPING
-	self.current_path_progress = 0
 end
 
 function Gamemode_Boss:EnemyGroupIsBoss(enemy_group)
@@ -588,7 +662,7 @@ end
 
 function Gamemode_Boss:TeleportFarawayHeroes(arena_point)
 	for k,hero in pairs(getAllHeroes()) do
-		if distanceBetween(hero:GetAbsOrigin(), arena_point) > self:GetNextEnemyGroup().arena_size then
+		if distanceBetween(hero:GetAbsOrigin(), arena_point) > self.active_enemy_group.arena_size then
 			FindClearSpaceForUnit(hero, arena_point, true)
 		end
 	end

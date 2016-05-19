@@ -42,6 +42,17 @@ function OnResourceBarsUpdate(data) {
 
 		$("#UnbalanceLabel").text = unbalance + "/100"
 		$("#UnbalanceLabel").style.opacity = Math.ceil(unbalance / 100)
+
+		var bravePoints = data.bravePoints
+		var maxBravePoints = 100
+		$("#BravePointBar").style.width = (bravePoints / maxBravePoints * 100) + "%"
+		$("#BravePointLabel").text = bravePoints
+		if (bravePoints == maxBravePoints) {
+			$("#BravePointBar").AddClass("Full")
+			$("#BravePointBar").SetHasClass("Full", true)
+		} else {
+			$("#BravePointBar").SetHasClass("Full", false)
+		}
 	}
 }
 

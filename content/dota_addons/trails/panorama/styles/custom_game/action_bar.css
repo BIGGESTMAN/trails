@@ -208,7 +208,7 @@
 #StatusBarsContainer {
 	flow-children: right;
 	/*background-color: #ceaa31;*/
-	height: 60px;
+	height: 100px;
 	width: 54.2%;
 	/*width: 200px;*/
 	/*height: 300px;*/

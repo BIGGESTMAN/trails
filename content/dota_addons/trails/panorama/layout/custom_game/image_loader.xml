@@ -4,8 +4,8 @@
 	</styles>
 	<scripts>
 	</scripts>
-	<Panel>
-		<Panel id="image_loader">
+	<Panel hittest="false">
+		<Panel id="image_loader" hittest="false">
 			<Image id="image_loader" src="file://{images}/heroes/npc_dota_hero_ember_spirit.png" hittest="false"/>
 			<Image id="image_loader" src="file://{images}/heroes/npc_dota_hero_windrunner.png" hittest="false" />
 			<Image id="image_loader" src="file://{images}/heroes/npc_dota_hero_sniper.png" hittest="false" />

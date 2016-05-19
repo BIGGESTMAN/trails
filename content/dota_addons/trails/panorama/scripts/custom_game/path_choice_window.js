@@ -29,18 +29,12 @@ function CreateAbilityPanel(abilityName, heroIndex, parent) {
 }
 
 function OnPathStarted(data) {
-	$.GetContextPanel().SetHasClass("InPath", true);
 	$.GetContextPanel().SetHasClass("Visible", false);
 }
 
 function OnPathEnded(data) {
-	$.GetContextPanel().SetHasClass("InPath", false);
 	$.GetContextPanel().SetHasClass("Visible", true);
 }
-
-// function OnPathChoiceWindowHide(data) {
-// 	$.GetContextPanel().SetHasClass("Visible", false);
-// }
 
 function OnPathButtonPressed(pathNumber) {
 	GameEvents.SendCustomGameEventToServer("path_button_pressed", {pathNumber : pathNumber} )
