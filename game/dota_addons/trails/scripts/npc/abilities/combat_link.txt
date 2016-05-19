@@ -21,42 +21,12 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"link_radius"			"500"
+				"link_cost_per_second"	"10"
 			}
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"link_break_range"		"1300"
-			}
-			"01"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"unbalance_threshold"	"100"
-			}
-			"01"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"unbalance_decay_per_second"	"20"
-			}
-			"01"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"unbalance_decay_delay"	"5"
-			}
-			"01"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"base_unbalance_increase"	"10"
-			}
-			"01"
-			{
-				"var_type"				"FIELD_FLOAT"
-				"unbalance_duration"	"6"
-			}
-			"01"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"unbalance_cooldown"	"5"
+				"link_cost_increase_per_second"	"1"
 			}
 		}
 

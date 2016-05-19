@@ -24,8 +24,9 @@
 		"DOTA_Shop_Category_Basics"				"BASIC ELEMENTS"
 		"DOTA_Shop_Category_Upgrades"			"HIGHER ELEMENTS"
 
-		"insufficient_brave_points"	"Insufficient Brave Points"
+		"insufficient_brave_points"	"Insufficient Brave Points (10 Minimum)"
 		"target_already_linked"		"Must Target Unlinked Ally"
+		"not_in_combat"				"Must Be Cast In Combat"
 
 		"Round_Winner_2"	"The Radiant have won the round!"
 		"Round_Winner_3"	"The Dire have won the round!"

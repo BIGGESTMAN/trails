@@ -4,12 +4,12 @@ require "libraries/util"
 
 LinkLuaModifier("modifier_unbalanced_level", "modifier_unbalanced_level.lua", LUA_MODIFIER_MOTION_NONE)
 
-function formLink(unit, target, duration)
+function formLink(unit, target)
 	local ability = unit:FindAbilityByName("combat_link")
 	unit.combat_linked_to = target
 	target.combat_linked_to = unit
-	ability:ApplyDataDrivenModifier(unit, unit, "modifier_combat_link_linked", {duration = duration})
-	ability:ApplyDataDrivenModifier(target, target, "modifier_combat_link_linked", {duration = duration})
+	ability:ApplyDataDrivenModifier(unit, unit, "modifier_combat_link_linked", {}).time_formed = GameRules:GetGameTime()
+	ability:ApplyDataDrivenModifier(target, target, "modifier_combat_link_linked", {}).time_formed = GameRules:GetGameTime()
 
 	unit.tether_particle = ParticleManager:CreateParticle("particles/combat_links/link.vpcf", PATTACH_POINT_FOLLOW, unit)
 	target.tether_particle = unit.tether_particle
@@ -31,8 +31,13 @@ function checkForLinkBreak(keys)
 	local hero = keys.target
 	local ability = keys.ability
 
+	-- this function also processes ongoing link costs cause uhhhhhhh idk datadriven's a pain, w/e
+	local time_since_link_creation = GameRules:GetGameTime() - hero:FindModifierByName("modifier_combat_link_linked").time_formed
+	local cost = (ability:GetSpecialValueFor("link_cost_per_second") + (ability:GetSpecialValueFor("link_cost_increase_per_second") * time_since_link_creation)) / 30 / 2 -- divided by 2 because this function is run by both sides of the link, aka im really good at code
+	Gamemode_Boss:SpendBravePoints(cost)
+
 	if hero.combat_linked_to then
-		if not IsValidEntity(hero.combat_linked_to) or (not hero.combat_linked_to:IsAlive() and not hero.combat_linked_to.reviving) then
+		if not IsValidEntity(hero.combat_linked_to) or (not hero.combat_linked_to:IsAlive() and not hero.combat_linked_to.reviving) or Gamemode_Boss.brave_points <= 0 or Gamemode_Boss.state ~= ENCOUNTER then
 			if IsValidEntity(hero.combat_linked_to) then
 				removeLink(hero.combat_linked_to)
 			end

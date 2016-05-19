@@ -361,7 +361,6 @@ function Gamemode_Boss:StartEncounter(enemy_group)
 
 	triggerModifierEventOnAll("encounter_started", {})
 
-	CustomGameEventManager:Send_ServerToAllClients("update_brave_points", {brave_points = self.brave_points})
 	CustomGameEventManager:Send_ServerToAllClients("encounter_started", {})
 	CPRewards:UpdateCPConditionsWindow()
 
@@ -393,12 +392,10 @@ end
 
 function Gamemode_Boss:AddBravePoints(cp_gained)
 	self.brave_points = math.min(self.brave_points + cp_gained, MAX_BRAVE_POINTS)
-	CustomGameEventManager:Send_ServerToAllClients("update_brave_points", {brave_points = self.brave_points})
 end
 
 function Gamemode_Boss:SpendBravePoints(points)
 	self.brave_points = math.max(self.brave_points - points, 0)
-	CustomGameEventManager:Send_ServerToAllClients("update_brave_points", {brave_points = self.brave_points})
 end
 
 function Gamemode_Boss:StartForcingUnitsInsideArena()
