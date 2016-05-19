@@ -43,7 +43,7 @@
 		//"RingRadius"				"70"
 
 		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
-		"MovementSpeed"				"3350"									// Speed.
+		"MovementSpeed"				"335"									// Speed.
 		"MovementTurnRate"			".65"									// Turning rate.
 
 		"StatusHealth"				"1300"									// Base health.

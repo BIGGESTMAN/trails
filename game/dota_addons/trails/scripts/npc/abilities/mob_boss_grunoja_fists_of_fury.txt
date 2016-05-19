@@ -43,6 +43,11 @@
 				"var_type"				"FIELD_INTEGER"
 				"cp_reward"				"50"
 			}
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"delay"					"3"
+			}
 		}
 
 		"OnSpellStart"
@@ -56,6 +61,25 @@
 
 		"Modifiers"
 		{
+			"modifier_fists_of_fury_starting"
+			{
+				"Duration"	"%delay"
+
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"abilities/mobs/boss_grunoja_fists_of_fury"
+						"Function"		"beginEffect"
+					}
+				}
+
+				"States"
+				{
+					"MODIFIER_STATE_STUNNED"		"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+
 			"modifier_fists_of_fury"
 			{
 				"Duration"	"%duration"
