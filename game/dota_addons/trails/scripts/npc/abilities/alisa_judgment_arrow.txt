@@ -1,14 +1,14 @@
 	"judgment_arrow"
 	{
 		"BaseClass"						"ability_datadriven"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
 		"MaxLevel"						"1"
 
-		"AbilityTextureName"			"phoenix_sun_ray"
+		"AbilityTextureName"			"jakiro_macropyre"
 		"AbilityCastAnimation"			""
 
 		"precache"
@@ -20,7 +20,6 @@
 		"AbilityCastPoint"				"0"
 		"AbilityCooldown"				"10"
 		"AbilityManaCost"				"0"
-		"AbilityChannelTime"			"1.5"
 		"CPCost"						"100"
 
 		"AbilitySpecial"
@@ -97,32 +96,8 @@
 			}
 		}
 
-		"OnChannelFinish"
-		{
-			"RunScript"
-			{
-				"ScriptFile"	"abilities/crafts/alisa/judgment_arrow"
-				"Function"		"channelFinish"
-			}
-		}
-
-		"OnChannelSucceeded"
-		{
-			"RunScript"
-			{
-				"ScriptFile"	"abilities/crafts/alisa/judgment_arrow"
-				"Function"		"channelSucceeded"
-			}
-		}
-
 		"Modifiers"
 		{
-			"modifier_judgment_arrow_casting"
-			{
-				"States"
-				{
-					"MODIFIER_STATE_COMMAND_RESTRICTED"		"MODIFIER_STATE_VALUE_ENABLED"
-				}
-			}
+			
 		}
 	}

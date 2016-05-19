@@ -6,17 +6,6 @@ function spellCast(keys)
 	local caster = keys.caster
 	local ability = keys.ability
 
-	ability:ApplyDataDrivenModifier(caster, caster, "modifier_judgment_arrow_casting", {duration = ability:GetChannelTime()})
-	ability:EndCooldown()
-end
-
-function channelFinish(keys)
-	local caster = keys.caster
-	caster:RemoveModifierByName("modifier_judgment_arrow_casting")
-end
-
-function channelSucceeded(keys)
-	local caster = keys.caster
 	fireArrow(caster)
 	if getCP(caster) == MAX_CP then empowerCaster(caster) end
 	spendCP(caster, keys.ability)
